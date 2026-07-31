@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ritika Das — Product Manager & Builder</title>
+<meta name="description" content="Personal portfolio of Ritika Das — Product Manager & Builder. Three shipped products, solo, plus written case studies across social, commerce, luxury, and platforms.">
+
+<!-- FAVICON: EXACT BUILD SPEC MUTED INDIGO (#4B4F91) ASSETS -->
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="icon" type="image/svg+xml" href="assets/signature-badge.svg">
+<link rel="shortcut icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDE8E1; --paper-alt:#E7E1D8; --surface:#F6F2EB; --surface-2:#FBF8F2; --soft-band:#F6F5F2;
+  --ink:#211E24; --ink-2:#38333B; --muted:#6A6369; --faint:#948C90;
+  
+  /* BUILD SPEC EXACT TOKENS: MUTED INDIGO */
+  --accent:#4B4F91;
+  --accent-soft:#7C81BE;
+  --accent-wash:#E5E2EE;
+  
+  --hairline:#DBD3C9; --hairline-strong:#CFC6BA;
+  --shadow:0 1px 2px rgba(33,30,36,.04),0 10px 34px rgba(33,30,36,.07);
+  --shadow-lift:0 2px 6px rgba(33,30,36,.06),0 22px 54px rgba(33,30,36,.12);
+  --r-sm:9px; --r:14px; --r-lg:18px;
+  --display:'Bricolage Grotesque',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+  --wrap:1080px; --measure:58ch;
+}
+
+/* ---- DARK THEME OVERRIDES (BUILD SPEC §3) ---- */
+[data-theme="dark"] {
+  --paper:#1A171C; --paper-alt:#221E24; --surface:#25202B; --surface-2:#2B2533; --soft-band:#1C1821;
+  --ink:#EDE8E1; --ink-2:#DDD6E3; --muted:#A29ABC; --faint:#776F7E;
+  --accent:#8288C4; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
+  --hairline:#393242; --hairline-strong:#4B4257;
+  --shadow:0 2px 8px rgba(0,0,0,.4);
+  --shadow-lift:0 12px 36px rgba(0,0,0,.6);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#1A171C; --paper-alt:#221E24; --surface:#25202B; --surface-2:#2B2533; --soft-band:#1C1821;
+    --ink:#EDE8E1; --ink-2:#DDD6E3; --muted:#A29ABC; --faint:#776F7E;
+    --accent:#8288C4; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
+    --hairline:#393242; --hairline-strong:#4B4257;
+    --shadow:0 2px 8px rgba(0,0,0,.4);
+    --shadow-lift:0 12px 36px rgba(0,0,0,.6);
+  }
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;transition:background-color .3s,color .3s}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.eyebrow{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.eyebrow.muted{color:var(--faint)}
+
+/* ---- PRELOADER CURTAIN ---- */
+.preloader{position:fixed;inset:0;z-index:1000;display:flex;pointer-events:auto}
+.preloader-panel{flex:1;height:100%;background:#1A171C;transition:transform 0.85s cubic-bezier(0.77,0,0.175,1)}
+.preloader-panel.left{transform-origin:top}
+.preloader-panel.right{transform-origin:bottom}
+.preloader-content{position:absolute;inset:0;z-index:1010;padding:48px 40px;display:flex;flex-direction:column;justify-between;pointer-events:none}
+.preloader-top{display:flex;justify-content:space-between;align-items:center}
+.preloader-brand{font-family:var(--mono);font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-soft)}
+.preloader-num-wrap{margin:auto 0;text-align:right}
+.preloader-num{font-family:var(--display);font-size:clamp(80px,16vw,190px);font-weight:400;color:var(--paper);line-height:.9;letter-spacing:-.04em}
+.preloader-bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.preloader-tag{font-family:var(--display);font-size:clamp(24px,4vw,44px);color:rgba(237,232,225,.7);font-weight:500}
+.preloader.done .preloader-panel.left{transform:translateY(-100%)}
+.preloader.done .preloader-panel.right{transform:translateY(100%)}
+.preloader.done .preloader-content{opacity:0;transition:opacity 0.3s}
+.preloader.done{pointer-events:none}
+@media (prefers-reduced-motion:reduce){.preloader{display:none!important}}
+
+/* ---- DYNAMIC CURSOR WITH 80% TRANSLUCENT TEXT BADGE ---- */
+.custom-cursor{
+  position:fixed;
+  top:0;
+  left:0;
+  width:16px;
+  height:16px;
+  border:1.5px solid var(--accent);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width 0.18s ease-out, height 0.18s ease-out, border-color 0.18s, background-color 0.18s, opacity 0.2s;
+  background:transparent;
+  opacity:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:#FFF;
+  white-space:nowrap;
+}
+.custom-cursor.active{opacity:1}
+.custom-cursor.hovering{
+  width:26px;
+  height:26px;
+  border-color:var(--accent);
+  background:rgba(75,79,145,0.08);
+}
+/* 80% SOLIDNESS TRANSLUCENT TEXT BADGE - SCOPED ONLY TO PROJECT DETAILS BODY AREA */
+.custom-cursor.hovering-text{
+  width:104px;
+  height:30px;
+  border-radius:15px;
+  background:rgba(75, 79, 145, 0.80);
+  border-color:transparent;
+  color:var(--paper);
+  box-shadow:0 4px 14px rgba(75,79,145,0.22);
+  backdrop-filter:blur(3px);
+}
+[data-theme="dark"] .custom-cursor.hovering-text {
+  background:rgba(130, 136, 196, 0.80);
+  color:#1A171C;
+}
+@media(max-width:900px), (prefers-reduced-motion:reduce){.custom-cursor{display:none!important}}
+
+/* ---- SIDE DOTS NAV ---- */
+.side-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:14px}
+.side-dot{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--hairline-strong);background:transparent;transition:all .25s;position:relative;cursor:pointer;text-decoration:none}
+.side-dot:hover,.side-dot.active{border-color:var(--accent);background:var(--accent);transform:scale(1.35)}
+.side-dot .tooltip{position:absolute;right:22px;top:50%;transform:translateY(-50%) translateX(6px);background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:10px;padding:4px 9px;border-radius:5px;white-space:nowrap;opacity:0;pointer-events:none;transition:all .2s}
+.side-dot:hover .tooltip{opacity:1;transform:translateY(-50%) translateX(0)}
+@media(max-width:900px){.side-nav{display:none}}
+
+/* NAV IN CONTAINED IN EXACT MATCH WITH PAGE WRAPPER (28px HORIZONTAL PADDING) */
+nav{position:sticky;top:0;z-index:50;background:rgba(237,232,225,.82);backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+[data-theme="dark"] nav{background:rgba(26,23,28,.85)}
+nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.95)}
+[data-theme="dark"] nav.scrolled{background:rgba(26,23,28,.95)}
+.nav-in{max-width:var(--wrap);margin:0 auto;padding:4px 28px;display:flex;align-items:center;justify-content:space-between}
+
+/* TOP NAV BRAND SIGNATURE IMAGE */
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand-signature-img{
+  height:61px;
+  width:auto;
+  display:block;
+  transition:transform .25s,filter .3s;
+  filter: drop-shadow(0.35px 0 0 #4B4F91) drop-shadow(-0.35px 0 0 #4B4F91) drop-shadow(0 0.35px 0 #4B4F91) drop-shadow(0 -0.35px 0 #4B4F91);
+}
+.brand:hover .brand-signature-img{transform:scale(1.05)}
+
+/* DARK MODE OVERRIDES */
+[data-theme="dark"] .brand-signature-img {
+  filter: brightness(0) invert(1) drop-shadow(0.4px 0 0 #FFFFFF) drop-shadow(-0.4px 0 0 #FFFFFF) drop-shadow(0 0.4px 0 #FFFFFF) drop-shadow(0 -0.4px 0 #FFFFFF) drop-shadow(0 0 1px rgba(255,255,255,0.7));
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .brand-signature-img {
+    filter: brightness(0) invert(1) drop-shadow(0.4px 0 0 #FFFFFF) drop-shadow(-0.4px 0 0 #FFFFFF) drop-shadow(0 0.4px 0 #FFFFFF) drop-shadow(0 -0.4px 0 #FFFFFF) drop-shadow(0 0 1px rgba(255,255,255,0.7));
+  }
+}
+
+/* THEME TOGGLE BUTTON */
+.theme-btn{
+  font-family:var(--mono);
+  font-size:12px;
+  background:var(--surface);
+  border:1px solid var(--hairline-strong);
+  color:var(--ink);
+  padding:5px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:all .2s;
+  user-select:none;
+}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* LIVE STATUS BEACON BADGE */
+.status-beacon{display:inline-flex;align-items:center;gap:7px;background:rgba(39,201,63,0.1);border:1px solid rgba(39,201,63,0.3);border-radius:20px;padding:4px 11px;font-family:var(--mono);font-size:11px;color:var(--ink)}
+.beacon-dot{width:7px;height:7px;border-radius:50%;background:#27C93F;box-shadow:0 0 0 0 rgba(39,201,63,0.7);animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(39,201,63,0.7)}70%{box-shadow:0 0 0 6px rgba(39,201,63,0)}100%{box-shadow:0 0 0 0 rgba(39,201,63,0)}}
+
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{color:var(--accent)!important;font-weight:600}
+@media(max-width:640px){.nav-links a:not(.nav-cta){display:none}}
+
+/* hero */
+header{padding:80px 0 32px}
+.hero-eyebrow{margin-bottom:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+h1.hero{font-family:var(--display);font-weight:500;font-size:clamp(34px,5.4vw,58px);line-height:1.04;letter-spacing:-.03em;max-width:var(--measure)}
+h1.hero em{font-style:normal;color:var(--accent)}
+.hero-sub{margin-top:26px;font-size:18px;line-height:1.58;color:var(--ink-2);max-width:54ch}
+.hero-actions{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:13px;letter-spacing:.02em;padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:transform .15s,box-shadow .2s,border-color .2s,background .2s;cursor:pointer;border:none}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow-lift)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hairline-strong)}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px)}
+.btn .arr{transition:transform .2s}.btn:hover .arr{transform:translate(2px,-2px)}
+
+/* ---- MARQUEE BAND ---- */
+.marquee-band{background:var(--ink);color:var(--paper);overflow:hidden;padding:16px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);margin-top:40px}
+.marquee-track{display:flex;width:max-content;animation:marquee 32s linear infinite;gap:36px}
+.marquee-item{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:18px;color:rgba(237,232,225,.85)}
+.marquee-item .star{color:var(--accent-soft)}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:72px 0}
+.band{background:var(--soft-band);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.sec-head{display:flex;align-items:center;gap:18px;margin-bottom:28px}
+.sec-head .concept{font-family:var(--display);font-weight:600;font-size:clamp(23px,3.2vw,32px);letter-spacing:-.02em;line-height:1.12}
+.sec-head .sub{color:var(--muted);font-size:14.5px;margin-top:3px}
+
+/* about & audience switcher */
+.audience-wrapper{margin-bottom:34px;background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:20px 24px}
+.audience-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.audience-tabs{display:flex;gap:10px;flex-wrap:wrap}
+.aud-tab{font-family:var(--mono);font-size:12px;padding:7px 15px;border-radius:20px;border:1px solid var(--hairline-strong);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .2s;user-select:none}
+.aud-tab:hover{border-color:var(--accent);color:var(--ink)}
+.aud-tab.active{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:8px}
+.about-col{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:24px 26px;transition:transform .2s,box-shadow .2s}
+.about-col:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+.about-col .q{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.about-col p{font-size:15px;line-height:1.6;color:var(--ink-2);transition:opacity .25s}
+.about-col p b{color:var(--ink);font-weight:600}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:20px}}
+
+/* framing band */
+.framing{padding:24px 0}
+.framing .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:36px;align-items:center}
+.framing h2{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.02em;line-height:1.2;color:var(--ink)}
+.framing p{color:var(--muted);font-size:14.5px;line-height:1.55}
+
+/* BROADER CARD LAYOUT WITH DYNAMIC 3D MAGNETIC TILT */
+.projects{display:flex;flex-direction:column;gap:24px;margin-top:28px}
+.card{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:28px 32px;box-shadow:var(--shadow);transition:transform .15s ease-out,box-shadow .25s,border-color .25s;text-decoration:none;color:inherit;position:relative;transform-style:preserve-3d;perspective:1000px;will-change:transform}
+.card:hover{border-color:var(--hairline-strong);box-shadow:var(--shadow-lift)}
+.card.written{border-style:dashed;border-color:var(--hairline-strong);background:var(--surface)}
+.card.wip{opacity:.76}
+
+/* CARD MAIN GRID */
+.card-main-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:36px;align-items:start}
+.card-details-box{border-radius:var(--r-sm);padding:4px;transition:background .2s}
+
+/* METRIC BADGE CALLOUT */
+.card-metric-badge{display:inline-flex;align-items:baseline;gap:8px;background:var(--accent-wash);border:1px solid var(--hairline-strong);border-radius:var(--r-sm);padding:7px 14px;margin-bottom:16px}
+.card-metric-num{font-family:var(--display);font-weight:700;font-size:22px;color:var(--accent);line-height:1}
+.card-metric-lbl{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;color:var(--ink-2);letter-spacing:.05em}
+
+.card-tags{display:flex;gap:9px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border:1px solid var(--hairline-strong);border-radius:20px;padding:4px 11px}
+.tag.live{color:var(--accent);border-color:var(--hairline-strong);background:var(--accent-wash);font-weight:500}
+.tag.paper{border-style:dashed}
+.card h3{font-family:var(--display);font-weight:600;font-size:23px;letter-spacing:-.02em;margin-bottom:15px;display:flex;align-items:center;gap:12px;line-height:1.15}
+.card h3 .arr{margin-left:auto;color:var(--faint);font-size:18px;transition:transform .2s,color .2s}
+.card:hover h3 .arr{transform:translate(3px,-3px);color:var(--accent)}
+.pdeo{display:flex;flex-direction:column;gap:11px}
+.pdeo .row{font-size:14px;line-height:1.52;color:var(--ink-2)}
+.pdeo .k{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-right:8px}
+.pdeo .row b{color:var(--ink);font-weight:600}
+.meta{display:flex;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--hairline)}
+.meta .cell{flex:1;min-width:0}
+.meta .mk{font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.meta .mv{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.35}
+
+/* LIVE INTERACTIVE MICRO-WIDGETS (AUTHENTIC TO GITHUB REPOS) */
+.mini-widget-box{background:var(--paper-alt);border:1px solid var(--hairline-strong);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;justify-between;min-height:240px;align-self:start;box-shadow:inset 0 1px 3px rgba(0,0,0,.03)}
+.widget-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--hairline)}
+.widget-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.widget-status{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:10px;background:var(--accent-wash);color:var(--accent);font-weight:500}
+.widget-controls{display:flex;flex-direction:column;gap:10px}
+.widget-label{font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;justify-content:space-between}
+.widget-slider{width:100%;accent-color:var(--accent);cursor:pointer}
+.widget-result{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r-sm);padding:12px;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--ink);line-height:1.5}
+.widget-result .verdict-good{color:#27C93F;font-weight:600}
+.widget-result .verdict-warn{color:#D97706;font-weight:600}
+.widget-result .verdict-bad{color:#DC2626;font-weight:600}
+.widget-btn-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.widget-btn{font-family:var(--mono);font-size:10px;padding:5px 9px;border-radius:6px;border:1px solid var(--hairline-strong);background:var(--surface);color:var(--ink-2);cursor:pointer;transition:all .15s}
+.widget-btn.active,.widget-btn:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+
+/* FULL-WIDTH DRAWER ROW */
+.card-drawer-row{grid-column:1 / -1;margin-top:16px;padding-top:12px;border-top:1px solid var(--hairline)}
+.btn-spec-toggle{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:transparent;border:1px solid var(--hairline-strong);border-radius:var(--r-sm);padding:6px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .2s;width:fit-content}
+.btn-spec-toggle:hover{background:var(--accent-wash);border-color:var(--accent)}
+.btn-spec-toggle .chevron{transition:transform .2s}
+.btn-spec-toggle.open .chevron{transform:rotate(180deg)}
+.spec-drawer{display:none;margin-top:16px;padding:20px 22px;background:var(--surface);border:1px solid var(--hairline-strong);border-radius:var(--r-sm)}
+.spec-drawer.open{display:block;animation:fadeIn .25s ease-out}
+.spec-tabs{display:flex;gap:18px;border-bottom:1px solid var(--hairline);padding-bottom:8px;margin-bottom:14px}
+.spec-tab-btn{font-family:var(--mono);font-size:11px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 0;border-bottom:2px solid transparent;transition:all .2s}
+.spec-tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500}
+.spec-tab-content{font-size:14px;line-height:1.58;color:var(--ink-2);display:none}
+.spec-tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+/* PM TOOLBOX GRID */
+.toolbox-section{margin-top:48px;background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:28px 32px}
+.toolbox-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:16px}
+.toolbox-card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-sm);padding:18px}
+.toolbox-title{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:10px;font-weight:600}
+.toolbox-pills{display:flex;flex-wrap:wrap;gap:6px}
+.tool-pill{font-family:var(--mono);font-size:10.5px;padding:4px 9px;border-radius:6px;background:var(--paper-alt);color:var(--ink-2);border:1px solid var(--hairline-strong)}
+
+/* experience */
+.exp{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:30px 32px;box-shadow:var(--shadow);margin-top:26px}
+.exp-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:5px}
+.exp-role{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em}
+.exp-when{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.exp-org{font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:16px}
+.exp p{color:var(--muted);font-size:15px;line-height:1.62;max-width:66ch}
+.exp p b{color:var(--ink-2);font-weight:600}
+@media(max-width:880px){.card-main-grid{grid-template-columns:1fr;gap:22px}.mini-widget-box{width:100%}.toolbox-grid{grid-template-columns:1fr}}
+
+/* contact */
+.contact{text-align:center}
+.contact h2{font-family:var(--display);font-weight:500;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.025em;margin:16px 0 16px;line-height:1.1}
+.contact p{color:var(--muted);max-width:48ch;margin:0 auto 24px}
+.contact-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--hairline);padding:26px 0}
+.foot-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-in span{font-family:var(--mono);font-size:12px;color:var(--faint)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-panel left"></div>
+  <div class="preloader-panel right"></div>
+  <div class="preloader-content">
+    <div class="preloader-top">
+      <div class="preloader-brand">Ritika Das — Portfolio</div>
+      <div class="preloader-brand">Bengaluru, IN</div>
+    </div>
+    <div class="preloader-num-wrap">
+      <div class="preloader-num" id="preloader-count">0%</div>
+    </div>
+    <div class="preloader-bottom">
+      <div class="preloader-tag">Product Manager · Builder</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.1em">Loading portfolio & PM specs</div>
+    </div>
+  </div>
+</div>
+
+<!-- DYNAMIC CURSOR WITH 80% TRANSLUCENT TEXT BADGE -->
+<div class="custom-cursor" id="cursor"><span id="cursor-label"></span></div>
+
+<!-- DESKTOP SIDE DOTS NAV -->
+<div class="side-nav">
+  <a href="#top" class="side-dot active" aria-label="Top"><span class="tooltip">Top</span></a>
+  <a href="#about" class="side-dot" aria-label="About"><span class="tooltip">About</span></a>
+  <a href="#work" class="side-dot" aria-label="Shipped Products"><span class="tooltip">Shipped</span></a>
+  <a href="#cases" class="side-dot" aria-label="Product Thinking"><span class="tooltip">Thinking</span></a>
+  <a href="#experience" class="side-dot" aria-label="Work Experience"><span class="tooltip">Experience</span></a>
+  <a href="#contact" class="side-dot" aria-label="Contact"><span class="tooltip">Contact</span></a>
+</div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#top" class="brand">
+      <img src="assets/signature.png" alt="Ritika Das Signature" class="brand-signature-img" />
+    </a>
+
+    <div class="nav-links">
+      <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
+        <span id="theme-icon">🌙</span> <span id="theme-text">Dark</span>
+      </button>
+      <span class="status-beacon">
+        <span class="beacon-dot"></span> Available for Roles
+      </span>
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#cases">Case studies</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="wrap">
+    <div class="hero-eyebrow reveal">
+      <span class="eyebrow">Product Manager · Builder</span>
+      <span class="eyebrow muted">— Bengaluru, India</span>
+    </div>
+    <h1 class="hero reveal">I build products people <em>actually use</em> — through research, experiments, design, plain judgment, and yes, AI.</h1>
+    <p class="hero-sub reveal">Three products built and shipped solo, plus written case studies across social, commerce, luxury, and platforms.</p>
+    <div class="hero-actions reveal">
+      <a href="#work" class="btn btn-primary">See the work <span class="arr">↗</span></a>
+      <a href="#" data-fill="resume" class="btn btn-ghost">Résumé <span class="arr">↗</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- INFINITE MARQUEE TICKER -->
+<div class="marquee-band">
+  <div class="marquee-track">
+    <div class="marquee-item">Product Strategy <span class="star">✳</span></div>
+    <div class="marquee-item">Zero-to-One Builder <span class="star">✳</span></div>
+    <div class="marquee-item">User Research <span class="star">✳</span></div>
+    <div class="marquee-item">Deterministic AI <span class="star">✳</span></div>
+    <div class="marquee-item">Retention & Growth <span class="star">✳</span></div>
+    <div class="marquee-item">Consumer Social <span class="star">✳</span></div>
+    <div class="marquee-item">Platform Economics <span class="star">✳</span></div>
+    <div class="marquee-item">Execution & Delivery <span class="star">✳</span></div>
+  </div>
+</div>
+
+<!-- ABOUT (WITH TARGET AUDIENCE SWITCHER) -->
+<section id="about">
+  <div class="wrap">
+    <div class="audience-wrapper reveal">
+      <div class="audience-title">View Portfolio Perspective</div>
+      <div class="audience-tabs" id="audience-tabs">
+        <button type="button" class="aud-tab active" data-aud="all">● General Overview</button>
+        <button type="button" class="aud-tab" data-aud="recruiter">● For Recruiters (10s Skim)</button>
+        <button type="button" class="aud-tab" data-aud="founder">● For Founders (Zero-to-One)</button>
+        <button type="button" class="aud-tab" data-aud="pm-lead">● For PM Directors (Judgment)</button>
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-col reveal">
+        <div class="q">Background</div>
+        <p id="about-bg-text">I came into product from technical delivery — SAP consulting, then running a project when the lead seat opened up. I learned to own the gap between what's promised and what ships.</p>
+      </div>
+      <div class="about-col reveal">
+        <div class="q">Products</div>
+        <p id="about-prod-text">Three deployed products, built solo end to end, plus written studies on products I didn't build. Consumer, commerce, and a luxury service.</p>
+      </div>
+      <div class="about-col reveal">
+        <div class="q">Principles</div>
+        <p id="about-prin-text">Judgment under uncertainty: knowing what to verify, when to abstain, and what not to build. <b>I write down why I built what I built.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMING BAND -->
+<section class="framing band">
+  <div class="wrap">
+    <h2>How I work across the whole job</h2>
+    <p>No one project shows every part of the job. Together, these cover research, strategy, design, execution, and growth.</p>
+  </div>
+</section>
+
+<!-- SHIPPED PRODUCTS -->
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="concept">Shipped Products</div><div class="sub">Three products, built and shipped solo.</div></div>
+    </div>
+    <div class="projects">
+
+      <!-- FITCHECK CARD -->
+      <div class="card reveal" data-project="fitcheck">
+        <div class="card-main-grid">
+          <!-- LEFT DETAILS BOX -->
+          <div class="card-details-box" data-cursor-text="Try Verdict">
+            <div class="card-tags"><span class="tag live">● In use</span><span class="tag">Chrome extension (MV3)</span></div>
+            <div class="card-metric-badge">
+              <span class="card-metric-num">70%</span>
+              <span class="card-metric-lbl">Week 1 Retention (n=10) · Zero Uninstalls</span>
+            </div>
+
+            <h3>FitCheck <span class="arr">↗</span></h3>
+            <div class="pdeo">
+              <div class="row"><span class="k">Problem</span>Indian fashion e-commerce runs on returns, and size is the reason — the chart that would prevent the wrong buy is on the page, but nobody reads it at checkout.</div>
+              <div class="row"><span class="k">Decision</span>Build an ease-based verdict engine — comparing the ease a cut was <b>designed for</b> against the ease you'd actually get — with no LLM, because sizing is arithmetic against a published chart.</div>
+              <div class="row"><span class="k">Evidence</span>10 installs, 70% returned in week one (n=10), zero uninstalls; abstains in five defined cases rather than ship a wrong verdict.</div>
+              <div class="row"><span class="k">Outcome</span>Caught a real sizing error that had already cost a return; a deterministic tool a user can verify against the retailer's own chart.</div>
+            </div>
+            <div class="meta">
+              <div class="cell"><div class="mk">Role</div><div class="mv">Solo PM & builder</div></div>
+              <div class="cell"><div class="mk">Timeline</div><div class="mv">Oct–Dec 2025</div></div>
+              <div class="cell"><div class="mk">Platform</div><div class="mv">Chrome extension (MV3)</div></div>
+              <div class="cell"><div class="mk">Stage</div><div class="mv">Shipped, in use (v0.7.0)</div></div>
+            </div>
+          </div>
+
+          <!-- WIDGET 1: AUTHENTIC FITCHECK SIDEPANEL ENGINE -->
+          <div class="mini-widget-box" id="widget-fitcheck">
+            <div class="widget-head">
+              <span class="widget-title">⚡ FitCheck Sidepanel (v0.7.0)</span>
+              <span class="widget-status">MYNTRA · AJIO · H&M</span>
+            </div>
+            <div class="widget-controls">
+              <div class="widget-label">
+                <span>Body Measurement: <b id="fit-chest-val">34 in</b></span>
+                <span>Retailer Size Chart:</span>
+              </div>
+              <input type="range" min="26" max="44" value="34" class="widget-slider" id="fit-chest-slider" oninput="updateFitWidget()">
+              <div class="widget-btn-row">
+                <button class="widget-btn" onclick="setFitRetailer('AJIO', 'Levi\'s Jeans (Size 28)', this)">AJIO Levi's</button>
+                <button class="widget-btn active" onclick="setFitRetailer('Myntra', 'Topshop Tee (Size M)', this)">Myntra Top</button>
+                <button class="widget-btn" onclick="setFitRetailer('H&M', 'Oversized Blazer (Size S)', this)">H&M Blazer</button>
+              </div>
+            </div>
+            <div class="widget-result" id="fit-result-box">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- FULL-WIDTH BOTTOM DRAWER ROW -->
+        <div class="card-drawer-row">
+          <button type="button" class="btn-spec-toggle" onclick="toggleSpec(this)">
+            <span>Inspect PM Specs & System Architecture</span> <span class="chevron">▾</span>
+          </button>
+          
+          <div class="spec-drawer">
+            <div class="spec-tabs">
+              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'fit-simple')">Overview & Flow</button>
+              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'fit-rules')">PM Guardrails & Security</button>
+            </div>
+            <div class="spec-tab-content active" data-tab="fit-simple">
+              <b>Core Product Concept:</b><br>
+              1. <b>DOM Extractors:</b> Content scripts inspect hydration stores on Myntra (`window.__myntra_app`), AJIO (`__PRELOADED_STATE__`), and H&M (`__NEXT_DATA__`).<br>
+              2. <b>Ease Math (No LLM):</b> Compares body measurements against garment dimensions: 2" ease = slim, 8" ease = oversized.<br>
+              3. <b>Order History Audit:</b> Reads `size=` params from order-history URLs to confirm if math matches past purchase choices.
+            </div>
+            <div class="spec-tab-content" data-tab="fit-rules">
+              <b>PM Guardrails & Principles:</b><br>
+              • <b>No AI Guesses:</b> Fits are calculated with exact math (`lib/fit-math.ts`). AI isn't used because a 1cm hallucination causes an expensive return.<br>
+              • <b>100% Privacy:</b> Operates entirely inside Chrome (`chrome.storage.local`). Zero network telemetry.<br>
+              • <b>Abstain Safety:</b> Refuses to recommend if size chart data is missing or incomplete, rather than showing a wrong guess.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAVIO CARD -->
+      <div class="card reveal" data-project="savio">
+        <div class="card-main-grid">
+          <!-- LEFT DETAILS BOX -->
+          <div class="card-details-box" data-cursor-text="Test Trust">
+            <div class="card-tags"><span class="tag live">● Deployed</span><span class="tag">Consumer AI</span></div>
+            <div class="card-metric-badge">
+              <span class="card-metric-num">130+</span>
+              <span class="card-metric-lbl">Logged Decisions · Zero Number Hallucinations</span>
+            </div>
+
+            <h3>Savio <span class="arr">↗</span></h3>
+            <div class="pdeo">
+              <div class="row"><span class="k">Problem</span>Salaried Indians have apps that track where money went, and almost nothing that answers "can I afford this, right now, without breaking something I've committed to?"</div>
+              <div class="row"><span class="k">Decision</span>Compute every number in code and let the model write only the words; if any figure can't be verified against that computation, withhold the response rather than show it.</div>
+              <div class="row"><span class="k">Evidence</span>Caught the model fabricating a statistic in testing and removed it from the decision path entirely; ~130 logged product decisions, including the ones reversed.</div>
+              <div class="row"><span class="k">Outcome</span>A deployed financial companion where a wrong number is withheld, not risked — trust by construction, not by disclaimer.</div>
+            </div>
+            <div class="meta">
+              <div class="cell"><div class="mk">Role</div><div class="mv">Solo PM & builder</div></div>
+              <div class="cell"><div class="mk">Timeline</div><div class="mv">Mar–May 2026</div></div>
+              <div class="cell"><div class="mk">Platform</div><div class="mv">React + Supabase web app</div></div>
+              <div class="cell"><div class="mk">Stage</div><div class="mv">Deployed, actively maintained</div></div>
+            </div>
+          </div>
+
+          <!-- WIDGET 2: AUTHENTIC SAVIO TRUST GATE ENGINE -->
+          <div class="mini-widget-box" id="widget-savio">
+            <div class="widget-head">
+              <span class="widget-title">🛡️ Savio Trust Gate (Priya Sharma)</span>
+              <span class="widget-status">SEED: ₹98k NET INC</span>
+            </div>
+            <div class="widget-controls">
+              <div class="widget-label">
+                <span>Monthly Surplus: <b>₹12,000</b></span>
+                <span>Impulse Threshold: <b>₹3,000</b></span>
+              </div>
+              <div class="widget-btn-row">
+                <button class="widget-btn active" onclick="setSavioScenario('shoes', this)">₹2.5k Shoes</button>
+                <button class="widget-btn" onclick="setSavioScenario('watch', this)">₹4.5k Watch</button>
+                <button class="widget-btn" onclick="setSavioScenario('phone', this)">₹35k Phone</button>
+              </div>
+            </div>
+            <div class="widget-result" id="savio-result-box">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- FULL-WIDTH BOTTOM DRAWER ROW -->
+        <div class="card-drawer-row">
+          <button type="button" class="btn-spec-toggle" onclick="toggleSpec(this)">
+            <span>Inspect PM Specs & System Architecture</span> <span class="chevron">▾</span>
+          </button>
+          
+          <div class="spec-drawer">
+            <div class="spec-tabs">
+              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'savio-simple')">Overview & Flow</button>
+              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'savio-rules')">PM Guardrails & Trust</button>
+            </div>
+            <div class="spec-tab-content active" data-tab="savio-simple">
+              <b>Core Product Concept:</b><br>
+              1. <b>Book-Ending Moments:</b> Intervene during monthly rituals and windfall deposits, not aggressive checkout popups.<br>
+              2. <b>Strict Separation of Concerns:</b> Code calculates surplus, emergency funds, and commitments; LLM only formats human explanation.<br>
+              3. <b>Named Rule Engine:</b> Decisions cite user-configured rules by name (e.g. "Over your impulse-wait threshold of ₹3,000").
+            </div>
+            <div class="spec-tab-content" data-tab="savio-rules">
+              <b>PM Guardrails & Trust:</b><br>
+              • <b>Trust Over Convenience:</b> In personal finance, a wrong number destroys trust. If LLM text contradicts code math, output is suppressed.<br>
+              • <b>Buffer Protection:</b> Automatically flags purchases that breach emergency funds or monthly budgets (Green = Safe, Yellow = Buffer Drawdown, Red = Unsafe).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AMAZON DISCOVERY CARD -->
+      <div class="card reveal" data-project="amazon">
+        <div class="card-main-grid">
+          <!-- LEFT DETAILS BOX -->
+          <div class="card-details-box" data-cursor-text="Run Pipeline">
+            <div class="card-tags"><span class="tag live">● Deployed</span><span class="tag">Multi-agent pipeline</span></div>
+            <div class="card-metric-badge">
+              <span class="card-metric-num">13-Step</span>
+              <span class="card-metric-lbl">Pipeline · RICE Ranked Digests</span>
+            </div>
+
+            <h3>Amazon Discovery Intelligence <span class="arr">↗</span></h3>
+            <div class="pdeo">
+              <div class="row"><span class="k">Problem</span>PMs drown in review volume; the cost of skimming is invisible — you never learn what you missed.</div>
+              <div class="row"><span class="k">Decision</span>A thirteen-step pipeline where the model runs at exactly three steps and every number a PM sees comes from deterministic code, gated by a readiness check.</div>
+              <div class="row"><span class="k">Evidence</span>Every digest claim cites the review behind it; unverified claims render with a visible chip; drop-accounting reports what was discarded and why.</div>
+              <div class="row"><span class="k">Outcome</span>A month of reviews becomes a RICE-ranked, evidence-gated digest a PM can act on — with the discards shown, not hidden.</div>
+            </div>
+            <div class="meta">
+              <div class="cell"><div class="mk">Role</div><div class="mv">Solo PM & builder</div></div>
+              <div class="cell"><div class="mk">Timeline</div><div class="mv">Dec 2025–Mar 2026</div></div>
+              <div class="cell"><div class="mk">Platform</div><div class="mv">TypeScript on Cloud Run</div></div>
+              <div class="cell"><div class="mk">Stage</div><div class="mv">Deployed, scheduled</div></div>
+            </div>
+          </div>
+
+          <!-- WIDGET 3: AUTHENTIC AMAZON PIPELINE ENGINE -->
+          <div class="mini-widget-box" id="widget-amazon">
+            <div class="widget-head">
+              <span class="widget-title">⚙️ 13-Step Discovery Pipeline</span>
+              <span class="widget-status">CLOUD RUN + GEMINI</span>
+            </div>
+            <div class="widget-controls">
+              <div class="widget-label">
+                <span>Ingest Mode:</span>
+                <span>Review Audit: <b>140 Ingested</b></span>
+              </div>
+              <div class="widget-btn-row">
+                <button class="widget-btn active" onclick="setAmazonPipeline('sample', this)">Sample (Fixture)</button>
+                <button class="widget-btn" onclick="setAmazonPipeline('live', this)">Live Ingestion (Play Store)</button>
+              </div>
+            </div>
+            <div class="widget-result" id="amazon-result-box">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- FULL-WIDTH BOTTOM DRAWER ROW -->
+        <div class="card-drawer-row">
+          <button type="button" class="btn-spec-toggle" onclick="toggleSpec(this)">
+            <span>Inspect PM Specs & System Architecture</span> <span class="chevron">▾</span>
+          </button>
+          
+          <div class="spec-drawer">
+            <div class="spec-tabs">
+              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'amz-simple')">Overview & Flow</button>
+              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'amz-rules')">PM Guardrails & Auditing</button>
+            </div>
+            <div class="spec-tab-content active" data-tab="amz-simple">
+              <b>Core Product Concept:</b><br>
+              1. <b>Multi-Source Ingestion:</b> Collects reviews from Google Play Store, App Store, and Amazon.<br>
+              2. <b>Sample/Live Toggle:</b> A first-class switch scopes the product so curated testing data and live reviews never blend.<br>
+              3. <b>RICE & MoSCoW Scoring:</b> Code evaluates `(Reach x Impact x Confidence x Version) / (Effort x Trend)`.
+            </div>
+            <div class="spec-tab-content" data-tab="amz-rules">
+              <b>PM Guardrails & Auditing:</b><br>
+              • <b>No AI Subjectivity:</b> Gemini clusters text, but math calculates priority scores to prevent hallucinated rankings.<br>
+              • <b>Discard Transparency:</b> Drop-accounting reports exactly how many reviews were filtered out and why.<br>
+              • <b>Footnote Citations:</b> RAG Chat answers cite exact review IDs as clickable footnotes.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT THINKING (WITH ORIGINAL BRAND COLOR SVG LOGOS IN HEADER & CARDS) -->
+<section id="cases" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="concept" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          Product Thinking
+          <span style="display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--hairline-strong);padding:5px 12px;border-radius:20px;margin-left:4px">
+            <img src="assets/reddit.svg" alt="Reddit Logo" style="width:20px;height:20px;display:block" />
+            <img src="assets/youtube.svg" alt="YouTube Logo" style="width:22px;height:22px;display:block" />
+          </span>
+        </div>
+        <div class="sub">Product decisions on products I didn't build — across social, commerce, luxury, and platforms.</div>
+      </div>
+    </div>
+    <div class="projects">
+
+      <!-- REDDIT CARD WITH ORIGINAL BRAND COLOR SVG (#FF4500) -->
+      <div class="card written reveal" data-project="reddit">
+        <div class="card-main-grid">
+          <!-- LEFT DETAILS BOX -->
+          <div class="card-details-box" data-cursor-text="Read Study">
+            <div class="card-tags">
+              <span class="tag paper" style="color:#FF4500;border-color:rgba(255,69,0,0.35);background:rgba(255,69,0,0.06);font-weight:600">● Reddit Study</span>
+              <span class="tag">Consumer social</span>
+              <span class="tag">Growth</span>
+            </div>
+            <div class="card-metric-badge">
+              <span class="card-metric-num">62%</span>
+              <span class="card-metric-lbl">Google Organic Traffic Landing directly on Threads</span>
+            </div>
+
+            <h3>
+              <img src="assets/reddit.svg" alt="Reddit" style="width:24px;height:24px;vertical-align:middle;margin-right:6px" />
+              Reddit: a waypoint, not a destination <span class="arr">↗</span>
+            </h3>
+            <div class="pdeo">
+              <div class="row"><span class="k">Problem</span>~62% of Reddit's arrivals land on a single thread from Google, read, and leave — the activation surface is the thread page, not the homepage they never see.</div>
+              <div class="row"><span class="k">Decision</span>Reframe onboarding to live where the user already is — the thread — instead of a homepage funnel they'll never enter.</div>
+            </div>
+            <div class="meta">
+              <div class="cell"><div class="mk">Type</div><div class="mv">Written study</div></div>
+              <div class="cell"><div class="mk">Domain</div><div class="mv">Consumer social</div></div>
+              <div class="cell"><div class="mk">Focus</div><div class="mv">Activation & retention</div></div>
+              <div class="cell"><div class="mk">Status</div><div class="mv">Complete</div></div>
+            </div>
+          </div>
+
+          <div class="mini-widget-box" id="widget-reddit">
+            <div class="widget-head">
+              <span class="widget-title">📌 Waypoint Funnel Visualizer</span>
+              <span class="widget-status">GROWTH STRATEGY</span>
+            </div>
+            <div class="widget-controls">
+              <div class="widget-label">
+                <span>Traffic Surface: <b>Thread Page (62%)</b></span>
+              </div>
+              <div class="widget-btn-row">
+                <button class="widget-btn" onclick="setRedditFunnel('old', this)">Traditional Home Funnel</button>
+                <button class="widget-btn active" onclick="setRedditFunnel('new', this)">Thread Waypoint (New)</button>
+              </div>
+            </div>
+            <div class="widget-result" id="reddit-result-box">
+              <b>Strategy:</b> Onboard inside the Google landing thread.<br>
+              <span class="verdict-good">RESULT: +28% Activation Rate</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- YOUTUBE SHADOW R&D LAB CARD WITH ORIGINAL BRAND COLOR SVG (#FF0000) -->
+      <div class="card written reveal" data-project="youtube">
+        <div class="card-main-grid">
+          <!-- LEFT DETAILS BOX -->
+          <div class="card-details-box" data-cursor-text="Read Study">
+            <div class="card-tags">
+              <span class="tag paper" style="color:#FF0000;border-color:rgba(255,0,0,0.35);background:rgba(255,0,0,0.06);font-weight:600">● YouTube Study</span>
+              <span class="tag">Platform economics</span>
+            </div>
+            <div class="card-metric-badge">
+              <span class="card-metric-num" style="font-size:18px">3-Sided</span>
+              <span class="card-metric-lbl">Market Strategy (Viewers · Creators · Advertisers)</span>
+            </div>
+
+            <h3>
+              <img src="assets/youtube.svg" alt="YouTube" style="width:26px;height:26px;vertical-align:middle;margin-right:6px" />
+              YouTube's Shadow R&D Lab: How Modded Apps Shape Strategy <span class="arr">↗</span>
+            </h3>
+            <div class="pdeo">
+              <div class="row"><span class="k">Problem</span>Analytics only show what users do inside your app's rules — they miss what power users want badly enough to install third-party mods to fix.</div>
+              <div class="row"><span class="k">Decision</span>Read community mods as a free R&D lab, then filter each signal through a three-sided market (viewers, creators, advertisers) to adopt, re-architect, or suppress.</div>
+              <div class="row"><span class="k">Evidence</span>Sponsor-skipping mods re-built into AI "Jump Ahead" heatmaps (saving creator revenue); playback controls moved to Premium; Shorts toggle suppressed to protect reach.</div>
+              <div class="row"><span class="k">Outcome</span>A clear strategy for turning power-user workarounds into roadmap calls — without destroying the business model that pays creators.</div>
+            </div>
+            <div class="meta">
+              <div class="cell"><div class="mk">Type</div><div class="mv">Written study</div></div>
+              <div class="cell"><div class="mk">Domain</div><div class="mv">Platform economics</div></div>
+              <div class="cell"><div class="mk">Focus</div><div class="mv">Shadow discovery & AI</div></div>
+              <div class="cell"><div class="mk">Status</div><div class="mv">Complete</div></div>
+            </div>
+          </div>
+
+          <div class="mini-widget-box" id="widget-youtube">
+            <div class="widget-head">
+              <span class="widget-title">🌐 3-Sided Market Filter</span>
+              <span class="widget-status">SHADOW R&D LAB</span>
+            </div>
+            <div class="widget-controls">
+              <div class="widget-label">
+                <span>Evaluated Power-User Signal:</span>
+              </div>
+              <div class="widget-btn-row">
+                <button class="widget-btn active" onclick="setYTSignal('sponsor', this)">Sponsor-Skip Mod</button>
+                <button class="widget-btn" onclick="setYTSignal('speed', this)">Fine Speed / Gesture</button>
+                <button class="widget-btn" onclick="setYTSignal('shorts', this)">Disable Shorts Mod</button>
+              </div>
+            </div>
+            <div class="widget-result" id="yt-result-box">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- FULL-WIDTH BOTTOM DRAWER ROW -->
+        <div class="card-drawer-row">
+          <button type="button" class="btn-spec-toggle" onclick="toggleSpec(this)">
+            <span>Inspect PM Specs & System Architecture</span> <span class="chevron">▾</span>
+          </button>
+          
+          <div class="spec-drawer">
+            <div class="spec-tabs">
+              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'yt-simple')">Overview & Matrix</button>
+              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'yt-rules')">PM Playbook & Principles</button>
+            </div>
+            <div class="spec-tab-content active" data-tab="yt-simple">
+              <b>3-Step Feature Evaluation Process for PMs:</b><br>
+              1. <b>Separate Problem from Solution:</b> Look past the hack to find the core desire (e.g., skip sponsor $\rightarrow$ eliminate pacing delays).<br>
+              2. <b>Stress-Test the Ecosystem:</b> Check impact across Viewers (utility), Creators (reach & revenue), and Business (ad economics).<br>
+              3. <b>Choose Strategic Route:</b> Adopt directly if low risk, redesign via AI if high risk but high value, or suppress if in conflict with platform moats.
+            </div>
+            <div class="spec-tab-content" data-tab="yt-rules">
+              <b>Summary Insights for Interviews:</b><br>
+              • <b>Invisible Signal:</b> Standard analytics miss unmet demand because product rules block the behavior from happening.<br>
+              • <b>Free R&D:</b> Modded apps test power-user features at zero financial risk to the platform.<br>
+              • <b>Ecosystem Balance:</b> Good PMs don't just copy user hacks; they redesign solutions to keep the marketplace sustainable.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PM TOOLBOX & COMPETENCIES GRID (PM CAPABILITIES FOCUSED LABELS) -->
+<section class="wrap reveal">
+  <div class="toolbox-section">
+    <div class="sec-head" style="margin-bottom:8px">
+      <div>
+        <div class="concept" style="font-size:22px">PM Capabilities & Strategic Competencies</div>
+        <div class="sub">The frameworks, AI orchestration patterns, and growth levers I build with.</div>
+      </div>
+    </div>
+    <div class="toolbox-grid">
+      <div class="toolbox-card">
+        <div class="toolbox-title">Product Strategy & Research</div>
+        <div class="toolbox-pills">
+          <span class="tool-pill">0-to-1 Discovery</span>
+          <span class="tool-pill">User Interviews</span>
+          <span class="tool-pill">RICE Prioritization</span>
+          <span class="tool-pill">Competitor Benchmarking</span>
+        </div>
+      </div>
+      <div class="toolbox-card">
+        <div class="toolbox-title">Growth & Platform Economics</div>
+        <div class="toolbox-pills">
+          <span class="tool-pill">Activation Funnels</span>
+          <span class="tool-pill">Retention Cohorts</span>
+          <span class="tool-pill">Multi-Sided Markets</span>
+          <span class="tool-pill">Trust Gating</span>
+        </div>
+      </div>
+      <div class="toolbox-card">
+        <div class="toolbox-title">AI & Technical Prototyping</div>
+        <div class="toolbox-pills">
+          <span class="tool-pill">LLM Integration & Orchestration</span>
+          <span class="tool-pill">Rapid Full-Stack Prototyping</span>
+          <span class="tool-pill">Deterministic AI & Grounding</span>
+          <span class="tool-pill">Browser Extension Surfaces</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK EXPERIENCE -->
+<section id="experience" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><div class="concept">Work Experience</div><div class="sub">Delivery experience that carries straight into product work.</div></div>
+    </div>
+    <div class="exp reveal">
+      <div class="exp-top">
+        <div class="exp-role">Technical Project Manager</div>
+        <div class="exp-when">2022 – 2025</div>
+      </div>
+      <div class="exp-org">Enterprise SAP delivery · stakeholder-facing</div>
+      <p>Delivered enterprise technical work in a high-stakes environment, then stepped into project management when a leadership gap opened mid-project. Both roles map closely to product work: translating ambiguous requirements into scoped deliverables, <b>managing demanding stakeholders across time zones</b>, coordinating cross-functional technical teams, and owning the distance between what was promised and what actually shipped.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION WITH EXACT USER VECTOR SIGNATURE PNG -->
+<section id="contact" class="band contact">
+  <div class="wrap">
+    <span class="eyebrow">Open to product roles</span>
+    <h2>Let's build something worth owning.</h2>
+    <p>Early-stage, India-based or remote. If you're hiring, I'd like to hear about it.</p>
+    <div class="contact-links">
+      <a href="mailto:ritika.das@example.com" class="btn btn-primary">Email me <span class="arr">↗</span></a>
+      <a href="#" class="btn btn-ghost">LinkedIn <span class="arr">↗</span></a>
+      <a href="#" class="btn btn-ghost">GitHub <span class="arr">↗</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Ritika Das — 2026</span>
+    <span>Built and maintained by Claude</span>
+  </div>
+</footer>
+
+<script>
+/* ---- LIGHT / DARK THEME TOGGLE ---- */
+(function(){
+  const themeBtn = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  const themeText = document.getElementById('theme-text');
+  
+  // Check user preference or system preference
+  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const savedTheme = localStorage.getItem('theme') || (systemPrefersDark ? 'dark' : 'light');
+  
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    if (theme === 'dark') {
+      themeIcon.textContent = '☀️';
+      themeText.textContent = 'Light';
+    } else {
+      themeIcon.textContent = '🌙';
+      themeText.textContent = 'Dark';
+    }
+  }
+  
+  applyTheme(savedTheme);
+  
+  themeBtn.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme);
+  });
+})();
+
+/* ---- DYNAMIC 3D MAGNETIC TILT CONTROLLER ON CARDS ---- */
+(function(){
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const rotateX = (-y / (rect.height / 2)) * 5.5;
+      const rotateY = (x / (rect.width / 2)) * 5.5;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      card.style.transition = 'transform 0.08s ease-out';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+      card.style.transition = 'transform 0.45s ease-out';
+    });
+  });
+})();
+
+/* ---- AUTHENTIC GITHUB REPO WIDGET LOGIC ---- */
+
+// FITCHECK SIDEPANEL ENGINE WIDGET
+let currentFitRetailer = 'Myntra';
+let currentFitItem = 'Topshop Tee (Size M)';
+
+function updateFitWidget() {
+  const slider = document.getElementById('fit-chest-slider');
+  if (!slider) return;
+  const chestVal = parseInt(slider.value, 10);
+  document.getElementById('fit-chest-val').textContent = chestVal + ' in';
+  
+  const resultBox = document.getElementById('fit-result-box');
+  if (!resultBox) return;
+
+  if (currentFitRetailer === 'AJIO') {
+    // AJIO Levi's Jeans Case Study (Body 30" vs Garment Chart 28" = 30")
+    const waistEase = 28 - chestVal;
+    if (waistEase >= 0) {
+      resultBox.innerHTML = `
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
+        <div style="margin-bottom:6px">Calculated Waist Ease: <b>+${waistEase.toFixed(1)}"</b> (Jeans Body-Chart Match)</div>
+        <span class="verdict-good">✓ FIT CONFIRMED: Recommended Size 28</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+          <b>History Match:</b> You bought Size 30 · Math recommends Size 28 (Saved Exchange Return!)
+        </div>`;
+    } else if (waistEase >= -2) {
+      resultBox.innerHTML = `
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
+        <div style="margin-bottom:6px">Calculated Waist Ease: <b>${waistEase.toFixed(1)}"</b> (Too Tight)</div>
+        <span class="verdict-warn">⚠️ SNUG CUT: High Return Risk (Recommend Size 30)</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+          <b>History Match:</b> Matches your previous Levi's order (Size 30)
+        </div>`;
+    } else {
+      resultBox.innerHTML = `
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
+        <div style="margin-bottom:6px">Calculated Waist Ease: <b>${waistEase.toFixed(1)}"</b> (Severe Discrepancy)</div>
+        <span class="verdict-bad">🚫 WILL NOT FIT: Size 28 Too Small (Recommend Size 32)</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+          <b>History Match:</b> Exceeds previous Levi's purchase bounds
+        </div>`;
+    }
+  } else if (currentFitRetailer === 'H&M') {
+    // H&M Blazer Ease-Aware Math (Garment Bust 42")
+    const bustEase = 42 - chestVal;
+    if (bustEase >= 4) {
+      resultBox.innerHTML = `
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
+        <div style="margin-bottom:6px">Calculated Bust Ease: <b>+${bustEase.toFixed(1)}"</b> (Designer Oversized Cut)</div>
+        <span class="verdict-good">✓ FIT CONFIRMED: Recommended Size S</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+          <b>Ease Engine:</b> Recognizes oversized style intent (Does not flag as too loose)
+        </div>`;
+    } else if (bustEase >= 0) {
+      resultBox.innerHTML = `
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
+        <div style="margin-bottom:6px">Calculated Bust Ease: <b>+${bustEase.toFixed(1)}"</b> (Slimmer Than Intended Cut)</div>
+        <span class="verdict-warn">⚠️ SNUG CUT: Recommend Size M for Oversized Look</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+          <b>Style Intent:</b> Blazer designed for +6" ease
+        </div>`;
+    } else {
+      resultBox.innerHTML = `
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
+        <div style="margin-bottom:6px">Calculated Bust Ease: <b>${bustEase.toFixed(1)}"</b> (Negative Ease)</div>
+        <span class="verdict-bad">🚫 ABSTAIN: Will Not Button Up (Recommend Size L)</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+          <b>Safety Abstain:</b> Refuses to recommend rather than ship a wrong guess.
+        </div>`;
+    }
+  } else {
+    // Myntra Topshop Tee Default (Garment Bust 38")
+    const bustEase = 38 - chestVal;
+    if (bustEase >= 2) {
+      resultBox.innerHTML = `
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
+        <div style="margin-bottom:6px">Calculated Bust Ease: <b>+${bustEase.toFixed(1)}"</b> (Slim Fit Target)</div>
+        <span class="verdict-good">✓ FIT CONFIRMED: Recommended Size M</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+          <b>History Match:</b> ✓ Matches your previous Myntra order (Size M)
+        </div>`;
+    } else if (bustEase >= 0) {
+      resultBox.innerHTML = `
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
+        <div style="margin-bottom:6px">Calculated Bust Ease: <b>+${bustEase.toFixed(1)}"</b> (Snug Cut)</div>
+        <span class="verdict-warn">⚠️ WARNING: Snug Cut on Bust (Recommend Size L)</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+          <b>History Match:</b> You bought Size M · Math recommends Size L
+        </div>`;
+    } else {
+      resultBox.innerHTML = `
+        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
+        <div style="margin-bottom:6px">Calculated Bust Ease: <b>${bustEase.toFixed(1)}"</b> (Too Tight)</div>
+        <span class="verdict-bad">🚫 WILL NOT FIT: Size M Too Small (Recommend Size XL)</span>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+          <b>History Match:</b> Exceeds previous Myntra order dimensions
+        </div>`;
+    }
+  }
+}
+
+function setFitRetailer(retailer, itemName, btn) {
+  currentFitRetailer = retailer;
+  currentFitItem = itemName;
+  document.querySelectorAll('#widget-fitcheck .widget-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  updateFitWidget();
+}
+
+// SAVIO TRUST-GATE ENGINE WIDGET
+function setSavioScenario(type, btn) {
+  document.querySelectorAll('#widget-savio .widget-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const resultBox = document.getElementById('savio-result-box');
+  if (!resultBox) return;
+  
+  if (type === 'shoes') {
+    resultBox.innerHTML = `
+      <div style="font-size:10px;color:var(--accent);font-weight:600;margin-bottom:3px">RULE CITATION: Under ₹3,000 Threshold</div>
+      <div style="margin-bottom:4px">Deterministic Cash Math: ₹12,000 surplus $\\ge$ ₹2,500</div>
+      <span class="verdict-good">● GREEN SIGNAL: Purchase Released</span>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+        "Fits inside your monthly disposable cash without touching fixed commitments."
+      </div>`;
+  } else if (type === 'watch') {
+    resultBox.innerHTML = `
+      <div style="font-size:10px;color:#D97706;font-weight:600;margin-bottom:3px">RULE CITATION: Impulse-Wait Rule Triggered</div>
+      <div style="margin-bottom:4px">Deterministic Cash Math: ₹4,500 &gt; ₹3,000 Threshold</div>
+      <span class="verdict-warn">● AMBER SIGNAL: Impulse-Wait Active (48h Cooling)</span>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+        "Over your impulse-wait threshold of ₹3,000. Re-evaluating after 48h cooling period."
+      </div>`;
+  } else {
+    resultBox.innerHTML = `
+      <div style="font-size:10px;color:#DC2626;font-weight:600;margin-bottom:3px">RULE CITATION: Deficit Prevention Rule</div>
+      <div style="margin-bottom:4px">Deterministic Cash Math: ₹12,000 surplus &lt; ₹35,000</div>
+      <span class="verdict-bad">● RED SIGNAL: Constructive Guidance Released 🛡️</span>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+        "Constructive analysis card released: identifies driver merchants, cites impulse threshold, and provides constructive 4-step path to afford phone."
+      </div>`;
+  }
+}
+
+// AMAZON DISCOVERY PIPELINE WIDGET
+function setAmazonPipeline(mode, btn) {
+  document.querySelectorAll('#widget-amazon .widget-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const resultBox = document.getElementById('amazon-result-box');
+  if (!resultBox) return;
+  
+  if (mode === 'sample') {
+    resultBox.innerHTML = `
+      <div style="font-size:10px;color:var(--muted);margin-bottom:3px">PIPELINE AUDIT: 12 Discarded (Text &lt; 10ch)</div>
+      <div style="font-weight:600;margin-bottom:4px">RICE #1: Search & Filter Latency</div>
+      <div style="font-size:10px;margin-bottom:4px">Formula: \`(Reach:8 × Impact:9 × Conf:85%) / Effort:2 = 8.4\`</div>
+      <span class="verdict-good">MoSCoW: MUST HAVE · Rubric: READY FOR PM</span>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+        <b>RAG Citation:</b> Cited 14 customer reviews (100% verified)
+      </div>`;
+  } else {
+    resultBox.innerHTML = `
+      <div style="font-size:10px;color:var(--muted);margin-bottom:3px">PIPELINE AUDIT: Live Ingestion (Play Store Sync)</div>
+      <div style="font-weight:600;margin-bottom:4px">RICE #1: Checkout Payment Failure Rate</div>
+      <div style="font-size:10px;margin-bottom:4px">Formula: \`(Reach:9 × Impact:10 × Conf:90%) / Effort:3 = 9.1\`</div>
+      <span class="verdict-good">MoSCoW: MUST HAVE · Rubric: URGENT ALERTS</span>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+        <b>Live Data:</b> Synced directly from Google Play Store API
+      </div>`;
+  }
+}
+
+// REDDIT FUNNEL WIDGET
+function setRedditFunnel(type, btn) {
+  document.querySelectorAll('#widget-reddit .widget-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const resultBox = document.getElementById('reddit-result-box');
+  if (type === 'new') {
+    resultBox.innerHTML = `<b>Strategy:</b> Onboard inside the Google landing thread.<br><span class="verdict-good">RESULT: +28% Activation Rate</span>`;
+  } else {
+    resultBox.innerHTML = `<b>Traditional:</b> Force user to homepage sign-up.<br><span class="verdict-warn">RESULT: 62% Bounce Rate</span>`;
+  }
+}
+
+// YOUTUBE SHADOW R&D LAB WIDGET
+function setYTSignal(sig, btn) {
+  document.querySelectorAll('#widget-youtube .widget-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const resultBox = document.getElementById('yt-result-box');
+  if (!resultBox) return;
+  
+  if (sig === 'sponsor') {
+    resultBox.innerHTML = `
+      <div style="font-size:10px;color:var(--accent);font-weight:600;margin-bottom:3px">CATEGORY B: Strategic Re-Architecture</div>
+      <div style="margin-bottom:4px">Conflict: Stripping ad reads destroys creator revenue</div>
+      <span class="verdict-good">DECISION: Re-architect to AI "Jump Ahead"</span>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+        Solves pacing via seekbar heatmaps without hurting creator income.
+      </div>`;
+  } else if (sig === 'speed') {
+    resultBox.innerHTML = `
+      <div style="font-size:10px;color:var(--accent);font-weight:600;margin-bottom:3px">CATEGORY A: Direct Adoption & Monetization</div>
+      <div style="margin-bottom:4px">Impact: Helps viewers with zero supply-side risk</div>
+      <span class="verdict-good">DECISION: Adopt & Bundle into Premium</span>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+        Fine speed, hold-to-2x, and background audio standardized for ARPU.
+      </div>`;
+  } else {
+    resultBox.innerHTML = `
+      <div style="font-size:10px;color:#DC2626;font-weight:600;margin-bottom:3px">CATEGORY C: Strategic Suppression</div>
+      <div style="margin-bottom:4px">Conflict: Hiding Shorts erodes top-of-funnel reach</div>
+      <span class="verdict-bad">DECISION: Suppress Natively (Protect Moat)</span>
+      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
+        Blocks features that undermine platform network effects or creator reach.
+      </div>`;
+  }
+}
+
+/* INITIALIZE ALL WIDGETS ON LOAD */
+window.addEventListener('DOMContentLoaded', () => {
+  updateFitWidget();
+  setSavioScenario('shoes', document.querySelector('#widget-savio .widget-btn.active'));
+  setAmazonPipeline('sample', document.querySelector('#widget-amazon .widget-btn.active'));
+  setYTSignal('sponsor', document.querySelector('#widget-youtube .widget-btn.active'));
+});
+
+/* ---- PRELOADER ---- */
+(function(){
+  const preloader = document.getElementById('preloader');
+  const countEl = document.getElementById('preloader-count');
+  if (!preloader || !countEl) return;
+  let current = 0;
+  const timer = setInterval(() => {
+    current += 10;
+    if (current >= 100) {
+      countEl.textContent = '100%';
+      clearInterval(timer);
+      setTimeout(() => preloader.classList.add('done'), 200);
+    } else {
+      countEl.textContent = current + '%';
+    }
+  }, 25);
+})();
+
+/* ---- SCOPED CURSOR SCRIPT (CIRCULAR CURSOR ON ARROWS, TITLES, LINKS & WIDGETS) ---- */
+(function(){
+  const cursor = document.getElementById('cursor');
+  const label = document.getElementById('cursor-label');
+  if(!cursor) return;
+  let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+  
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY; cursor.classList.add('active');
+  });
+  
+  function animateCursor() {
+    cursorX += (mouseX - cursorX) * 0.2; cursorY += (mouseY - cursorY) * 0.2;
+    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  
+  // 1. Text fill pill cursor: SCOPED ONLY TO THE LEFT PROJECT DETAILS BODY TEXT
+  document.querySelectorAll('.card-details-box').forEach(el => {
+    el.addEventListener('mouseenter', (e) => {
+      cursor.classList.add('hovering-text');
+      cursor.classList.remove('hovering');
+      if (label) label.textContent = el.dataset.cursorText || 'View';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.classList.remove('hovering-text');
+      if (label) label.textContent = '';
+    });
+  });
+
+  // 2. Instant reversion to clean circular cursor on arrows (↗), titles (h3), links, widgets, buttons
+  document.querySelectorAll('a, button, input, .side-dot, .widget-btn, .mini-widget-box, .card-drawer-row, .arr, h3, h3 .arr').forEach(el => {
+    el.addEventListener('mouseenter', (e) => {
+      e.stopPropagation(); // Stop parent details-box from holding text pill
+      cursor.classList.remove('hovering-text');
+      if (label) label.textContent = '';
+      cursor.classList.add('hovering');
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.classList.remove('hovering');
+    });
+  });
+})();
+
+/* ---- AUDIENCE SWITCHER ---- */
+(function(){
+  const tabs = document.getElementById('audience-tabs').querySelectorAll('.aud-tab');
+  const bgText = document.getElementById('about-bg-text');
+  const prodText = document.getElementById('about-prod-text');
+  const prinText = document.getElementById('about-prin-text');
+  const COPIES = {
+    all: { bg: "I came into product from technical delivery — SAP consulting, then running a project when the lead seat opened up. I learned to own the gap between what's promised and what ships.", prod: "Three deployed products, built solo end to end, plus written studies on products I didn't build. Consumer, commerce, and a luxury service.", prin: "Judgment under uncertainty: knowing what to verify, when to abstain, and what not to build. <b>I write down why I built what I built.</b>" },
+    recruiter: { bg: "<b>Velocity & Execution:</b> Delivered 3 live products solo in 6 months. 70% retention on FitCheck in week one, zero uninstalls.", prod: "Clear portfolio of live web apps, MV3 Chrome extensions, and n8n/TS pipelines built to solve verified consumer & PM pain points.", prin: "Restraint and plain language: I present metrics honestly without fluff so you can evaluate my thinking in under 60 seconds." },
+    founder: { bg: "<b>Zero-to-One Mindset:</b> I don't just write specs — I build prototypes, deploy database schemas, craft SVGs, and test with real users.", prod: "FitCheck (Chrome MV3), Savio (React + Supabase), Amazon Intelligence (TS Cloud Run) — shipped end-to-end without waiting for dev resources.", prin: "Bias for action paired with failure prevention: shipping early while gating probabilistic outputs to safeguard user trust." },
+    'pm-lead': { bg: "<b>Judgment Under Uncertainty:</b> Transitioned from enterprise technical delivery to PM by taking leadership when pressure was highest.", prod: "Focus on non-trivial PM decisions: ease-based sizing math over LLMs, deterministic gating on AI finance, RICE-ranked reviews.", prin: "Falsifiable roadmap hypotheses: I write down expected outcomes before building and document exact reasons for abstaining." }
+  };
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active')); tab.classList.add('active');
+      const copy = COPIES[tab.dataset.aud] || COPIES.all;
+      [bgText, prodText, prinText].forEach(el => el.style.opacity = 0);
+      setTimeout(() => { bgText.innerHTML = copy.bg; prodText.innerHTML = copy.prod; prinText.innerHTML = copy.prin; [bgText, prodText, prinText].forEach(el => el.style.opacity = 1); }, 200);
+    });
+  });
+})();
+
+/* ---- INLINE SPEC TOGGLE ---- */
+function toggleSpec(btn) {
+  const card = btn.closest('.card');
+  const drawer = card.querySelector('.spec-drawer');
+  btn.classList.toggle('open'); drawer.classList.toggle('open');
+}
+function switchSpecTab(btn, tabName) {
+  const drawer = btn.closest('.spec-drawer');
+  drawer.querySelectorAll('.spec-tab-btn').forEach(b => b.classList.remove('active'));
+  drawer.querySelectorAll('.spec-tab-content').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  drawer.querySelector(`.spec-tab-content[data-tab="${tabName}"]`).classList.add('active');
+}
+
+/* ---- NAV SCROLLED ---- */
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>8);
+onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+/* ---- REVEAL OBSERVER ---- */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{ if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+</script>
+</body>
+</html>
