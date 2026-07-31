@@ -234,11 +234,39 @@ h1.hero em{font-style:normal;color:var(--accent)}
 .btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px)}
 .btn .arr{transition:transform .2s}.btn:hover .arr{transform:translate(2px,-2px)}
 
-/* ---- MARQUEE BAND ---- */
-.marquee-band{background:var(--ink);color:var(--paper);overflow:hidden;padding:16px 0;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);margin-top:40px}
+/* ---- MARQUEE BAND (EXPLICIT HIGH-CONTRAST DARK TICKER BAND IN BOTH THEMES) ---- */
+.marquee-band{
+  background:#211E24;
+  color:#EDE8E1;
+  overflow:hidden;
+  padding:16px 0;
+  border-top:1px solid var(--hairline);
+  border-bottom:1px solid var(--hairline);
+  margin-top:40px;
+}
+[data-theme="dark"] .marquee-band {
+  background:#2B2533;
+  border-color:var(--hairline-strong);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .marquee-band {
+    background:#2B2533;
+    border-color:var(--hairline-strong);
+  }
+}
+
 .marquee-track{display:flex;width:max-content;animation:marquee 32s linear infinite;gap:36px}
-.marquee-item{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:18px;color:rgba(237,232,225,.85)}
-.marquee-item .star{color:var(--accent-soft)}
+.marquee-item{
+  font-family:var(--mono);
+  font-size:12.5px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  color:#EDE8E1!important;
+}
+.marquee-item .star{color:var(--accent-soft)!important}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* sections */
@@ -437,7 +465,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   </div>
 </header>
 
-<!-- INFINITE MARQUEE TICKER -->
+<!-- INFINITE MARQUEE TICKER (HIGH CONTRAST IN BOTH THEMES) -->
 <div class="marquee-band">
   <div class="marquee-track">
     <div class="marquee-item">Product Strategy <span class="star">✳</span></div>
