@@ -61,18 +61,19 @@ body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:
 .eyebrow{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
 .eyebrow.muted{color:var(--faint)}
 
-/* ---- PRELOADER CURTAIN ---- */
+/* ---- PRELOADER CURTAIN (EXPLICIT HIGH CONTRAST COLORS FOR LIGHT & DARK THEMES) ---- */
 .preloader{position:fixed;inset:0;z-index:1000;display:flex;pointer-events:auto}
 .preloader-panel{flex:1;height:100%;background:#1A171C;transition:transform 0.85s cubic-bezier(0.77,0,0.175,1)}
 .preloader-panel.left{transform-origin:top}
 .preloader-panel.right{transform-origin:bottom}
-.preloader-content{position:absolute;inset:0;z-index:1010;padding:48px 40px;display:flex;flex-direction:column;justify-between;pointer-events:none}
+.preloader-content{position:absolute;inset:0;z-index:1010;padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
 .preloader-top{display:flex;justify-content:space-between;align-items:center}
-.preloader-brand{font-family:var(--mono);font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent-soft)}
+.preloader-brand{font-family:var(--mono);font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:#A3A7D8!important}
 .preloader-num-wrap{margin:auto 0;text-align:right}
-.preloader-num{font-family:var(--display);font-size:clamp(80px,16vw,190px);font-weight:400;color:var(--paper);line-height:.9;letter-spacing:-.04em}
+.preloader-num{font-family:var(--display);font-size:clamp(80px,16vw,190px);font-weight:400;color:#EDE8E1!important;line-height:.9;letter-spacing:-.04em}
 .preloader-bottom{display:flex;justify-content:space-between;align-items:flex-end}
-.preloader-tag{font-family:var(--display);font-size:clamp(24px,4vw,44px);color:rgba(237,232,225,.7);font-weight:500}
+.preloader-tag{font-family:var(--display);font-size:clamp(24px,4vw,44px);color:rgba(237,232,225,.85)!important;font-weight:500}
+.preloader-subtext{font-family:var(--mono);font-size:11px;color:rgba(237,232,225,.5)!important;text-transform:uppercase;letter-spacing:.1em}
 .preloader.done .preloader-panel.left{transform:translateY(-100%)}
 .preloader.done .preloader-panel.right{transform:translateY(100%)}
 .preloader.done .preloader-content{opacity:0;transition:opacity 0.3s}
@@ -341,7 +342,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 </head>
 <body>
 
-<!-- PRELOADER -->
+<!-- PRELOADER (HIGH-CONTRAST LIGHT TEXT ON DARK CURTAIN FOR ALL THEMES) -->
 <div class="preloader" id="preloader" aria-hidden="true">
   <div class="preloader-panel left"></div>
   <div class="preloader-panel right"></div>
@@ -355,7 +356,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
     </div>
     <div class="preloader-bottom">
       <div class="preloader-tag">Product Manager · Builder</div>
-      <div style="font-family:var(--mono);font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.1em">Loading portfolio & PM specs</div>
+      <div class="preloader-subtext">Loading portfolio & PM specs</div>
     </div>
   </div>
 </div>
