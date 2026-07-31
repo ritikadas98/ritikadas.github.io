@@ -5,13 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Ritika Das — Product Manager & Builder</title>
 <meta name="description" content="Personal portfolio of Ritika Das — Product Manager & Builder. Three shipped products, solo, plus written case studies across social, commerce, luxury, and platforms.">
+<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
 
-<!-- FAVICON (FIREFOX & CROSS-BROWSER BULLETPROOF COMPATIBILITY) -->
+<!-- FAVICON (HIGH PERFORMANCE COMPRESSED ASSETS) -->
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon.png">
 <link rel="shortcut icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 
+<!-- PERFORMANCE: HIGH PRIORITY FONT PRECONNECT & SWAP RENDERING -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -60,6 +63,9 @@ body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
 .eyebrow{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
 .eyebrow.muted{color:var(--faint)}
+
+/* PERFORMANCE OPTIMIZATION: OFF-SCREEN RENDER CONTAINMENT */
+section, .band { content-visibility: auto; contain-intrinsic-size: 1px 500px; }
 
 /* ---- GPU-ACCELERATED PRELOADER CURTAIN ---- */
 .preloader{position:fixed;inset:0;z-index:1000;display:flex;pointer-events:auto;will-change:visibility}
@@ -495,8 +501,8 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 
 <nav id="nav">
   <div class="nav-in">
-    <a href="#top" class="brand">
-      <img src="assets/signature.png" alt="Ritika Das Signature" class="brand-signature-img" />
+    <a href="#top" class="brand" aria-label="Ritika Das Portfolio Home">
+      <img src="assets/signature.png" alt="Ritika Das Signature" class="brand-signature-img" loading="eager" fetchpriority="high" width="120" height="61" />
     </a>
 
     <div class="nav-links">
@@ -525,7 +531,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
     <p class="hero-sub reveal">Three products built and shipped solo, plus written case studies across social, commerce, luxury, and platforms.</p>
     <div class="hero-actions reveal">
       <a href="#work" class="btn btn-primary">See the work <span class="arr">↗</span></a>
-      <a href="#" data-fill="resume" class="btn btn-ghost">Résumé <span class="arr">↗</span></a>
+      <a href="#" data-fill="resume" class="btn btn-ghost" rel="noopener noreferrer">Résumé <span class="arr">↗</span></a>
     </div>
   </div>
 </header>
@@ -627,7 +633,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
                 <span>Body Measurement: <b id="fit-chest-val">34 in</b></span>
                 <span>Retailer Size Chart:</span>
               </div>
-              <input type="range" min="26" max="44" value="34" class="widget-slider" id="fit-chest-slider" oninput="updateFitWidget()">
+              <input type="range" min="26" max="44" value="34" class="widget-slider" id="fit-chest-slider" oninput="updateFitWidget()" aria-label="Body measurement slider">
               <div class="widget-btn-row">
                 <button class="widget-btn" onclick="setFitRetailer('AJIO', 'Levi\'s Jeans (Size 28)', this)">AJIO Levi's</button>
                 <button class="widget-btn active" onclick="setFitRetailer('Myntra', 'Topshop Tee (Size M)', this)">Myntra Top</button>
@@ -829,8 +835,8 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
         <div class="concept" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
           Product Thinking
           <span style="display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--hairline-strong);padding:5px 12px;border-radius:20px;margin-left:4px">
-            <img src="assets/reddit.svg" alt="Reddit Logo" style="width:20px;height:20px;display:block" />
-            <img src="assets/youtube.svg" alt="YouTube Logo" style="width:22px;height:22px;display:block" />
+            <img src="assets/reddit.svg" alt="Reddit Logo" style="width:20px;height:20px;display:block" loading="lazy" decoding="async" />
+            <img src="assets/youtube.svg" alt="YouTube Logo" style="width:22px;height:22px;display:block" loading="lazy" decoding="async" />
           </span>
         </div>
         <div class="sub">Product decisions on products I didn't build — across social, commerce, luxury, and platforms.</div>
@@ -854,7 +860,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
             </div>
 
             <h3>
-              <img src="assets/reddit.svg" alt="Reddit" style="width:24px;height:24px;vertical-align:middle;margin-right:6px" />
+              <img src="assets/reddit.svg" alt="Reddit" style="width:24px;height:24px;vertical-align:middle;margin-right:6px" loading="lazy" decoding="async" />
               Reddit: a waypoint, not a destination <span class="arr">↗</span>
             </h3>
             <div class="pdeo">
@@ -906,7 +912,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
             </div>
 
             <h3>
-              <img src="assets/youtube.svg" alt="YouTube" style="width:26px;height:26px;vertical-align:middle;margin-right:6px" />
+              <img src="assets/youtube.svg" alt="YouTube" style="width:26px;height:26px;vertical-align:middle;margin-right:6px" loading="lazy" decoding="async" />
               YouTube's Shadow R&D Lab: How Modded Apps Shape Strategy <span class="arr">↗</span>
             </h3>
             <div class="pdeo">
@@ -1041,8 +1047,8 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
     <p>Early-stage, India-based or remote. If you're hiring, I'd like to hear about it.</p>
     <div class="contact-links">
       <a href="mailto:ritika.das@example.com" class="btn btn-primary">Email me <span class="arr">↗</span></a>
-      <a href="#" class="btn btn-ghost">LinkedIn <span class="arr">↗</span></a>
-      <a href="#" class="btn btn-ghost">GitHub <span class="arr">↗</span></a>
+      <a href="#" class="btn btn-ghost" rel="noopener noreferrer">LinkedIn <span class="arr">↗</span></a>
+      <a href="#" class="btn btn-ghost" rel="noopener noreferrer">GitHub <span class="arr">↗</span></a>
     </div>
   </div>
 </section>
@@ -1061,7 +1067,6 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   const themeIcon = document.getElementById('theme-icon');
   const themeText = document.getElementById('theme-text');
   
-  // Check user preference or system preference
   const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const savedTheme = localStorage.getItem('theme') || (systemPrefersDark ? 'dark' : 'light');
   
@@ -1109,8 +1114,6 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 })();
 
 /* ---- AUTHENTIC GITHUB REPO WIDGET LOGIC ---- */
-
-// FITCHECK SIDEPANEL ENGINE WIDGET
 let currentFitRetailer = 'Myntra';
 let currentFitItem = 'Topshop Tee (Size M)';
 
@@ -1124,7 +1127,6 @@ function updateFitWidget() {
   if (!resultBox) return;
 
   if (currentFitRetailer === 'AJIO') {
-    // AJIO Levi's Jeans Case Study (Body 30" vs Garment Chart 28" = 30")
     const waistEase = 28 - chestVal;
     if (waistEase >= 0) {
       resultBox.innerHTML = `
@@ -1152,7 +1154,6 @@ function updateFitWidget() {
         </div>`;
     }
   } else if (currentFitRetailer === 'H&M') {
-    // H&M Blazer Ease-Aware Math (Garment Bust 42")
     const bustEase = 42 - chestVal;
     if (bustEase >= 4) {
       resultBox.innerHTML = `
@@ -1180,7 +1181,6 @@ function updateFitWidget() {
         </div>`;
     }
   } else {
-    // Myntra Topshop Tee Default (Garment Bust 38")
     const bustEase = 38 - chestVal;
     if (bustEase >= 2) {
       resultBox.innerHTML = `
@@ -1218,7 +1218,6 @@ function setFitRetailer(retailer, itemName, btn) {
   updateFitWidget();
 }
 
-// SAVIO TRUST-GATE ENGINE WIDGET
 function setSavioScenario(type, btn) {
   document.querySelectorAll('#widget-savio .widget-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -1252,7 +1251,6 @@ function setSavioScenario(type, btn) {
   }
 }
 
-// AMAZON DISCOVERY PIPELINE WIDGET
 function setAmazonPipeline(mode, btn) {
   document.querySelectorAll('#widget-amazon .widget-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -1280,7 +1278,6 @@ function setAmazonPipeline(mode, btn) {
   }
 }
 
-// REDDIT FUNNEL WIDGET
 function setRedditFunnel(type, btn) {
   document.querySelectorAll('#widget-reddit .widget-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -1292,7 +1289,6 @@ function setRedditFunnel(type, btn) {
   }
 }
 
-// YOUTUBE SHADOW R&D LAB WIDGET
 function setYTSignal(sig, btn) {
   document.querySelectorAll('#widget-youtube .widget-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
