@@ -1,0 +1,10 @@
+# Private working documents — not for public view on GitHub
+BUILD_SPEC.md
+PORTFOLIO_WORKLOG.md
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
