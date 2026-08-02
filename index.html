@@ -324,7 +324,11 @@ header{
 /* Aligned to the top, not centred. Centring inside a full-height header put a
    ~250px void between the nav and the eyebrow on a tall window — the fold read
    as empty above the pitch. Space below is fine: the marquee anchors that edge. */
-.hero-body{flex:1 1 auto;display:flex;align-items:flex-start;min-height:0;padding-top:clamp(32px,9vh,104px)}
+/* Centred in the space above the marquee, not top-aligned. The fold is ~755px
+   and the content ~450px, so ~300px is unavoidably empty; top-aligning dumped
+   all of it into one 350px hole under the buttons, which reads as a bug. Split
+   evenly it is ~120px top and bottom, which reads as breathing room. */
+.hero-body{flex:1 1 auto;display:flex;align-items:center;min-height:0;padding:12px 0}
 /* On a short window, shrink the type rather than let the marquee fall out. */
 @media (max-height:700px){
   h1.hero{font-size:clamp(27px,3.4vw,40px)}
