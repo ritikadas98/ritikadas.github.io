@@ -582,10 +582,17 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   .nav-in { padding: 10px 16px 8px; }
   :root { --logo-h: 34px; }
 
-  header { padding: 0 0 clamp(14px,3vh,30px); }
-  h1.hero { font-size: 34px; line-height: 1.07; max-width:none; }
-  .hero-sub { font-size: 17px; margin-top: 20px; max-width:none; }
-  .hero-actions { margin-top: 30px; }
+  /* height:auto, not a fixed 100svh. On a phone the headline runs to five or
+     six lines and the two buttons stack full-width, so the content can exceed
+     the fold — with a fixed height it overflowed and the marquee landed on top
+     of the Resume button. Now the header grows instead; the marquee slipping
+     below the fold on a small phone is the right trade against overlap. */
+  header { height:auto; min-height:calc(100svh - var(--nav-h)); padding: 0 0 clamp(14px,3vh,30px); }
+  h1.hero { font-size: 28px; line-height: 1.09; max-width:none; }
+  .hero-eyebrow { margin-bottom: 18px; gap: 8px; }
+  .eyebrow { font-size: 11.5px; letter-spacing: .1em; }
+  .hero-sub { font-size: 16px; margin-top: 18px; max-width:none; }
+  .hero-actions { margin-top: 24px; gap: 10px; }
   .hero-actions .btn { padding: 13px 20px; }
   .hero-actions { flex-direction: column; width: 100%; }
   .hero-actions .btn { width: 100%; justify-content: center; }
