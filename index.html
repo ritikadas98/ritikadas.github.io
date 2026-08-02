@@ -316,7 +316,10 @@ header{
    against a header using min-height — content pushed the header past one
    viewport, so bottom:0 was below the fold and the marquee only appeared on
    scroll. A fixed height and flow order makes that impossible. */
-.hero-body{flex:1 1 auto;display:flex;align-items:center;min-height:0}
+/* Aligned to the top, not centred. Centring inside a full-height header put a
+   ~250px void between the nav and the eyebrow on a tall window — the fold read
+   as empty above the pitch. Space below is fine: the marquee anchors that edge. */
+.hero-body{flex:1 1 auto;display:flex;align-items:flex-start;min-height:0;padding-top:clamp(0px,3vh,44px)}
 /* On a short window, shrink the type rather than let the marquee fall out. */
 @media (max-height:700px){
   h1.hero{font-size:clamp(27px,3.4vw,40px)}
