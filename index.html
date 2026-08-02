@@ -80,7 +80,7 @@ body{
 }
 
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
-.eyebrow{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.eyebrow{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
 .eyebrow.muted{color:var(--faint)}
 
 /* ---- GPU-ACCELERATED PRELOADER CURTAIN ---- */
@@ -207,10 +207,10 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    Replaces a PNG that needed four stacked drop-shadows to fake a thicker
    stroke, plus a brightness(0) invert(1) filter that bleached it white in
    dark mode. Neither hack is needed now. */
-:root{ --brand:#0809A4; --logo-h:48px; --logo-weight:2.98; --pdeo-label:#3A3D73; }
-[data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; }
+:root{ --brand:#0809A4; --logo-h:48px; --nav-h:72px; --logo-weight:2.98; --pdeo-label:#3A3D73; --pill-line:#9B9084; }
+[data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; }
+  :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; }
 }
 .brand-mark{
   height:var(--logo-h);
@@ -297,38 +297,91 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
 }
 
 /* hero */
-header{padding:80px 0 32px}
+/* ---- ELEVATOR PITCH ----
+   The opening screen holds one thing: the claim, the one line of proof behind
+   it, and two ways in. Nothing else competes, and nothing is half-visible at
+   the fold — a visitor reads the pitch whole before deciding to scroll.
+   svh, not vh: on mobile vh is measured against the *expanded* viewport, so a
+   100vh hero sits partly under the browser chrome on first paint. */
+header{
+  position:relative;
+  height:100vh;
+  height:100svh;
+  display:flex;
+  flex-direction:column;
+  padding:calc(var(--nav-h) + 20px) 0 0;
+}
+/* The cue and the marquee are the last two flex children, so they sit at the
+   bottom of the fold in normal flow. They were absolutely positioned before,
+   against a header using min-height — content pushed the header past one
+   viewport, so bottom:0 was below the fold and the marquee only appeared on
+   scroll. A fixed height and flow order makes that impossible. */
+.hero-body{flex:1 1 auto;display:flex;align-items:center;min-height:0}
+/* On a short window, shrink the type rather than let the marquee fall out. */
+@media (max-height:700px){
+  h1.hero{font-size:clamp(27px,3.4vw,40px)}
+  .hero-sub{font-size:16px;margin-top:16px}
+  .hero-eyebrow{margin-bottom:16px}
+  .hero-actions{margin-top:22px}
+  .hero-actions .btn{padding:11px 18px}
+  .scroll-cue{display:none}
+}
+
+/* ---- ENTRANCE ----
+   What both references do on load: the fold assembles itself in order, so the
+   eye lands on the eyebrow, then the claim, then the way in. No splash screen
+   and nothing withheld — the text is in the HTML and paints immediately; only
+   the reveal is staggered. */
+.hero-enter{opacity:0;transform:translateY(14px);animation:hero-in .68s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes hero-in{to{opacity:1;transform:none}}
+.hero-eyebrow{animation-delay:.06s}
+h1.hero{animation-delay:.17s}
+.hero-sub{animation-delay:.32s}
+.hero-actions{animation-delay:.45s}
+.scroll-cue{animation-delay:.60s}
+.hero-marquee{animation-delay:.60s}
+@media (prefers-reduced-motion:reduce){.hero-enter{opacity:1;transform:none;animation:none}}
+/* The block still fills whatever screen it lands on, but the type is sized to
+   fit a 1366x768 laptop — ~625px of usable viewport once browser chrome and the
+   nav are gone. Sizing to the device instead would cramp the short laptops and
+   sprawl on the tall monitors. Measured stack: 44 eyebrow + 195 headline +
+   89 sub + 86 actions = ~414px, inside the ~525px available. */
+.scroll-cue{margin:0 auto 16px;display:flex;flex-direction:column;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color .2s}
+.scroll-cue:hover{color:var(--accent)}
+.cue-arrow{width:16px;height:16px;animation:cue-bounce 1.9s ease-in-out infinite}
+@keyframes cue-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@media (prefers-reduced-motion:reduce){.cue-arrow{animation:none}}
+
+/* ---- CAPABILITY MARQUEE ----
+   The strip that closes the fold. It lists what she works with and claims
+   nothing — the last version asserted outcomes, which read as more of the same
+   boasting the rest of the page already does.
+   The track holds the list twice and travels -50%, so the second copy is
+   exactly where the first started and the loop has no seam. Edges are masked
+   rather than cut, so items fade instead of clipping mid-word. */
+.hero-marquee{flex:none;overflow:hidden;background:var(--ink);padding:13px 0;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);
+          mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent)}
+.hm-track{display:flex;width:max-content;animation:hm-scroll 46s linear infinite}
+.hero-marquee:hover .hm-track{animation-play-state:paused}
+.hm-item{display:inline-flex;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--paper);white-space:nowrap}
+.hm-dot{color:var(--accent);font-size:7px;margin:0 26px}
+@keyframes hm-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.hm-track{animation:none}}
+@media(max-width:640px){.hm-item{font-size:11px}.hm-dot{margin:0 18px}}
+.wa-ico{width:15px;height:15px;vertical-align:-3px;margin-right:5px}
 .hero-eyebrow{margin-bottom:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-h1.hero{font-family:var(--display);font-weight:500;font-size:clamp(30px,5.4vw,58px);line-height:1.06;letter-spacing:-.03em;max-width:var(--measure)}
+h1.hero{font-family:var(--display);font-weight:500;font-size:clamp(31px,4.3vw,56px);line-height:1.06;letter-spacing:-.028em;max-width:none}
 h1.hero em{font-style:normal;color:var(--accent)}
-.hero-sub{margin-top:26px;font-size:18px;line-height:1.58;color:var(--ink-2);max-width:54ch}
-.hero-actions{margin-top:32px;display:flex;gap:12px;flex-wrap:wrap}
+.hero-sub{margin-top:26px;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--ink-2);max-width:66ch}
+.hero-actions{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
 .btn{font-family:var(--mono);font-size:13px;letter-spacing:.02em;padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:transform .15s,box-shadow .2s,border-color .2s,background .2s;cursor:pointer;border:none;min-height:44px}
 .btn-primary{background:var(--ink);color:var(--paper)}
+.hero-actions .btn{padding:15px 26px;font-size:14px}
 .btn-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow-lift)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hairline-strong)}
 .btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px)}
 .btn .arr{transition:transform .2s}.btn:hover .arr{transform:translate(2px,-2px)}
-
-/* ---- DIVIDER RULE ----
-   A solid dark bar separating "who I am" from "what I did". No content by
-   design: the top of the page already makes several claims in a row, and one
-   more was repetition. This carries no message, so there is nothing to verify,
-   nothing to attribute, and no motion to opt out of.
-   Deliberately no top/bottom hairlines — on a bar this thin an outline reads as
-   an empty container rather than an intentional rule. */
-.divider-rule{
-  height:34px;
-  background:#211E24;
-  margin-top:40px;
-}
-[data-theme="dark"] .divider-rule{background:#2B2533}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) .divider-rule{background:#2B2533}
-}
-@media(max-width:640px){
-  .divider-rule{height:24px;margin-top:28px}
-}
 
 /* sections */
 section{padding:56px 0}
@@ -338,10 +391,10 @@ section{padding:56px 0}
 .sec-head .sub{color:var(--muted);font-size:14.5px;margin-top:3px}
 
 /* about & audience switcher */
-.audience-wrapper{margin-bottom:34px;background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:20px 24px}
+.audience-wrapper{margin-bottom:34px}
 .audience-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
 .audience-tabs{display:flex;gap:10px;flex-wrap:wrap}
-.aud-tab{font-family:var(--mono);font-size:12px;padding:8px 15px;border-radius:20px;border:1px solid var(--hairline-strong);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .2s;user-select:none;min-height:36px}
+.aud-tab{font-family:var(--mono);font-size:12px;padding:8px 15px;border-radius:20px;border:1px solid var(--pill-line);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;user-select:none;min-height:36px}
 .aud-tab:hover{border-color:var(--accent);color:var(--ink)}
 .aud-tab.active{background:var(--accent);color:var(--paper);border-color:var(--accent)}
 
@@ -438,27 +491,35 @@ section{padding:56px 0}
 .fit-btn .fb-r{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.65}
 
 /* ---- WIDGET FLIP ----
-   Front is the interactive verdict, back is a screenshot of the real thing.
-   Same footprint, so the card doesn't grow. Toggled by a button rather than
-   hover, because hover doesn't exist on a phone and an invisible affordance is
-   the problem we keep removing elsewhere. */
+   Two physical slots, spun forward forever. Panel 0 is the interactive widget,
+   the rest are screenshots; each press moves the next panel into whichever slot
+   is about to face the viewer and adds another half-turn.
+
+   The obvious approach — one face per screenshot, pre-rotated — cannot work
+   past two: with three faces the last press has to unwind 360deg back to the
+   start, which reads as the card flipping to itself and then onwards. Rotating
+   in one direction and swapping the content is what makes the third press
+   behave like the first two. */
+/* Case studies have no widget: the argument runs the full width of the card,
+   with the four rows in a 2x2 so the line length stays readable. */
+.card.written .card-main-grid{grid-template-columns:minmax(0,1fr)}
+.card.written .pdeo{display:grid;grid-template-columns:1fr 1fr;gap:18px 44px}
+@media (max-width:900px){.card.written .pdeo{grid-template-columns:1fr}}
 .widget-flip{perspective:1600px;align-self:start}
 .widget-flip-inner{position:relative;transform-style:preserve-3d;
+  transform:rotateY(calc(var(--turn,0) * 180deg));
   transition:transform .55s cubic-bezier(.2,.7,.2,1), height .55s cubic-bezier(.2,.7,.2,1)}
-.widget-flip.flipped .widget-flip-inner{transform:rotateY(180deg)}
-/* Only the face that is showing sits in normal flow, so it alone sets the
-   container height. The hidden face is taken out of flow — otherwise the card
-   would always reserve room for the taller screenshot and leave a gap of dead
-   space next to the text while the widget is showing. */
-.flip-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.flip-front{position:relative}
-.widget-flip.flipped .flip-front{position:absolute;top:0;left:0;right:0}
-.widget-flip.flipped .flip-back{position:relative}
-.flip-back{position:absolute;top:0;left:0;right:0;transform:rotateY(180deg);padding:0;overflow:hidden;justify-content:flex-start}
-.flip-front{justify-content:flex-start}
+.flip-slot{position:absolute;top:0;left:0;right:0;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip-slot.in-flow{position:relative}      /* the visible slot sets the height */
+.flip-slot-b{transform:rotateY(180deg)}
+.flip-pool{display:none}
+.flip-panel{justify-content:flex-start}
+.shot-face{padding:0;overflow:hidden}
 .widget-shot{width:100%;height:auto;display:block;border-radius:var(--r) var(--r) 0 0}
 .shot-bar{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-top:1px solid var(--hairline-strong);background:var(--surface-2)}
 .shot-cap{font-family:var(--mono);font-size:9.5px;line-height:1.4;color:var(--muted);margin:0}
+.savio-why{margin-top:8px;font-size:11px;line-height:1.5;color:var(--muted)}
 .flip-btn{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;padding:4px 9px;border-radius:20px;border:1px solid var(--hairline-strong);background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap;font-weight:600}
 .flip-btn:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
 @media (prefers-reduced-motion:reduce){.widget-flip-inner{transition:none}}
@@ -517,13 +578,15 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   .nav-in { padding: 10px 16px 8px; }
   :root { --logo-h: 34px; }
 
-  header { padding: 44px 0 20px; }
-  h1.hero { font-size: 31px; line-height: 1.08; }
-  .hero-sub { font-size: 16px; margin-top: 18px; }
+  header { padding: calc(var(--nav-h) + 16px) 0 0; }
+  h1.hero { font-size: 34px; line-height: 1.07; max-width:none; }
+  .hero-sub { font-size: 17px; margin-top: 20px; max-width:none; }
+  .hero-actions { margin-top: 30px; }
+  .hero-actions .btn { padding: 13px 20px; }
   .hero-actions { flex-direction: column; width: 100%; }
   .hero-actions .btn { width: 100%; justify-content: center; }
   
-  .audience-wrapper { padding: 16px; margin-bottom: 24px; }
+  .audience-wrapper { margin-bottom: 24px; }
   .audience-tabs {
     display: flex;
     flex-wrap: nowrap;
@@ -593,7 +656,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 
 <!-- DESKTOP SIDE DOTS NAV -->
 <div class="side-nav">
-  <a href="#top" class="side-dot active" aria-label="Top"><span class="tooltip">Top</span></a>
+  <a href="#top" class="side-dot active" aria-label="Elevator Pitch"><span class="tooltip">Elevator Pitch</span></a>
   <a href="#about" class="side-dot" aria-label="About"><span class="tooltip">About</span></a>
   <a href="#work" class="side-dot" aria-label="Shipped Products"><span class="tooltip">Shipped Products</span></a>
   <a href="#cases" class="side-dot" aria-label="Product Thinking"><span class="tooltip">Product Thinking</span></a>
@@ -642,23 +705,27 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   </div>
 </nav>
 
-<header id="top">
-  <div class="wrap">
-    <div class="hero-eyebrow reveal">
+<header id="top" class="elevator">
+  <div class="hero-body"><div class="wrap">
+    <div class="hero-eyebrow hero-enter">
       <span class="eyebrow">Product Manager · Builder</span>
       <span class="eyebrow muted">— Bengaluru, India</span>
     </div>
-    <h1 class="hero reveal">I build products people <em>actually use</em> — through research, experiments, design, plain judgment, and yes, AI.</h1>
-    <p class="hero-sub reveal">Three products, built and shipped solo. Plus case studies across social, luxury, and platforms.</p>
-    <div class="hero-actions reveal">
+    <h1 class="hero hero-enter">I build products people <em>actually use</em> — through research, experiments, design, plain judgment, and yes, AI.</h1>
+    <p class="hero-sub hero-enter">Three products, built and shipped solo. Plus case studies across social, luxury, and platforms.</p>
+    <div class="hero-actions hero-enter">
       <a href="#work" class="btn btn-primary">See the work <span class="arr">↗</span></a>
       <a href="#" data-fill="resume" class="btn btn-ghost" rel="noopener noreferrer">Résumé <span class="arr">↗</span></a>
     </div>
+  </div></div>
+  <a href="#about" class="scroll-cue hero-enter" aria-label="Scroll down to About">
+    <span>About</span>
+    <svg class="cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg>
+  </a>
+  <div class="hero-marquee hero-enter" aria-hidden="true">
+    <div class="hm-track"><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">Jobs To Be Done<span class="hm-dot">&#9670;</span></span><span class="hm-item">RICE + MoSCoW<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">Funnel &amp; Traffic Analysis<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extension (MV3)<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item">Vertex AI / Gemini<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">Jobs To Be Done<span class="hm-dot">&#9670;</span></span><span class="hm-item">RICE + MoSCoW<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">Funnel &amp; Traffic Analysis<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extension (MV3)<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item">Vertex AI / Gemini<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span></div>
   </div>
 </header>
-
-<!-- DIVIDER RULE — separates "who I am" from "what I did". Intentionally empty. -->
-<div class="divider-rule" aria-hidden="true"></div>
 
 <!-- ABOUT (WITH TARGET AUDIENCE SWITCHER) -->
 <section id="about">
@@ -671,7 +738,6 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
     </div>
 
     <div class="audience-wrapper reveal">
-      <div class="audience-title">View Portfolio Perspective</div>
       <div class="audience-tabs" id="audience-tabs">
         <button type="button" class="aud-tab active" data-aud="all">● General Overview</button>
         <button type="button" class="aud-tab" data-aud="recruiter">● For Recruiters</button>
@@ -757,11 +823,15 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
                Products and size charts are the real ones from the repo. -->
           <div class="widget-flip" id="flip-fitcheck">
             <div class="widget-flip-inner">
-            <div class="mini-widget-box flip-face flip-front" id="widget-fitcheck">
+              <div class="flip-slot flip-slot-a in-flow"></div>
+              <div class="flip-slot flip-slot-b"></div>
+            </div>
+            <div class="flip-pool">
+            <div class="mini-widget-box flip-panel" id="widget-fitcheck">
               <div class="widget-head">
                 <span class="widget-title">FitCheck</span>
                 <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')"
-                        aria-label="Show a screenshot of the real extension">Screenshot &#8635;</button>
+                        aria-label="Show screenshots of the real extension">Screenshots &#8635;</button>
               </div>
               <div class="widget-controls">
                 <div class="widget-label">
@@ -779,14 +849,22 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
                 <!-- verdict only — populated by JS -->
               </div>
             </div>
-              <div class="mini-widget-box flip-face flip-back">
+              <div class="mini-widget-box flip-panel shot-face">
                 <img src="assets/shot-fitcheck.jpg" class="widget-shot" loading="lazy" decoding="async"
-                     width="700" height="1386"
+                     width="700" height="1706"
                      alt="The FitCheck side panel: verdict &quot;L, slightly long&quot;, an amber &quot;May work for you&quot; chip, a callout reading &quot;You previously bought size M. The fit math now recommends L&quot;, a tinted silhouette with per-axis pins, and the reasoning for each axis." />
                 <div class="shot-bar">
                   <span class="shot-cap">Live on Myntra. It disagrees with your last purchase, and says why.</span>
-                  <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')"
-                          aria-label="Back to the interactive verdict">Back &#8635;</button>
+                  <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')" aria-label="Next screenshot">Next &#8635;</button>
+                </div>
+              </div>
+              <div class="mini-widget-box flip-panel shot-face">
+                <img src="assets/shot-fitcheck-2.jpg" class="widget-shot" loading="lazy" decoding="async"
+                     width="700" height="1703"
+                     alt="The FitCheck side panel on a Myntra jeans page: verdict &quot;34, loose at waist&quot;, a red &quot;Not recommended&quot; chip, a tinted silhouette pinned &quot;Hip loose by 4.0 inches&quot;, the per-axis reasoning, and a size selector marking 30 as the recommendation." />
+                <div class="shot-bar">
+                  <span class="shot-cap">A size it turns down, with the axis that fails and where to go instead.</span>
+                  <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')" aria-label="Back to the interactive verdict">Back &#8635;</button>
                 </div>
               </div>
             </div>
@@ -827,16 +905,16 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
           <div class="card-details-box" data-cursor-text="Test Trust">
             <div class="card-tags"><span class="tag live">● Deployed</span><span class="tag">Consumer AI</span></div>
             <div class="card-metric-badge">
-              <span class="card-metric-num">130+</span>
+              <span class="card-metric-num">123</span>
               <span class="card-metric-lbl">Logged Decisions · Zero Number Hallucinations</span>
             </div>
 
             <h3>Savio <span class="arr">↗</span></h3>
             <div class="pdeo">
-              <div class="row"><span class="k">Problem</span><span class="v">Salaried Indians have apps that track where money went, and almost nothing that answers "can I afford this, right now, without breaking something I've committed to?"</span></div>
-              <div class="row"><span class="k">Decision</span><span class="v">Compute every number in code and let the model write only the words; if any figure can't be verified against that computation, withhold the response rather than show it.</span></div>
-              <div class="row"><span class="k">Evidence</span><span class="v">Caught the model fabricating a statistic in testing and removed it from the decision path entirely; ~130 logged product decisions, including the ones reversed.</span></div>
-              <div class="row"><span class="k">Outcome</span><span class="v">A deployed financial companion where a wrong number is withheld, not risked — trust by construction, not by disclaimer.</span></div>
+              <div class="row"><span class="k">Problem</span><span class="v">Money apps tell you where your salary went. None answer the question you actually have. Can I afford this, right now? Will it break something I've already promised? So people guess. Guessing is how a month quietly goes wrong.</span></div>
+              <div class="row"><span class="k">Decision</span><span class="v">Code works out every number. The AI writes the sentence you actually read. Before it reaches you, every figure in that sentence is traced back to your real data. If one can't be traced, Savio tells you to check rather than showing it.</span></div>
+              <div class="row"><span class="k">Evidence</span><span class="v">In testing the AI claimed 8 of 9 purchases were regrets. The real answer was 7 of 8. I could have added another checker on top. Instead I took the AI out of that job and let plain code do it. 123 decisions are written down, including the ones I changed my mind on.</span></div>
+              <div class="row"><span class="k">Outcome</span><span class="v">A live app that would rather stay quiet than show a number it can't stand behind. Trust built in, not promised in small print.</span></div>
             </div>
             <div class="meta">
               <div class="cell"><div class="mk">Timeline</div><div class="mv">Mar–May 2026</div></div>
@@ -845,25 +923,53 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
             </div>
           </div>
 
-          <!-- WIDGET 2: AUTHENTIC SAVIO TRUST GATE ENGINE -->
-          <div class="mini-widget-box" id="widget-savio">
-            <div class="widget-head">
-              <span class="widget-title">🛡️ Savio Trust Gate (Priya Sharma)</span>
-              <span class="widget-status">SEED: ₹98k NET INC</span>
+          <!-- WIDGET 2: SAVIO — a teaser. Three amounts, the signal, one plain
+               sentence. No rule citation, no arithmetic on show: the real product
+               does both, and that is what the demo and repo are for. Figures are
+               Priya's real seed values (₹98,000 net, ₹3,000 impulse-wait, 48h). -->
+          <div class="widget-flip" id="flip-savio">
+            <div class="widget-flip-inner">
+              <div class="flip-slot flip-slot-a in-flow"></div>
+              <div class="flip-slot flip-slot-b"></div>
             </div>
-            <div class="widget-controls">
-              <div class="widget-label">
-                <span>Monthly Surplus: <b>₹12,000</b></span>
-                <span>Impulse Threshold: <b>₹3,000</b></span>
+            <div class="flip-pool">
+
+              <div class="mini-widget-box flip-panel" id="widget-savio">
+                <div class="widget-head">
+                  <span class="widget-title">Savio</span>
+                  <button type="button" class="flip-btn" onclick="flipWidget('savio')"
+                          aria-label="Show screenshots of the real app">Screenshots &#8635;</button>
+                </div>
+                <div class="widget-controls">
+                  <div class="widget-btn-row fit-row">
+                    <button class="widget-btn fit-btn active" onclick="setSavioScenario('shoes', this)"><span class="fb-r">Shoes</span><span>₹2,500</span></button>
+                    <button class="widget-btn fit-btn" onclick="setSavioScenario('watch', this)"><span class="fb-r">Watch</span><span>₹4,500</span></button>
+                    <button class="widget-btn fit-btn" onclick="setSavioScenario('phone', this)"><span class="fb-r">Phone</span><span>₹35,000</span></button>
+                  </div>
+                </div>
+                <div class="widget-result" id="savio-result-box" aria-live="polite"></div>
               </div>
-              <div class="widget-btn-row">
-                <button class="widget-btn active" onclick="setSavioScenario('shoes', this)">₹2.5k Shoes</button>
-                <button class="widget-btn" onclick="setSavioScenario('watch', this)">₹4.5k Watch</button>
-                <button class="widget-btn" onclick="setSavioScenario('phone', this)">₹35k Phone</button>
+
+              <div class="mini-widget-box flip-panel shot-face">
+                <img src="assets/shot-savio-hero.jpg" class="widget-shot" loading="lazy" decoding="async"
+                     width="760" height="1457"
+                     alt="Savio's home screen: an April check-in prompt, &quot;Safe to spend daily this month&quot; showing ₹1,384 with the month total and next salary date, a reflection prompt, and fixed commitments on track." />
+                <div class="shot-bar">
+                  <span class="shot-cap">The home screen. One number, and what it is made of.</span>
+                  <button type="button" class="flip-btn" onclick="flipWidget('savio')" aria-label="Next screenshot">Next &#8635;</button>
+                </div>
               </div>
-            </div>
-            <div class="widget-result" id="savio-result-box">
-              <!-- Dynamically populated by JS -->
+
+              <div class="mini-widget-box flip-panel shot-face">
+                <img src="assets/shot-savio-chat.jpg" class="widget-shot" loading="lazy" decoding="async"
+                     width="760" height="1466"
+                     alt="Savio's chat answering &quot;Can I afford a ₹5,000 watch?&quot; — a Verified badge, the verdict, the working, and chips naming the impulse-wait and daily-floor rules it used." />
+                <div class="shot-bar">
+                  <span class="shot-cap">It answers, shows the maths, and names the rule it used.</span>
+                  <button type="button" class="flip-btn" onclick="flipWidget('savio')" aria-label="Back to the interactive verdict">Back &#8635;</button>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -877,18 +983,18 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
           <div class="spec-drawer">
             <div class="spec-tabs">
               <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'savio-simple')">How it works</button>
-              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'savio-rules')">PM Guardrails & Trust</button>
+              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'savio-rules')">The calls I made</button>
             </div>
             <div class="spec-tab-content active" data-tab="savio-simple">
               <b>Core Product Concept:</b><br>
-              1. <b>Book-Ending Moments:</b> Intervene during monthly rituals and windfall deposits, not aggressive checkout popups.<br>
-              2. <b>Strict Separation of Concerns:</b> Code calculates surplus, emergency funds, and commitments; LLM only formats human explanation.<br>
-              3. <b>Named Rule Engine:</b> Decisions cite user-configured rules by name (e.g. "Over your impulse-wait threshold of ₹3,000").
+              1. <b>It picks its moment.</b> Not a popup at checkout, when you have already decided. It steps in when your salary lands, when a windfall arrives, and a few days after you bought something. Quiet moments, when you can actually think.<br>
+              2. <b>The AI does the explaining, grounded in your own figures.</b> Code produces the numbers. The AI turns them into something you would act on, and it can only draw on what is really yours: your commitments, your safety net, what is left this month. That is the harder half of the job. A correct number nobody reads changes nothing.<br>
+              3. <b>It quotes your own rule back to you.</b> Not "this is over budget", but "over the ₹3,000 impulse-wait limit you set". A rule you wrote yourself is a rule you will accept.
             </div>
             <div class="spec-tab-content" data-tab="savio-rules">
               <b>PM Guardrails & Trust:</b><br>
-              • <b>Trust Over Convenience:</b> In personal finance, a wrong number destroys trust. If LLM text contradicts code math, output is suppressed.<br>
-              • <b>Buffer Protection:</b> Automatically flags purchases that breach emergency funds or monthly budgets (Green = Safe, Yellow = Buffer Drawdown, Red = Unsafe).
+              • <b>Every number gets traced.</b> The AI is good at explaining; it is not the place to source a figure. So each number it writes is checked back against your real data before you see it, and anything that can't be traced gets replaced with a note telling you to check.<br>
+              • <b>Your safety net is the floor.</b> Savio flags anything that would eat into the cash you said you want to keep, or into what you have already promised elsewhere. Green, amber or red, with the reason.
             </div>
           </div>
         </div>
@@ -902,15 +1008,15 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
             <div class="card-tags"><span class="tag live">● Deployed</span><span class="tag">Multi-agent pipeline</span></div>
             <div class="card-metric-badge">
               <span class="card-metric-num">13-Step</span>
-              <span class="card-metric-lbl">Pipeline · RICE Ranked Digests</span>
+              <span class="card-metric-lbl">Pipeline · AI at Three Steps</span>
             </div>
 
             <h3>Amazon Discovery Intelligence <span class="arr">↗</span></h3>
             <div class="pdeo">
-              <div class="row"><span class="k">Problem</span><span class="v">PMs drown in review volume; the cost of skimming is invisible — you never learn what you missed.</span></div>
-              <div class="row"><span class="k">Decision</span><span class="v">A thirteen-step pipeline where the model runs at exactly three steps and every number a PM sees comes from deterministic code, gated by a readiness check.</span></div>
-              <div class="row"><span class="k">Evidence</span><span class="v">Every digest claim cites the review behind it; unverified claims render with a visible chip; drop-accounting reports what was discarded and why.</span></div>
-              <div class="row"><span class="k">Outcome</span><span class="v">A month of reviews becomes a RICE-ranked, evidence-gated digest a PM can act on — with the discards shown, not hidden.</span></div>
+              <div class="row"><span class="k">Problem</span><span class="v">A PM cannot read every review, so they skim. Skimming feels fine because you never find out what you missed. The complaint that mattered was in there, and nobody counted it.</span></div>
+              <div class="row"><span class="k">Decision</span><span class="v">Thirteen steps, and AI runs at three of them. It reads the messy text and groups the complaints, which is what it is genuinely good at. Every number a PM then sees is worked out in code.</span></div>
+              <div class="row"><span class="k">Evidence</span><span class="v">140 reviews go in. 136 survive the clean, and the 4 that don't are reported, not quietly dropped. Every claim in the digest links to the review behind it. Anything the evidence doesn't support gets flagged on the page.</span></div>
+              <div class="row"><span class="k">Outcome</span><span class="v">A week of reviews becomes a ranked list a PM can act on. Delivery and Tracking came top at 81.6, marked Must Have. You can see why, and what was left out.</span></div>
             </div>
             <div class="meta">
               <div class="cell"><div class="mk">Timeline</div><div class="mv">Dec 2025–Mar 2026</div></div>
@@ -919,24 +1025,53 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
             </div>
           </div>
 
-          <!-- WIDGET 3: AUTHENTIC AMAZON PIPELINE ENGINE -->
-          <div class="mini-widget-box" id="widget-amazon">
-            <div class="widget-head">
-              <span class="widget-title">⚙️ 13-Step Discovery Pipeline</span>
-              <span class="widget-status">CLOUD RUN + GEMINI</span>
+          <!-- WIDGET 3: AMAZON DISCOVERY — a teaser. The ranking, not the
+               arithmetic. Every figure here is a real score off the dashboard
+               screenshot: 140 reviews in, 136 kept, Delivery & Tracking top at
+               81.6. The formula itself lives in the drawer, stated correctly. -->
+          <div class="widget-flip" id="flip-amazon">
+            <div class="widget-flip-inner">
+              <div class="flip-slot flip-slot-a in-flow"></div>
+              <div class="flip-slot flip-slot-b"></div>
             </div>
-            <div class="widget-controls">
-              <div class="widget-label">
-                <span>Ingest Mode:</span>
-                <span>Review Audit: <b>140 Ingested</b></span>
+            <div class="flip-pool">
+
+              <div class="mini-widget-box flip-panel" id="widget-amazon">
+                <div class="widget-head">
+                  <span class="widget-title">This week&rsquo;s ranking</span>
+                  <button type="button" class="flip-btn" onclick="flipWidget('amazon')"
+                          aria-label="Show screenshots of the real product">Screenshots &#8635;</button>
+                </div>
+                <div class="widget-controls">
+                  <div class="widget-btn-row fit-row">
+                    <button class="widget-btn fit-btn active" onclick="setAmazonPipeline('top', this)"><span class="fb-r">Rank 1</span><span>Delivery</span></button>
+                    <button class="widget-btn fit-btn" onclick="setAmazonPipeline('mid', this)"><span class="fb-r">Rank 4</span><span>Checkout</span></button>
+                    <button class="widget-btn fit-btn" onclick="setAmazonPipeline('low', this)"><span class="fb-r">Rank 7</span><span>Detail pages</span></button>
+                  </div>
+                </div>
+                <div class="widget-result" id="amazon-result-box" aria-live="polite"></div>
               </div>
-              <div class="widget-btn-row">
-                <button class="widget-btn active" onclick="setAmazonPipeline('sample', this)">Sample (Fixture)</button>
-                <button class="widget-btn" onclick="setAmazonPipeline('live', this)">Live Ingestion (Play Store)</button>
+
+              <div class="mini-widget-box flip-panel shot-face">
+                <img src="assets/shot-amazon-1.jpg" class="widget-shot" loading="lazy" decoding="async"
+                     width="1100" height="657"
+                     alt="The digest dashboard: feature groups ranked by RICE score, with signal counts, severity, MoSCoW tags and trend for each — Delivery and Tracking top at 81.6, marked Must Have." />
+                <div class="shot-bar">
+                  <span class="shot-cap">Every group ranked, with the evidence count behind each one.</span>
+                  <button type="button" class="flip-btn" onclick="flipWidget('amazon')" aria-label="Next screenshot">Next &#8635;</button>
+                </div>
               </div>
-            </div>
-            <div class="widget-result" id="amazon-result-box">
-              <!-- Dynamically populated by JS -->
+
+              <div class="mini-widget-box flip-panel shot-face">
+                <img src="assets/shot-amazon-2.jpg" class="widget-shot" loading="lazy" decoding="async"
+                     width="1100" height="657"
+                     alt="Asking the digest &quot;What are the top complaints this week? Cite signals&quot; — the answer names the themes and footnotes each claim with the review it came from." />
+                <div class="shot-bar">
+                  <span class="shot-cap">Ask it anything. Each claim footnotes the review it came from.</span>
+                  <button type="button" class="flip-btn" onclick="flipWidget('amazon')" aria-label="Back to the ranking">Back &#8635;</button>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -950,19 +1085,19 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
           <div class="spec-drawer">
             <div class="spec-tabs">
               <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'amz-simple')">How it works</button>
-              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'amz-rules')">PM Guardrails & Auditing</button>
+              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'amz-rules')">The calls I made</button>
             </div>
             <div class="spec-tab-content active" data-tab="amz-simple">
               <b>Core Product Concept:</b><br>
-              1. <b>Multi-Source Ingestion:</b> Collects reviews from Google Play Store, App Store, and Amazon.<br>
-              2. <b>Sample/Live Toggle:</b> A first-class switch scopes the product so curated testing data and live reviews never blend.<br>
-              3. <b>RICE & MoSCoW Scoring:</b> Code evaluates <code>(Reach × Impact × Confidence × Version) / (Effort × Trend)</code>.
+              1. <b>It gathers the complaints.</b> Play Store, App Store and Amazon listings. Play Store is the one that reliably delivers; the others chip in when they can.<br>
+              2. <b>Sample or live, never mixed.</b> A switch at the top decides whether you are looking at a fixed test set or reviews pulled this week. The two never blend, so a demo can never be mistaken for real data.<br>
+              3. <b>Then it ranks.</b> How many people hit it, how badly, how many sources agree, whether a recent version made it worse, how hard it looks to fix, and whether it is trending up or down. Formally: <code>(reach × impact × confidence × version) / effort × trend</code>.
             </div>
             <div class="spec-tab-content" data-tab="amz-rules">
               <b>PM Guardrails & Auditing:</b><br>
-              • <b>No AI Subjectivity:</b> Gemini clusters text, but math calculates priority scores to prevent hallucinated rankings.<br>
-              • <b>Discard Transparency:</b> Drop-accounting reports exactly how many reviews were filtered out and why.<br>
-              • <b>Footnote Citations:</b> RAG Chat answers cite exact review IDs as clickable footnotes.
+              • <b>AI reads, code ranks.</b> Sorting thousands of messy complaints into themes is exactly what a model is good at, so that is its job here. Turning those themes into a priority order is arithmetic, and arithmetic is what a PM has to defend in a roadmap meeting.<br>
+              • <b>Nothing disappears quietly.</b> If a review is dropped during the clean, the digest says how many went and why. 140 in, 136 kept.<br>
+              • <b>Every claim is traceable.</b> Ask the digest a question and each sentence in the answer footnotes the review it came from.
             </div>
           </div>
         </div>
@@ -1001,7 +1136,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
             </div>
             <div class="card-metric-badge">
               <span class="card-metric-num">62%</span>
-              <span class="card-metric-lbl">Google Organic Traffic Landing directly on Threads</span>
+              <span class="card-metric-lbl">Arrive from Google &middot; Similarweb + SEMrush, Apr 2026</span>
             </div>
 
             <h3>
@@ -1009,36 +1144,19 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
               Reddit: a waypoint, not a destination <span class="arr">↗</span>
             </h3>
             <div class="pdeo">
-              <div class="row"><span class="k">Problem</span><span class="v">~62% of Reddit's arrivals land on a single thread from Google, read, and leave — the activation surface is the thread page, not the homepage they never see.</span></div>
-              <div class="row"><span class="k">Decision</span><span class="v">Reframe onboarding to live where the user already is — the thread — instead of a homepage funnel they'll never enter.</span></div>
+              <div class="row"><span class="k">Problem</span><span class="v">Around 62% of Reddit&rsquo;s visitors arrive from Google, land on one thread, get their answer and leave. Reddit spends its welcome effort on a homepage those visitors never see.</span></div>
+              <div class="row"><span class="k">Decision</span><span class="v">Put the welcome on the thread page itself. A slim strip naming the community and showing it is active, in place of the app-install wall that currently covers the answer and that Google penalises.</span></div>
+              <div class="row"><span class="k">Evidence</span><span class="v">Similarweb and SEMrush agree on the shape: 62% from Google, 63% on a phone, and the most common next step is leaving for another site. Alongside five interviews, a 15-person survey, and a Reddit thread with 48,000 upvotes where users describe the workaround themselves.</span></div>
+              <div class="row"><span class="k">Outcome</span><span class="v">Three fixes, one for each place the journey breaks, sequenced cheapest first. And a line not to cross: if Google traffic falls faster than it already is, stop. That traffic is the business.</span></div>
             </div>
             <div class="meta">
-              <div class="cell"><div class="mk">Type</div><div class="mv">Written study</div></div>
+              <div class="cell"><div class="mk">Type</div><div class="mv">Case study &middot; 11 slides</div></div>
               <div class="cell"><div class="mk">Domain</div><div class="mv">Consumer social</div></div>
               <div class="cell"><div class="mk">Focus</div><div class="mv">Activation & retention</div></div>
               <div class="cell"><div class="mk">Status</div><div class="mv">Complete</div></div>
             </div>
           </div>
 
-          <div class="mini-widget-box" id="widget-reddit">
-            <div class="widget-head">
-              <span class="widget-title">📌 Waypoint Funnel Visualizer</span>
-              <span class="widget-status">GROWTH STRATEGY</span>
-            </div>
-            <div class="widget-controls">
-              <div class="widget-label">
-                <span>Traffic Surface: <b>Thread Page (62%)</b></span>
-              </div>
-              <div class="widget-btn-row">
-                <button class="widget-btn" onclick="setRedditFunnel('old', this)">Traditional Home Funnel</button>
-                <button class="widget-btn active" onclick="setRedditFunnel('new', this)">Thread Waypoint (New)</button>
-              </div>
-            </div>
-            <div class="widget-result" id="reddit-result-box">
-              <b>Strategy:</b> Onboard inside the Google landing thread.<br>
-              <span class="verdict-good">RESULT: +28% Activation Rate</span>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -1074,25 +1192,6 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
             </div>
           </div>
 
-          <div class="mini-widget-box" id="widget-youtube">
-            <div class="widget-head">
-              <span class="widget-title">🌐 3-Sided Market Filter</span>
-              <span class="widget-status">SHADOW R&D LAB</span>
-            </div>
-            <div class="widget-controls">
-              <div class="widget-label">
-                <span>Evaluated Power-User Signal:</span>
-              </div>
-              <div class="widget-btn-row">
-                <button class="widget-btn active" onclick="setYTSignal('sponsor', this)">Sponsor-Skip Mod</button>
-                <button class="widget-btn" onclick="setYTSignal('speed', this)">Fine Speed / Gesture</button>
-                <button class="widget-btn" onclick="setYTSignal('shorts', this)">Disable Shorts Mod</button>
-              </div>
-            </div>
-            <div class="widget-result" id="yt-result-box">
-              <!-- Dynamically populated by JS -->
-            </div>
-          </div>
         </div>
 
         <!-- FULL-WIDTH BOTTOM DRAWER ROW -->
@@ -1103,7 +1202,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
           
           <div class="spec-drawer">
             <div class="spec-tabs">
-              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'yt-simple')">Overview & Matrix</button>
+              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'yt-simple')">How it works</button>
               <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'yt-rules')">PM Playbook & Principles</button>
             </div>
             <div class="spec-tab-content active" data-tab="yt-simple">
@@ -1192,6 +1291,8 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
     <p>Early-stage, India-based or remote. If you're hiring, I'd like to hear about it.</p>
     <div class="contact-links">
       <a href="mailto:ritika.das@example.com" class="btn btn-primary">Email me <span class="arr">↗</span></a>
+      <!-- PLACEHOLDER — https://wa.me/<countrycode><number>, e.g. https://wa.me/919876543210 (no +, no spaces) -->
+      <a href="#" data-fill="whatsapp" class="btn btn-ghost" rel="noopener noreferrer"><svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.96L2 22l4.25-1.68a9.9 9.9 0 0 0 5.79 1.85h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12 1.23 1.25-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.39c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>WhatsApp <span class="arr">↗</span></a>
       <a href="#" class="btn btn-ghost" rel="noopener noreferrer">LinkedIn <span class="arr">↗</span></a>
       <a href="#" class="btn btn-ghost" rel="noopener noreferrer">GitHub <span class="arr">↗</span></a>
     </div>
@@ -1370,72 +1471,45 @@ function setFitGarment(key, btn) {
 function setSavioScenario(type, btn) {
   document.querySelectorAll('#widget-savio .widget-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const resultBox = document.getElementById('savio-result-box');
-  if (!resultBox) return;
-  
-  if (type === 'shoes') {
-    resultBox.innerHTML = `
-      <div style="font-size:10px;color:var(--accent);font-weight:600;margin-bottom:3px">RULE CITATION: Under ₹3,000 Threshold</div>
-      <div style="margin-bottom:4px">Deterministic Cash Math: ₹12,000 surplus ≥ ₹2,500</div>
-      <span class="verdict-good">● GREEN SIGNAL: Purchase Released</span>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-        "Fits inside your monthly disposable cash without touching fixed commitments."
-      </div>`;
-  } else if (type === 'watch') {
-    resultBox.innerHTML = `
-      <div style="font-size:10px;color:#D97706;font-weight:600;margin-bottom:3px">RULE CITATION: Impulse-Wait Rule Triggered</div>
-      <div style="margin-bottom:4px">Deterministic Cash Math: ₹4,500 &gt; ₹3,000 Threshold</div>
-      <span class="verdict-warn">● AMBER SIGNAL: Impulse-Wait Active (48h Cooling)</span>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-        "Over your impulse-wait threshold of ₹3,000. Re-evaluating after 48h cooling period."
-      </div>`;
-  } else {
-    resultBox.innerHTML = `
-      <div style="font-size:10px;color:#DC2626;font-weight:600;margin-bottom:3px">RULE CITATION: Deficit Prevention Rule</div>
-      <div style="margin-bottom:4px">Deterministic Cash Math: ₹12,000 surplus &lt; ₹35,000</div>
-      <span class="verdict-bad">● RED SIGNAL: Constructive Guidance Released 🛡️</span>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-        "Constructive analysis card released: identifies driver merchants, cites impulse threshold, and provides constructive 4-step path to afford phone."
-      </div>`;
-  }
+  const box = document.getElementById('savio-result-box');
+  if (!box) return;
+
+  /* Plain-language versions of what the real app says. The product itself
+     names the rule it used and shows the working; this only shows the call. */
+  const CASES = {
+    shoes: ['verdict-good', 'Green \u2014 go ahead',
+            'Small enough that it doesn\u2019t need thinking about, and it doesn\u2019t touch anything Priya has already committed to.'],
+    watch: ['verdict-warn', 'Amber \u2014 wait 48 hours',
+            'Over the \u20b93,000 line she set for herself. It waits two days. If she still wants it then, she buys it.'],
+    phone: ['verdict-bad', 'Red \u2014 not this month',
+            'More than the whole month has left. Instead of stopping there, Savio shows what it would take to get her to yes.']
+  };
+  const [cls, label, why] = CASES[type] || CASES.shoes;
+  box.innerHTML = '<span class="' + cls + '">\u25cf ' + label + '</span>'
+                + '<div class="savio-why">' + why + '</div>';
 }
 
 function setAmazonPipeline(mode, btn) {
   document.querySelectorAll('#widget-amazon .widget-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const resultBox = document.getElementById('amazon-result-box');
-  if (!resultBox) return;
-  
-  if (mode === 'sample') {
-    resultBox.innerHTML = `
-      <div style="font-size:10px;color:var(--muted);margin-bottom:3px">PIPELINE AUDIT: 12 Discarded (Text &lt; 10ch)</div>
-      <div style="font-weight:600;margin-bottom:4px">RICE #1: Search & Filter Latency</div>
-      <div style="font-size:10px;margin-bottom:4px">Formula: \`(Reach:8 × Impact:9 × Conf:85%) / Effort:2 = 8.4\`</div>
-      <span class="verdict-good">MoSCoW: MUST HAVE · Rubric: READY FOR PM</span>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-        <b>RAG Citation:</b> Cited 14 customer reviews (100% verified)
-      </div>`;
-  } else {
-    resultBox.innerHTML = `
-      <div style="font-size:10px;color:var(--muted);margin-bottom:3px">PIPELINE AUDIT: Live Ingestion (Play Store Sync)</div>
-      <div style="font-weight:600;margin-bottom:4px">RICE #1: Checkout Payment Failure Rate</div>
-      <div style="font-size:10px;margin-bottom:4px">Formula: \`(Reach:9 × Impact:10 × Conf:90%) / Effort:3 = 9.1\`</div>
-      <span class="verdict-good">MoSCoW: MUST HAVE · Rubric: URGENT ALERTS</span>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-        <b>Live Data:</b> Synced directly from Google Play Store API
-      </div>`;
-  }
-}
+  const box = document.getElementById('amazon-result-box');
+  if (!box) return;
 
-function setRedditFunnel(type, btn) {
-  document.querySelectorAll('#widget-reddit .widget-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const resultBox = document.getElementById('reddit-result-box');
-  if (type === 'new') {
-    resultBox.innerHTML = `<b>Strategy:</b> Onboard inside the Google landing thread.<br><span class="verdict-good">RESULT: +28% Activation Rate</span>`;
-  } else {
-    resultBox.innerHTML = `<b>Traditional:</b> Force user to homepage sign-up.<br><span class="verdict-warn">RESULT: 62% Bounce Rate</span>`;
-  }
+  /* Real rows from a real run — week 23, sample dataset. The scores, signal
+     counts, severities and MoSCoW tags are exactly what the pipeline produced.
+     The formula that generates them is in the drawer, not here. */
+  const ROWS = {
+    top: ['verdict-bad',  'Delivery &amp; Tracking',   '81.6', 'Must Have',
+          '19 complaints, severity 3.6, and getting worse. Top of the list, and the one to look at first.'],
+    mid: ['verdict-warn', 'Checkout &amp; Payment',    '60.6', 'Should Have',
+          '16 complaints, severity 3.8. Painful, but fewer people are hitting it than the ones above.'],
+    low: ['verdict-good', 'Product Detail Pages',  '40.7', "Won&rsquo;t Have",
+          '20 complaints, but milder ones at severity 3.5. Real, and still not worth the week.']
+  };
+  const [cls, name, score, moscow, why] = ROWS[mode] || ROWS.top;
+  box.innerHTML =
+      '<span class="' + cls + '">\u25cf ' + name + ' \u00b7 ' + score + '</span>'
+    + '<div class="savio-why"><b>' + moscow + '</b>. ' + why + '</div>';
 }
 
 function setYTSignal(sig, btn) {
@@ -1653,45 +1727,59 @@ window.addEventListener('DOMContentLoaded', () => {
 })();
 
 /* ---- WIDGET FLIP ----
-   `inert` on the hidden face keeps it out of the tab order and away from
-   screen readers; without it both sides get announced and Tab lands on
-   controls nobody can see. */
+   Always turns the same way. The panel that should be showing after the turn
+   is moved into whichever slot will be facing forward, so three panels (or
+   thirty) work with two physical faces and no unwinding. */
 function flipWidget(key) {
   const wrap = document.getElementById('flip-' + key);
   if (!wrap) return;
   const inner = wrap.querySelector('.widget-flip-inner');
-  const front = wrap.querySelector('.flip-front');
-  const back  = wrap.querySelector('.flip-back');
-  const willFlip = !wrap.classList.contains('flipped');
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const pool  = wrap.querySelector('.flip-pool');
+  const slots = [wrap.querySelector('.flip-slot-a'), wrap.querySelector('.flip-slot-b')];
+  const panels = Array.from(wrap.querySelectorAll('.flip-panel'))
+                      .sort((p, q) => (+p.dataset.idx) - (+q.dataset.idx));
+  if (panels.length < 2) return;
 
-  /* Pin the current height before the swap, then transition to the new one —
-     otherwise the card jumps to its full height the instant the class lands,
-     while the rotation is still running. */
   const from = inner.offsetHeight;
-  wrap.classList.toggle('flipped', willFlip);
+  const turn = parseInt(wrap.dataset.turn || '0', 10) + 1;
+  const into = slots[turn % 2];
+  const outOf = slots[(turn + 1) % 2];
 
-  [[front, willFlip], [back, !willFlip]].forEach(([el, hidden]) => {
-    if (!el) return;
-    el.inert = hidden;
-    el.setAttribute('aria-hidden', hidden ? 'true' : 'false');
-  });
+  while (into.firstElementChild) pool.appendChild(into.firstElementChild);
+  into.appendChild(panels[turn % panels.length]);
+  into.classList.add('in-flow');
+  outOf.classList.remove('in-flow');
 
-  const to = (willFlip ? back : front).offsetHeight;
+  wrap.dataset.turn = String(turn);
+  inner.style.setProperty('--turn', String(turn));
+
+  const to = inner.offsetHeight;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || from === to) {
     inner.style.height = '';
   } else {
     inner.style.height = from + 'px';
     requestAnimationFrame(() => { inner.style.height = to + 'px'; });
-    setTimeout(() => { inner.style.height = ''; }, 600);
+    setTimeout(() => { inner.style.height = ''; }, 620);
   }
 
-  const focus = (willFlip ? back : front).querySelector('.flip-btn');
-  if (focus) focus.focus({ preventScroll: true });
+  /* Panels parked in the pool are display:none, so they leave the tab order
+     on their own — but the slot facing away is still rendered. */
+  outOf.inert = true;  outOf.setAttribute('aria-hidden', 'true');
+  into.inert  = false; into.setAttribute('aria-hidden', 'false');
+
+  const btn = into.querySelector('.flip-btn');
+  if (btn) btn.focus({ preventScroll: true });
 }
 
-document.querySelectorAll('.widget-flip .flip-back').forEach(el => {
-  el.inert = true; el.setAttribute('aria-hidden','true');
+document.querySelectorAll('.widget-flip').forEach(wrap => {
+  const pool = wrap.querySelector('.flip-pool');
+  if (!pool) return;
+  Array.from(pool.children).forEach((p, i) => { p.dataset.idx = String(i); });
+  wrap.dataset.turn = '0';
+  const a = wrap.querySelector('.flip-slot-a');
+  a.appendChild(pool.firstElementChild);        // panel 0 = the widget
+  wrap.querySelector('.flip-slot-b').inert = true;
 });
 
 /* ---- INLINE SPEC TOGGLE ---- */
