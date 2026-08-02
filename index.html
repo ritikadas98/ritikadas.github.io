@@ -207,10 +207,10 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    Replaces a PNG that needed four stacked drop-shadows to fake a thicker
    stroke, plus a brightness(0) invert(1) filter that bleached it white in
    dark mode. Neither hack is needed now. */
-:root{ --brand:#0809A4; --logo-h:48px; --logo-weight:2.98; }
-[data-theme="dark"]{ --brand:#EDE8E1; }
+:root{ --brand:#0809A4; --logo-h:48px; --logo-weight:2.98; --pdeo-label:#3A3D73; }
+[data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --brand:#EDE8E1; }
+  :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; }
 }
 .brand-mark{
   height:var(--logo-h);
@@ -367,9 +367,11 @@ section{padding:56px 0}
 .framing h2{font-family:var(--display);font-weight:600;font-size:clamp(20px,2.7vw,26px);letter-spacing:-.02em;line-height:1.18;color:var(--ink)}
 .framing p{color:var(--ink-2);font-size:15.5px;line-height:1.6}
 
-/* BROADER CARD LAYOUT WITH DYNAMIC 3D MAGNETIC TILT */
+@media (hover:none){.card{transform:none!important}}
+
+/* CARD LAYOUT */
 .projects{display:flex;flex-direction:column;gap:24px;margin-top:28px}
-.card{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:28px 32px;box-shadow:var(--shadow);transition:transform .15s ease-out,box-shadow .25s,border-color .25s;text-decoration:none;color:inherit;position:relative;transform-style:preserve-3d;perspective:1000px}
+.card{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:28px 32px;box-shadow:var(--shadow);transition:transform .15s ease-out,box-shadow .25s,border-color .25s;text-decoration:none;color:inherit;position:relative}
 .card:hover{border-color:var(--hairline-strong);box-shadow:var(--shadow-lift)}
 .card.written{border-style:dashed;border-color:var(--hairline-strong);background:var(--surface)}
 .card.wip{opacity:.76}
@@ -390,9 +392,13 @@ section{padding:56px 0}
 .card h3{font-family:var(--display);font-weight:600;font-size:23px;letter-spacing:-.02em;margin-bottom:15px;display:flex;align-items:center;gap:12px;line-height:1.15}
 .card h3 .arr{margin-left:auto;color:var(--faint);font-size:18px;transition:transform .2s,color .2s}
 .card:hover h3 .arr{transform:translate(3px,-3px);color:var(--accent)}
-.pdeo{display:flex;flex-direction:column;gap:11px}
-.pdeo .row{font-size:14px;line-height:1.52;color:var(--ink-2)}
-.pdeo .k{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-right:8px}
+/* The four labels carry the structure of every case study, and at 9px in the
+   faint grey they measured 3.1:1 — effectively invisible. Now a two-column
+   grid so every row's text starts at the same place, with the label in a
+   deeper indigo (9.5:1) that reads as a label rather than as body copy. */
+.pdeo{display:flex;flex-direction:column;gap:14px}
+.pdeo .row{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:baseline;font-size:14px;line-height:1.55;color:var(--ink-2)}
+.pdeo .k{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label)}
 .pdeo .row b{color:var(--ink);font-weight:600}
 .meta{display:flex;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--hairline)}
 .meta .cell{flex:1;min-width:0}
@@ -423,8 +429,39 @@ section{padding:56px 0}
 .widget-result .verdict-warn{color:#D97706;font-weight:600}
 .widget-result .verdict-bad{color:#DC2626;font-weight:600}
 .widget-btn-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.fit-row{flex-wrap:nowrap}
+.fit-row .fit-btn{flex:1 1 0;min-width:0}
 .widget-btn{font-family:var(--mono);font-size:10px;padding:6px 10px;border-radius:6px;border:1px solid var(--hairline-strong);background:var(--surface);color:var(--ink-2);cursor:pointer;transition:all .15s;min-height:36px;display:inline-flex;align-items:center;justify-content:center}
 .widget-btn.active,.widget-btn:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+/* Retailer name stacked above the garment — all three commerce sites stay visible. */
+.fit-btn{flex-direction:column;gap:1px;line-height:1.2;padding:7px 4px;text-align:center;white-space:nowrap}
+.fit-btn .fb-r{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.65}
+
+/* ---- WIDGET FLIP ----
+   Front is the interactive verdict, back is a screenshot of the real thing.
+   Same footprint, so the card doesn't grow. Toggled by a button rather than
+   hover, because hover doesn't exist on a phone and an invisible affordance is
+   the problem we keep removing elsewhere. */
+.widget-flip{perspective:1600px;align-self:start}
+.widget-flip-inner{position:relative;transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.2,.7,.2,1), height .55s cubic-bezier(.2,.7,.2,1)}
+.widget-flip.flipped .widget-flip-inner{transform:rotateY(180deg)}
+/* Only the face that is showing sits in normal flow, so it alone sets the
+   container height. The hidden face is taken out of flow — otherwise the card
+   would always reserve room for the taller screenshot and leave a gap of dead
+   space next to the text while the widget is showing. */
+.flip-face{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip-front{position:relative}
+.widget-flip.flipped .flip-front{position:absolute;top:0;left:0;right:0}
+.widget-flip.flipped .flip-back{position:relative}
+.flip-back{position:absolute;top:0;left:0;right:0;transform:rotateY(180deg);padding:0;overflow:hidden;justify-content:flex-start}
+.flip-front{justify-content:flex-start}
+.widget-shot{width:100%;height:auto;display:block;border-radius:var(--r) var(--r) 0 0}
+.shot-bar{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-top:1px solid var(--hairline-strong);background:var(--surface-2)}
+.shot-cap{font-family:var(--mono);font-size:9.5px;line-height:1.4;color:var(--muted);margin:0}
+.flip-btn{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;padding:4px 9px;border-radius:20px;border:1px solid var(--hairline-strong);background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap;font-weight:600}
+.flip-btn:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.widget-flip-inner{transition:none}}
 
 /* FULL-WIDTH DRAWER ROW */
 .card-drawer-row{grid-column:1 / -1;margin-top:16px;padding-top:12px;border-top:1px solid var(--hairline)}
@@ -475,11 +512,6 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 .reveal{opacity:0;transform:translate3d(0,12px,0);will-change:opacity,transform;transition:opacity .45s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1)}
 .reveal.in{opacity:1;transform:translate3d(0,0,0);will-change:auto}
 
-/* ---- MOBILE SPECIFIC OVERRIDES ---- */
-@media (hover: none) {
-  .card { transform: none !important; transition: none !important; }
-}
-
 @media (max-width: 640px) {
   .wrap { padding: 0 16px; }
   .nav-in { padding: 10px 16px 8px; }
@@ -506,6 +538,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   .card { padding: 20px 16px; border-radius: 12px; }
   .card-main-grid { gap: 18px; }
   .card h3 { font-size: 20px; }
+  .pdeo .row{grid-template-columns:1fr;gap:5px}
   .card-metric-badge { width: 100%; flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 12px; }
   .card-metric-num { font-size: 20px; }
   .meta { flex-wrap: wrap; gap: 12px; }
@@ -697,47 +730,65 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
         <div class="card-main-grid">
           <!-- LEFT DETAILS BOX -->
           <div class="card-details-box" data-cursor-text="Try Verdict">
-            <div class="card-tags"><span class="tag live">● In use</span><span class="tag">Chrome extension (MV3)</span></div>
+            <div class="card-tags"><span class="tag live">● In use</span><span class="tag">Chrome extension</span></div>
             <div class="card-metric-badge">
               <span class="card-metric-num">70%</span>
-              <span class="card-metric-lbl">Week 1 Retention (n=10) · Zero Uninstalls</span>
+              <span class="card-metric-lbl">Week 1 Retention · Zero Uninstalls</span>
             </div>
 
             <h3>FitCheck <span class="arr">↗</span></h3>
             <div class="pdeo">
-              <div class="row"><span class="k">Problem</span>Indian fashion e-commerce runs on returns, and size is the reason — the chart that would prevent the wrong buy is on the page, but nobody reads it at checkout.</div>
-              <div class="row"><span class="k">Decision</span>Build an ease-based verdict engine — comparing the ease a cut was <b>designed for</b> against the ease you'd actually get — with no LLM, because sizing is arithmetic against a published chart.</div>
-              <div class="row"><span class="k">Evidence</span>10 installs, 70% returned in week one (n=10), zero uninstalls; abstains in five defined cases rather than ship a wrong verdict.</div>
-              <div class="row"><span class="k">Outcome</span>Caught a real sizing error that had already cost a return; a deterministic tool a user can verify against the retailer's own chart.</div>
+              <div class="row"><span class="k">Problem</span><span class="v">Free returns are why people in India buy clothes online. You can't tell if something fits, so you order it and send it back. A quarter to a third of orders come back. Size is the biggest reason. Each one costs the retailer shipping both ways, handling, and often a garment it can't sell again. The chart that would prevent it sits on the page, unread.</span></div>
+              <div class="row"><span class="k">Decision</span><span class="v">Build a calculator, not a guess. It compares the fit a garment was <b>designed for</b> with the fit you'd actually get. The chart is already exact, so arithmetic is the right tool here.</span></div>
+              <div class="row"><span class="k">Evidence</span><span class="v">Ten installs. 70% were still using it a week later. Nobody uninstalled it. And it refuses to answer when the size chart is missing or unreadable — eight cases where it says so instead of guessing.</span></div>
+              <div class="row"><span class="k">Outcome</span><span class="v">It caught a real sizing mistake of mine. One that had already cost a return and an exchange. Every verdict can be checked against the store's own chart.</span></div>
             </div>
             <div class="meta">
-              <div class="cell"><div class="mk">Role</div><div class="mv">Solo PM & builder</div></div>
               <div class="cell"><div class="mk">Timeline</div><div class="mv">Oct–Dec 2025</div></div>
-              <div class="cell"><div class="mk">Platform</div><div class="mv">Chrome extension (MV3)</div></div>
-              <div class="cell"><div class="mk">Stage</div><div class="mv">Shipped, in use (v0.7.0)</div></div>
+              <div class="cell"><div class="mk">Platform</div><div class="mv">Chrome extension</div></div>
+              <div class="cell"><div class="mk">Stage</div><div class="mv">Shipped, in use</div></div>
             </div>
           </div>
 
-          <!-- WIDGET 1: AUTHENTIC FITCHECK SIDEPANEL ENGINE -->
-          <div class="mini-widget-box" id="widget-fitcheck">
-            <div class="widget-head">
-              <span class="widget-title">⚡ FitCheck Sidepanel (v0.7.0)</span>
-              <span class="widget-status">MYNTRA · AJIO · H&M</span>
-            </div>
-            <div class="widget-controls">
-              <div class="widget-label">
-                <span>Body Measurement: <b id="fit-chest-val">34 in</b></span>
-                <span>Retailer Size Chart:</span>
+          <!-- WIDGET 1: FITCHECK — deliberately a teaser, not the product.
+               Shows only the verdict, no maths. The real engine, the real
+               fixtures and the per-axis breakdown live in the repo/demo;
+               this exists to make someone curious enough to go there.
+               Products and size charts are the real ones from the repo. -->
+          <div class="widget-flip" id="flip-fitcheck">
+            <div class="widget-flip-inner">
+            <div class="mini-widget-box flip-face flip-front" id="widget-fitcheck">
+              <div class="widget-head">
+                <span class="widget-title">FitCheck</span>
+                <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')"
+                        aria-label="Show a screenshot of the real extension">Screenshot &#8635;</button>
               </div>
-              <input type="range" min="26" max="44" value="34" class="widget-slider" id="fit-chest-slider" oninput="updateFitWidget()" aria-label="Body measurement slider">
-              <div class="widget-btn-row">
-                <button class="widget-btn" onclick="setFitRetailer('AJIO', 'Levi\'s Jeans (Size 28)', this)">AJIO Levi's</button>
-                <button class="widget-btn active" onclick="setFitRetailer('Myntra', 'Topshop Tee (Size M)', this)">Myntra Top</button>
-                <button class="widget-btn" onclick="setFitRetailer('H&M', 'Oversized Blazer (Size S)', this)">H&M Blazer</button>
+              <div class="widget-controls">
+                <div class="widget-label">
+                  <span id="fit-axis-label">Waist measurement</span>
+                  <span><b id="fit-chest-val">30 in</b></span>
+                </div>
+                <input type="range" min="24" max="46" value="30" step="1" class="widget-slider" id="fit-chest-slider" oninput="updateFitWidget()" aria-label="Your measurement">
+                <div class="widget-btn-row fit-row">
+                  <button class="widget-btn fit-btn active" onclick="setFitGarment('jeans', this)"><span class="fb-r">AJIO</span><span>Jeans</span></button>
+                  <button class="widget-btn fit-btn" onclick="setFitGarment('tee', this)"><span class="fb-r">Myntra</span><span>Tee</span></button>
+                  <button class="widget-btn fit-btn" onclick="setFitGarment('blouse', this)"><span class="fb-r">H&amp;M</span><span>Blouse</span></button>
+                </div>
+              </div>
+              <div class="widget-result" id="fit-result-box" aria-live="polite">
+                <!-- verdict only — populated by JS -->
               </div>
             </div>
-            <div class="widget-result" id="fit-result-box">
-              <!-- Dynamically populated by JS -->
+              <div class="mini-widget-box flip-face flip-back">
+                <img src="assets/shot-fitcheck.jpg" class="widget-shot" loading="lazy" decoding="async"
+                     width="700" height="1386"
+                     alt="The FitCheck side panel: verdict &quot;L, slightly long&quot;, an amber &quot;May work for you&quot; chip, a callout reading &quot;You previously bought size M. The fit math now recommends L&quot;, a tinted silhouette with per-axis pins, and the reasoning for each axis." />
+                <div class="shot-bar">
+                  <span class="shot-cap">Live on Myntra. It disagrees with your last purchase, and says why.</span>
+                  <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')"
+                          aria-label="Back to the interactive verdict">Back &#8635;</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -745,25 +796,25 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
         <!-- FULL-WIDTH BOTTOM DRAWER ROW -->
         <div class="card-drawer-row">
           <button type="button" class="btn-spec-toggle" onclick="toggleSpec(this)">
-            <span>Inspect PM Specs & System Architecture</span> <span class="chevron">▾</span>
+            <span>How I built it, and why</span> <span class="chevron">▾</span>
           </button>
           
           <div class="spec-drawer">
             <div class="spec-tabs">
-              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'fit-simple')">Overview & Flow</button>
-              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'fit-rules')">PM Guardrails & Security</button>
+              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'fit-simple')">How it works</button>
+              <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'fit-rules')">The calls I made</button>
             </div>
             <div class="spec-tab-content active" data-tab="fit-simple">
-              <b>Core Product Concept:</b><br>
-              1. <b>DOM Extractors:</b> Content scripts inspect hydration stores on Myntra (<code>window.__myntra_app</code>), AJIO (<code>__PRELOADED_STATE__</code>), and H&M (<code>__NEXT_DATA__</code>).<br>
-              2. <b>Ease Math (No LLM):</b> Compares body measurements against garment dimensions: 2" ease = slim, 8" ease = oversized.<br>
-              3. <b>Order History Audit:</b> Reads <code>size=</code> params from order-history URLs to confirm if math matches past purchase choices.
+              <b>How it works, in three steps:</b><br>
+              1. <b>It reads the page.</b> Each of the three stores publishes its size chart in a different way, so there is a small reader for each one. They all hand back the same set of numbers.<br>
+              2. <b>It does the maths.</b> Your body against what the garment was actually cut for. Two inches of room means slim. Eight means oversized.<br>
+              3. <b>It looks at what you already own.</b> On a past order it knows the size you bought, and can build your profile from it — so you never have to measure yourself.
             </div>
             <div class="spec-tab-content" data-tab="fit-rules">
-              <b>PM Guardrails & Principles:</b><br>
-              • <b>No AI Guesses:</b> Fits are calculated with exact math (<code>lib/fit-math.ts</code>). AI isn't used because a 1cm hallucination causes an expensive return.<br>
-              • <b>100% Privacy:</b> Operates entirely inside Chrome (<code>chrome.storage.local</code>). Zero network telemetry.<br>
-              • <b>Abstain Safety:</b> Refuses to recommend if size chart data is missing or incomplete, rather than showing a wrong guess.
+              <b>The calls I made, and why:</b><br>
+              • <b>Exact, not estimated.</b> The store already publishes the numbers, so the fit is worked out straight from them. A centimetre of drift here costs someone a return and a reshipment, so nothing about the answer is approximated.<br>
+              • <b>Nothing leaves your browser.</b> Your measurements stay on your own machine. No account, no server, nothing sent anywhere.<br>
+              • <b>It tells you when it can't tell.</b> If the chart is missing, incomplete or published as a picture, it says so rather than inventing an answer. Eight defined cases where it does that.
             </div>
           </div>
         </div>
@@ -782,13 +833,12 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 
             <h3>Savio <span class="arr">↗</span></h3>
             <div class="pdeo">
-              <div class="row"><span class="k">Problem</span>Salaried Indians have apps that track where money went, and almost nothing that answers "can I afford this, right now, without breaking something I've committed to?"</div>
-              <div class="row"><span class="k">Decision</span>Compute every number in code and let the model write only the words; if any figure can't be verified against that computation, withhold the response rather than show it.</div>
-              <div class="row"><span class="k">Evidence</span>Caught the model fabricating a statistic in testing and removed it from the decision path entirely; ~130 logged product decisions, including the ones reversed.</div>
-              <div class="row"><span class="k">Outcome</span>A deployed financial companion where a wrong number is withheld, not risked — trust by construction, not by disclaimer.</div>
+              <div class="row"><span class="k">Problem</span><span class="v">Salaried Indians have apps that track where money went, and almost nothing that answers "can I afford this, right now, without breaking something I've committed to?"</span></div>
+              <div class="row"><span class="k">Decision</span><span class="v">Compute every number in code and let the model write only the words; if any figure can't be verified against that computation, withhold the response rather than show it.</span></div>
+              <div class="row"><span class="k">Evidence</span><span class="v">Caught the model fabricating a statistic in testing and removed it from the decision path entirely; ~130 logged product decisions, including the ones reversed.</span></div>
+              <div class="row"><span class="k">Outcome</span><span class="v">A deployed financial companion where a wrong number is withheld, not risked — trust by construction, not by disclaimer.</span></div>
             </div>
             <div class="meta">
-              <div class="cell"><div class="mk">Role</div><div class="mv">Solo PM & builder</div></div>
               <div class="cell"><div class="mk">Timeline</div><div class="mv">Mar–May 2026</div></div>
               <div class="cell"><div class="mk">Platform</div><div class="mv">React + Supabase web app</div></div>
               <div class="cell"><div class="mk">Stage</div><div class="mv">Deployed, actively maintained</div></div>
@@ -821,12 +871,12 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
         <!-- FULL-WIDTH BOTTOM DRAWER ROW -->
         <div class="card-drawer-row">
           <button type="button" class="btn-spec-toggle" onclick="toggleSpec(this)">
-            <span>Inspect PM Specs & System Architecture</span> <span class="chevron">▾</span>
+            <span>How I built it, and why</span> <span class="chevron">▾</span>
           </button>
           
           <div class="spec-drawer">
             <div class="spec-tabs">
-              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'savio-simple')">Overview & Flow</button>
+              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'savio-simple')">How it works</button>
               <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'savio-rules')">PM Guardrails & Trust</button>
             </div>
             <div class="spec-tab-content active" data-tab="savio-simple">
@@ -857,13 +907,12 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 
             <h3>Amazon Discovery Intelligence <span class="arr">↗</span></h3>
             <div class="pdeo">
-              <div class="row"><span class="k">Problem</span>PMs drown in review volume; the cost of skimming is invisible — you never learn what you missed.</div>
-              <div class="row"><span class="k">Decision</span>A thirteen-step pipeline where the model runs at exactly three steps and every number a PM sees comes from deterministic code, gated by a readiness check.</div>
-              <div class="row"><span class="k">Evidence</span>Every digest claim cites the review behind it; unverified claims render with a visible chip; drop-accounting reports what was discarded and why.</div>
-              <div class="row"><span class="k">Outcome</span>A month of reviews becomes a RICE-ranked, evidence-gated digest a PM can act on — with the discards shown, not hidden.</div>
+              <div class="row"><span class="k">Problem</span><span class="v">PMs drown in review volume; the cost of skimming is invisible — you never learn what you missed.</span></div>
+              <div class="row"><span class="k">Decision</span><span class="v">A thirteen-step pipeline where the model runs at exactly three steps and every number a PM sees comes from deterministic code, gated by a readiness check.</span></div>
+              <div class="row"><span class="k">Evidence</span><span class="v">Every digest claim cites the review behind it; unverified claims render with a visible chip; drop-accounting reports what was discarded and why.</span></div>
+              <div class="row"><span class="k">Outcome</span><span class="v">A month of reviews becomes a RICE-ranked, evidence-gated digest a PM can act on — with the discards shown, not hidden.</span></div>
             </div>
             <div class="meta">
-              <div class="cell"><div class="mk">Role</div><div class="mv">Solo PM & builder</div></div>
               <div class="cell"><div class="mk">Timeline</div><div class="mv">Dec 2025–Mar 2026</div></div>
               <div class="cell"><div class="mk">Platform</div><div class="mv">TypeScript on Cloud Run</div></div>
               <div class="cell"><div class="mk">Stage</div><div class="mv">Deployed, scheduled</div></div>
@@ -895,12 +944,12 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
         <!-- FULL-WIDTH BOTTOM DRAWER ROW -->
         <div class="card-drawer-row">
           <button type="button" class="btn-spec-toggle" onclick="toggleSpec(this)">
-            <span>Inspect PM Specs & System Architecture</span> <span class="chevron">▾</span>
+            <span>How I built it, and why</span> <span class="chevron">▾</span>
           </button>
           
           <div class="spec-drawer">
             <div class="spec-tabs">
-              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'amz-simple')">Overview & Flow</button>
+              <button type="button" class="spec-tab-btn active" onclick="switchSpecTab(this, 'amz-simple')">How it works</button>
               <button type="button" class="spec-tab-btn" onclick="switchSpecTab(this, 'amz-rules')">PM Guardrails & Auditing</button>
             </div>
             <div class="spec-tab-content active" data-tab="amz-simple">
@@ -960,8 +1009,8 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
               Reddit: a waypoint, not a destination <span class="arr">↗</span>
             </h3>
             <div class="pdeo">
-              <div class="row"><span class="k">Problem</span>~62% of Reddit's arrivals land on a single thread from Google, read, and leave — the activation surface is the thread page, not the homepage they never see.</div>
-              <div class="row"><span class="k">Decision</span>Reframe onboarding to live where the user already is — the thread — instead of a homepage funnel they'll never enter.</div>
+              <div class="row"><span class="k">Problem</span><span class="v">~62% of Reddit's arrivals land on a single thread from Google, read, and leave — the activation surface is the thread page, not the homepage they never see.</span></div>
+              <div class="row"><span class="k">Decision</span><span class="v">Reframe onboarding to live where the user already is — the thread — instead of a homepage funnel they'll never enter.</span></div>
             </div>
             <div class="meta">
               <div class="cell"><div class="mk">Type</div><div class="mv">Written study</div></div>
@@ -1012,10 +1061,10 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
               YouTube's Shadow R&D Lab: How Modded Apps Shape Strategy <span class="arr">↗</span>
             </h3>
             <div class="pdeo">
-              <div class="row"><span class="k">Problem</span>Analytics only show what users do inside your app's rules — they miss what power users want badly enough to install third-party mods to fix.</div>
-              <div class="row"><span class="k">Decision</span>Read community mods as a free R&D lab, then filter each signal through a three-sided market (viewers, creators, advertisers) to adopt, re-architect, or suppress.</div>
-              <div class="row"><span class="k">Evidence</span>Sponsor-skipping mods re-built into AI "Jump Ahead" heatmaps (saving creator revenue); playback controls moved to Premium; Shorts toggle suppressed to protect reach.</div>
-              <div class="row"><span class="k">Outcome</span>A clear strategy for turning power-user workarounds into roadmap calls — without destroying the business model that pays creators.</div>
+              <div class="row"><span class="k">Problem</span><span class="v">Analytics only show what users do inside your app's rules — they miss what power users want badly enough to install third-party mods to fix.</span></div>
+              <div class="row"><span class="k">Decision</span><span class="v">Read community mods as a free R&D lab, then filter each signal through a three-sided market (viewers, creators, advertisers) to adopt, re-architect, or suppress.</span></div>
+              <div class="row"><span class="k">Evidence</span><span class="v">Sponsor-skipping mods re-built into AI "Jump Ahead" heatmaps (saving creator revenue); playback controls moved to Premium; Shorts toggle suppressed to protect reach.</span></div>
+              <div class="row"><span class="k">Outcome</span><span class="v">A clear strategy for turning power-user workarounds into roadmap calls — without destroying the business model that pays creators.</span></div>
             </div>
             <div class="meta">
               <div class="cell"><div class="mk">Type</div><div class="mv">Written study</div></div>
@@ -1049,7 +1098,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
         <!-- FULL-WIDTH BOTTOM DRAWER ROW -->
         <div class="card-drawer-row">
           <button type="button" class="btn-spec-toggle" onclick="toggleSpec(this)">
-            <span>Inspect PM Specs & System Architecture</span> <span class="chevron">▾</span>
+            <span>How I built it, and why</span> <span class="chevron">▾</span>
           </button>
           
           <div class="spec-drawer">
@@ -1187,130 +1236,134 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   });
 })();
 
-/* ---- DYNAMIC 3D MAGNETIC TILT CONTROLLER ON CARDS (DESKTOP HOVER ONLY) ---- */
-(function(){
-  if (window.matchMedia('(hover: hover)').matches) {
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        const rotateX = (-y / (rect.height / 2)) * 5.5;
-        const rotateY = (x / (rect.width / 2)) * 5.5;
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-        card.style.transition = 'transform 0.08s ease-out';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
-        card.style.transition = 'transform 0.45s ease-out';
-      });
-    });
-  }
-})();
 
 /* ---- AUTHENTIC GITHUB REPO WIDGET LOGIC ---- */
-let currentFitRetailer = 'Myntra';
-let currentFitItem = 'Topshop Tee (Size M)';
+/* ---- CARD TILT (desktop hover only) ----
+   3 degrees, down from the original 5.5 — enough to feel alive without
+   skewing the body copy badly enough to hurt reading.
+   The card must NOT declare `transform-style: preserve-3d` or its own
+   `perspective`: that shared a 3D space with the widget flip and made the
+   flip's two faces bleed through each other. A self-contained
+   perspective() in the transform below keeps the two independent. */
+(function(){
+  if (!window.matchMedia('(hover: hover)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const MAX = 3;
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const rx = (-(e.clientY - r.top - r.height / 2) / (r.height / 2)) * MAX;
+      const ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * MAX;
+      card.style.transition = 'transform .08s ease-out';
+      card.style.transform =
+        'perspective(1100px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateY(-3px)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform .45s ease-out';
+      card.style.transform = 'perspective(1100px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    });
+  });
+})();
 
-function updateFitWidget() {
-  const slider = document.getElementById('fit-chest-slider');
-  if (!slider) return;
-  const chestVal = parseInt(slider.value, 10);
-  document.getElementById('fit-chest-val').textContent = chestVal + ' in';
-  
-  const resultBox = document.getElementById('fit-result-box');
-  if (!resultBox) return;
-
-  if (currentFitRetailer === 'AJIO') {
-    const waistEase = 28 - chestVal;
-    if (waistEase >= 0) {
-      resultBox.innerHTML = `
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
-        <div style="margin-bottom:6px">Calculated Waist Ease: <b>+${waistEase.toFixed(1)}"</b> (Jeans Body-Chart Match)</div>
-        <span class="verdict-good">✓ FIT CONFIRMED: Recommended Size 28</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-          <b>History Match:</b> You bought Size 30 · Math recommends Size 28 (Saved Exchange Return!)
-        </div>`;
-    } else if (waistEase >= -2) {
-      resultBox.innerHTML = `
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
-        <div style="margin-bottom:6px">Calculated Waist Ease: <b>${waistEase.toFixed(1)}"</b> (Too Tight)</div>
-        <span class="verdict-warn">⚠️ SNUG CUT: High Return Risk (Recommend Size 30)</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-          <b>History Match:</b> Matches your previous Levi's order (Size 30)
-        </div>`;
-    } else {
-      resultBox.innerHTML = `
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
-        <div style="margin-bottom:6px">Calculated Waist Ease: <b>${waistEase.toFixed(1)}"</b> (Severe Discrepancy)</div>
-        <span class="verdict-bad">🚫 WILL NOT FIT: Size 28 Too Small (Recommend Size 32)</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-          <b>History Match:</b> Exceeds previous Levi's purchase bounds
-        </div>`;
-    }
-  } else if (currentFitRetailer === 'H&M') {
-    const bustEase = 42 - chestVal;
-    if (bustEase >= 4) {
-      resultBox.innerHTML = `
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
-        <div style="margin-bottom:6px">Calculated Bust Ease: <b>+${bustEase.toFixed(1)}"</b> (Designer Oversized Cut)</div>
-        <span class="verdict-good">✓ FIT CONFIRMED: Recommended Size S</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-          <b>Ease Engine:</b> Recognizes oversized style intent (Does not flag as too loose)
-        </div>`;
-    } else if (bustEase >= 0) {
-      resultBox.innerHTML = `
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
-        <div style="margin-bottom:6px">Calculated Bust Ease: <b>+${bustEase.toFixed(1)}"</b> (Slimmer Than Intended Cut)</div>
-        <span class="verdict-warn">⚠️ SNUG CUT: Recommend Size M for Oversized Look</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-          <b>Style Intent:</b> Blazer designed for +6" ease
-        </div>`;
-    } else {
-      resultBox.innerHTML = `
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
-        <div style="margin-bottom:6px">Calculated Bust Ease: <b>${bustEase.toFixed(1)}"</b> (Negative Ease)</div>
-        <span class="verdict-bad">🚫 ABSTAIN: Will Not Button Up (Recommend Size L)</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-          <b>Safety Abstain:</b> Refuses to recommend rather than ship a wrong guess.
-        </div>`;
-    }
-  } else {
-    const bustEase = 38 - chestVal;
-    if (bustEase >= 2) {
-      resultBox.innerHTML = `
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
-        <div style="margin-bottom:6px">Calculated Bust Ease: <b>+${bustEase.toFixed(1)}"</b> (Slim Fit Target)</div>
-        <span class="verdict-good">✓ FIT CONFIRMED: Recommended Size M</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-          <b>History Match:</b> ✓ Matches your previous Myntra order (Size M)
-        </div>`;
-    } else if (bustEase >= 0) {
-      resultBox.innerHTML = `
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
-        <div style="margin-bottom:6px">Calculated Bust Ease: <b>+${bustEase.toFixed(1)}"</b> (Snug Cut)</div>
-        <span class="verdict-warn">⚠️ WARNING: Snug Cut on Bust (Recommend Size L)</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-          <b>History Match:</b> You bought Size M · Math recommends Size L
-        </div>`;
-    } else {
-      resultBox.innerHTML = `
-        <div style="font-size:10px;color:var(--muted);margin-bottom:4px">RETRIEVED PARSED PRODUCT: <b>${currentFitItem}</b></div>
-        <div style="margin-bottom:6px">Calculated Bust Ease: <b>${bustEase.toFixed(1)}"</b> (Too Tight)</div>
-        <span class="verdict-bad">🚫 WILL NOT FIT: Size M Too Small (Recommend Size XL)</span>
-        <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-          <b>History Match:</b> Exceeds previous Myntra order dimensions
-        </div>`;
-    }
+/* ---- FITCHECK WIDGET ------------------------------------------------------
+   A teaser, not a reimplementation. It shows the verdict and nothing else —
+   no ease figures, no formula — so the interesting part is still the real demo
+   and repo. What sits underneath is genuine: these are the actual products and
+   the actual retailer size charts from the fixtures in the FitCheck repo, and
+   the size it lands on is the size the real engine lands on.
+   Verdict tiers are the product's own three (FC.14). --------------------- */
+const FIT_GARMENTS = {
+  jeans: {
+    button: "Levi's Jeans",
+    axis: 'Waist measurement',
+    min: 24, max: 46, start: 30,
+    /* AJIO — LEVI'S "Men Lightly Washed 513 Straight Jeans".
+       Bottoms compare body-chart to body, no ease. The published chart waist
+       runs 2" above the size label, which is exactly why a 30" waist needs
+       size 28 — the real return this project was validated against. */
+    mode: 'body',
+    chart: { '28':30, '30':32, '32':34, '34':36, '36':38, '38':40, '40':42 }
+  },
+  tee: {
+    button: 'Flying Machine Tee',
+    axis: 'Chest measurement',
+    min: 30, max: 52, start: 38,
+    /* MYNTRA — Flying Machine drop-shoulder tee. Ships garment-flat chest only,
+       no body chart, so designed ease is inferred (3" for a regular top). */
+    mode: 'ease',
+    ease: 3,
+    chart: { 'S':39.5, 'M':41.5, 'L':45, 'XL':47, 'XXL':50.5, '3XL':51 }
+  },
+  blouse: {
+    button: 'H&M Blouse',
+    axis: 'Bust measurement',
+    min: 26, max: 48, start: 34,
+    /* H&M — Flounced Tie-Front Blouse. H&M's size guide lazy-loads from its own
+       API, which a content script cannot fetch, so the adapter falls back to
+       H&M's published static chart. These are those numbers. */
+    mode: 'body', ease: 3,
+    chart: { 'XXS':30, 'XS':31.5, 'S':33.75, 'M':37, 'L':40.25 }
   }
+};
+
+let currentFitGarment = 'jeans';
+
+/* How far your measurement sits from what this size is cut for.
+   0 means you land exactly on a chart value. */
+function fitOffset(g, body, chartVal) {
+  return g.mode === 'body'
+    ? chartVal - body                 // body chart: "this size fits an X inch body"
+    : (chartVal - body) - g.ease;     // garment-flat: ease you get vs ease intended
 }
 
-function setFitRetailer(retailer, itemName, btn) {
-  currentFitRetailer = retailer;
-  currentFitItem = itemName;
+/* Deliberately simpler than src/lib/fit-math.ts, and tuned so the traffic light
+   actually changes as you drag — the engine's own tiering resolves to green
+   almost everywhere here, because a full size run nearly always contains a good
+   fit. The bands still mean something real: landing on a chart value is a clean
+   recommendation, sitting between two sizes is the classic "may work", and
+   falling outside the run is genuinely not recommended. */
+function gradeFitOffset(a) {
+  if (a <= 0.75) return 'green';
+  if (a <= 1.75) return 'amber';
+  return 'red';
+}
+
+function updateFitWidget() {
+  const g = FIT_GARMENTS[currentFitGarment];
+  const slider = document.getElementById('fit-chest-slider');
+  const box = document.getElementById('fit-result-box');
+  if (!g || !slider || !box) return;
+
+  const body = parseInt(slider.value, 10);
+  const val = document.getElementById('fit-chest-val');
+  if (val) val.textContent = body + ' in';
+  const axis = document.getElementById('fit-axis-label');
+  if (axis) axis.textContent = g.axis;
+
+  let best = null;
+  for (const [size, chartVal] of Object.entries(g.chart)) {
+    const a = Math.abs(fitOffset(g, body, chartVal));
+    if (!best || a < best.a) best = { size, a };
+  }
+
+  const TIERS = {
+    green: ['verdict-good', 'Recommended for you'],
+    amber: ['verdict-warn', 'May work for you'],
+    red:   ['verdict-bad',  'Not recommended']
+  };
+  const tier = gradeFitOffset(best.a);
+  const [cls, label] = TIERS[tier];
+  const size = tier === 'red' ? '' : 'Size ' + best.size + ' \u00b7 ';
+  box.innerHTML = '<span class="' + cls + '">\u25cf ' + size + label + '</span>';
+}
+
+function setFitGarment(key, btn) {
+  currentFitGarment = key;
   document.querySelectorAll('#widget-fitcheck .widget-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  const g = FIT_GARMENTS[key];
+  const slider = document.getElementById('fit-chest-slider');
+  if (slider) { slider.min = g.min; slider.max = g.max; slider.value = g.start; }
   updateFitWidget();
 }
 
@@ -1598,6 +1651,48 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 })();
+
+/* ---- WIDGET FLIP ----
+   `inert` on the hidden face keeps it out of the tab order and away from
+   screen readers; without it both sides get announced and Tab lands on
+   controls nobody can see. */
+function flipWidget(key) {
+  const wrap = document.getElementById('flip-' + key);
+  if (!wrap) return;
+  const inner = wrap.querySelector('.widget-flip-inner');
+  const front = wrap.querySelector('.flip-front');
+  const back  = wrap.querySelector('.flip-back');
+  const willFlip = !wrap.classList.contains('flipped');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Pin the current height before the swap, then transition to the new one —
+     otherwise the card jumps to its full height the instant the class lands,
+     while the rotation is still running. */
+  const from = inner.offsetHeight;
+  wrap.classList.toggle('flipped', willFlip);
+
+  [[front, willFlip], [back, !willFlip]].forEach(([el, hidden]) => {
+    if (!el) return;
+    el.inert = hidden;
+    el.setAttribute('aria-hidden', hidden ? 'true' : 'false');
+  });
+
+  const to = (willFlip ? back : front).offsetHeight;
+  if (reduce || from === to) {
+    inner.style.height = '';
+  } else {
+    inner.style.height = from + 'px';
+    requestAnimationFrame(() => { inner.style.height = to + 'px'; });
+    setTimeout(() => { inner.style.height = ''; }, 600);
+  }
+
+  const focus = (willFlip ? back : front).querySelector('.flip-btn');
+  if (focus) focus.focus({ preventScroll: true });
+}
+
+document.querySelectorAll('.widget-flip .flip-back').forEach(el => {
+  el.inert = true; el.setAttribute('aria-hidden','true');
+});
 
 /* ---- INLINE SPEC TOGGLE ---- */
 function toggleSpec(btn) {
