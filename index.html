@@ -207,7 +207,7 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    Replaces a PNG that needed four stacked drop-shadows to fake a thicker
    stroke, plus a brightness(0) invert(1) filter that bleached it white in
    dark mode. Neither hack is needed now. */
-:root{ --brand:#0809A4; --logo-h:48px; --nav-h:72px; --logo-weight:2.98; --pdeo-label:#3A3D73; --pill-line:#9B9084; }
+:root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --logo-weight:2.98; --pdeo-label:#3A3D73; --pill-line:#9B9084; }
 [data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; }
@@ -305,11 +305,16 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    100vh hero sits partly under the browser chrome on first paint. */
 header{
   position:relative;
-  height:100vh;
-  height:100svh;
+  /* The nav is sticky, so it OCCUPIES flow: the header starts at y=nav-height,
+     not y=0. A plain 100svh therefore overshot the fold by exactly the nav's
+     height and pushed the marquee just out of view — and the old padding-top
+     was clearing a nav that was never overlapping in the first place.
+     --nav-h is re-measured in JS so this holds at every breakpoint. */
+  height:calc(100vh - var(--nav-h));
+  height:calc(100svh - var(--nav-h));
   display:flex;
   flex-direction:column;
-  padding:calc(var(--nav-h) + 20px) 0 0;
+  padding:0;
 }
 /* The cue and the marquee are the last two flex children, so they sit at the
    bottom of the fold in normal flow. They were absolutely positioned before,
@@ -319,7 +324,7 @@ header{
 /* Aligned to the top, not centred. Centring inside a full-height header put a
    ~250px void between the nav and the eyebrow on a tall window — the fold read
    as empty above the pitch. Space below is fine: the marquee anchors that edge. */
-.hero-body{flex:1 1 auto;display:flex;align-items:flex-start;min-height:0;padding-top:clamp(0px,3vh,44px)}
+.hero-body{flex:1 1 auto;display:flex;align-items:flex-start;min-height:0;padding-top:clamp(18px,4.5vh,54px)}
 /* On a short window, shrink the type rather than let the marquee fall out. */
 @media (max-height:700px){
   h1.hero{font-size:clamp(27px,3.4vw,40px)}
@@ -327,7 +332,6 @@ header{
   .hero-eyebrow{margin-bottom:16px}
   .hero-actions{margin-top:22px}
   .hero-actions .btn{padding:11px 18px}
-  .scroll-cue{display:none}
 }
 
 /* ---- ENTRANCE ----
@@ -341,7 +345,6 @@ header{
 h1.hero{animation-delay:.17s}
 .hero-sub{animation-delay:.32s}
 .hero-actions{animation-delay:.45s}
-.scroll-cue{animation-delay:.60s}
 .hero-marquee{animation-delay:.60s}
 @media (prefers-reduced-motion:reduce){.hero-enter{opacity:1;transform:none;animation:none}}
 /* The block still fills whatever screen it lands on, but the type is sized to
@@ -349,12 +352,6 @@ h1.hero{animation-delay:.17s}
    nav are gone. Sizing to the device instead would cramp the short laptops and
    sprawl on the tall monitors. Measured stack: 44 eyebrow + 195 headline +
    89 sub + 86 actions = ~414px, inside the ~525px available. */
-.scroll-cue{margin:0 auto 16px;display:flex;flex-direction:column;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);text-decoration:none;transition:color .2s}
-.scroll-cue:hover{color:var(--accent)}
-.cue-arrow{width:16px;height:16px;animation:cue-bounce 1.9s ease-in-out infinite}
-@keyframes cue-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
-@media (prefers-reduced-motion:reduce){.cue-arrow{animation:none}}
-
 /* ---- CAPABILITY MARQUEE ----
    The strip that closes the fold. It lists what she works with and claims
    nothing — the last version asserted outcomes, which read as more of the same
@@ -581,7 +578,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   .nav-in { padding: 10px 16px 8px; }
   :root { --logo-h: 34px; }
 
-  header { padding: calc(var(--nav-h) + 16px) 0 0; }
+  header { padding: 0; }
   h1.hero { font-size: 34px; line-height: 1.07; max-width:none; }
   .hero-sub { font-size: 17px; margin-top: 20px; max-width:none; }
   .hero-actions { margin-top: 30px; }
@@ -721,10 +718,6 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
       <a href="#" data-fill="resume" class="btn btn-ghost" rel="noopener noreferrer">Résumé <span class="arr">↗</span></a>
     </div>
   </div></div>
-  <a href="#about" class="scroll-cue hero-enter" aria-label="Scroll down to About">
-    <span>About</span>
-    <svg class="cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg>
-  </a>
   <div class="hero-marquee hero-enter" aria-hidden="true">
     <div class="hm-track"><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">Jobs To Be Done<span class="hm-dot">&#9670;</span></span><span class="hm-item">RICE + MoSCoW<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">Funnel &amp; Traffic Analysis<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extension (MV3)<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item">Vertex AI / Gemini<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">Jobs To Be Done<span class="hm-dot">&#9670;</span></span><span class="hm-item">RICE + MoSCoW<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">Funnel &amp; Traffic Analysis<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extension (MV3)<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item">Vertex AI / Gemini<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span></div>
   </div>
@@ -1872,6 +1865,18 @@ const io=new IntersectionObserver((entries)=>{
   entries.forEach(en=>{ if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);} });
 },{threshold:.08});
 document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+
+/* The elevator pitch is sized as "one screen minus the nav". The nav is sticky,
+   so its height is real layout, and it changes with breakpoint and webfont. Read
+   it rather than hardcode it, or the marquee drifts out of the fold again. */
+(function(){
+  const nav = document.getElementById('nav');
+  if (!nav) return;
+  const sync = () => document.documentElement.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+  sync();
+  addEventListener('resize', sync, {passive:true});
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+})();
 </script>
 </body>
 </html>
