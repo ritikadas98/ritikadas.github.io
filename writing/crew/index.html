@@ -29,9 +29,28 @@
       <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
         <span id="theme-icon">&#127769;</span> <span id="theme-text">Dark</span>
       </button>
+      <a href="../../#about">About</a>
       <a href="../../#work">Shipped Products</a>
       <a href="../../#cases">Product Thinking</a>
+      <a href="../../#experience">Experience</a>
       <a href="../../#contact" class="nav-cta">Contact</a>
+      <button type="button" class="nav-toggle" id="nav-toggle"
+              aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Same menu as the homepage. Below 640px every nav link but Contact is hidden,
+       so without this an article page left a phone reader with no way back into the
+       site except the signature. -->
+  <div class="nav-menu" id="nav-menu">
+    <div class="nm-in">
+      <a href="../../#about">About</a>
+      <a href="../../#work">Shipped Products</a>
+      <a href="../../#cases">Product Thinking</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#contact">Contact</a>
     </div>
   </div>
 </nav>

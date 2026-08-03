@@ -85,6 +85,18 @@ Leave alone: the `<head>` links, the pre-paint theme script, the `<nav>`, the `<
 and the `<script src="../../script.js">` at the end. Relative paths (`../../`) are correct
 for a page two levels deep — don't "fix" them.
 
+**The nav is identical on every page of the site.** Same five links in the same order —
+About, Shipped Products, Product Thinking, Experience, Contact — plus the theme button
+and the hamburger. Copy it verbatim; the only thing that changes is the depth of the
+relative paths (`../` from `/writing/`, `../../` from `/writing/<slug>/`). Do not trim it
+for an article page.
+
+**The hamburger is not optional.** Below 640px the stylesheet hides every nav link except
+Contact, on the assumption that the menu holds the rest. A page with the links but no
+`#nav-toggle` button and no `#nav-menu` block leaves a phone reader with no way back into
+the site — which is how both `/writing/` pages shipped, until it was caught. `script.js`
+wires the toggle automatically on any page that has both IDs, so it is markup only.
+
 ### Step 2 — Make the listing live
 
 In `writing/index.html`, the Reddit entry is currently an inert `<div>`. Turn it into a
