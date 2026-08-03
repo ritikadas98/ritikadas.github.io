@@ -647,8 +647,8 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
    handles images — narrower text, wider evidence.
    ============================================================ */
 .art-wrap{max-width:1180px;margin:0 auto;padding:0 28px}
-.art-head{padding:56px 0 0}
-.art-back{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:30px;transition:color .2s}
+.art-head{padding:34px 0 0}
+.art-back{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:22px;transition:color .2s}
 .art-back:hover{color:var(--accent)}
 h1.art-title{font-family:var(--display);font-weight:500;font-size:clamp(28px,3.9vw,46px);line-height:1.08;letter-spacing:-.03em;max-width:none;margin:0}
 .art-sub{margin-top:18px;font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--muted);max-width:52ch}
@@ -684,12 +684,15 @@ figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
 }
 @media(max-width:640px){
   .art-wrap{padding:0 16px}
-  .art-head{padding:32px 0 0}
+  .art-head{padding:22px 0 0}
   .art-body{max-width:none;padding-bottom:48px}
   .art-body p{font-size:16px}
   .fig-phone{max-width:100%}
 }
-.art-hero{max-width:290px;margin:36px auto 0}
+/* The hero is an establishing shot, not evidence — it earns less room than the
+   screenshots that carry an argument later in the piece. Kept small so the meta
+   strip and the opening paragraph are reachable without scrolling. */
+.art-hero{max-width:232px;margin:26px auto 0}
 
 /* ---- WRITING INDEX (/writing/) ----
    The list of long-form pieces. Entries that exist are links; entries still being

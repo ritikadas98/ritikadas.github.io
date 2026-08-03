@@ -6,6 +6,11 @@ How to take a finished piece of writing and put it on this site. Written for who
 The CREW study at `/writing/crew/` is the reference implementation. When this document
 and that page disagree, the page wins. Read it before starting.
 
+**Two things are not optional and are easy to skip. Read §8 before you write any markup:
+the page must work on a phone, and it must be accessible.** Most readers here are on a
+phone, and a page that fails those checks is not finished no matter how it looks on a
+laptop. Both had to be retrofitted onto this site once already.
+
 ---
 
 ## 1. What this repo is
@@ -298,7 +303,91 @@ strongest position is "I ship AI that works."
 
 ---
 
-## 8. Check it before shipping
+## 8. Mobile and accessibility are requirements, not polish
+
+**Read this section before writing any markup or CSS.** It is the part most likely to be
+skipped and the part that has cost the most rework on this site. The first build of this
+portfolio was neither mobile-safe nor accessible, and both had to be retrofitted. Do not
+repeat that. A page that fails anything below is not finished, however good it looks on
+a laptop.
+
+Most of the site's readers are on a phone. Assume that as the default case, not the edge
+case.
+
+### Mobile — build for 390px first
+
+- **Nothing may scroll sideways.** This is the hard rule. `document.documentElement.scrollWidth`
+  must equal the viewport width at 390px. If it doesn't, find what is overflowing and fix
+  *that* — never paper over it with `overflow-x:hidden`, which hides the symptom and leaves
+  the bug.
+- **Anything wider than the text column needs a mobile escape.** The breakout figures and
+  tables use `width:min(1124px, 100vw - 56px)` with a negative-margin centring trick. That
+  trick is switched off below 900px (`.fig-wide`, `.table-scroll`) and the `fig-row` grid
+  collapses to one column below 760px. If you add a new wide element, add its collapse rule
+  in the same commit.
+- **Wide tables scroll inside their own container,** never by dragging the page. That is
+  what `.table-scroll` is for. Always wrap a table in it.
+- **Body text stays at least 16px on mobile.** Below that, iOS Safari zooms the page when a
+  field is focused, and the reader is left at a strange scale.
+- **Tap targets need about 44×44px.** A link that is comfortable with a mouse can be
+  unhittable with a thumb.
+- **Nothing important may depend on hover.** There is no hover on a touchscreen. Hover
+  effects are decoration; if information only appears on hover, half the readers never get it.
+- **Use `svh`, not `vh`, for full-height sections.** `100vh` is wrong on mobile browsers
+  because the address bar shrinks and grows. This has already bitten this site once.
+- **Do not cap zoom.** The viewport meta on an article page is exactly
+  `width=device-width,initial-scale=1`. Never add `maximum-scale` or `user-scalable=no` —
+  it stops people who need to magnify text.
+
+### Accessibility — the checks that actually get failed
+
+- **Heading structure must be real.** One `<h1>` per page, then `<h2>` for sections, in
+  order, no levels skipped. **Never fake a heading** by styling a `<div>` to look like one.
+  A screen reader navigates by heading; a styled `<div>` is invisible to it, and the reader
+  hears a page with no structure. This exact mistake exists elsewhere on this site and is
+  on the fix list — do not add more of it.
+- **Every image needs considered alt text.** A sentence describing what the image shows if
+  it carries meaning; `alt=""` if it is purely decorative, so it gets skipped rather than
+  announced. Never leave the attribute off.
+- **Text contrast must reach 4.5:1** against its background, in **both** light and dark
+  themes. Small pale-grey labels are the usual offender. Nothing below 11px.
+- **Keyboard focus must be visible.** Every link and button needs a `:focus-visible` style.
+  Tab through the whole page — if you ever lose track of where you are, it fails. Never set
+  `outline:none` without putting something visible in its place.
+- **Respect `prefers-reduced-motion`.** Anything that moves on its own — animations,
+  transitions, auto-scrolling text, parallax — must stop for readers who have asked their
+  device to reduce motion. It is a medical setting, not a preference.
+- **Interactive widgets must announce their state.** Anything that expands needs
+  `aria-expanded`; a tab strip needs proper tab roles. If you build a control that isn't a
+  plain link or button, it needs the ARIA to match.
+- **Don't put emoji inside headings or link text.** A screen reader reads them aloud
+  ("high voltage", "shield") in the middle of the sentence.
+- **Use real elements.** A link is `<a href>`, a button is `<button>`. A clickable `<div>`
+  gets none of the keyboard behaviour, focus handling, or announcement for free, and
+  reproducing all of it by hand is never done properly.
+
+### Prove it, don't assume it
+
+Both of these are verifiable in about a minute. Do it before saying the work is done:
+
+```js
+// At a 390px emulated viewport, this must print true.
+document.documentElement.scrollWidth === document.documentElement.clientWidth
+```
+
+```js
+// Every image should have an alt attribute. This must print an empty array.
+[...document.querySelectorAll('img:not([alt])')].map(i => i.src)
+
+// Headings should descend without gaps. Read the output and check the order.
+[...document.querySelectorAll('h1,h2,h3,h4')].map(h => h.tagName + ' ' + h.textContent.trim().slice(0,40))
+```
+
+Then tab through the page from the top and confirm you can always see where focus is.
+
+---
+
+## 9. Check it before shipping
 
 **Preview over a local server, never by opening the file directly.** Opened as a file,
 any link ending in a slash shows a folder listing instead of the page, and the site
@@ -317,7 +406,9 @@ Walk the whole path a reader takes:
 - Article → "← All writing" → back to `/writing/`
 - Every image loads; no broken `src`
 - Both themes — use the toggle in the nav
-- A phone width (~390px): no sideways scrolling, and the `fig-row` collapses to one column
+- Every check in §8, at a 390px viewport. That section is the pass/fail list; this one
+  is only the click-path walkthrough. Neither substitutes for the other.
+- The meta strip: all four values still on one line
 
 Headless screenshots are worth taking, with two cautions learned the hard way. Cards
 and sections start invisible until the scroll observer fires, so a single tall capture
@@ -328,7 +419,7 @@ which fakes a mobile overflow bug that isn't there. Use CDP with
 
 ---
 
-## 9. Ship it
+## 10. Ship it
 
 Commits must be authored as Ritika Das. The repo already has this set locally —
 confirm before committing:
@@ -356,7 +447,7 @@ Commit messages here explain **why**, not what — the diff already says what. L
 
 ---
 
-## 10. Don't
+## 11. Don't
 
 - **Don't publish `BUILD_SPEC.md` or `PORTFOLIO_WORKLOG.md`.** Both are private working
   documents, both are gitignored, and the repo is public. Never `git add -f` either one.
