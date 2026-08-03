@@ -9,6 +9,9 @@
   const themeBtn = document.getElementById('theme-toggle');
   const themeIcon = document.getElementById('theme-icon');
   const themeText = document.getElementById('theme-text');
+  /* Shared with the article pages. This is the first block in the file, so an
+     unguarded throw here would take out every script below it. */
+  if (!themeBtn || !themeIcon || !themeText) return;
   
   const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
   const savedTheme = localStorage.getItem('theme') || (systemPrefersDark ? 'dark' : 'light');
@@ -167,7 +170,7 @@ function setFitGarment(key, btn) {
 
 function setSavioScenario(type, btn) {
   document.querySelectorAll('#widget-savio .widget-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   const box = document.getElementById('savio-result-box');
   if (!box) return;
 
@@ -188,7 +191,7 @@ function setSavioScenario(type, btn) {
 
 function setAmazonPipeline(mode, btn) {
   document.querySelectorAll('#widget-amazon .widget-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   const box = document.getElementById('amazon-result-box');
   if (!box) return;
 
@@ -209,45 +212,16 @@ function setAmazonPipeline(mode, btn) {
     + '<div class="savio-why"><b>' + moscow + '</b>. ' + why + '</div>';
 }
 
-function setYTSignal(sig, btn) {
-  document.querySelectorAll('#widget-youtube .widget-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const resultBox = document.getElementById('yt-result-box');
-  if (!resultBox) return;
-  
-  if (sig === 'sponsor') {
-    resultBox.innerHTML = `
-      <div style="font-size:10px;color:var(--accent);font-weight:600;margin-bottom:3px">CATEGORY B: Strategic Re-Architecture</div>
-      <div style="margin-bottom:4px">Conflict: Stripping ad reads destroys creator revenue</div>
-      <span class="verdict-good">DECISION: Re-architect to AI "Jump Ahead"</span>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-        Solves pacing via seekbar heatmaps without hurting creator income.
-      </div>`;
-  } else if (sig === 'speed') {
-    resultBox.innerHTML = `
-      <div style="font-size:10px;color:var(--accent);font-weight:600;margin-bottom:3px">CATEGORY A: Direct Adoption & Monetization</div>
-      <div style="margin-bottom:4px">Impact: Helps viewers with zero supply-side risk</div>
-      <span class="verdict-good">DECISION: Adopt & Bundle into Premium</span>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-        Fine speed, hold-to-2x, and background audio standardized for ARPU.
-      </div>`;
-  } else {
-    resultBox.innerHTML = `
-      <div style="font-size:10px;color:#DC2626;font-weight:600;margin-bottom:3px">CATEGORY C: Strategic Suppression</div>
-      <div style="margin-bottom:4px">Conflict: Hiding Shorts erodes top-of-funnel reach</div>
-      <span class="verdict-bad">DECISION: Suppress Natively (Protect Moat)</span>
-      <div style="font-size:10px;color:var(--muted);margin-top:6px;border-top:1px dashed var(--hairline-strong);padding-top:4px">
-        Blocks features that undermine platform network effects or creator reach.
-      </div>`;
-  }
-}
-
 /* INITIALIZE ALL WIDGETS ON LOAD */
 window.addEventListener('DOMContentLoaded', () => {
-  updateFitWidget();
-  setSavioScenario('shoes', document.querySelector('#widget-savio .widget-btn.active'));
-  setAmazonPipeline('sample', document.querySelector('#widget-amazon .widget-btn.active'));
-  setYTSignal('sponsor', document.querySelector('#widget-youtube .widget-btn.active'));
+  /* Only the homepage has these. The article pages share this file, and the
+     removed YouTube widget left a querySelector here returning null, which threw
+     and killed everything after it in this listener. */
+  if (document.getElementById('widget-fitcheck') || document.getElementById('fit-chest-slider')) updateFitWidget();
+  const savio  = document.querySelector('#widget-savio .widget-btn.active');
+  const amazon = document.querySelector('#widget-amazon .widget-btn.active');
+  if (savio)  setSavioScenario('shoes', savio);
+  if (amazon) setAmazonPipeline('sample', amazon);
 });
 
 /* ---- PRELOADER — REAL PROGRESS ----
@@ -367,7 +341,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 /* ---- AUDIENCE SWITCHER ---- */
 (function(){
-  const tabs = document.getElementById('audience-tabs').querySelectorAll('.aud-tab');
+  /* This file is shared with the article pages under /writing/, which have no
+     audience switcher. Dereferencing a missing element throws, and the throw
+     would take out every script below it in this file. */
+  const tabsWrap = document.getElementById('audience-tabs');
+  if (!tabsWrap) return;
+  const tabs = tabsWrap.querySelectorAll('.aud-tab');
   const bgText = document.getElementById('about-bg-text');
   const prodText = document.getElementById('about-prod-text');
   const prinText = document.getElementById('about-prin-text');
@@ -558,8 +537,10 @@ function switchSpecTab(btn, tabName) {
 
 /* ---- NAV SCROLLED ---- */
 const nav=document.getElementById('nav');
-const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>8);
-onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+if (nav) {
+  const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>8);
+  onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+}
 
 /* ---- REVEAL OBSERVER (OPTIMIZED FAST REVEAL WITHOUT LAYOUT REPAINTS) ---- */
 const io=new IntersectionObserver((entries)=>{

@@ -192,10 +192,13 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    Replaces a PNG that needed four stacked drop-shadows to fake a thicker
    stroke, plus a brightness(0) invert(1) filter that bleached it white in
    dark mode. Neither hack is needed now. */
-:root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --logo-weight:2.98; --pdeo-label:#3A3D73; --pill-line:#9B9084; --hm-me:#A9AEE6; }
-[data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73; }
+:root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --logo-weight:2.98; --pdeo-label:#3A3D73; --pill-line:#9B9084; --hm-me:#A9AEE6;
+       --crew-brand:#A62B22; --crew-line:rgba(166,43,34,.38); --crew-tint:rgba(166,43,34,.07); }
+[data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73;
+       --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73; }
+  :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73;
+       --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
 }
 .brand-mark{
   height:var(--logo-h);
@@ -288,7 +291,7 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    the fold — a visitor reads the pitch whole before deciding to scroll.
    svh, not vh: on mobile vh is measured against the *expanded* viewport, so a
    100vh hero sits partly under the browser chrome on first paint. */
-header{
+header.elevator{
   position:relative;
   /* The nav is sticky, so it OCCUPIES flow: the header starts at y=nav-height,
      not y=0. A plain 100svh therefore overshot the fold by exactly the nav's
@@ -588,7 +591,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
      the fold — with a fixed height it overflowed and the marquee landed on top
      of the Resume button. Now the header grows instead; the marquee slipping
      below the fold on a small phone is the right trade against overlap. */
-  header { height:auto; min-height:calc(100svh - var(--nav-h)); padding: 0 0 clamp(14px,3vh,30px); }
+  header.elevator { height:auto; min-height:calc(100svh - var(--nav-h)); padding: 0 0 clamp(14px,3vh,30px); }
   h1.hero { font-size: 28px; line-height: 1.09; max-width:none; }
   .hero-eyebrow { margin-bottom: 18px; gap: 8px; }
   .eyebrow { font-size: 11.5px; letter-spacing: .1em; }
@@ -636,3 +639,51 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   .preloader-content { padding: 32px 20px; }
   .preloader-tag { font-size: 22px; }
 }
+
+/* ============================================================
+   ARTICLE PAGES  (/writing/<name>/)
+   Long-form case studies. Body text sits on a reading measure;
+   wide figures break out past it, which is how the reference
+   handles images — narrower text, wider evidence.
+   ============================================================ */
+.art-wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.art-head{padding:56px 0 0}
+.art-back{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:30px;transition:color .2s}
+.art-back:hover{color:var(--accent)}
+h1.art-title{font-family:var(--display);font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.07;letter-spacing:-.03em;max-width:26ch;margin:0}
+.art-sub{margin-top:18px;font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--muted);max-width:52ch}
+.art-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px 28px;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:20px 0;margin:34px 0 0}
+.am-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label);margin-bottom:5px}
+.am-v{font-size:14px;line-height:1.5;color:var(--ink-2)}
+.art-body{max-width:68ch;margin:0 auto;padding:8px 0 72px}
+.art-body h2{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,29px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:52px 0 18px}
+.art-body h2:first-child{margin-top:36px}
+.art-body p{font-size:17px;line-height:1.72;color:var(--ink-2);margin:0 0 21px}
+.art-body a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px}
+.art-body a:hover{border-color:var(--accent)}
+.art-body strong{color:var(--ink);font-weight:600}
+blockquote.pull{font-family:var(--display);font-weight:500;font-size:clamp(21px,2.5vw,30px);line-height:1.28;letter-spacing:-.02em;color:var(--ink);border-left:3px solid var(--accent);padding:2px 0 2px 24px;margin:40px 0}
+figure{margin:40px 0}
+figure img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--hairline)}
+figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
+/* Phone screenshots are portrait; at full measure they would be over a thousand
+   pixels tall, so they sit centred at a limited width. */
+.fig-phone{max-width:330px;margin:40px auto}
+/* Review cards are landscape and dense, so they break out past the measure. */
+.fig-wide{width:min(1024px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
+.table-scroll{overflow-x:auto;margin:34px 0;width:min(1024px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
+.art-body table{border-collapse:collapse;width:100%;font-size:14.5px}
+.art-body th{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label);text-align:left;padding:0 18px 10px 0;border-bottom:1px solid var(--hairline-strong);white-space:nowrap}
+.art-body td{padding:14px 18px 14px 0;border-bottom:1px solid var(--hairline);color:var(--ink-2);line-height:1.6;vertical-align:top}
+.art-body tr:last-child td{border-bottom:none}
+@media(max-width:900px){
+  .fig-wide,.table-scroll{width:auto;margin-left:0;transform:none}
+}
+@media(max-width:640px){
+  .art-wrap{padding:0 16px}
+  .art-head{padding:32px 0 0}
+  .art-body{max-width:none;padding-bottom:48px}
+  .art-body p{font-size:16px}
+  .fig-phone{max-width:100%}
+}
+.art-hero{max-width:290px;margin:36px auto 0}
