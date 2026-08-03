@@ -1,0 +1,638 @@
+/* ritikadas.in — all styling for every page on the site.
+   Extracted from index.html so the article pages under /writing/ share one
+   source of truth instead of each carrying its own copy to drift out of step.
+   Two rules deliberately stay inline in index.html: the pre-paint theme script,
+   which has to run before the first paint or a manually chosen theme flashes the
+   wrong way, and a <noscript> rule that hides the preloader when JS is off. */
+
+:root{
+  --paper:#EDE8E1; --paper-alt:#E7E1D8; --surface:#F6F2EB; --surface-2:#FBF8F2; --soft-band:#F6F5F2;
+  --ink:#211E24; --ink-2:#38333B; --muted:#6A6369; --faint:#948C90;
+  
+  /* BUILD SPEC EXACT TOKENS: MUTED INDIGO */
+  --accent:#4B4F91;
+  --accent-soft:#7C81BE;
+  --accent-wash:#E5E2EE;
+  
+  --hairline:#DBD3C9; --hairline-strong:#CFC6BA;
+  --shadow:0 1px 2px rgba(33,30,36,.04),0 10px 34px rgba(33,30,36,.07);
+  --shadow-lift:0 2px 6px rgba(33,30,36,.06),0 22px 54px rgba(33,30,36,.12);
+  --r-sm:9px; --r:14px; --r-lg:18px;
+  --display:'Bricolage Grotesque',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
+  --wrap:1080px; --measure:58ch;
+}
+
+/* ---- DARK THEME OVERRIDES (BUILD SPEC §3) ---- */
+[data-theme="dark"] {
+  --paper:#1A171C; --paper-alt:#221E24; --surface:#25202B; --surface-2:#2B2533; --soft-band:#1C1821;
+  --ink:#EDE8E1; --ink-2:#DDD6E3; --muted:#A29ABC; --faint:#776F7E;
+  --accent:#8288C4; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
+  --hairline:#393242; --hairline-strong:#4B4257;
+  --shadow:0 2px 8px rgba(0,0,0,.4);
+  --shadow-lift:0 12px 36px rgba(0,0,0,.6);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#1A171C; --paper-alt:#221E24; --surface:#25202B; --surface-2:#2B2533; --soft-band:#1C1821;
+    --ink:#EDE8E1; --ink-2:#DDD6E3; --muted:#A29ABC; --faint:#776F7E;
+    --accent:#8288C4; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
+    --hairline:#393242; --hairline-strong:#4B4257;
+    --shadow:0 2px 8px rgba(0,0,0,.4);
+    --shadow-lift:0 12px 36px rgba(0,0,0,.6);
+  }
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* BUTTERY SMOOTH 60-120FPS NATIVE SCROLLING (NO COMPOSITOR STUTTER) */
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+.eyebrow{font-family:var(--mono);font-size:13px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.eyebrow.muted{color:var(--faint)}
+
+/* ---- GPU-ACCELERATED PRELOADER CURTAIN ---- */
+.preloader{position:fixed;inset:0;z-index:1000;display:flex;pointer-events:auto;will-change:visibility}
+.preloader-panel{
+  flex:1;
+  height:100%;
+  background:#1A171C;
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  transform:translateZ(0);
+  transition:transform 0.6s cubic-bezier(0.77,0,0.175,1);
+}
+.preloader-panel.left{transform-origin:top}
+.preloader-panel.right{transform-origin:bottom}
+.preloader-content{position:absolute;inset:0;z-index:1010;padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;will-change:opacity}
+.preloader-top{display:flex;justify-content:space-between;align-items:center}
+.preloader-brand{font-family:var(--mono);font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:#A3A7D8}
+.preloader-num-wrap{margin:auto 0;text-align:right}
+.preloader-num{font-family:var(--display);font-size:clamp(70px,16vw,190px);font-weight:400;color:#EDE8E1;line-height:.9;letter-spacing:-.04em}
+.preloader-bottom{display:flex;justify-content:space-between;align-items:flex-end}
+.preloader-tag{font-family:var(--display);font-size:clamp(20px,4vw,44px);color:rgba(237,232,225,.85);font-weight:500}
+.preloader-subtext{font-family:var(--mono);font-size:11px;color:rgba(237,232,225,.5);text-transform:uppercase;letter-spacing:.1em}
+.preloader.done .preloader-panel.left{transform:translate3d(0,-100%,0)}
+.preloader.done .preloader-panel.right{transform:translate3d(0,100%,0)}
+.preloader.done .preloader-content{opacity:0;transition:opacity 0.35s ease-out}
+.preloader.done{pointer-events:none;visibility:hidden;transition:visibility 0s linear 0.6s}
+
+/* DARK MODE CONTRAST REVEAL */
+[data-theme="dark"] .preloader-panel { background: #EDE8E1 !important; }
+[data-theme="dark"] .preloader-brand { color: #4B4F91 !important; }
+[data-theme="dark"] .preloader-num { color: #211E24 !important; }
+[data-theme="dark"] .preloader-tag { color: rgba(33, 30, 36, 0.85) !important; }
+[data-theme="dark"] .preloader-subtext { color: rgba(33, 30, 36, 0.55) !important; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .preloader-panel { background: #EDE8E1 !important; }
+  :root:not([data-theme="light"]) .preloader-brand { color: #4B4F91 !important; }
+  :root:not([data-theme="light"]) .preloader-num { color: #211E24 !important; }
+  :root:not([data-theme="light"]) .preloader-tag { color: rgba(33, 30, 36, 0.85) !important; }
+  :root:not([data-theme="light"]) .preloader-subtext { color: rgba(33, 30, 36, 0.55) !important; }
+}
+
+@media (prefers-reduced-motion:reduce){.preloader{display:none!important}}
+
+/* ---- DYNAMIC CURSOR WITH 80% TRANSLUCENT TEXT BADGE ---- */
+.custom-cursor{
+  position:fixed;
+  top:0;
+  left:0;
+  width:16px;
+  height:16px;
+  border:1.5px solid var(--accent);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width 0.18s ease-out, height 0.18s ease-out, border-color 0.18s, background-color 0.18s, opacity 0.2s;
+  background:transparent;
+  opacity:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:#FFF;
+  white-space:nowrap;
+}
+.custom-cursor.active{opacity:1}
+.custom-cursor.hovering{
+  width:26px;
+  height:26px;
+  border-color:var(--accent);
+  background:rgba(75,79,145,0.08);
+}
+.custom-cursor.hovering-text{
+  width:104px;
+  height:30px;
+  border-radius:15px;
+  background:rgba(75, 79, 145, 0.80);
+  border-color:transparent;
+  color:var(--paper);
+  box-shadow:0 4px 14px rgba(75,79,145,0.22);
+  backdrop-filter:blur(3px);
+}
+[data-theme="dark"] .custom-cursor.hovering-text {
+  background:rgba(130, 136, 196, 0.80);
+  color:#1A171C;
+}
+@media(max-width:900px), (hover:none), (prefers-reduced-motion:reduce){.custom-cursor{display:none!important}}
+
+/* ---- SIDE DOTS NAV ---- */
+.side-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:14px}
+.side-dot{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--hairline-strong);background:transparent;transition:all .25s;position:relative;cursor:pointer;text-decoration:none}
+.side-dot:hover,.side-dot.active{border-color:var(--accent);background:var(--accent);transform:scale(1.35)}
+.side-dot .tooltip{position:absolute;right:22px;top:50%;transform:translateY(-50%) translateX(6px);background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:10px;padding:4px 9px;border-radius:5px;white-space:nowrap;opacity:0;pointer-events:none;transition:all .2s}
+.side-dot:hover .tooltip{opacity:1;transform:translateY(-50%) translateX(0)}
+@media(max-width:900px){.side-nav{display:none}}
+
+/* HARDWARE ACCELERATED STICKY NAV (NO SCROLL REPAINT JANK) */
+nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(237,232,225,.88);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;
+  transform:translateZ(0);
+  will-change:background-color,border-color;
+  transition:border-color .2s,background-color .2s;
+}
+[data-theme="dark"] nav{background:rgba(26,23,28,.88)}
+nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96)}
+[data-theme="dark"] nav.scrolled{background:rgba(26,23,28,.96)}
+/* The bar runs to the edges rather than sitting inside the 1080px content column.
+   It was already geometrically symmetric — equal gutters both sides — but the row
+   holds one small signature on the left against a theme pill, a status badge and
+   five links on the right, so it read right-heavy. Pushing both ends outward gives
+   the signature weight to answer that cluster with. It no longer aligns with the
+   content below, which is the accepted trade for a full-width bar. */
+.nav-in{max-width:none;margin:0;padding:13px clamp(18px,4vw,64px) 11px;display:flex;align-items:center;justify-content:space-between}
+
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+
+/* TOP NAV BRAND MARK — inline SVG so the theme drives its colour.
+   Replaces a PNG that needed four stacked drop-shadows to fake a thicker
+   stroke, plus a brightness(0) invert(1) filter that bleached it white in
+   dark mode. Neither hack is needed now. */
+:root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --logo-weight:2.98; --pdeo-label:#3A3D73; --pill-line:#9B9084; --hm-me:#A9AEE6; }
+[data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73; }
+}
+.brand-mark{
+  height:var(--logo-h);
+  width:auto;
+  display:block;
+  color:var(--brand);
+  transition:transform .25s, color .3s;
+}
+/* The signature is a FILLED outline, not a stroked line, so its weight can't be
+   dialled directly. Stroking the same path in the same colour grows it by half
+   the stroke width on every edge — what a thicker pen does. 2.98 units measures
+   as ~23% more ink at this size (verified by rendering and counting pixels). */
+.brand-mark path{
+  stroke:currentColor;
+  stroke-width:var(--logo-weight);
+  stroke-linejoin:round;
+  stroke-linecap:round;
+}
+.brand:hover .brand-mark{ transform:scale(1.04); }
+
+/* THEME TOGGLE BUTTON */
+.theme-btn{
+  font-family:var(--mono);
+  font-size:12px;
+  background:var(--surface);
+  border:1px solid var(--hairline-strong);
+  color:var(--ink);
+  padding:5px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition:all .2s;
+  user-select:none;
+}
+.theme-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* LIVE STATUS BEACON BADGE */
+/* Availability badge. The old raw system green (#27C93F) measured 2.0:1 on the
+   warm surface — barely legible — and pulsed, which reads as a notification
+   rather than a status. Muted to fit the palette, and the pulse is gone. */
+:root{ --avail:#3F6B45; }
+[data-theme="dark"]{ --avail:#7FB183; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --avail:#7FB183; } }
+.status-beacon{display:inline-flex;align-items:center;gap:7px;background:color-mix(in srgb, var(--avail) 9%, transparent);border:1px solid color-mix(in srgb, var(--avail) 32%, transparent);border-radius:20px;padding:4px 11px;font-family:var(--mono);font-size:11px;color:var(--avail);font-weight:500}
+.beacon-dot{width:7px;height:7px;border-radius:50%;background:var(--avail);flex:none}
+
+.nav-links{display:flex;gap:16px;align-items:center}
+.nav-links a{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{color:var(--accent)!important;font-weight:600}
+
+/* ---- MOBILE MENU ----
+   Below 640px the nav links are hidden and the side dots disappear below 900px,
+   so without this there is no way to move between sections on a phone. */
+.nav-toggle{display:none;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border:1px solid var(--hairline-strong);border-radius:9px;background:var(--surface);cursor:pointer;flex:none}
+.nav-toggle:hover{border-color:var(--accent)}
+.nav-toggle-bars{display:block;position:relative;width:16px;height:10px}
+.nav-toggle-bars span{position:absolute;left:0;right:0;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .22s ease,opacity .22s ease}
+.nav-toggle-bars span:nth-child(1){top:0}
+.nav-toggle-bars span:nth-child(2){bottom:0}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(1){transform:translateY(4.25px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bars span:nth-child(2){transform:translateY(-4.25px) rotate(-45deg)}
+@media (prefers-reduced-motion:reduce){.nav-toggle-bars span{transition:none}}
+
+.nav-menu{display:none;border-top:1px solid var(--hairline);background:var(--paper)}
+.nav-menu.open{display:block}
+.nav-menu .nm-in{max-width:var(--wrap);margin:0 auto;padding:14px 16px 18px;display:flex;flex-direction:column}
+.nav-menu .status-beacon{align-self:flex-start;margin-bottom:10px}
+.nav-menu a{font-family:var(--mono);font-size:14px;letter-spacing:.02em;color:var(--ink-2);text-decoration:none;padding:13px 2px;border-bottom:1px solid var(--hairline);min-height:46px;display:flex;align-items:center}
+.nav-menu a:last-child{border-bottom:none}
+.nav-menu a:active{color:var(--accent)}
+/* the menu is a small-screen affordance only */
+@media(min-width:641px){.nav-menu{display:none!important}}
+
+@media(max-width:640px){
+  .nav-toggle{display:inline-flex}
+  .nav-links a:not(.nav-cta){display:none}
+  .nav-links .status-beacon{display:none}
+  #theme-text{display:none}                 /* icon-only toggle to make room */
+  .theme-btn{padding:6px 9px}
+  .nav-links{gap:10px}
+}
+
+/* hero */
+/* ---- ELEVATOR PITCH ----
+   The opening screen holds one thing: the claim, the one line of proof behind
+   it, and two ways in. Nothing else competes, and nothing is half-visible at
+   the fold — a visitor reads the pitch whole before deciding to scroll.
+   svh, not vh: on mobile vh is measured against the *expanded* viewport, so a
+   100vh hero sits partly under the browser chrome on first paint. */
+header{
+  position:relative;
+  /* The nav is sticky, so it OCCUPIES flow: the header starts at y=nav-height,
+     not y=0. A plain 100svh therefore overshot the fold by exactly the nav's
+     height and pushed the marquee just out of view — and the old padding-top
+     was clearing a nav that was never overlapping in the first place.
+     --nav-h is re-measured in JS so this holds at every breakpoint. */
+  height:calc(100vh - var(--nav-h));
+  height:calc(100svh - var(--nav-h));
+  display:flex;
+  flex-direction:column;
+  padding:0 0 clamp(28px,8vh,82px);
+}
+/* The cue and the marquee are the last two flex children, so they sit at the
+   bottom of the fold in normal flow. They were absolutely positioned before,
+   against a header using min-height — content pushed the header past one
+   viewport, so bottom:0 was below the fold and the marquee only appeared on
+   scroll. A fixed height and flow order makes that impossible. */
+/* Aligned to the top, not centred. Centring inside a full-height header put a
+   ~250px void between the nav and the eyebrow on a tall window — the fold read
+   as empty above the pitch. Space below is fine: the marquee anchors that edge. */
+/* Centred in the space above the marquee, not top-aligned. The fold is ~755px
+   and the content ~450px, so ~300px is unavoidably empty; top-aligning dumped
+   all of it into one 350px hole under the buttons, which reads as a bug. Split
+   evenly it is ~120px top and bottom, which reads as breathing room. */
+.hero-body{flex:1 1 auto;display:flex;align-items:center;min-height:0;padding:12px 0}
+/* On a short window, shrink the type rather than let the marquee fall out. */
+@media (max-height:700px){
+  h1.hero{font-size:clamp(27px,3.4vw,40px)}
+  .hero-sub{font-size:16px;margin-top:16px}
+  .hero-eyebrow{margin-bottom:16px}
+  .hero-actions{margin-top:22px}
+  .hero-actions .btn{padding:11px 18px}
+}
+
+/* ---- ENTRANCE ----
+   What both references do on load: the fold assembles itself in order, so the
+   eye lands on the eyebrow, then the claim, then the way in. No splash screen
+   and nothing withheld — the text is in the HTML and paints immediately; only
+   the reveal is staggered. */
+.hero-enter{opacity:0;transform:translateY(14px);animation:hero-in .68s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes hero-in{to{opacity:1;transform:none}}
+.hero-eyebrow{animation-delay:.06s}
+h1.hero{animation-delay:.17s}
+.hero-sub{animation-delay:.32s}
+.hero-actions{animation-delay:.45s}
+.hero-marquee{animation-delay:.60s}
+@media (prefers-reduced-motion:reduce){.hero-enter{opacity:1;transform:none;animation:none}}
+/* The block still fills whatever screen it lands on, but the type is sized to
+   fit a 1366x768 laptop — ~625px of usable viewport once browser chrome and the
+   nav are gone. Sizing to the device instead would cramp the short laptops and
+   sprawl on the tall monitors. Measured stack: 44 eyebrow + 195 headline +
+   89 sub + 86 actions = ~414px, inside the ~525px available. */
+/* ---- CAPABILITY MARQUEE ----
+   The strip that closes the fold. It lists what she works with and claims
+   nothing — the last version asserted outcomes, which read as more of the same
+   boasting the rest of the page already does.
+   The track holds the list twice and travels -50%, so the second copy is
+   exactly where the first started and the loop has no seam. Edges are masked
+   rather than cut, so items fade instead of clipping mid-word. */
+.hero-marquee{flex:none;overflow:hidden;background:var(--ink);padding:13px 0;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);
+          mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent)}
+.hm-track{display:flex;width:max-content;animation:hm-scroll 74s linear infinite}
+.hero-marquee:hover .hm-track{animation-play-state:paused}
+.hm-item{display:inline-flex;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--paper);white-space:nowrap}
+.hm-dot{color:var(--accent);font-size:7px;margin:0 26px}
+/* The band inverts between themes — a dark strip in light mode, light in dark —
+   so --hm-me inverts with it. The personal lines carry their own colour so the
+   change of register is visible, not something you infer from the wording. */
+.hm-item.hm-me{color:var(--hm-me)}
+@keyframes hm-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.hm-track{animation:none}}
+@media(max-width:640px){.hm-item{font-size:11px}.hm-dot{margin:0 18px}}
+.wa-ico{width:15px;height:15px;vertical-align:-3px;margin-right:5px}
+.hero-eyebrow{margin-bottom:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+h1.hero{font-family:var(--display);font-weight:500;font-size:clamp(31px,4.3vw,56px);line-height:1.06;letter-spacing:-.028em;max-width:none}
+h1.hero em{font-style:normal;color:var(--accent)}
+.hero-sub{margin-top:26px;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--ink-2);max-width:66ch}
+.hero-actions{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-size:13px;letter-spacing:.02em;padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:transform .15s,box-shadow .2s,border-color .2s,background .2s;cursor:pointer;border:none;min-height:44px}
+.btn-primary{background:var(--ink);color:var(--paper)}
+.hero-actions .btn{padding:15px 26px;font-size:14px}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:var(--shadow-lift)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hairline-strong)}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px)}
+.btn .arr{transition:transform .2s}.btn:hover .arr{transform:translate(2px,-2px)}
+
+/* sections */
+section{padding:56px 0}
+.band{background:var(--soft-band);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+.sec-head{display:flex;align-items:center;gap:18px;margin-bottom:28px}
+.sec-head .concept{font-family:var(--display);font-weight:600;font-size:clamp(22px,3.2vw,32px);letter-spacing:-.02em;line-height:1.12}
+.sec-head .sub{color:var(--muted);font-size:14.5px;margin-top:3px}
+
+/* about & audience switcher */
+.audience-wrapper{margin-bottom:34px}
+.audience-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+.audience-tabs{display:flex;gap:10px;flex-wrap:wrap}
+.aud-tab{font-family:var(--mono);font-size:12px;padding:8px 15px;border-radius:20px;border:1px solid var(--pill-line);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;user-select:none;min-height:36px}
+.aud-tab:hover{border-color:var(--accent);color:var(--ink)}
+.aud-tab.active{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+
+.about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:8px}
+.about-col{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:24px 26px;transition:transform .2s,box-shadow .2s}
+.about-col:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+.about-col .q{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.about-col p{font-size:15px;line-height:1.6;color:var(--ink-2);transition:opacity .25s}
+.about-col p b{color:var(--ink);font-weight:600}
+/* Short declarative line-groups instead of one dense paragraph. */
+.about-col p .ln{display:block}
+.about-col p .ln + .ln{margin-top:11px}
+
+/* Column icons — drawn inline so there is no library to load, stroked in
+   var(--accent) so light and dark need no extra rules. */
+.ico{width:18px;height:18px;flex:none;fill:none;stroke:var(--accent);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:20px}}
+
+/* framing band */
+.framing{padding:42px 0}
+.framing .wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:36px;align-items:center}
+@media(max-width:760px){.framing{padding:32px 0}.framing .wrap{grid-template-columns:1fr;gap:12px}}
+.framing h2{font-family:var(--display);font-weight:600;font-size:clamp(20px,2.7vw,26px);letter-spacing:-.02em;line-height:1.18;color:var(--ink)}
+.framing p{color:var(--ink-2);font-size:15.5px;line-height:1.6}
+
+@media (hover:none){.card{transform:none!important}}
+
+/* CARD LAYOUT */
+.projects{display:flex;flex-direction:column;gap:24px;margin-top:28px}
+.card{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:28px 32px;box-shadow:var(--shadow);transition:transform .15s ease-out,box-shadow .25s,border-color .25s;text-decoration:none;color:inherit;position:relative}
+.card:hover{border-color:var(--hairline-strong);box-shadow:var(--shadow-lift)}
+.card.written{border-style:dashed;border-color:var(--hairline-strong);background:var(--surface)}
+.card.wip{opacity:.76}
+
+/* CARD MAIN GRID */
+.card-main-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:36px;align-items:start}
+.card-details-box{border-radius:var(--r-sm);padding:4px;transition:background .2s}
+
+/* METRIC BADGE CALLOUT */
+.card-metric-badge{display:inline-flex;align-items:baseline;gap:8px;background:var(--accent-wash);border:1px solid var(--hairline-strong);border-radius:var(--r-sm);padding:7px 14px;margin-bottom:16px}
+.card-metric-num{font-family:var(--display);font-weight:700;font-size:22px;color:var(--accent);line-height:1}
+.card-metric-lbl{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;color:var(--ink-2);letter-spacing:.05em}
+
+.card-tags{display:flex;gap:9px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.tag{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border:1px solid var(--hairline-strong);border-radius:20px;padding:4px 11px}
+.tag.live{color:var(--accent);border-color:var(--hairline-strong);background:var(--accent-wash);font-weight:500}
+.tag.paper{border-style:dashed}
+.card h3{font-family:var(--display);font-weight:600;font-size:23px;letter-spacing:-.02em;margin-bottom:15px;display:flex;align-items:center;gap:12px;line-height:1.15}
+.card h3 .arr{margin-left:auto;color:var(--faint);font-size:18px;transition:transform .2s,color .2s}
+.card:hover h3 .arr{transform:translate(3px,-3px);color:var(--accent)}
+/* The four labels carry the structure of every case study, and at 9px in the
+   faint grey they measured 3.1:1 — effectively invisible. Now a two-column
+   grid so every row's text starts at the same place, with the label in a
+   deeper indigo (9.5:1) that reads as a label rather than as body copy. */
+.pdeo{display:flex;flex-direction:column;gap:14px}
+.pdeo .row{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:baseline;font-size:14px;line-height:1.55;color:var(--ink-2)}
+.pdeo .k{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label)}
+.pdeo .row b{color:var(--ink);font-weight:600}
+.meta{display:flex;gap:16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--hairline)}
+.meta .cell{flex:1;min-width:0}
+.meta .mk{font-family:var(--mono);font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.meta .mv{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.35}
+
+/* LIVE INTERACTIVE MICRO-WIDGETS (AUTHENTIC TO GITHUB REPOS) */
+.mini-widget-box{background:var(--paper-alt);border:1px solid var(--hairline-strong);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;justify-content:space-between;min-height:240px;align-self:start;box-shadow:inset 0 1px 3px rgba(0,0,0,.03)}
+.widget-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--hairline)}
+.widget-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.widget-status{font-family:var(--mono);font-size:9px;padding:2px 7px;border-radius:10px;background:var(--accent-wash);color:var(--accent);font-weight:500}
+.widget-controls{display:flex;flex-direction:column;gap:10px}
+.widget-label{font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;justify-content:space-between}
+
+/* RANGE SLIDER MOBILE TOUCH TARGETS */
+.widget-slider{
+  width:100%;
+  height:8px;
+  border-radius:4px;
+  accent-color:var(--accent);
+  cursor:pointer;
+}
+.widget-slider::-webkit-slider-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;}
+.widget-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;}
+
+.widget-result{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r-sm);padding:12px;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--ink);line-height:1.5}
+.widget-result .verdict-good{color:#27C93F;font-weight:600}
+.widget-result .verdict-warn{color:#D97706;font-weight:600}
+.widget-result .verdict-bad{color:#DC2626;font-weight:600}
+.widget-btn-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.fit-row{flex-wrap:nowrap}
+.fit-row .fit-btn{flex:1 1 0;min-width:0}
+.widget-btn{font-family:var(--mono);font-size:10px;padding:6px 10px;border-radius:6px;border:1px solid var(--hairline-strong);background:var(--surface);color:var(--ink-2);cursor:pointer;transition:all .15s;min-height:36px;display:inline-flex;align-items:center;justify-content:center}
+.widget-btn.active,.widget-btn:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+/* Retailer name stacked above the garment — all three commerce sites stay visible. */
+.fit-btn{flex-direction:column;gap:1px;line-height:1.2;padding:7px 4px;text-align:center;white-space:nowrap}
+.fit-btn .fb-r{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;opacity:.65}
+
+/* ---- WIDGET FLIP ----
+   Two physical slots, spun forward forever. Panel 0 is the interactive widget,
+   the rest are screenshots; each press moves the next panel into whichever slot
+   is about to face the viewer and adds another half-turn.
+
+   The obvious approach — one face per screenshot, pre-rotated — cannot work
+   past two: with three faces the last press has to unwind 360deg back to the
+   start, which reads as the card flipping to itself and then onwards. Rotating
+   in one direction and swapping the content is what makes the third press
+   behave like the first two. */
+/* Case studies have no widget: the argument runs the full width of the card,
+   with the four rows in a 2x2 so the line length stays readable. */
+/* ---- CARD LINKS ----
+   The title carries the real link, and a stretched pseudo-element makes the whole
+   details box clickable — so there is one sensible link for a screen reader rather
+   than a block-level <a> wrapping a heading and four paragraphs. The repo link
+   sits above that overlay on its own z-index so it stays separately clickable. */
+.card-details-box{position:relative}
+.card-link{color:inherit;text-decoration:none}
+.card-link::after{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit}
+.card-link:hover{color:var(--accent)}
+.card-src{position:relative;z-index:2;margin-top:16px;display:flex;gap:18px;flex-wrap:wrap}
+.card-src a{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:3px;transition:color .2s,border-color .2s}
+.card-src a:hover{color:var(--accent);border-color:var(--accent)}
+.card.written .card-main-grid{grid-template-columns:minmax(0,1fr)}
+.card.written .pdeo{display:grid;grid-template-columns:1fr 1fr;gap:18px 44px}
+@media (max-width:900px){.card.written .pdeo{grid-template-columns:1fr}}
+.widget-flip{perspective:1600px;align-self:start}
+.widget-flip-inner{position:relative;transform-style:preserve-3d;
+  transform:rotateY(calc(var(--turn,0) * 180deg));
+  transition:transform .55s cubic-bezier(.2,.7,.2,1), height .55s cubic-bezier(.2,.7,.2,1)}
+.flip-slot{position:absolute;top:0;left:0;right:0;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flip-slot.in-flow{position:relative}      /* the visible slot sets the height */
+.flip-slot-b{transform:rotateY(180deg)}
+.flip-pool{display:none}
+.flip-panel{justify-content:flex-start}
+.shot-face{padding:0;overflow:hidden}
+.widget-shot{width:100%;height:auto;display:block;border-radius:var(--r) var(--r) 0 0}
+.shot-bar{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-top:1px solid var(--hairline-strong);background:var(--surface-2)}
+.shot-cap{font-family:var(--mono);font-size:9.5px;line-height:1.4;color:var(--muted);margin:0}
+.savio-why{margin-top:8px;font-size:11px;line-height:1.5;color:var(--muted)}
+.flip-btn{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;padding:4px 9px;border-radius:20px;border:1px solid var(--hairline-strong);background:var(--surface);color:var(--accent);cursor:pointer;white-space:nowrap;font-weight:600}
+.flip-btn:hover{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.widget-flip-inner{transition:none}}
+
+/* FULL-WIDTH DRAWER ROW */
+.card-drawer-row{grid-column:1 / -1;margin-top:16px;padding-top:12px;border-top:1px solid var(--hairline)}
+.btn-spec-toggle{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:transparent;border:1px solid var(--hairline-strong);border-radius:var(--r-sm);padding:8px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .2s;width:fit-content;min-height:38px}
+.btn-spec-toggle:hover{background:var(--accent-wash);border-color:var(--accent)}
+.btn-spec-toggle .chevron{transition:transform .2s}
+.btn-spec-toggle.open .chevron{transform:rotate(180deg)}
+.spec-drawer{display:none;margin-top:16px;padding:20px 22px;background:var(--surface);border:1px solid var(--hairline-strong);border-radius:var(--r-sm)}
+.spec-drawer.open{display:block;animation:fadeIn .25s ease-out}
+.spec-tabs{display:flex;gap:18px;border-bottom:1px solid var(--hairline);padding-bottom:8px;margin-bottom:14px}
+.spec-tab-btn{font-family:var(--mono);font-size:11px;text-transform:uppercase;color:var(--muted);background:none;border:none;cursor:pointer;padding:6px 0;border-bottom:2px solid transparent;transition:all .2s;min-height:32px}
+.spec-tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500}
+.spec-tab-content{font-size:14px;line-height:1.58;color:var(--ink-2);display:none}
+.spec-tab-content.active{display:block}
+/* Inline code — replaces literal backticks, which don't render as formatting in HTML */
+code{font-family:var(--mono);font-size:.86em;background:var(--accent-wash);border:1px solid var(--hairline);border-radius:4px;padding:1px 5px;color:var(--ink);word-break:break-word}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+
+/* PM TOOLBOX GRID */
+.toolbox-section{margin-top:48px;background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:28px 32px}
+.toolbox-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:16px}
+.toolbox-card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-sm);padding:18px}
+.toolbox-title{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:10px;font-weight:600}
+.toolbox-pills{display:flex;flex-wrap:wrap;gap:6px}
+.tool-pill{font-family:var(--mono);font-size:10.5px;padding:4px 9px;border-radius:6px;background:var(--paper-alt);color:var(--ink-2);border:1px solid var(--hairline-strong)}
+
+/* experience */
+.exp{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:30px 32px;box-shadow:var(--shadow);margin-top:26px}
+.exp-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:5px}
+.exp-role{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em}
+.exp-when{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.exp-org{font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:16px}
+.exp p{color:var(--muted);font-size:15px;line-height:1.62;max-width:66ch}
+.exp p b{color:var(--ink-2);font-weight:600}
+@media(max-width:880px){.card-main-grid{grid-template-columns:1fr;gap:22px}.mini-widget-box{width:100%}.toolbox-grid{grid-template-columns:1fr}}
+
+/* contact */
+.contact{text-align:center}
+.contact h2{font-family:var(--display);font-weight:500;font-size:clamp(28px,4.4vw,44px);letter-spacing:-.025em;margin:16px 0 16px;line-height:1.1}
+.contact p{color:var(--muted);max-width:48ch;margin:0 auto 24px}
+.contact-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--hairline);padding:26px 0}
+.foot-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-in span{font-family:var(--mono);font-size:12px;color:var(--faint)}
+
+/* REVEAL ON SCROLL (FAST 0.4s HARDWARE ACCELERATED TRANSITION) */
+.reveal{opacity:0;transform:translate3d(0,12px,0);will-change:opacity,transform;transition:opacity .45s cubic-bezier(.2,.7,.2,1),transform .45s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:translate3d(0,0,0);will-change:auto}
+
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px; }
+  .nav-in { padding: 10px 16px 8px; }
+  :root { --logo-h: 34px; }
+
+  /* height:auto, not a fixed 100svh. On a phone the headline runs to five or
+     six lines and the two buttons stack full-width, so the content can exceed
+     the fold — with a fixed height it overflowed and the marquee landed on top
+     of the Resume button. Now the header grows instead; the marquee slipping
+     below the fold on a small phone is the right trade against overlap. */
+  header { height:auto; min-height:calc(100svh - var(--nav-h)); padding: 0 0 clamp(14px,3vh,30px); }
+  h1.hero { font-size: 28px; line-height: 1.09; max-width:none; }
+  .hero-eyebrow { margin-bottom: 18px; gap: 8px; }
+  .eyebrow { font-size: 11.5px; letter-spacing: .1em; }
+  .hero-sub { font-size: 16px; margin-top: 18px; max-width:none; }
+  .hero-actions { margin-top: 24px; gap: 10px; }
+  .hero-actions .btn { padding: 13px 20px; }
+  .hero-actions { flex-direction: column; width: 100%; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  
+  .audience-wrapper { margin-bottom: 24px; }
+  .audience-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .audience-tabs::-webkit-scrollbar { display: none; }
+  .aud-tab { flex-shrink: 0; white-space: nowrap; font-size: 11px; padding: 6px 12px; }
+  
+  .card { padding: 20px 16px; border-radius: 12px; }
+  .card-main-grid { gap: 18px; }
+  .card h3 { font-size: 20px; }
+  .pdeo .row{grid-template-columns:1fr;gap:5px}
+  .card-metric-badge { width: 100%; flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 12px; }
+  .card-metric-num { font-size: 20px; }
+  .meta { flex-wrap: wrap; gap: 12px; }
+  .meta .cell { min-width: 45%; }
+  
+  .mini-widget-box { padding: 14px; min-height: auto; border-radius: 12px; }
+  .widget-btn-row { width: 100%; gap: 4px; }
+  .widget-btn { flex: 1; text-align: center; padding: 7px 4px; font-size: 9.5px; }
+  
+  .spec-drawer { padding: 16px 14px; }
+  .spec-tabs { gap: 12px; }
+  .spec-tab-btn { font-size: 10px; }
+
+  .toolbox-section { padding: 20px 16px; margin-top: 32px; }
+  .exp { padding: 20px 16px; }
+  
+  .contact-links { flex-direction: column; width: 100%; }
+  .contact-links .btn { width: 100%; justify-content: center; }
+
+  .preloader-content { padding: 32px 20px; }
+  .preloader-tag { font-size: 22px; }
+}
