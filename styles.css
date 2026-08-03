@@ -652,10 +652,13 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 .art-back:hover{color:var(--accent)}
 h1.art-title{font-family:var(--display);font-weight:500;font-size:clamp(28px,3.9vw,46px);line-height:1.08;letter-spacing:-.03em;max-width:none;margin:0}
 .art-sub{margin-top:18px;font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--muted);max-width:52ch}
-.art-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px 28px;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:20px 0;margin:34px 0 0}
+/* The meta strip sits under the hero, not above it, so the reader meets the piece
+   before its paperwork. Values are kept to a single line each — a Method cell that
+   wraps to three lines turns a footnote into a block that competes with the title. */
+.art-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 28px;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:14px 0;margin:30px 0 0}
 .am-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label);margin-bottom:5px}
 .am-v{font-size:14px;line-height:1.5;color:var(--ink-2)}
-.art-body{max-width:80ch;margin:0 auto;padding:8px 0 72px}
+.art-body{max-width:80ch;margin:0 auto;padding:26px 0 72px}
 .art-body h2{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,29px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:52px 0 18px}
 .art-body h2:first-child{margin-top:36px}
 .art-body p{font-size:17px;line-height:1.72;color:var(--ink-2);margin:0 0 21px}

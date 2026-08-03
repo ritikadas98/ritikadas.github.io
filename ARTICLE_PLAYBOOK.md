@@ -141,15 +141,15 @@ of the above.
       <a href="../" class="art-back">&larr; All writing</a>
       <h1 class="art-title">The headline</h1>
       <p class="art-sub">One sentence saying what this is.</p>
+      <figure class="fig-phone art-hero">
+        <img src="images/hero.jpg" alt="…" width="1080" height="1827" decoding="async" />
+      </figure>
       <div class="art-meta">
         <div class="am-cell"><div class="am-k">Role</div><div class="am-v">…</div></div>
         <div class="am-cell"><div class="am-k">Type</div><div class="am-v">…</div></div>
         <div class="am-cell"><div class="am-k">Timeframe</div><div class="am-v">…</div></div>
         <div class="am-cell"><div class="am-k">Method</div><div class="am-v">…</div></div>
       </div>
-      <figure class="fig-phone art-hero">
-        <img src="images/hero.jpg" alt="…" width="1080" height="1827" decoding="async" />
-      </figure>
     </div>
   </header>
   <div class="art-wrap">
@@ -162,10 +162,28 @@ of the above.
 
 The back link goes to `../` — the writing index — not to the homepage card.
 
-The **Method** cell states where the evidence came from. State it once, plainly, and
-move on. Do not repeat the provenance claim later in the body, and do not add lines
-insisting on what the analysis *didn't* use. Saying it twice reads as protesting and
-invites the reader to wonder why it needs defending.
+**The order matters: headline, one-line summary, hero image, then the meta strip.**
+The reader meets the piece before its paperwork, and the strip's hairline rules then
+act as the divider into the body. Do not put the meta strip above the hero.
+
+### The meta strip
+
+**Every value must fit on one line.** Four cells sit side by side, so each has roughly
+a quarter of the width. A value that wraps to three lines turns a footnote into a block
+that competes with the title for attention, and pushes the article itself below the fold.
+Three or four words per cell. Check it rendered — don't assume.
+
+- **Role** — `Product analysis`, not `Product analysis (self-directed)`
+- **Type** — `Product teardown`
+- **Timeframe** — `March–July 2026`
+- **Method** — `Public listings, reviews, my own use`
+
+The **Method** cell names the evidence sources and nothing else. Don't repeat the dates
+there — the Timeframe cell next to it already carries them. State provenance once,
+plainly, and move on: don't restate it later in the body, and don't add lines insisting
+on what the analysis *didn't* use. Saying it twice reads as protesting, and invites the
+reader to wonder why it needs defending. The body can carry a short "A note on method"
+section for the caveats that genuinely need saying.
 
 ---
 
