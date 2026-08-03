@@ -8,3 +8,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# Article drafts — source text and full-res screenshots. Never published; the
+# built pages and their web-sized assets are what get committed.
+writing-drafts/
