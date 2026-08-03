@@ -275,6 +275,17 @@ the subject's real extents in pixels before choosing the numbers.
 `.art-hero` renders at 330px. Update the `<img>` `width`/`height` attributes to the new
 dimensions whenever you recrop, or the page reserves the wrong amount of space.
 
+**Bump the cache-buster when you change an image's pixels.** The filename stays the same
+across recrops, so a browser that has already seen the old version keeps showing it — and
+it will look like the change never deployed:
+
+```html
+<img src="images/crew-hero.jpg?v=2" …>
+```
+
+Increment `v` in the same commit as the new image. Without it, expect to be told the fix
+didn't go live when it did.
+
 ### The rule that matters for `fig-row`
 
 **Every image in a `fig-row` must be cut to the same pixel dimensions.**

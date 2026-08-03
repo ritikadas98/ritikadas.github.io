@@ -43,7 +43,10 @@
       <h1 class="art-title">You Can't Hand Off What You Still Have to Hold</h1>
       <p class="art-sub">A product case study on CREW, Swiggy's travel concierge.</p>
       <figure class="fig-phone art-hero">
-        <img src="images/crew-hero.jpg" alt="CREW's opening screen: the wordmark inside an aircraft window, above &ldquo;Welcome to Crew, your travel concierge&rdquo; and a Begin the Journey button." width="1080" height="1590" decoding="async" />
+        <!-- ?v= is a cache-buster. The filename stays stable across recrops, so
+             without it a browser that has seen the old image keeps showing it.
+             Bump the number whenever the file's pixels change. -->
+        <img src="images/crew-hero.jpg?v=2" alt="CREW's opening screen: the wordmark inside an aircraft window, above &ldquo;Welcome to Crew, your travel concierge&rdquo; and a Begin the Journey button." width="1080" height="1590" decoding="async" />
       </figure>
       <div class="art-meta">
         <div class="am-cell"><div class="am-k">Role</div><div class="am-v">Product analysis</div></div>
