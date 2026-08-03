@@ -646,16 +646,16 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
    wide figures break out past it, which is how the reference
    handles images — narrower text, wider evidence.
    ============================================================ */
-.art-wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.art-wrap{max-width:1180px;margin:0 auto;padding:0 28px}
 .art-head{padding:56px 0 0}
 .art-back{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:30px;transition:color .2s}
 .art-back:hover{color:var(--accent)}
-h1.art-title{font-family:var(--display);font-weight:500;font-size:clamp(30px,4.4vw,52px);line-height:1.07;letter-spacing:-.03em;max-width:26ch;margin:0}
+h1.art-title{font-family:var(--display);font-weight:500;font-size:clamp(28px,3.9vw,46px);line-height:1.08;letter-spacing:-.03em;max-width:none;margin:0}
 .art-sub{margin-top:18px;font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--muted);max-width:52ch}
 .art-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:20px 28px;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:20px 0;margin:34px 0 0}
 .am-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label);margin-bottom:5px}
 .am-v{font-size:14px;line-height:1.5;color:var(--ink-2)}
-.art-body{max-width:68ch;margin:0 auto;padding:8px 0 72px}
+.art-body{max-width:80ch;margin:0 auto;padding:8px 0 72px}
 .art-body h2{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,29px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:52px 0 18px}
 .art-body h2:first-child{margin-top:36px}
 .art-body p{font-size:17px;line-height:1.72;color:var(--ink-2);margin:0 0 21px}
@@ -670,8 +670,8 @@ figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
    pixels tall, so they sit centred at a limited width. */
 .fig-phone{max-width:330px;margin:40px auto}
 /* Review cards are landscape and dense, so they break out past the measure. */
-.fig-wide{width:min(1024px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
-.table-scroll{overflow-x:auto;margin:34px 0;width:min(1024px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
+.fig-wide{width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
+.table-scroll{overflow-x:auto;margin:34px 0;width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
 .art-body table{border-collapse:collapse;width:100%;font-size:14.5px}
 .art-body th{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label);text-align:left;padding:0 18px 10px 0;border-bottom:1px solid var(--hairline-strong);white-space:nowrap}
 .art-body td{padding:14px 18px 14px 0;border-bottom:1px solid var(--hairline);color:var(--ink-2);line-height:1.6;vertical-align:top}
@@ -706,4 +706,16 @@ a.wr-in:hover .wr-title{color:var(--accent)}
 @media(max-width:640px){
   .wr-in{padding:22px 0}
   .wr-dek{font-size:14.5px}
+}
+
+/* A run of phone screenshots sits in one row rather than stacked. Three portrait
+   shots in sequence cost ~1500px of height and read as one idea anyway, so the
+   column carries them side by side with their own captions. Heights stay ragged
+   because the screens genuinely differ; forcing a common aspect would crop them. */
+.fig-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start;
+  margin:44px 0;width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
+.fig-row figure{margin:0}
+.fig-row figcaption{font-size:12.5px;margin-top:9px}
+@media(max-width:760px){
+  .fig-row{grid-template-columns:1fr;gap:32px;width:auto;margin-left:0;transform:none}
 }
