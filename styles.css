@@ -710,8 +710,9 @@ a.wr-in:hover .wr-title{color:var(--accent)}
 
 /* A run of phone screenshots sits in one row rather than stacked. Three portrait
    shots in sequence cost ~1500px of height and read as one idea anyway, so the
-   column carries them side by side with their own captions. Heights stay ragged
-   because the screens genuinely differ; forcing a common aspect would crop them. */
+   column carries them side by side with their own captions. The images must be
+   cut to a common aspect ratio before they go in here — mismatched heights leave
+   the captions on three different lines and the row reads as an accident. */
 .fig-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start;
   margin:44px 0;width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
 .fig-row figure{margin:0}
