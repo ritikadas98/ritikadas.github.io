@@ -506,6 +506,18 @@ section{padding:56px 0}
    behave like the first two. */
 /* Case studies have no widget: the argument runs the full width of the card,
    with the four rows in a 2x2 so the line length stays readable. */
+/* ---- CARD LINKS ----
+   The title carries the real link, and a stretched pseudo-element makes the whole
+   details box clickable — so there is one sensible link for a screen reader rather
+   than a block-level <a> wrapping a heading and four paragraphs. The repo link
+   sits above that overlay on its own z-index so it stays separately clickable. */
+.card-details-box{position:relative}
+.card-link{color:inherit;text-decoration:none}
+.card-link::after{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit}
+.card-link:hover{color:var(--accent)}
+.card-src{position:relative;z-index:2;margin-top:16px;display:flex;gap:18px;flex-wrap:wrap}
+.card-src a{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:3px;transition:color .2s,border-color .2s}
+.card-src a:hover{color:var(--accent);border-color:var(--accent)}
 .card.written .card-main-grid{grid-template-columns:minmax(0,1fr)}
 .card.written .pdeo{display:grid;grid-template-columns:1fr 1fr;gap:18px 44px}
 @media (max-width:900px){.card.written .pdeo{grid-template-columns:1fr}}
@@ -802,14 +814,14 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
       <div class="card reveal" data-project="fitcheck">
         <div class="card-main-grid">
           <!-- LEFT DETAILS BOX -->
-          <div class="card-details-box" data-cursor-text="Try Verdict">
+          <div class="card-details-box" data-cursor-text="Get the Code">
             <div class="card-tags"><span class="tag live">● In use</span><span class="tag">Chrome extension</span></div>
             <div class="card-metric-badge">
               <span class="card-metric-num">70%</span>
               <span class="card-metric-lbl">Week 1 Retention · Zero Uninstalls</span>
             </div>
 
-            <h3>FitCheck <span class="arr">↗</span></h3>
+            <h3><a class="card-link" href="https://github.com/ritikadas98/fitchecker" target="_blank" rel="noopener noreferrer">FitCheck</a></h3>
             <div class="pdeo">
               <div class="row"><span class="k">Problem</span><span class="v">Free returns are why people in India buy clothes online. You can't tell if something fits, so you order it and send it back. A quarter to a third of orders come back. Size is the biggest reason. Each one costs the retailer shipping both ways, handling, and often a garment it can't sell again. The chart that would prevent it sits on the page, unread.</span></div>
               <div class="row"><span class="k">Decision</span><span class="v">Build a calculator, not a guess. It compares the fit a garment was <b>designed for</b> with the fit you'd actually get. The chart is already exact, so arithmetic is the right tool here.</span></div>
@@ -820,6 +832,9 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
               <div class="cell"><div class="mk">Timeline</div><div class="mv">Oct–Dec 2025</div></div>
               <div class="cell"><div class="mk">Platform</div><div class="mv">Chrome extension</div></div>
               <div class="cell"><div class="mk">Stage</div><div class="mv">Shipped, in use</div></div>
+            </div>
+            <div class="card-src">
+              <a href="https://github.com/ritikadas98/fitchecker" target="_blank" rel="noopener noreferrer">Source ↗</a>
             </div>
           </div>
 
@@ -909,14 +924,14 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
       <div class="card reveal" data-project="savio">
         <div class="card-main-grid">
           <!-- LEFT DETAILS BOX -->
-          <div class="card-details-box" data-cursor-text="Test Trust">
+          <div class="card-details-box" data-cursor-text="Open Savio">
             <div class="card-tags"><span class="tag live">● Deployed</span><span class="tag">Consumer AI</span></div>
             <div class="card-metric-badge">
               <span class="card-metric-num">123</span>
               <span class="card-metric-lbl">Logged Decisions · Zero Number Hallucinations</span>
             </div>
 
-            <h3>Savio <span class="arr">↗</span></h3>
+            <h3><a class="card-link" href="https://savio-financial-app.netlify.app/" target="_blank" rel="noopener noreferrer">Savio</a></h3>
             <div class="pdeo">
               <div class="row"><span class="k">Problem</span><span class="v">Money apps tell you where your salary went. None answer the question you actually have. Can I afford this, right now? Will it break something I've already promised? So people guess. Guessing is how a month quietly goes wrong.</span></div>
               <div class="row"><span class="k">Decision</span><span class="v">Code works out every number. The AI writes the sentence you actually read. Before it reaches you, every figure in that sentence is traced back to your real data. If one can't be traced, Savio tells you to check rather than showing it.</span></div>
@@ -927,6 +942,9 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
               <div class="cell"><div class="mk">Timeline</div><div class="mv">Mar–May 2026</div></div>
               <div class="cell"><div class="mk">Platform</div><div class="mv">React + Supabase web app</div></div>
               <div class="cell"><div class="mk">Stage</div><div class="mv">Deployed, actively maintained</div></div>
+            </div>
+            <div class="card-src">
+              <a href="https://github.com/ritikadas98/Savio" target="_blank" rel="noopener noreferrer">Source ↗</a>
             </div>
           </div>
 
@@ -1011,14 +1029,14 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
       <div class="card reveal" data-project="amazon">
         <div class="card-main-grid">
           <!-- LEFT DETAILS BOX -->
-          <div class="card-details-box" data-cursor-text="Run Pipeline">
+          <div class="card-details-box" data-cursor-text="Open the App">
             <div class="card-tags"><span class="tag live">● Deployed</span><span class="tag">Multi-agent pipeline</span></div>
             <div class="card-metric-badge">
               <span class="card-metric-num">13-Step</span>
               <span class="card-metric-lbl">Pipeline · AI at Three Steps</span>
             </div>
 
-            <h3>Amazon Discovery Intelligence <span class="arr">↗</span></h3>
+            <h3><a class="card-link" href="https://amazon-discovery-intel-repo.vercel.app" target="_blank" rel="noopener noreferrer">Amazon Discovery Intelligence</a></h3>
             <div class="pdeo">
               <div class="row"><span class="k">Problem</span><span class="v">A PM cannot read every review, so they skim. Skimming feels fine because you never find out what you missed. The complaint that mattered was in there, and nobody counted it.</span></div>
               <div class="row"><span class="k">Decision</span><span class="v">Thirteen steps, and AI runs at three of them. It reads the messy text and groups the complaints, which is what it is genuinely good at. Every number a PM then sees is worked out in code.</span></div>
@@ -1029,6 +1047,9 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
               <div class="cell"><div class="mk">Timeline</div><div class="mv">Dec 2025–Mar 2026</div></div>
               <div class="cell"><div class="mk">Platform</div><div class="mv">TypeScript on Cloud Run</div></div>
               <div class="cell"><div class="mk">Stage</div><div class="mv">Deployed, scheduled</div></div>
+            </div>
+            <div class="card-src">
+              <a href="https://github.com/ritikadas98/amazon-discovery-intel-repo" target="_blank" rel="noopener noreferrer">Source ↗</a>
             </div>
           </div>
 
@@ -1135,7 +1156,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
       <div class="card written reveal" data-project="reddit">
         <div class="card-main-grid">
           <!-- LEFT DETAILS BOX -->
-          <div class="card-details-box" data-cursor-text="Read Study">
+          <div class="card-details-box" data-nolink="1">
             <div class="card-tags">
               <span class="tag paper" style="color:#FF4500;border-color:rgba(255,69,0,0.35);background:rgba(255,69,0,0.06);font-weight:600">● Reddit Study</span>
               <span class="tag">Consumer social</span>
@@ -1148,7 +1169,12 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 
             <h3>
               <img src="assets/reddit.svg" alt="Reddit" style="width:24px;height:24px;vertical-align:middle;margin-right:6px" loading="lazy" decoding="async" />
-              Reddit: a waypoint, not a destination <span class="arr">↗</span>
+              <!-- Both case studies stay unlinked until their routes exist on this
+                   domain: /writing/reddit and /writing/youtube, opening in a new tab.
+                   Pages serves directories, so each is a static writing/<name>/index.html
+                   with no build step. Until then no link and no hover label, rather than
+                   an offsite one that the route will replace. -->
+              Reddit: a waypoint, not a destination
             </h3>
             <div class="pdeo">
               <div class="row"><span class="k">Problem</span><span class="v">Around 62% of Reddit&rsquo;s visitors arrive from Google, land on one thread, get their answer and leave. Reddit spends its welcome effort on a homepage those visitors never see.</span></div>
@@ -1171,7 +1197,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
       <div class="card written reveal" data-project="youtube">
         <div class="card-main-grid">
           <!-- LEFT DETAILS BOX -->
-          <div class="card-details-box" data-cursor-text="Read Study">
+          <div class="card-details-box" data-nolink="1">
             <div class="card-tags">
               <span class="tag paper" style="color:#FF0000;border-color:rgba(255,0,0,0.35);background:rgba(255,0,0,0.06);font-weight:600">● YouTube Study</span>
               <span class="tag">Platform economics</span>
@@ -1183,7 +1209,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
 
             <h3>
               <img src="assets/youtube.svg" alt="YouTube" style="width:26px;height:26px;vertical-align:middle;margin-right:6px" loading="lazy" decoding="async" />
-              YouTube's Shadow R&D Lab: How Modded Apps Shape Strategy <span class="arr">↗</span>
+              YouTube's Shadow R&D Lab: How Modded Apps Shape Strategy
             </h3>
             <div class="pdeo">
               <div class="row"><span class="k">Problem</span><span class="v">Analytics only show what users do inside your app's rules — they miss what power users want badly enough to install third-party mods to fix.</span></div>
@@ -1272,11 +1298,11 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
     <h2>Let's build something worth owning.</h2>
     <p>Early-stage, India-based or remote. If you're hiring, I'd like to hear about it.</p>
     <div class="contact-links">
-      <a href="mailto:ritika.das@example.com" class="btn btn-primary">Email me <span class="arr">↗</span></a>
-      <!-- PLACEHOLDER — https://wa.me/<countrycode><number>, e.g. https://wa.me/919876543210 (no +, no spaces) -->
-      <a href="#" data-fill="whatsapp" class="btn btn-ghost" rel="noopener noreferrer"><svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.96L2 22l4.25-1.68a9.9 9.9 0 0 0 5.79 1.85h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12 1.23 1.25-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.39c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>WhatsApp <span class="arr">↗</span></a>
-      <a href="#" class="btn btn-ghost" rel="noopener noreferrer">LinkedIn <span class="arr">↗</span></a>
-      <a href="#" class="btn btn-ghost" rel="noopener noreferrer">GitHub <span class="arr">↗</span></a>
+      <a href="mailto:ritikadas98@gmail.com" class="btn btn-primary">Email me <span class="arr">↗</span></a>
+      <!-- wa.me wants country code, no + and no spaces: 91 + 8839331633 -->
+      <a href="https://wa.me/918839331633" class="btn btn-ghost" target="_blank" rel="noopener noreferrer"><svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.96L2 22l4.25-1.68a9.9 9.9 0 0 0 5.79 1.85h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12 1.23 1.25-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.39c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>WhatsApp <span class="arr">↗</span></a>
+      <a href="https://www.linkedin.com/in/ritikadas98/" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">LinkedIn <span class="arr">↗</span></a>
+      <a href="https://github.com/ritikadas98" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub <span class="arr">↗</span></a>
     </div>
   </div>
 </section>
