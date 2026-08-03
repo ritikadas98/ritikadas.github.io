@@ -689,10 +689,11 @@ figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
   .art-body p{font-size:16px}
   .fig-phone{max-width:100%}
 }
-/* The hero is an establishing shot, not evidence — it earns less room than the
-   screenshots that carry an argument later in the piece. Kept small so the meta
-   strip and the opening paragraph are reachable without scrolling. */
-.art-hero{max-width:232px;margin:26px auto 0}
+/* The hero is the largest single image on the page — it should not read as smaller
+   than the evidence screenshots further down. Height is bought back by cropping the
+   source rather than by shrinking the display width: trim the empty screen above and
+   below the subject, never scale the whole thing down. */
+.art-hero{max-width:330px;margin:26px auto 0}
 
 /* ---- WRITING INDEX (/writing/) ----
    The list of long-form pieces. Entries that exist are links; entries still being

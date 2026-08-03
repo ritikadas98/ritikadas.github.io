@@ -248,6 +248,33 @@ im = Image.open(src).convert('RGB').crop((0, top, 1080, top + H))
 im.save(dst, 'JPEG', quality=82, optimize=True, progressive=True)
 ```
 
+### The hero: crop it, don't shrink it
+
+The hero is the largest single image on the page and sets the reader's first impression.
+It must not look smaller than the evidence screenshots further down — that reads as an
+afterthought rather than an opening.
+
+So when the hero takes up too much vertical space, **crop the source, never reduce the
+display width.** Scaling it down fixes the height by making the subject small, which is
+the wrong trade. Cropping fixes the height while making the subject *bigger* in frame.
+
+A phone screenshot usually has a lot of empty screen above and below the thing worth
+seeing. Measure where the subject actually starts and ends, then cut with a matched
+margin on each side of it:
+
+```python
+# Example from the CREW hero: window graphic starts at y=708, button ends at y=2188.
+# 148px of margin on each side, cropped out of the 1206x2622 original.
+o.crop((0, 560, 1206, 2336)).resize((1080, 1590)).save(dst, 'JPEG', quality=82, ...)
+```
+
+**Check the bottom edge after cropping.** The first attempt at this cut the "Begin the
+Journey" button in half, because the crop line was guessed rather than measured. Find
+the subject's real extents in pixels before choosing the numbers.
+
+`.art-hero` renders at 330px. Update the `<img>` `width`/`height` attributes to the new
+dimensions whenever you recrop, or the page reserves the wrong amount of space.
+
 ### The rule that matters for `fig-row`
 
 **Every image in a `fig-row` must be cut to the same pixel dimensions.**
