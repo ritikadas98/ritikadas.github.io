@@ -213,10 +213,10 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    Replaces a PNG that needed four stacked drop-shadows to fake a thicker
    stroke, plus a brightness(0) invert(1) filter that bleached it white in
    dark mode. Neither hack is needed now. */
-:root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --logo-weight:2.98; --pdeo-label:#3A3D73; --pill-line:#9B9084; }
-[data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; }
+:root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --logo-weight:2.98; --pdeo-label:#3A3D73; --pill-line:#9B9084; --hm-me:#A9AEE6; }
+[data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73; }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; }
+  :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73; }
 }
 .brand-mark{
   height:var(--logo-h);
@@ -372,10 +372,14 @@ h1.hero{animation-delay:.17s}
 .hero-marquee{flex:none;overflow:hidden;background:var(--ink);padding:13px 0;
   -webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);
           mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent)}
-.hm-track{display:flex;width:max-content;animation:hm-scroll 46s linear infinite}
+.hm-track{display:flex;width:max-content;animation:hm-scroll 74s linear infinite}
 .hero-marquee:hover .hm-track{animation-play-state:paused}
 .hm-item{display:inline-flex;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--paper);white-space:nowrap}
 .hm-dot{color:var(--accent);font-size:7px;margin:0 26px}
+/* The band inverts between themes — a dark strip in light mode, light in dark —
+   so --hm-me inverts with it. The personal lines carry their own colour so the
+   change of register is visible, not something you infer from the wording. */
+.hm-item.hm-me{color:var(--hm-me)}
 @keyframes hm-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){.hm-track{animation:none}}
 @media(max-width:640px){.hm-item{font-size:11px}.hm-dot{margin:0 18px}}
@@ -748,7 +752,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
     </div>
   </div></div>
   <div class="hero-marquee hero-enter" aria-hidden="true">
-    <div class="hm-track"><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">Jobs To Be Done<span class="hm-dot">&#9670;</span></span><span class="hm-item">RICE + MoSCoW<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">Funnel &amp; Traffic Analysis<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extension (MV3)<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item">Vertex AI / Gemini<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">Jobs To Be Done<span class="hm-dot">&#9670;</span></span><span class="hm-item">RICE + MoSCoW<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">Funnel &amp; Traffic Analysis<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extension (MV3)<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item">Vertex AI / Gemini<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span></div>
+    <div class="hm-track"><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Can&rsquo;t drive, can&rsquo;t read a map either<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">RICE + MoSCoW<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Love football, missed the whole World Cup<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Cook great biryani, only by the recipe<span class="hm-dot">&#9670;</span></span><span class="hm-item">Agentic AI<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extensions<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Masters in English Literature, unrelated to everything since<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Big on history, hazy on the present<span class="hm-dot">&#9670;</span></span><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Can&rsquo;t drive, can&rsquo;t read a map either<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">RICE + MoSCoW<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Love football, missed the whole World Cup<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Cook great biryani, only by the recipe<span class="hm-dot">&#9670;</span></span><span class="hm-item">Agentic AI<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extensions<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Masters in English Literature, unrelated to everything since<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Big on history, hazy on the present<span class="hm-dot">&#9670;</span></span></div>
   </div>
 </header>
 
