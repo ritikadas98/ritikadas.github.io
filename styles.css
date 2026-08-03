@@ -237,15 +237,10 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
 }
 .theme-btn:hover{border-color:var(--accent);color:var(--accent)}
 
-/* LIVE STATUS BEACON BADGE */
-/* Availability badge. The old raw system green (#27C93F) measured 2.0:1 on the
-   warm surface — barely legible — and pulsed, which reads as a notification
-   rather than a status. Muted to fit the palette, and the pulse is gone. */
-:root{ --avail:#3F6B45; }
-[data-theme="dark"]{ --avail:#7FB183; }
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --avail:#7FB183; } }
-.status-beacon{display:inline-flex;align-items:center;gap:7px;background:color-mix(in srgb, var(--avail) 9%, transparent);border:1px solid color-mix(in srgb, var(--avail) 32%, transparent);border-radius:20px;padding:4px 11px;font-family:var(--mono);font-size:11px;color:var(--avail);font-weight:500}
-.beacon-dot{width:7px;height:7px;border-radius:50%;background:var(--avail);flex:none}
+/* The availability badge that used to sit here is gone. It was the widest item in
+   a bar that already carried a control, a status and five destinations, and it said
+   what the Contact section says anyway — where the claim is more credible, because
+   it sits next to an actual way to get in touch. */
 
 .nav-links{display:flex;gap:16px;align-items:center}
 .nav-links a{font-family:var(--mono);font-size:12.5px;color:var(--muted);text-decoration:none;transition:color .2s}
@@ -268,7 +263,6 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
 .nav-menu{display:none;border-top:1px solid var(--hairline);background:var(--paper)}
 .nav-menu.open{display:block}
 .nav-menu .nm-in{max-width:var(--wrap);margin:0 auto;padding:14px 16px 18px;display:flex;flex-direction:column}
-.nav-menu .status-beacon{align-self:flex-start;margin-bottom:10px}
 .nav-menu a{font-family:var(--mono);font-size:14px;letter-spacing:.02em;color:var(--ink-2);text-decoration:none;padding:13px 2px;border-bottom:1px solid var(--hairline);min-height:46px;display:flex;align-items:center}
 .nav-menu a:last-child{border-bottom:none}
 .nav-menu a:active{color:var(--accent)}
@@ -278,7 +272,6 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
 @media(max-width:640px){
   .nav-toggle{display:inline-flex}
   .nav-links a:not(.nav-cta){display:none}
-  .nav-links .status-beacon{display:none}
   #theme-text{display:none}                 /* icon-only toggle to make room */
   .theme-btn{padding:6px 9px}
   .nav-links{gap:10px}
