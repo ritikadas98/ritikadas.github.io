@@ -184,7 +184,12 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    five links on the right, so it read right-heavy. Pushing both ends outward gives
    the signature weight to answer that cluster with. It no longer aligns with the
    content below, which is the accepted trade for a full-width bar. */
-.nav-in{max-width:none;margin:0;padding:13px clamp(18px,4vw,64px) 11px;display:flex;align-items:center;justify-content:space-between}
+/* The bar still runs edge to edge rather than sitting in the content column, so the
+   signature can answer the link cluster across the full width. But the cluster lost
+   the availability badge and two links, so the old inset left the two sides stranded
+   at opposite ends of a mostly empty bar. Pulled inward — enough to close the gap,
+   not so far that it becomes a centred strip. */
+.nav-in{max-width:none;margin:0;padding:13px clamp(18px,5.5vw,112px) 11px;display:flex;align-items:center;justify-content:space-between}
 
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 
