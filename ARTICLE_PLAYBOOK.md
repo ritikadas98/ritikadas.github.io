@@ -147,6 +147,66 @@ In `index.html`, find `data-project="reddit"`. Inside it:
 Compare against the CREW card (`data-project="crew"`) — it is the live example of all
 of the above.
 
+### Step 3b — Cut the card down to a funnel
+
+**This is the step most likely to be got wrong, because it means deleting good writing.**
+
+An unpublished card has to carry the whole argument, because there is nowhere to send
+anyone. A published one must not. The CREW card originally ran all four rows — Problem,
+Decision, Evidence, Outcome, about 195 words — which delivered the thesis, the proof
+*and* the conclusion. A reader finished it with nothing left to want.
+
+When an article goes live, its card changes shape:
+
+| | Before (no article) | After (article live) |
+|---|---|---|
+| `.pdeo` rows | Problem, Decision, Evidence, Outcome | **Problem and Evidence only** |
+| Length | ~195 words | ~85 words |
+| Ending | The conclusion | A tease line, then a CTA |
+
+- **Keep Problem** — it is the hook, and it poses the question.
+- **Keep Evidence** — it is what makes the reader trust the answer is worth reading.
+- **Cut Decision and Outcome** — they *are* the answer. They move to the article.
+- **Add `.card-tease`** — one line naming what the article resolves, without resolving
+  it. Open a gap: *"Inside: why you can't test the service without first trusting it.
+  And the one number that would settle whether the concierge is really the moat."*
+- **Add `.card-cta`** — `Read the case study ↗`. Without it there is no visible signal
+  the card is clickable at all. The hover label that used to serve that purpose only
+  exists on desktop with a mouse, so on a phone the card looked like a dead end.
+
+The CTA is a `<span>`, not a link, and carries `aria-hidden="true"`:
+
+```html
+<p class="card-tease">Inside: … And the one number that would settle …</p>
+<span class="card-cta" aria-hidden="true">Read the case study <span class="arr">↗</span></span>
+```
+
+`.card-link::after` already stretches an invisible overlay across the whole card, so the
+card is one big link. A real `<a>` here would nest a link inside a link and hand screen
+readers two targets for one destination. Paint the affordance, let the existing overlay
+take the click.
+
+### Step 3c — Move the summary onto the article
+
+The four rows removed from the card go into `.art-summary`, immediately after the meta
+strip in the article header. Two columns on desktop, one on mobile.
+
+```html
+<div class="art-summary">
+  <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">…</div></div>
+  <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">…</div></div>
+  <div class="as-cell"><div class="as-k">Evidence</div><div class="as-v">…</div></div>
+  <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">…</div></div>
+</div>
+```
+
+Use the full-length card text verbatim — this is the place for it. It gives a reader who
+wants the argument before the prose everything in four blocks, and it sits in the header
+where the paperwork already lives, so the body still opens on its own hook.
+
+It restates what the opening paragraphs say. That is what an abstract does, and it is
+fine — skimmers read it, readers skip it.
+
 ### Step 4 — Check the mark is in the section heading
 
 The "Product Thinking" heading carries a pill of brand marks, one per study, in the same

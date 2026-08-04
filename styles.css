@@ -507,6 +507,18 @@ section{padding:56px 0}
    than a block-level <a> wrapping a heading and four paragraphs. The repo link
    sits above that overlay on its own z-index so it stays separately clickable. */
 .card-details-box{position:relative}
+/* A written card's job is to open a question, not answer it, so it ends on a line
+   naming what the article resolves and a visible way in. The card is already one
+   large link, so .card-cta is painted rather than interactive — a real <a> here
+   would nest a link inside a link and give screen readers two targets for one
+   destination. Hover is driven from the card, since the click overlay sits on top. */
+.card-tease{margin-top:16px;font-size:14px;line-height:1.6;color:var(--muted)}
+.card-cta{display:inline-flex;align-items:center;gap:9px;margin-top:18px;padding:11px 18px;min-height:44px;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:var(--paper);background:var(--ink);border-radius:10px;transition:transform .15s,box-shadow .2s}
+.card:hover .card-cta{transform:translateY(-1px);box-shadow:var(--shadow-lift)}
+.card-cta .arr{transition:transform .2s}
+.card:hover .card-cta .arr{transform:translate(2px,-2px)}
+@media (prefers-reduced-motion:reduce){.card-cta,.card-cta .arr{transition:none}}
+
 .card-link{color:inherit;text-decoration:none}
 .card-link::after{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit}
 .card-link:hover{color:var(--accent)}
@@ -661,6 +673,14 @@ h1.art-title{font-family:var(--display);font-weight:500;font-size:clamp(28px,3.9
 .art-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 28px;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);padding:14px 0;margin:30px 0 0}
 .am-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label);margin-bottom:5px}
 .am-v{font-size:14px;line-height:1.5;color:var(--ink-2)}
+/* The argument in four parts, carried over from the card. Two columns, because the
+   header runs the full 1180px rather than the body's reading measure — stacked, the
+   same text would push the article itself off the first screen. */
+.art-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 44px;border-bottom:1px solid var(--hairline);padding:24px 0 28px}
+.as-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label);margin-bottom:6px}
+.as-v{font-size:14.5px;line-height:1.6;color:var(--ink-2)}
+@media(max-width:760px){.art-summary{grid-template-columns:1fr;gap:20px;padding:20px 0 24px}}
+
 .art-body{max-width:80ch;margin:0 auto;padding:26px 0 72px}
 .art-body h2{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,29px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:52px 0 18px}
 .art-body h2:first-child{margin-top:36px}
