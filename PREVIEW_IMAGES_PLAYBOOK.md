@@ -350,9 +350,9 @@ to the picture and the words on it agree.
 
 | Item | State |
 |---|---|
-| Reddit and YouTube real screenshots | **Waiting.** Both are `hold`, so no files are committed. See §4. |
-| Card heroes placed on the homepage | **CREW done** 2026-08-04. Reddit and YouTube follow their screenshots. |
-| Reddit and YouTube `<meta>` tags | **Blocked.** Those pages do not exist yet. |
+| Reddit real screenshot | **Waiting.** Still `hold`, so no files are committed. See §4. |
+| Card heroes placed on the homepage | **CREW and YouTube done.** Reddit follows its screenshot. |
+| Reddit `<meta>` tags | **Blocked.** That page does not exist yet. |
 | A link preview for the site itself | **Not done, and it matters more than the articles.** See below. |
 
 ### How the card hero is wired in
