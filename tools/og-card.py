@@ -16,10 +16,10 @@ Three variants per article, written to assets/og/:
                                   A 1200x630 layout rendered at 2x: same 1.91:1
                                   aspect every platform crops to, twice the pixels.
   <slug>-square.jpg  2400x2400  — Instagram, LinkedIn image posts. Also 2x.
-  <slug>-card.jpg    1000x1400  — hero inside the Product Thinking card on the
-                                  homepage. Matches a ~400x560 slot exactly and is
-                                  built to survive cover-cropping either side of it;
-                                  see card() for the safe-area arithmetic.
+  <slug>-card.jpg    1000x1000  — hero inside the Product Thinking card on the
+                                  homepage. Square, so the card stays as short as its
+                                  own copy; built to survive cover-cropping either
+                                  side of that; see card() for the safe-area maths.
 
 Only -og.png is wired into a page's <meta> tags; the other two are placed by hand.
 
@@ -105,7 +105,7 @@ ARTICLES = {
     "youtube": {
         "hold": True,
         "kicker": "Product study",
-        "title": "YouTube’s Shadow R&amp;D Lab",
+        "title": "The Demand You Can’t See",
         "title_px": {"og": 68, "square": 92},
         "hook": "Analytics only show what users do inside your app’s rules. They "
                 "miss what power users install a modded app to fix.",
@@ -174,7 +174,7 @@ def field_bg(stops, bloom):
 
 # Layout size per variant, in CSS pixels. Read by both the CSS and the Chrome window,
 # so they cannot disagree.
-SIZES = {"og": (1200, 630), "square": (1200, 1200), "card": (940, 1075)}
+SIZES = {"og": (1200, 630), "square": (1200, 1200), "card": (1000, 1000)}
 
 # Device pixel ratio the screenshot is taken at, so the PNG comes out SIZES x DPR.
 # The layout is unchanged — this only decides how many real pixels each CSS pixel
@@ -398,40 +398,38 @@ def square(a):
 
 
 def card(a):
-    """940x1075 — the hero inside the homepage card. All field, no paper: it sits
+    """1000x1000 — the hero inside the homepage card. All field, no paper: it sits
     on a cream card, so a cream image would have no edge.
 
-    Two rounds of tightening got here, and the reasoning matters more than the numbers.
+    Square, and it took three passes to get here. The frame began at 1000x1400 (0.71),
+    sized for a written card carrying four PDEO rows. Once a published card was cut to
+    a title and a two-line lead — about 280px of text — a 525px image was setting the
+    card's height on its own and leaving a dead quarter under the button.
 
-    It began at 1000x1400 (0.71), a shape sized for a written card carrying four PDEO
-    rows. Once a published card was cut to a title and a two-line lead — about 280px
-    of text — a 525px image was setting the card's height on its own and leaving a
-    dead quarter under the button.
+    Cropping the old frame was never the fix: the phone spans nearly its whole height,
+    so any vertical trim cuts the device. The height came out of the empty band above
+    the phone instead, which opened 24% down and now opens at 13%. The margins shrank;
+    the product never did.
 
-    The fix was never to crop the frame. The phone spans nearly its whole height, so
-    any vertical trim cuts the device itself. The height came out of the empty band
-    above the phone: it opened 24% down, then 13%, and now 10%, with the byline at 40px
-    instead of 82. The margins shrank; the product never did.
-
-    Then the sides came in — canvas 1000 to 940, insets 150 to 120, the phone 67% of
-    the width to 69%. **Trimming the sides alone would have made the card taller**, not
-    smaller: the image renders at a fixed slot width, so a narrower frame is a taller
-    one. The top had to come down in proportion to hold the ratio near 0.87, which is
-    what keeps the rendered art around 430px and the card around 490px — level with the
-    other two studies rather than towering over its own text.
+    Square is what finally contains it. A portrait frame renders at a fixed slot width,
+    so its height is whatever the ratio dictates — always taller than the copy beside
+    it. At 1:1 the art is 376px in a 376px column and the card comes to 434px, set by
+    its own content rather than by a picture. **This is also why trimming the sides of
+    a portrait frame made it taller, not smaller**: a narrower frame at a fixed width
+    is a taller one.
 
     Geometry is still set by how object-fit:cover will treat it. Slot height comes
     from the card's own copy, so the aspect varies and cover crops whichever axis is
     surplus:
 
-        slot 0.87 (400x460)  nominal, matches this frame — nothing is cropped
-        slot 0.55 (400x730)  height binds; 105px comes off each side
-        slot 1.10 (400x364)  width binds; 135px comes off top and bottom
+        slot 1.00 (400x400)  nominal, matches this frame — nothing is cropped
+        slot 0.55 (400x730)  height binds; 137px comes off each side
+        slot 1.40 (400x286)  width binds; 143px comes off top and bottom
 
-    Hence the 120px side inset on every piece of text: 15px clear of the worst-case
-    horizontal trim, so nothing clips mid-word inside that band. Vertically the byline
-    and signature are the pieces that yield first, which is why neither carries meaning
-    the quote doesn't already.
+    Hence the 110px side inset on every piece of text, and the phone kept to 60% of the
+    width: both stay clear of the worst-case horizontal trim, so nothing clips mid-word
+    or loses the device's edge. Vertically the byline and signature are the pieces that
+    yield first, which is why neither carries meaning the quote doesn't already.
 
     The bloom also sits at 32% rather than the 12% the full-bleed variants use — up
     there it fell outside the crop entirely, leaving a gradient with no visible
@@ -439,14 +437,14 @@ def card(a):
     has_quote = bool(a.get("quote"))
     extra = """
     .field{inset:0}
-    .byline{font-size:19px;left:120px;top:40px;letter-spacing:.19em;
+    .byline{font-size:19px;left:110px;top:44px;letter-spacing:.19em;
       color:rgba(247,239,234,.88)}
-    .rule{position:absolute;left:120px;right:120px;top:90px;
+    .rule{position:absolute;left:110px;right:110px;top:94px;
       background:rgba(247,239,234,.22)}
-    .phone{width:648px;height:953px;left:146px;top:110px;transform:rotate(-4deg)}
-    .tile{width:400px;height:400px;border-radius:92px;left:270px;top:250px}
-    .quote{font-size:54px;left:120px;top:640px;width:660px}
-    .foot{position:absolute;left:120px;bottom:74px;gap:24px;align-items:center;
+    .phone{width:604px;height:888px;left:198px;top:126px;transform:rotate(-4deg)}
+    .tile{width:390px;height:390px;border-radius:90px;left:305px;top:300px}
+    .quote{font-size:52px;left:110px;top:600px;width:640px}
+    .foot{position:absolute;left:110px;bottom:70px;gap:24px;align-items:center;
       justify-content:flex-start}
     .sig{height:34px;color:#F5EBE6}
     .site{color:rgba(245,235,230,.66);font-size:17px}
