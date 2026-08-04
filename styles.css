@@ -529,7 +529,15 @@ section{padding:56px 0}
    whose article has preview art gets the media column back, which is also what stops
    a short card looking like a thin strip next to the shipped-product cards. */
 .card.written .card-main-grid{grid-template-columns:minmax(0,1fr)}
-.card.written.with-art .card-main-grid{grid-template-columns:1.45fr 1fr}
+/* stretch, not the inherited `start`: the text column has to fill the row's height
+   before the button can be pushed to the bottom of it. */
+.card.written.with-art .card-main-grid{grid-template-columns:1.45fr 1fr;align-items:stretch}
+.card.written.with-art .card-details-box{display:flex;flex-direction:column}
+/* The button sat directly under the lead, reading as part of the paragraph. It now
+   drops to the foot of the column, level with the bottom of the art, with the auto
+   margin guaranteeing at least 30px of clear air whatever the copy length. */
+.card.written.with-art .pdeo.lead{margin-bottom:30px}
+.card.written.with-art .card-cta{margin-top:auto;align-self:flex-start}
 /* Natural aspect rather than object-fit:cover, so nothing is cropped whatever the
    text column does. The art is 1000x1400; at the ~377px this column resolves to,
    that lands around 528px tall and the art sets the card's height. */
