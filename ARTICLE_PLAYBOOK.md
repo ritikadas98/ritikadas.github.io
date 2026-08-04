@@ -194,6 +194,15 @@ The `lead` modifier matters: `.card.written .pdeo` is a 2×2 grid built for four
 a single row without it sits in the left-hand column at half width instead of running the
 full card.
 
+**Add the card art at the same time.** A published card also gets `with-art` on the
+`.card` element and a `.card-art` figure as the grid's second column, holding
+`assets/og/<slug>-card.jpg`. Without it the card is a thin strip beside the shipped-product
+cards. Details and the responsive rules are in `PREVIEW_IMAGES_PLAYBOOK.md` §11.
+
+**Drop the small logo beside the card title** when the art goes in. The section heading
+already carries the tile and the art carries the brand at a readable size — three copies
+of one mark in one eyeful is noise.
+
 The CTA is a `<span>`, not a link, and carries `aria-hidden="true"`.
 
 `.card-link::after` already stretches an invisible overlay across the whole card, so the

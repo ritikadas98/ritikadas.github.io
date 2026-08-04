@@ -525,7 +525,26 @@ section{padding:56px 0}
 .card-src{position:relative;z-index:2;margin-top:16px;display:flex;gap:18px;flex-wrap:wrap}
 .card-src a{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:3px;transition:color .2s,border-color .2s}
 .card-src a:hover{color:var(--accent);border-color:var(--accent)}
+/* Written cards run full width by default — there is no widget to sit beside. A card
+   whose article has preview art gets the media column back, which is also what stops
+   a short card looking like a thin strip next to the shipped-product cards. */
 .card.written .card-main-grid{grid-template-columns:minmax(0,1fr)}
+.card.written.with-art .card-main-grid{grid-template-columns:1.45fr 1fr}
+/* Natural aspect rather than object-fit:cover, so nothing is cropped whatever the
+   text column does. The art is 1000x1400; at the ~377px this column resolves to,
+   that lands around 528px tall and the art sets the card's height. */
+.card-art{margin:0;border-radius:var(--r);overflow:hidden;border:1px solid var(--hairline);line-height:0}
+.card-art img{display:block;width:100%;height:auto}
+@media(max-width:880px){
+  /* Stacked, the art leads — a full-width 2:3 image would otherwise dwarf the text,
+     and it reads better as the card's opening image than as a footer under the button. */
+  .card.written.with-art .card-main-grid{grid-template-columns:1fr}
+  /* width + justify-self, not `margin:0 auto`. Auto margins cancel a grid item's
+     stretch, which left the figure shrink-to-fit — 4px wide until the image loaded,
+     and 4px forever if it ever failed. An explicit width keeps the aspect-ratio box
+     reserving its space from first paint. */
+  .card-art{order:-1;width:min(300px,100%);justify-self:center;margin:0 0 4px}
+}
 .card.written .pdeo{display:grid;grid-template-columns:1fr 1fr;gap:18px 44px}
 /* A card whose article is live carries one lead paragraph rather than a 2x2 of rows,
    so it runs the full width instead of sitting in the left-hand column. */

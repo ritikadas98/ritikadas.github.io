@@ -350,19 +350,44 @@ to the picture and the words on it agree.
 | Item | State |
 |---|---|
 | Reddit and YouTube real screenshots | **Waiting.** Both are `hold`, so no files are committed. See §4. |
-| Card heroes placed on the homepage | **Not done.** See below. |
+| Card heroes placed on the homepage | **CREW done** 2026-08-04. Reddit and YouTube follow their screenshots. |
 | Reddit and YouTube `<meta>` tags | **Blocked.** Those pages do not exist yet. |
+| A link preview for the site itself | **Not done, and it matters more than the articles.** See below. |
 
-### The card heroes are not on the homepage yet
+### How the card hero is wired in
 
-The three `-card.jpg` files exist and are finished, but nothing on the site uses them.
-`styles.css` has `.card.written .card-main-grid { grid-template-columns: minmax(0,1fr) }`,
-which collapses the written cards to a single column and removes the media slot the
-normal cards have.
+The CREW card carries `crew-card.jpg` in a restored media column:
 
-Putting the heroes in means restoring that second column for written cards, plus the
-responsive rules under 880 px. The art is already built to survive whatever slot shape
-results — see §7.
+```html
+<div class="card written with-art reveal" data-project="crew">
+  …
+  <figure class="card-art">
+    <img src="assets/og/crew-card.jpg" alt="" width="1000" height="1400" loading="lazy" decoding="async" />
+  </figure>
+```
+
+`with-art` is what restores the second column — `.card.written .card-main-grid` collapses
+written cards to one column by default, and that stays the default for a card with no art.
+
+The art renders at its **natural aspect**, not `object-fit:cover`, so §7's crop maths does
+not apply here — nothing is trimmed. At 1440 px the column resolves to 376 px and the art
+lands 525 px tall, which sets the card's height (583 px, against ~700 px for the shipped
+product cards — it no longer reads as the runt of the section).
+
+Under 880 px it stacks and the art moves **above** the text with `order:-1`, capped at
+300 px wide. Use `width` + `justify-self`, never `margin:0 auto` — auto margins cancel a
+grid item's stretch, which collapsed the figure to 4 px until the image loaded.
+
+The small inline logo that used to sit beside the card title was removed. Between the
+section heading's tile, that inline mark and the logo inside the art itself, one logo was
+appearing three times in one eyeful.
+
+### The site's own link preview is still missing
+
+`ritikadas.in` itself has no `og:` tags — only the CREW article does. The root URL is the
+one that goes on a CV, a LinkedIn profile and in email, so it is pasted far more often than
+any article link. It needs its own design, since there is no single product to show, and
+`ARTICLES` has no `home` entry.
 
 ---
 

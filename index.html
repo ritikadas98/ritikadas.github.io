@@ -532,7 +532,7 @@
       <!-- CREW CARD — the luxury case study, and the first of the three. Unlike the
            other two this one links somewhere: /writing/crew/, a real page on this
            domain rather than an offsite deck. -->
-      <div class="card written reveal" data-project="crew">
+      <div class="card written with-art reveal" data-project="crew">
         <div class="card-main-grid">
           <div class="card-details-box" data-cursor-text="Read the Study">
             <div class="card-tags">
@@ -540,8 +540,10 @@
               <span class="tag">Luxury travel</span>
               <span class="tag">Trust &amp; retention</span>
             </div>
+            <!-- The small inline mark is gone: the art in the next column carries the
+                 brand at a size worth looking at, and the section heading already
+                 carries the tile. Three copies of one logo in one eyeful is noise. -->
             <h3>
-              <img src="assets/crew-icon.png" alt="" width="26" height="26" style="width:26px;height:26px;border-radius:6px;vertical-align:middle;margin-right:8px" loading="lazy" decoding="async" />
               <a class="card-link" href="writing/crew/" target="_blank" rel="noopener">You can&rsquo;t hand off what you still have to hold</a>
             </h3>
             <!-- This card links to a finished article, so it carries the question and
@@ -557,6 +559,12 @@
                  announcing a button that duplicates the headline's destination. -->
             <span class="card-cta" aria-hidden="true">Read the case study <span class="arr">&#8599;</span></span>
           </div>
+          <!-- The article's own preview art, built by tools/og-card.py. Decorative:
+               the headline link beside it already names the destination, so an alt
+               string here would only make a screen reader read the card twice. -->
+          <figure class="card-art">
+            <img src="assets/og/crew-card.jpg" alt="" width="1000" height="1400" loading="lazy" decoding="async" />
+          </figure>
         </div>
       </div>
 
