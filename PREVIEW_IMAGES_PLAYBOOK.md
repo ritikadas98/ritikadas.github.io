@@ -187,8 +187,20 @@ of the homepage and go into the same LinkedIn feed. A one-off font size quietly 
 family. YouTube has an override only because its title is short, and it keeps its
 relative position when the default moves.
 
-Line breaks are safe to leave alone. `max-width` is set in `ch`, which scales with the
-font size, so changing the size does not re-wrap the headline.
+### Let the headline run the full column
+
+Both layouts used to cap the headline with a `max-width` in `ch` — 15ch on the rectangle,
+13ch on the square. On the square that stopped it at roughly 570px inside a 1024px column,
+so **every title broke a line early and left a column of nothing beside it.** Ritika
+spotted it on the LinkedIn squares, where the gap is widest.
+
+Both are now `max-width:none`, so the headline uses the measure it is given and wraps only
+when it actually runs out of room. One or two lines, edge to edge. Three lines with a
+ragged right is the thing to avoid.
+
+The padding is the measure: 68px on the rectangle's paper column, 88px on the square. If a
+future title still runs to three lines, **move the size scale**, do not reintroduce a
+width cap — a cap makes every other card wrap early to solve one card's problem.
 
 ### Read it at 396 pixels, not at full size
 

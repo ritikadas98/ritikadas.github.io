@@ -73,6 +73,22 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
 #                headline and hook already make it.
 
 ARTICLES = {
+    # The site itself. Its URL is the one that goes on a CV and a LinkedIn profile,
+    # so it is pasted far more often than any single article — and until now it was
+    # the only page with no preview at all. No product to photograph, so the card is
+    # the positioning, set in type. See home().
+    "home": {
+        "kicker": "Portfolio",
+        "title": "I build products people actually use",
+        "hook": "Product manager and builder, Bengaluru. Three products shipped solo, "
+                "plus long-form case studies on social, luxury and platforms.",
+        "byline": "Ritika Das",
+        "brand": "#4B4F91", "rgb": "75,79,145",
+        "field": ("#7C81BE", "#4B4F91", "#343864", "#1D1F3A"),
+        "icon": "assets/crew-icon.png", "icon_radius": 12,
+        "subject": {"kind": "none", "src": ""},
+        "variants": ("og",),
+    },
     "crew": {
         "kicker": "Product teardown",
         "title": "You Can’t Hand Off What You Still Have to Hold",
@@ -327,7 +343,7 @@ def rectangle(a):
     extra = """
     .card{display:flex}
     .col{width:772px;padding:62px 62px 54px 72px;display:flex;flex-direction:column}
-    h1{font-size:%(tpx)spx;margin:38px 0 0;max-width:15ch}
+    h1{font-size:%(tpx)spx;margin:38px 0 0;max-width:none}
     .hook{font-size:22px;line-height:1.46;margin-top:26px;max-width:37ch}
     .rule{margin-top:auto}
     .foot{margin-top:22px}
@@ -374,7 +390,7 @@ def square(a):
     paper and colour so the two halves read as one image."""
     extra = """
     .top{padding:88px 88px 0}
-    h1{font-size:%(tpx)spx;margin:50px 0 0;max-width:13ch}
+    h1{font-size:%(tpx)spx;margin:50px 0 0;max-width:none}
     .hook{font-size:28px;line-height:1.44;margin-top:36px;max-width:30ch}
     .pill{font-size:16px;padding:10px 18px 9px}
     .icon{border-radius:%(ir)spx}
@@ -484,6 +500,39 @@ def card(a):
     return page(a, *SIZES["card"], body, extra, "32% 32%", "50% 104%")
 
 
+def home(a):
+    """1200x630 for the site's own link preview. No panel and no subject: there is no
+    single product to show, and a portfolio's preview should read as a name and a
+    claim, not as a fourth case study. Paper edge to edge, one hairline, the
+    signature — the quietest card of the four, which is the point."""
+    extra = """
+    .card{background:%(paper)s}
+    .home-in{position:absolute;left:96px;right:96px;top:88px;bottom:88px;
+      display:flex;flex-direction:column}
+    .home-kicker{font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:500;
+      letter-spacing:.19em;text-transform:uppercase;color:%(brand)s}
+    .home-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;
+      font-size:76px;line-height:1.04;letter-spacing:-.032em;color:%(ink)s;
+      margin-top:34px;max-width:19ch}
+    .home-hook{font-family:Inter,sans-serif;font-weight:450;font-size:23px;
+      line-height:1.5;color:%(muted)s;margin-top:26px;max-width:44ch}
+    .home-foot{margin-top:auto;padding-top:26px;border-top:1px solid %(hair)s;
+      display:flex;align-items:center;justify-content:space-between}
+    .home-sig{height:44px;color:%(ink)s}
+    .home-site{font-family:'IBM Plex Mono',monospace;font-size:19px;color:%(muted)s}
+    """ % dict(paper=PAPER["paper"], ink=PAPER["ink"], muted=PAPER["muted"],
+               hair=PAPER["hair"], brand=a["brand"])
+    body = f'''
+    <div class="home-in">
+      <div class="home-kicker">{a['kicker']}</div>
+      <div class="home-title">{a['title']}</div>
+      <div class="home-hook">{a['hook']}</div>
+      <div class="home-foot">{signature_svg().replace('class="brand-mark"', 'class="home-sig"')}
+        <div class="home-site">ritikadas.in</div></div>
+    </div>'''
+    return page(a, *SIZES["og"], body, extra, "26% 12%", "50% 118%")
+
+
 VARIANTS = {"og": rectangle, "square": square, "card": card}
 
 
@@ -495,11 +544,12 @@ def main():
             sys.exit(f"unknown article '{slug}'. known: {', '.join(ARTICLES)}")
         if variant and variant not in VARIANTS:
             sys.exit(f"unknown variant '{variant}'. known: {', '.join(VARIANTS)}")
-        jobs += [(slug, v) for v in ([variant] if variant else VARIANTS)]
+        jobs += [(slug, v) for v in ([variant] if variant else
+                                     ARTICLES[slug].get("variants", VARIANTS))]
     if not jobs:
         held = [s for s in ARTICLES if ARTICLES[s].get("hold")]
         jobs = [(s, v) for s in ARTICLES if not ARTICLES[s].get("hold")
-                for v in VARIANTS]
+                for v in ARTICLES[s].get("variants", VARIANTS)]
         # Never skip silently — a quiet omission reads as "there was nothing to do".
         for slug in held:
             print(f"skipped {slug}: art is on hold (placeholder subject). "
@@ -512,6 +562,8 @@ def main():
 
     for slug, variant in jobs:
         fn, (w, h), dpr = VARIANTS[variant], SIZES[variant], DPR[variant]
+        if slug == "home":
+            fn = home
         html = CACHE / f"{slug}-{variant}.html"
         html.write_text(fn(ARTICLES[slug]))
         shot = CACHE / f"{slug}-{variant}.png" if variant in JPEG \

@@ -38,33 +38,13 @@
 })();
 
 
-/* ---- AUTHENTIC GITHUB REPO WIDGET LOGIC ---- */
-/* ---- CARD TILT (desktop hover only) ----
-   3 degrees, down from the original 5.5 — enough to feel alive without
-   skewing the body copy badly enough to hurt reading.
-   The card must NOT declare `transform-style: preserve-3d` or its own
-   `perspective`: that shared a 3D space with the widget flip and made the
-   flip's two faces bleed through each other. A self-contained
-   perspective() in the transform below keeps the two independent. */
-(function(){
-  if (!window.matchMedia('(hover: hover)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const MAX = 3;
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const rx = (-(e.clientY - r.top - r.height / 2) / (r.height / 2)) * MAX;
-      const ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * MAX;
-      card.style.transition = 'transform .08s ease-out';
-      card.style.transform =
-        'perspective(1100px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateY(-3px)';
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transition = 'transform .45s ease-out';
-      card.style.transform = 'perspective(1100px) rotateX(0deg) rotateY(0deg) translateY(0)';
-    });
-  });
-})();
+/* ---- CARD HOVER ----
+   The 3D tilt is gone. It skewed the body copy while someone was reading it, which
+   works against the one thing the card is asking them to do — and on a page selling
+   judgment, a card that wobbles under the cursor is the wrong kind of clever.
+   The hover is now a 3px lift in CSS: same "this is interactive" signal, no
+   distortion, no per-frame work on mousemove, and it inherits the reduced-motion
+   handling the stylesheet already does. */
 
 /* ---- FITCHECK WIDGET ------------------------------------------------------
    A teaser, not a reimplementation. It shows the verdict and nothing else —
@@ -301,6 +281,12 @@ window.addEventListener('DOMContentLoaded', () => {
   const cursor = document.getElementById('cursor');
   const label = document.getElementById('cursor-label');
   if(!cursor) return;
+  /* The custom cursor was drawn without ever hiding the real one, so two pointers
+     were on screen at once — and because this one lags on purpose for smoothness,
+     they were never in the same place. Reads as a glitch rather than a flourish.
+     The class is set from here, not in the markup, so the native pointer is only
+     hidden once we know the custom one is actually running. */
+  document.documentElement.classList.add('has-custom-cursor');
   let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
   
   window.addEventListener('mousemove', e => {
@@ -314,23 +300,13 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   animateCursor();
   
-  document.querySelectorAll('.card-details-box').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.classList.add('hovering-text');
-      cursor.classList.remove('hovering');
-      if (label) label.textContent = el.dataset.cursorText || 'View';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.classList.remove('hovering-text');
-      if (label) label.textContent = '';
-    });
-  });
+  /* The label pill that used to name a destination on hover is gone. It was
+     desktop-and-mouse only, so most visitors never saw it, and the cards now say
+     where they go in plain text — which everyone can read. */
 
   document.querySelectorAll('a, button, input, .side-dot, .widget-btn, .mini-widget-box, .card-drawer-row, .arr, h3, h3 .arr').forEach(el => {
     el.addEventListener('mouseenter', (e) => {
       e.stopPropagation();
-      cursor.classList.remove('hovering-text');
-      if (label) label.textContent = '';
       cursor.classList.add('hovering');
     });
     el.addEventListener('mouseleave', () => {
@@ -558,4 +534,14 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
   sync();
   addEventListener('resize', sync, {passive:true});
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(sync);
+})();
+
+/* ---- FOOTER YEAR ----
+   It was hardcoded as 2026 in five separate files, which means five places to
+   forget. Rewritten from the clock instead, so it can never read as abandoned. */
+(function(){
+  const y = new Date().getFullYear();
+  document.querySelectorAll('.foot-in span').forEach(el => {
+    el.textContent = el.textContent.replace(/\b20\d{2}\b/, y);
+  });
 })();

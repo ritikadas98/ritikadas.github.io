@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ritika Das — Product Manager & Builder</title>
 <meta name="description" content="Personal portfolio of Ritika Das — Product Manager & Builder. Three products built and shipped solo, plus case studies across social, luxury, and platforms.">
+<link rel="canonical" href="https://ritikadas.in/">
+<!-- Link preview. og:image must be an absolute URL — every scraper fetches it
+     out of context, so a relative path silently yields no card. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ritika Das">
+<meta property="og:url" content="https://ritikadas.in/">
+<meta property="og:title" content="Ritika Das &mdash; Product Manager &amp; Builder">
+<meta property="og:description" content="I build products people actually use. Three products shipped solo, plus long-form case studies on social, luxury and platforms.">
+<meta property="og:image" content="https://ritikadas.in/assets/og/home-og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="Ritika Das &mdash; product manager and builder, Bengaluru. ritikadas.in.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ritika Das &mdash; Product Manager &amp; Builder">
+<meta name="twitter:description" content="I build products people actually use. Three products shipped solo, plus long-form case studies on social, luxury and platforms.">
+<meta name="twitter:image" content="https://ritikadas.in/assets/og/home-og.jpg">
 <meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
 
@@ -30,6 +47,7 @@
 <noscript><style>.preloader{display:none!important}</style></noscript>
 </head>
 <body>
+<a class="skip-link" href="#work">Skip to content</a>
 
 <!-- PRELOADER (GPU ACCELERATED HIGH-CONTRAST REVEAL FOR BOTH THEMES) -->
 <div class="preloader" id="preloader" aria-hidden="true">
@@ -179,7 +197,7 @@
 <section id="work">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><div class="concept">Shipped Products</div><div class="sub">Three products, built and shipped solo.</div></div>
+      <div><h2 class="concept">Shipped Products</h2><div class="sub">Three products, built and shipped solo.</div></div>
     </div>
     <div class="projects">
 
@@ -187,14 +205,14 @@
       <div class="card reveal" data-project="fitcheck">
         <div class="card-main-grid">
           <!-- LEFT DETAILS BOX -->
-          <div class="card-details-box" data-cursor-text="Get the Code">
+          <div class="card-details-box">
             <div class="card-tags"><span class="tag live">● In use</span><span class="tag">Chrome extension</span></div>
             <div class="card-metric-badge">
               <span class="card-metric-num">70%</span>
               <span class="card-metric-lbl">Week 1 Retention · Zero Uninstalls</span>
             </div>
 
-            <h3><a class="card-link" href="https://github.com/ritikadas98/fitchecker" target="_blank" rel="noopener noreferrer">FitCheck</a></h3>
+            <h3><a class="card-link" href="https://fitcheck-demo.netlify.app" target="_blank" rel="noopener noreferrer">FitCheck</a></h3>
             <div class="pdeo">
               <div class="row"><span class="k">Problem</span><span class="v">Free returns are why people in India buy clothes online. You can't tell if something fits, so you order it and send it back. A quarter to a third of orders come back. Size is the biggest reason. Each one costs the retailer shipping both ways, handling, and often a garment it can't sell again. The chart that would prevent it sits on the page, unread.</span></div>
               <div class="row"><span class="k">Decision</span><span class="v">Build a calculator, not a guess. It compares the fit a garment was <b>designed for</b> with the fit you'd actually get. The chart is already exact, so arithmetic is the right tool here.</span></div>
@@ -207,6 +225,7 @@
               <div class="cell"><div class="mk">Stage</div><div class="mv">Shipped, in use</div></div>
             </div>
             <div class="card-src">
+              <a href="https://fitcheck-demo.netlify.app" target="_blank" rel="noopener noreferrer">Try it live ↗</a>
               <a href="https://github.com/ritikadas98/fitchecker" target="_blank" rel="noopener noreferrer">Source ↗</a>
             </div>
           </div>
@@ -259,7 +278,7 @@
                      alt="The FitCheck side panel on a Myntra jeans page: verdict &quot;34, loose at waist&quot;, a red &quot;Not recommended&quot; chip, a tinted silhouette pinned &quot;Hip loose by 4.0 inches&quot;, the per-axis reasoning, and a size selector marking 30 as the recommendation." />
                 <div class="shot-bar">
                   <span class="shot-cap">A size it turns down, with the axis that fails and where to go instead.</span>
-                  <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')" aria-label="Back to the interactive verdict">Back &#8635;</button>
+                  <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')" aria-label="Back to the interactive demo">Back to demo &#8635;</button>
                 </div>
               </div>
             </div>
@@ -297,7 +316,7 @@
       <div class="card reveal" data-project="savio">
         <div class="card-main-grid">
           <!-- LEFT DETAILS BOX -->
-          <div class="card-details-box" data-cursor-text="Open Savio">
+          <div class="card-details-box">
             <div class="card-tags"><span class="tag live">● Deployed</span><span class="tag">Consumer AI</span></div>
             <div class="card-metric-badge">
               <span class="card-metric-num">123</span>
@@ -317,6 +336,7 @@
               <div class="cell"><div class="mk">Stage</div><div class="mv">Deployed, actively maintained</div></div>
             </div>
             <div class="card-src">
+              <a href="https://savio-financial-app.netlify.app/" target="_blank" rel="noopener noreferrer">Try it live ↗</a>
               <a href="https://github.com/ritikadas98/Savio" target="_blank" rel="noopener noreferrer">Source ↗</a>
             </div>
           </div>
@@ -364,7 +384,7 @@
                      alt="Savio's chat answering &quot;Can I afford a ₹5,000 watch?&quot; — a Verified badge, the verdict, the working, and chips naming the impulse-wait and daily-floor rules it used." />
                 <div class="shot-bar">
                   <span class="shot-cap">It answers, shows the maths, and names the rule it used.</span>
-                  <button type="button" class="flip-btn" onclick="flipWidget('savio')" aria-label="Back to the interactive verdict">Back &#8635;</button>
+                  <button type="button" class="flip-btn" onclick="flipWidget('savio')" aria-label="Back to the interactive demo">Back to demo &#8635;</button>
                 </div>
               </div>
 
@@ -402,7 +422,7 @@
       <div class="card reveal" data-project="amazon">
         <div class="card-main-grid">
           <!-- LEFT DETAILS BOX -->
-          <div class="card-details-box" data-cursor-text="Open the App">
+          <div class="card-details-box">
             <div class="card-tags"><span class="tag live">● Deployed</span><span class="tag">Multi-agent pipeline</span></div>
             <div class="card-metric-badge">
               <span class="card-metric-num">13-Step</span>
@@ -422,6 +442,7 @@
               <div class="cell"><div class="mk">Stage</div><div class="mv">Deployed, scheduled</div></div>
             </div>
             <div class="card-src">
+              <a href="https://amazon-discovery-intel-repo.vercel.app" target="_blank" rel="noopener noreferrer">Try it live ↗</a>
               <a href="https://github.com/ritikadas98/amazon-discovery-intel-repo" target="_blank" rel="noopener noreferrer">Source ↗</a>
             </div>
           </div>
@@ -469,7 +490,7 @@
                      alt="Asking the digest &quot;What are the top complaints this week? Cite signals&quot; — the answer names the themes and footnotes each claim with the review it came from." />
                 <div class="shot-bar">
                   <span class="shot-cap">Ask it anything. Each claim footnotes the review it came from.</span>
-                  <button type="button" class="flip-btn" onclick="flipWidget('amazon')" aria-label="Back to the ranking">Back &#8635;</button>
+                  <button type="button" class="flip-btn" onclick="flipWidget('amazon')" aria-label="Back to the interactive ranking">Back to demo &#8635;</button>
                 </div>
               </div>
 
@@ -513,7 +534,7 @@
   <div class="wrap">
     <div class="sec-head reveal">
       <div>
-        <div class="concept" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <h2 class="concept" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
           Product Thinking
           <span style="display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--hairline-strong);padding:5px 12px;border-radius:20px;margin-left:4px">
             <!-- CREW leads, matching the card order below. Its mark is a full-colour
@@ -523,7 +544,7 @@
             <img src="assets/reddit.svg" alt="Reddit Logo" style="width:20px;height:20px;display:block" loading="lazy" decoding="async" />
             <img src="assets/youtube.svg" alt="YouTube Logo" style="width:22px;height:22px;display:block" loading="lazy" decoding="async" />
           </span>
-        </div>
+        </h2>
         <div class="sub">Product decisions on products already built. Across social, luxury, and platforms. <a href="writing/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px;white-space:nowrap">All writing &rarr;</a></div>
       </div>
     </div>
@@ -534,7 +555,7 @@
            domain rather than an offsite deck. -->
       <div class="card written with-art reveal" data-project="crew">
         <div class="card-main-grid">
-          <div class="card-details-box" data-cursor-text="Read the Study">
+          <div class="card-details-box">
             <!-- One category, not three. A blog card names its section once; the
                  other two facts moved to the meta line at the foot, where a reader
                  looks for them. -->
@@ -572,7 +593,7 @@
       <!-- REDDIT CARD WITH ORIGINAL BRAND COLOR SVG (#FF4500) -->
       <div class="card written with-art reveal" data-project="reddit">
         <div class="card-main-grid">
-          <div class="card-details-box" data-cursor-text="Read the Study">
+          <div class="card-details-box">
             <div class="card-tags">
               <span class="tag solid" style="color:#FF4500;border-color:rgba(255,69,0,0.35);background:rgba(255,69,0,0.06);font-weight:600">&#9679; Reddit Study</span>
             </div>
@@ -594,7 +615,7 @@
       <!-- YOUTUBE SHADOW R&D LAB CARD WITH ORIGINAL BRAND COLOR SVG (#FF0000) -->
       <div class="card written with-art reveal" data-project="youtube">
         <div class="card-main-grid">
-          <div class="card-details-box" data-cursor-text="Read the Study">
+          <div class="card-details-box">
             <div class="card-tags">
               <span class="tag solid" style="color:#FF0000;border-color:rgba(255,0,0,0.35);background:rgba(255,0,0,0.06);font-weight:600">&#9679; YouTube Study</span>
             </div>
@@ -649,7 +670,7 @@
 <section id="experience" class="band">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><div class="concept">Work Experience</div><div class="sub">Delivery experience that carries straight into product work.</div></div>
+      <div><h2 class="concept">Work Experience</h2><div class="sub">Delivery experience that carries straight into product work.</div></div>
     </div>
     <div class="exp reveal">
       <div class="exp-top">
