@@ -752,6 +752,20 @@ figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
 .device{border-radius:34px;overflow:hidden;background:#0F0D11;border:7px solid #17141A;
   box-shadow:0 3px 8px rgba(0,0,0,.30),0 26px 60px rgba(0,0,0,.26)}
 .device img{display:block;width:100%;height:auto;border:0;border-radius:0}
+/* The desktop equivalent. Not everything worth showing was captured on a phone, and
+   a browser screenshot squeezed into the narrow portrait hero slot is unreadable —
+   it needs the width, and a window frame rather than a bezel. */
+.browser{border-radius:12px;overflow:hidden;background:#17141A;
+  box-shadow:0 3px 8px rgba(0,0,0,.26),0 26px 60px rgba(0,0,0,.22)}
+.browser::before{content:"";display:block;height:30px;background:#17141A;
+  background-image:radial-gradient(circle,#4A4550 4.5px,transparent 5px),
+    radial-gradient(circle,#4A4550 4.5px,transparent 5px),
+    radial-gradient(circle,#4A4550 4.5px,transparent 5px);
+  background-position:16px 50%,36px 50%,56px 50%;background-repeat:no-repeat}
+.browser img{display:block;width:100%;height:auto;border:0;border-radius:0}
+/* A landscape hero. The portrait slot caps at 330px, which is right for a phone and
+   useless for a browser window. */
+.art-hero-wide{max-width:860px;margin:28px auto 0}
 /* Review cards are landscape and dense, so they break out past the measure. */
 .fig-wide{width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
 .table-scroll{overflow-x:auto;margin:34px 0;width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}

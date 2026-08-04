@@ -87,20 +87,18 @@ ARTICLES = {
         "subject": {"kind": "phone", "src": "writing/crew/images/crew-hero.jpg"},
     },
     "reddit": {
-        # Held: the subject below is a placeholder brand tile, not a real screenshot,
-        # so no file is committed for it. A default run skips this entry. Naming the
-        # slug explicitly still builds it. See the note in main().
-        "hold": True,
+        # The evidence here is a desktop thread, not an app, so the subject is a
+        # browser window rather than a phone. Quote dropped for the same reason as
+        # the other two: with a real screenshot the field is a product plate.
         "kicker": "Product case study",
         "title": "Reddit Is a Waypoint, Not a Destination",
         "hook": "Around 62% of Reddit’s visitors arrive from Google, land on one "
                 "thread, get their answer and leave.",
-        "quote": "Reddit users navigate Reddit by leaving Reddit.",
         "byline": "Reddit · Consumer social",
         "brand": "#FF4500", "rgb": "255,69,0",
         "field": ("#FF7A45", "#F04A00", "#A83204", "#4A1602"),
         "icon": "assets/reddit.svg", "icon_radius": 0,
-        "subject": {"kind": "tile", "src": "assets/reddit.svg"},
+        "subject": {"kind": "browser", "src": "writing/reddit/images/reddit-square-src.jpg"},
     },
     "youtube": {
         # Was held while the subject was a placeholder brand tile. It is a real
@@ -252,6 +250,20 @@ h1{
   box-shadow:0 3px 8px rgba(0,0,0,.34),0 34px 78px rgba(0,0,0,.42);
 }
 .phone img{display:block;width:100%%;height:100%%;object-fit:cover;object-position:50%% 0%%}
+/* The desktop counterpart, for a study whose evidence is a browser window rather
+   than an app. Same job as the bezel: make a screenshot read as a thing on a screen
+   instead of a rectangle pasted on a gradient. */
+.browser{
+  position:absolute;border-radius:14px;overflow:hidden;
+  background:#17141A;border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 3px 8px rgba(0,0,0,.34),0 34px 78px rgba(0,0,0,.42);
+}
+.browser .chrome{display:block;height:26px;background:#17141A;
+  background-image:radial-gradient(circle,#4A4550 4px,transparent 4.5px),
+    radial-gradient(circle,#4A4550 4px,transparent 4.5px),
+    radial-gradient(circle,#4A4550 4px,transparent 4.5px);
+  background-position:14px 50%%,32px 50%%,50px 50%%;background-repeat:no-repeat}
+.browser img{display:block;width:100%%;height:calc(100%% - 26px);object-fit:cover;object-position:50%% 0%%}
 /* Stand-in subject for the studies with no screenshots of their own. A brand mark
    laid straight on its own brand colour vanishes, so it sits on a paper tile —
    which also keeps the logo's white knockouts intact. */
@@ -290,10 +302,16 @@ def icon_img(a, px):
 
 
 def subject(a, variant):
-    """The device shot or the brand tile, sized per variant by CSS class."""
+    """The device shot, the browser window, or the brand tile — sized per variant by
+    CSS class. `browser` exists because not every study's evidence lives in an app:
+    Reddit's is a desktop thread, and a page screenshot inside a phone bezel would be
+    both a lie and unreadable."""
     s = a["subject"]
     if s["kind"] == "phone":
         return f'<div class="phone"><img src="{data_uri(s["src"])}" alt=""></div>'
+    if s["kind"] == "browser":
+        return (f'<div class="browser"><span class="chrome"></span>'
+                f'<img src="{data_uri(s["src"])}" alt=""></div>')
     return f'<div class="tile"><img src="{data_uri(s["src"])}" alt=""></div>'
 
 
@@ -326,9 +344,11 @@ def rectangle(a):
     .byline{font-size:13px;left:48px;top:54px;width:336px;line-height:1.5;
       letter-spacing:.18em;color:rgba(247,239,234,.88)}
     .phone{width:348px;height:512px;left:54px;top:142px;transform:rotate(-5deg)}
+    .browser{width:396px;height:396px;left:30px;top:196px;transform:rotate(-3deg)}
     """ if not a.get("quote") else """
     .byline{font-size:12px;left:48px;top:152px;width:300px;line-height:1.5}
     .phone{width:322px;height:474px;left:66px;top:192px;transform:rotate(-5deg)}
+    .browser{width:360px;height:360px;left:48px;top:238px;transform:rotate(-3deg)}
     """
     body = f"""
     <div class="col">
@@ -362,6 +382,7 @@ def square(a):
     /* Siblings of .field, not children: they have to cross the field's top edge,
        and the field clips its own overflow to keep the vignette inside the band. */
     .phone{width:434px;height:639px;right:58px;top:572px;transform:rotate(-5deg)}
+    .browser{width:520px;height:520px;right:52px;top:632px;transform:rotate(-3deg)}
     .tile{width:300px;height:300px;border-radius:68px;right:130px;top:626px}
     .quote{font-size:42px;left:88px;bottom:230px;width:430px}
     .srule{position:absolute;left:88px;width:462px;bottom:150px;height:1px;
@@ -444,6 +465,7 @@ def card(a):
     .rule{position:absolute;left:110px;right:110px;top:94px;
       background:rgba(247,239,234,.22)}
     .phone{width:604px;height:888px;left:198px;top:126px;transform:rotate(-4deg)}
+    .browser{width:720px;height:720px;left:140px;top:194px;transform:rotate(-3deg)}
     .tile{width:390px;height:390px;border-radius:90px;left:305px;top:300px}
     .quote{font-size:52px;left:110px;top:600px;width:640px}
     .foot{position:absolute;left:110px;bottom:70px;gap:24px;align-items:center;
