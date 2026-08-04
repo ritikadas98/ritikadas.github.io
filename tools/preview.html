@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Preview check — article cards</title>
+<!-- Open straight off disk: `open tools/preview.html`. Paths are relative so this
+     works on any checkout. Nothing here ships; it exists to judge the images in
+     assets/og/ at the sizes they are actually seen, which is never 1200px. -->
+<style>
+  *{box-sizing:border-box;margin:0}
+  body{background:#14161a;color:#e7e9ee;
+       font:15px/1.5 -apple-system,system-ui,sans-serif;padding:40px 44px 80px}
+  h1{font-size:19px;font-weight:600}
+  h2{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+     color:#9aa2b1;margin:44px 0 18px;padding-bottom:9px;border-bottom:1px solid #262a31}
+  .sub{color:#8a919e;font-size:13px;margin-top:5px}
+  .grid{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start}
+  .lbl{font:600 11px/1 ui-monospace,monospace;letter-spacing:.09em;text-transform:uppercase;
+       color:#7d8492;margin-bottom:11px}
+  img{display:block;width:100%;height:auto}
+
+  /* Slack, 396px. The tightest real-world unfurl — if a headline survives here it
+     survives everywhere, so this is the one to read first. */
+  .slack{width:396px;background:#1a1d21;border-radius:8px;padding:12px 14px;display:flex;gap:10px}
+  .rail{width:4px;border-radius:2px;background:#4b4f91;flex:none}
+  .slack .site{color:#9aa2b1;font-size:12px}
+  .slack .t{color:#7ba7e8;font-weight:600;margin:2px 0 4px}
+  .slack .d{color:#abb0ba;font-size:13px;margin-bottom:8px}
+  .slack img{border-radius:6px}
+
+  /* X, ~504px: summary_large_image is image-only plus a domain chip. */
+  .x{width:504px;border:1px solid #2f3336;border-radius:16px;overflow:hidden;position:relative}
+  .x .dom{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.72);color:#fff;
+          font-size:12px;padding:3px 6px;border-radius:4px}
+
+  /* WhatsApp, 314px — the smallest common case. */
+  .wa{width:314px;background:#075e54;border-radius:10px;padding:4px}
+  .wa .bub{background:#dcf8c6;border-radius:8px;overflow:hidden}
+  .wa .meta{padding:8px 10px;color:#111b21}
+  .wa .t{font-weight:600;font-size:13.5px}
+  .wa .u{font-size:11.5px;color:#8696a0;margin-top:3px}
+
+  .sq{width:376px;border-radius:6px;overflow:hidden}
+
+  /* The homepage card. .card-main-grid is 1.45fr / 1fr with a 36px gap inside a
+     1016px card, so the media column lands near 400px wide and the hero is
+     cover-cropped into it. This is the only honest test of the card art. */
+  .pcard{width:508px;background:#F6F2EB;border:1px dashed #CFC6BA;border-radius:14px;
+         padding:16px;display:grid;grid-template-columns:1.45fr 1fr;gap:18px;
+         align-items:start;color:#211E24}
+  .pcard .txt{font-size:11.5px;line-height:1.5;color:#6A6369}
+  .pcard .txt b{display:block;font-size:14px;color:#211E24;margin-bottom:6px;line-height:1.25}
+  .slot{width:100%;aspect-ratio:400/560;border-radius:9px;overflow:hidden}
+  .slot img{width:100%;height:100%;object-fit:cover}
+  .tall{aspect-ratio:400/727}   /* 0.55 — narrowest slot the art is built to survive */
+  .wide{aspect-ratio:400/470}   /* 0.85 — widest */
+  .hold{color:#d9a13b;font-size:12px;margin:-8px 0 16px}
+  .hold code{font-family:ui-monospace,monospace;font-size:11px;color:#e8bd6d}
+  .slot.empty{border:1px dashed #4a5260;display:grid;place-items:center;background:#1b1f26}
+  .slot.empty::after{content:attr(data-note);font:600 10px/1 ui-monospace,monospace;
+    letter-spacing:.1em;text-transform:uppercase;color:#5c6472}
+</style>
+</head>
+<body>
+<h1>Preview check</h1>
+<p class="sub">Every image at the size it is actually seen — never at its native pixel width,
+   because nowhere shows it that big. The unfurls are rendered at 2x, so they stay sharp on a
+   retina screen when a platform hands them more device pixels than CSS pixels.</p>
+
+<h2>Link unfurls · crew-og.jpg</h2>
+<div class="grid">
+  <div>
+    <div class="lbl">Slack · 396px</div>
+    <div class="slack">
+      <div class="rail"></div>
+      <div>
+        <div class="site">Ritika Das</div>
+        <div class="t">You Can’t Hand Off What You Still Have to Hold</div>
+        <div class="d">A concierge sells one thing: the freedom to stop thinking about
+          something. CREW’s own reviewers describe checking its work.</div>
+        <img src="../assets/og/crew-og.jpg" alt="">
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="lbl">X · 504px</div>
+    <div class="x">
+      <img src="../assets/og/crew-og.jpg" alt="">
+      <div class="dom">ritikadas.in</div>
+    </div>
+  </div>
+  <div>
+    <div class="lbl">WhatsApp · 314px</div>
+    <div class="wa"><div class="bub">
+      <img src="../assets/og/crew-og.jpg" alt="">
+      <div class="meta">
+        <div class="t">You Can’t Hand Off What You Still Have to Hold</div>
+        <div class="u">ritikadas.in</div>
+      </div>
+    </div></div>
+  </div>
+</div>
+
+<h2>Card hero, in the slot it is cropped into</h2>
+<p class="sub" style="margin:-8px 0 18px">Mock of a Product Thinking card. The hero is
+  object-fit:cover into the ~400&times;560 media column, which is why the bloom sits low
+  enough to stay inside the crop.</p>
+<p class="hold">Only CREW ships. Reddit and YouTube are marked <code>hold</code> in
+  tools/og-card.py, so no files exist for them — their subject is still a placeholder brand
+  tile rather than a real screenshot. Run <code>python3 tools/og-card.py reddit</code> to
+  build one and it will appear in the empty slots below.</p>
+<div class="grid">
+  <div>
+    <div class="lbl">crew-card</div>
+    <div class="pcard">
+      <div class="txt"><b>You can’t hand off what you still have to hold</b>
+        A concierge sells one thing: the freedom to stop thinking about it. CREW’s own
+        reviewers verify its confirmations, chase its replies, and research the trip anyway.</div>
+      <div class="slot"><img src="../assets/og/crew-card.jpg" alt=""></div>
+    </div>
+  </div>
+  <!-- Held articles keep their slot so the row still shows what the section is for.
+       onerror strips the missing image, leaving the dashed placeholder visible rather
+       than a browser's broken-image icon, which reads as a bug. -->
+  <div>
+    <div class="lbl">reddit-card · on hold</div>
+    <div class="pcard">
+      <div class="txt"><b>Reddit: a waypoint, not a destination</b>
+        Around 62% of Reddit’s visitors arrive from Google, land on one thread, get their
+        answer and leave. Reddit spends its welcome effort on a homepage they never see.</div>
+      <div class="slot empty" data-note="not built">
+        <img src="../assets/og/reddit-card.jpg" alt="" onerror="this.remove()"></div>
+    </div>
+  </div>
+  <div>
+    <div class="lbl">youtube-card · on hold</div>
+    <div class="pcard">
+      <div class="txt"><b>YouTube’s Shadow R&amp;D Lab</b>
+        Analytics only show what users do inside your app’s rules — they miss what power
+        users want badly enough to install third-party mods to fix.</div>
+      <div class="slot empty" data-note="not built">
+        <img src="../assets/og/youtube-card.jpg" alt="" onerror="this.remove()"></div>
+    </div>
+  </div>
+</div>
+
+<h2>Crop tolerance · the band the card art is built for</h2>
+<p class="sub" style="margin:-8px 0 18px">A card's slot height comes from its own copy, so
+  the aspect moves. Text sits 150px in from each edge — 35px clear of the 115px the narrowest
+  slot trims — so no line should clip mid-word anywhere in this range. Past 0.85 the name and
+  signature are the first things to go, which is why neither carries anything the rest of the
+  picture doesn't.</p>
+<div class="grid">
+  <div style="width:200px"><div class="lbl">0.55 · narrowest</div><div class="slot tall"><img src="../assets/og/crew-card.jpg" alt=""></div></div>
+  <div style="width:200px"><div class="lbl">0.71 · nominal</div><div class="slot"><img src="../assets/og/crew-card.jpg" alt=""></div></div>
+  <div style="width:200px"><div class="lbl">0.85 · widest</div><div class="slot wide"><img src="../assets/og/crew-card.jpg" alt=""></div></div>
+</div>
+</body>
+</html>

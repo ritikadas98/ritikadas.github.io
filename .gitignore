@@ -12,3 +12,7 @@ Thumbs.db
 # Article drafts — source text and full-res screenshots. Never published; the
 # built pages and their web-sized assets are what get committed.
 writing-drafts/
+
+# Downloaded webfonts and scratch HTML for tools/og-card.py. Regenerated on
+# demand; the rendered cards in assets/og/ are what get committed.
+tools/.fontcache/
