@@ -512,6 +512,19 @@ section{padding:56px 0}
    large link, so .card-cta is painted rather than interactive — a real <a> here
    would nest a link inside a link and give screen readers two targets for one
    destination. Hover is driven from the card, since the click overlay sits on top. */
+/* ---- PUBLISHED-STUDY CARD ----
+   A card whose article exists is a blog preview, so it is built like one: category,
+   headline, standfirst, a line of facts, a way in. The PDEO grid stays on the two
+   studies that still have to argue their case inside the card itself. */
+.card-dek{margin-top:14px;font-size:15.5px;line-height:1.65;color:var(--ink-2);max-width:58ch}
+.card-foot{margin-top:26px;display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+.card-facts{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+/* A published study is finished work, so it loses the dashed outline the unwritten
+   ones carry — dashed reads as draft, which is the opposite of "go and read this". */
+.card.written.with-art{border-style:solid;border-color:var(--hairline)}
+.card.written.with-art:hover{border-color:var(--crew-line);transform:translateY(-2px)}
+.tag.solid{border-style:solid}
+
 .card-tease{margin-top:16px;font-size:14px;line-height:1.6;color:var(--muted)}
 .card-cta{display:inline-flex;align-items:center;gap:9px;margin-top:18px;padding:11px 18px;min-height:44px;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:var(--paper);background:var(--ink);border-radius:10px;transition:transform .15s,box-shadow .2s}
 .card:hover .card-cta{transform:translateY(-1px);box-shadow:var(--shadow-lift)}
@@ -529,15 +542,10 @@ section{padding:56px 0}
    whose article has preview art gets the media column back, which is also what stops
    a short card looking like a thin strip next to the shipped-product cards. */
 .card.written .card-main-grid{grid-template-columns:minmax(0,1fr)}
-/* stretch, not the inherited `start`: the text column has to fill the row's height
-   before the button can be pushed to the bottom of it. */
-.card.written.with-art .card-main-grid{grid-template-columns:1.45fr 1fr;align-items:stretch}
-.card.written.with-art .card-details-box{display:flex;flex-direction:column}
-/* The button sat directly under the lead, reading as part of the paragraph. It now
-   drops to the foot of the column, level with the bottom of the art, with the auto
-   margin guaranteeing at least 30px of clear air whatever the copy length. */
-.card.written.with-art .pdeo.lead{margin-bottom:30px}
-.card.written.with-art .card-cta{margin-top:auto;align-self:flex-start}
+/* Centred, not stretched. Now the art is square the two columns are close in height,
+   so pinning the button to the bottom of the text column only opened a void between
+   the paragraph and the button. Centring balances them instead. */
+.card.written.with-art .card-main-grid{grid-template-columns:1.45fr 1fr;align-items:center}
 /* Natural aspect rather than object-fit:cover, so nothing is cropped whatever the
    text column does. The art is 1000x1400; at the ~377px this column resolves to,
    that lands around 528px tall and the art sets the card's height. */
