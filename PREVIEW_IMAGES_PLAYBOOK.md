@@ -46,7 +46,7 @@ Three variants per article, named `<slug>-<variant>.jpg`, in `assets/og/`. Today
 |---|---|---|---|
 | `<slug>-og.jpg` | 2400 × 1260 | ~215–250 KB | Link previews. Slack, WhatsApp, LinkedIn, X, iMessage. |
 | `<slug>-square.jpg` | 2400 × 2400 | ~320–385 KB | LinkedIn image posts, Instagram. Posted by hand. |
-| `<slug>-card.jpg` | 1000 × 1400 | ~96–117 KB | Hero inside the Product Thinking card on the homepage. |
+| `<slug>-card.jpg` | 1000 × 1150 | ~94–115 KB | Hero inside the Product Thinking card on the homepage. |
 
 **Only `-og.jpg` is wired into a page.** It sits in the `<meta>` tags of the article and
 is fetched automatically by every platform. The other two are placed by hand — you upload
@@ -235,13 +235,13 @@ The slot is filled with `object-fit: cover`, which crops whichever axis is surpl
 
 | Slot shape | What gets cut |
 |---|---|
-| 0.71 — about 400 × 560, the normal case | Nothing. The art matches this exactly. |
+| 0.87 — about 400 × 460, the normal case | Nothing. The art matches this exactly. |
 | 0.55 — a tall card | 115 px off **each side** |
-| 0.85 — a short card | 176 px off top **and** bottom |
+| 1.10 — a short card | 145 px off top **and** bottom |
 
 So:
 
-- The canvas is **1000 × 1400**, which is 0.71. No crop at the expected size.
+- The canvas is **1000 × 1150**, which is 0.87. No crop at the expected size.
 - **Every piece of text sits 150 px in from the left and right edges.** That is 35 px
   clear of the worst side trim. Text at a 72 px inset was being sliced mid-word.
 - The bloom sits at **32% down**, not the 12% the full-bleed variants use. At 12% it fell
@@ -362,7 +362,7 @@ The CREW card carries `crew-card.jpg` in a restored media column:
 <div class="card written with-art reveal" data-project="crew">
   …
   <figure class="card-art">
-    <img src="assets/og/crew-card.jpg" alt="" width="1000" height="1400" loading="lazy" decoding="async" />
+    <img src="assets/og/crew-card.jpg?v=2" alt="" width="1000" height="1150" loading="lazy" decoding="async" />
   </figure>
 ```
 

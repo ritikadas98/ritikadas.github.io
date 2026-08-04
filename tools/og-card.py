@@ -174,7 +174,7 @@ def field_bg(stops, bloom):
 
 # Layout size per variant, in CSS pixels. Read by both the CSS and the Chrome window,
 # so they cannot disagree.
-SIZES = {"og": (1200, 630), "square": (1200, 1200), "card": (1000, 1400)}
+SIZES = {"og": (1200, 630), "square": (1200, 1200), "card": (1000, 1150)}
 
 # Device pixel ratio the screenshot is taken at, so the PNG comes out SIZES x DPR.
 # The layout is unchanged — this only decides how many real pixels each CSS pixel
@@ -398,22 +398,34 @@ def square(a):
 
 
 def card(a):
-    """1000x1400 — the hero inside the homepage card. All field, no paper: it sits
+    """1000x1150 — the hero inside the homepage card. All field, no paper: it sits
     on a cream card, so a cream image would have no edge.
 
-    Geometry is set by how object-fit:cover will treat it. The slot is one column of
-    a 1.45fr/1fr grid, so ~400px wide, but its height comes from the card's own copy
-    — a four-row PDEO card is far taller than CREW's single lead paragraph. So the
-    aspect varies, and cover crops whichever axis is surplus:
+    The frame was 1000x1400 (0.71), sized for a written card carrying four PDEO rows.
+    Once a published card was cut to a title and a two-line lead, its text column ran
+    about 280px while the art rendered 525px, so the card stood 583px with a dead
+    quarter under the button — the tallest thing on it was the empty half of it.
 
-        slot 0.71 (400x560)  nominal, matches this frame — nothing is cropped
+    0.87 is the shape that balances that: at the ~376px the slot resolves to, the art
+    lands about 433px, the card comes to roughly 500px, and it sits level with the
+    other two studies instead of towering over its own text.
+
+    The height did not just come off the bottom. The phone began 24% down, so the
+    frame opened with a band of bare gradient; it now starts at 13% and runs to 98%,
+    which is most of the reduction. The product got no smaller — the emptiness did.
+
+    Geometry is still set by how object-fit:cover will treat it. Slot height comes
+    from the card's own copy, so the aspect varies and cover crops whichever axis is
+    surplus:
+
+        slot 0.87 (400x460)  nominal, matches this frame — nothing is cropped
         slot 0.55 (400x730)  height binds; 115px comes off each side
-        slot 0.85 (400x470)  width binds; 176px comes off top and bottom
+        slot 1.10 (400x364)  width binds; 145px comes off top and bottom
 
     Hence the 150px side inset on every piece of text: 35px clear of the worst-case
-    horizontal trim, so nothing clips mid-word or crowds the edge inside that band. Vertically the
-    byline and signature are the pieces that yield first, which is why neither
-    carries meaning the quote doesn't already.
+    horizontal trim, so nothing clips mid-word or crowds the edge inside that band.
+    Vertically the byline and signature are the pieces that yield first, which is why
+    neither carries meaning the quote doesn't already.
 
     The bloom also sits at 32% rather than the 12% the full-bleed variants use — up
     there it fell outside the crop entirely, leaving a gradient with no visible
@@ -421,14 +433,14 @@ def card(a):
     has_quote = bool(a.get("quote"))
     extra = """
     .field{inset:0}
-    .byline{font-size:19px;left:150px;top:150px;letter-spacing:.19em;
+    .byline{font-size:19px;left:150px;top:82px;letter-spacing:.19em;
       color:rgba(247,239,234,.88)}
-    .rule{position:absolute;left:150px;right:150px;top:206px;
+    .rule{position:absolute;left:150px;right:150px;top:132px;
       background:rgba(247,239,234,.22)}
-    .phone{width:700px;height:1030px;left:150px;top:340px;transform:rotate(-4deg)}
-    .tile{width:430px;height:430px;border-radius:98px;left:285px;top:346px}
-    .quote{font-size:58px;left:150px;top:900px;width:700px}
-    .foot{position:absolute;left:150px;bottom:150px;gap:24px;align-items:center;
+    .phone{width:670px;height:986px;left:165px;top:152px;transform:rotate(-4deg)}
+    .tile{width:430px;height:430px;border-radius:98px;left:285px;top:290px}
+    .quote{font-size:58px;left:150px;top:700px;width:700px}
+    .foot{position:absolute;left:150px;bottom:96px;gap:24px;align-items:center;
       justify-content:flex-start}
     .sig{height:36px;color:#F5EBE6}
     .site{color:rgba(245,235,230,.66);font-size:17px}
