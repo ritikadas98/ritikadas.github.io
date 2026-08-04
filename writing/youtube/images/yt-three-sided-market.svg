@@ -1,0 +1,53 @@
+<svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="YouTube sits at the centre of three groups it has to keep balanced — viewers, creators and advertisers. Power-user tools pull on the viewer side only.">
+  <!-- Colours are the site's own custom properties rather than fixed hex, so this
+       follows the light/dark toggle. That only works while the SVG is inlined in the
+       page; loaded through <img> it would render with no colour at all. -->
+  <defs>
+    <marker id="tsm-arrow" viewBox="0 0 10 10" refX="8.5" refY="5"
+            markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/>
+    </marker>
+  </defs>
+
+  <!-- the three balance connectors -->
+  <g stroke="var(--hairline-strong)" stroke-width="1.5" fill="none">
+    <path d="M330 186 L214 108"/>
+    <path d="M390 186 L506 108"/>
+    <path d="M360 250 L360 322"/>
+  </g>
+
+  <!-- the pull that only ever comes from one side -->
+  <path d="M132 250 C132 190, 138 150, 152 116" fill="none"
+        stroke="var(--accent)" stroke-width="2.2" marker-end="url(#tsm-arrow)"/>
+
+  <g font-family="Inter, sans-serif" text-anchor="middle">
+    <!-- viewers -->
+    <rect x="70" y="44" width="200" height="64" rx="12"
+          fill="var(--surface-2)" stroke="var(--hairline-strong)" stroke-width="1.5"/>
+    <text x="170" y="72" font-size="17" font-weight="600" fill="var(--ink)">Viewers</text>
+    <text x="170" y="93" font-size="13" fill="var(--muted)">want convenience</text>
+
+    <!-- creators -->
+    <rect x="450" y="44" width="200" height="64" rx="12"
+          fill="var(--surface-2)" stroke="var(--hairline-strong)" stroke-width="1.5"/>
+    <text x="550" y="72" font-size="17" font-weight="600" fill="var(--ink)">Creators</text>
+    <text x="550" y="93" font-size="13" fill="var(--muted)">want reach &amp; income</text>
+
+    <!-- the platform in the middle -->
+    <rect x="288" y="186" width="144" height="64" rx="12" fill="var(--accent)"/>
+    <text x="360" y="225" font-size="18" font-weight="700" fill="var(--paper)">YouTube</text>
+
+    <!-- advertisers -->
+    <rect x="260" y="322" width="200" height="64" rx="12"
+          fill="var(--surface-2)" stroke="var(--hairline-strong)" stroke-width="1.5"/>
+    <text x="360" y="350" font-size="17" font-weight="600" fill="var(--ink)">Advertisers</text>
+    <text x="360" y="371" font-size="13" fill="var(--muted)">want return</text>
+
+    <!-- the workarounds, dashed because they sit outside the market -->
+    <rect x="32" y="250" width="200" height="64" rx="12"
+          fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="132" y="278" font-size="15" font-weight="600" fill="var(--accent)">Power-user tools</text>
+    <text x="132" y="298" font-size="12.5" fill="var(--muted)">optimise for one side</text>
+  </g>
+</svg>
