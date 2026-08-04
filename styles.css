@@ -527,6 +527,9 @@ section{padding:56px 0}
 .card-src a:hover{color:var(--accent);border-color:var(--accent)}
 .card.written .card-main-grid{grid-template-columns:minmax(0,1fr)}
 .card.written .pdeo{display:grid;grid-template-columns:1fr 1fr;gap:18px 44px}
+/* A card whose article is live carries one lead paragraph rather than a 2x2 of rows,
+   so it runs the full width instead of sitting in the left-hand column. */
+.card.written .pdeo.lead{grid-template-columns:1fr}
 @media (max-width:900px){.card.written .pdeo{grid-template-columns:1fr}}
 .widget-flip{perspective:1600px;align-self:start}
 .widget-flip-inner{position:relative;transform-style:preserve-3d;

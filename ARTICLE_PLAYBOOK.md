@@ -156,30 +156,40 @@ anyone. A published one must not. The CREW card originally ran all four rows —
 Decision, Evidence, Outcome, about 195 words — which delivered the thesis, the proof
 *and* the conclusion. A reader finished it with nothing left to want.
 
-When an article goes live, its card changes shape:
+When an article goes live, its card strips down to four things: **tags, title, a
+two-line lead, and the button.** Nothing else.
 
 | | Before (no article) | After (article live) |
 |---|---|---|
-| `.pdeo` rows | Problem, Decision, Evidence, Outcome | **Problem and Evidence only** |
-| Length | ~195 words | ~85 words |
-| Ending | The conclusion | A tease line, then a CTA |
+| Metric badge | `₹999 · six months of concierge` | **removed** |
+| `.pdeo` | Problem, Decision, Evidence, Outcome | **one `Problem` row** |
+| Bottom meta strip | Type · Domain · Focus · Status | **removed** |
+| Length | ~195 words | ~40 words |
+| Ending | The conclusion | The button |
 
-- **Keep Problem** — it is the hook, and it poses the question.
-- **Keep Evidence** — it is what makes the reader trust the answer is worth reading.
-- **Cut Decision and Outcome** — they *are* the answer. They move to the article.
-- **Add `.card-tease`** — one line naming what the article resolves, without resolving
-  it. Open a gap: *"Inside: why you can't test the service without first trusting it.
-  And the one number that would settle whether the concierge is really the moat."*
+- **Merge the hook and the proof into one paragraph, about two lines.** Keep the label
+  `Problem`. Open with what the product is supposed to do, say how it fails, then land
+  one piece of evidence. The whole thing should set the question without answering it.
+- **Cut Decision and Outcome.** They *are* the answer. They move to the article.
+- **Cut the metric badge and the bottom meta strip.** Both are the card behaving like a
+  destination. Type, domain and focus are already in the tags at the top, and the
+  article's own meta strip carries the rest.
 - **Add `.card-cta`** — `Read the case study ↗`. Without it there is no visible signal
   the card is clickable at all. The hover label that used to serve that purpose only
   exists on desktop with a mouse, so on a phone the card looked like a dead end.
 
-The CTA is a `<span>`, not a link, and carries `aria-hidden="true"`:
-
 ```html
-<p class="card-tease">Inside: … And the one number that would settle …</p>
+<div class="pdeo lead">
+  <div class="row"><span class="k">Problem</span><span class="v">A concierge sells one thing: the freedom to stop thinking about it. CREW's own reviewers verify its confirmations, chase its replies, and research the trip anyway. Five months of public reviews split into fives and ones, with almost nothing between.</span></div>
+</div>
 <span class="card-cta" aria-hidden="true">Read the case study <span class="arr">↗</span></span>
 ```
+
+The `lead` modifier matters: `.card.written .pdeo` is a 2×2 grid built for four rows, so
+a single row without it sits in the left-hand column at half width instead of running the
+full card.
+
+The CTA is a `<span>`, not a link, and carries `aria-hidden="true"`.
 
 `.card-link::after` already stretches an invisible overlay across the whole card, so the
 card is one big link. A real `<a>` here would nest a link inside a link and hand screen
