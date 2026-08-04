@@ -103,18 +103,20 @@ ARTICLES = {
         "subject": {"kind": "tile", "src": "assets/reddit.svg"},
     },
     "youtube": {
-        "hold": True,
+        # Was held while the subject was a placeholder brand tile. It is a real
+        # screenshot now — the SponsorBlock listing, 732,667 users — so it builds by
+        # default. Quote dropped with it: a study with a real device shot uses the
+        # product-plate layout, the way CREW does, so the three cards stay a set.
         "kicker": "Product study",
         "title": "The Demand You Can’t See",
         "title_px": {"og": 68, "square": 92},
         "hook": "Analytics only show what users do inside your app’s rules. They "
                 "miss what power users install a modded app to fix.",
-        "quote": "Community mods are a free R&amp;D lab.",
         "byline": "YouTube · Platform economics",
         "brand": "#FF0000", "rgb": "255,0,0",
         "field": ("#FF4A3D", "#E11B12", "#93110C", "#400604"),
         "icon": "assets/youtube.svg", "icon_radius": 0,
-        "subject": {"kind": "tile", "src": "assets/youtube.svg"},
+        "subject": {"kind": "phone", "src": "writing/youtube/images/youtube-hero.jpg"},
     },
 }
 

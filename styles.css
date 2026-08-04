@@ -733,6 +733,18 @@ figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
 /* Phone screenshots are portrait; at full measure they would be over a thousand
    pixels tall, so they sit centred at a limited width. */
 .fig-phone{max-width:330px;margin:40px auto}
+/* A phone bezel, for a screenshot that is a whole screen rather than a crop. The
+   frame is what makes it read as a device instead of a rectangle floating on the
+   page — and it is the same construction the preview cards use, so the article and
+   the picture advertising it agree.
+
+   Wrap the <img> only, never the <figure>, or the caption ends up inside the bezel.
+   Use it only on a full screen capture, status bar and all: a cropped screen inside
+   a phone frame reads as a mistake, which is why CREW's hero stays a plain rounded
+   rectangle. */
+.device{border-radius:34px;overflow:hidden;background:#0F0D11;border:7px solid #17141A;
+  box-shadow:0 3px 8px rgba(0,0,0,.30),0 26px 60px rgba(0,0,0,.26)}
+.device img{display:block;width:100%;height:auto;border:0;border-radius:0}
 /* Review cards are landscape and dense, so they break out past the measure. */
 .fig-wide{width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
 .table-scroll{overflow-x:auto;margin:34px 0;width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
