@@ -147,6 +147,22 @@ In `index.html`, find `data-project="reddit"`. Inside it:
 Compare against the CREW card (`data-project="crew"`) — it is the live example of all
 of the above.
 
+### Step 4 — Check the mark is in the section heading
+
+The "Product Thinking" heading carries a pill of brand marks, one per study, in the same
+order as the cards below it. Reddit and YouTube are already there. If you add a study
+that isn't, add its mark:
+
+```html
+<img src="assets/crew-icon.png" alt="CREW Logo" width="20" height="20"
+     style="width:20px;height:20px;display:block;border-radius:5px" loading="lazy" decoding="async" />
+```
+
+Flat single-colour glyphs (`reddit.svg`, `youtube.svg`) go in at 20–22px with no radius.
+A full-colour app tile needs `border-radius:5px` so it doesn't sit as a hard square
+against the rounded pill. Check both themes — a mark that vanishes on one background
+needs a different source file, not a filter.
+
 ---
 
 ## 4. The page skeleton
