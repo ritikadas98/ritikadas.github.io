@@ -350,9 +350,9 @@ to the picture and the words on it agree.
 
 | Item | State |
 |---|---|
-| Reddit real screenshot | **Waiting.** Still `hold`, so no files are committed. See §4. |
-| Card heroes placed on the homepage | **CREW and YouTube done.** Reddit follows its screenshot. |
-| Reddit `<meta>` tags | **Blocked.** That page does not exist yet. |
+| All three studies | **Done.** No article is on hold. |
+| Card heroes placed on the homepage | **Done, all three.** |
+| Link-preview tags on every article | **Done, all three.** |
 | A link preview for the site itself | **Not done, and it matters more than the articles.** See below. |
 
 ### How the card hero is wired in

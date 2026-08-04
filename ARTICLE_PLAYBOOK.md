@@ -1,7 +1,8 @@
 # Publishing an article on ritikadas.in
 
 How to take a finished piece of writing and put it on this site. Written for whoever
-— person or agent — does the next one. **Reddit** is the only one left.
+— person or agent — does the next one. All three of the first set are published;
+this is now the reference for whatever comes after them.
 
 The CREW study at `/writing/crew/` is the reference implementation. When this document
 and that page disagree, the page wins. Read it before starting.
