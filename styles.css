@@ -456,6 +456,11 @@ section{padding:56px 0}
 .tag.live{color:var(--accent);border-color:var(--hairline-strong);background:var(--accent-wash);font-weight:500}
 .tag.paper{border-style:dashed}
 .card h3{font-family:var(--display);font-weight:600;font-size:23px;letter-spacing:-.02em;margin-bottom:15px;display:flex;align-items:center;gap:12px;line-height:1.15}
+/* The heading is a flex row and the arrow rides to its right edge on margin-left:auto.
+   That only works while the arrow is a flex child, so the link — not the h3 — has to
+   be the row. Putting the arrow inside the anchor also makes it clickable, which
+   matters more since the product cards stopped being one big link. */
+.card h3 .card-link{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
 .card h3 .arr{margin-left:auto;color:var(--faint);font-size:18px;transition:transform .2s,color .2s}
 .card:hover h3 .arr{transform:translate(3px,-3px);color:var(--accent)}
 /* The four labels carry the structure of every case study, and at 9px in the
