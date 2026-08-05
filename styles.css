@@ -574,6 +574,12 @@ section{padding:56px 0}
   text-decoration:none;border:1px solid transparent;
   transition:transform .15s,box-shadow .2s,border-color .2s,background .2s,color .2s}
 .card-src a.src-live{background:var(--ink);color:var(--paper)}
+/* The middle weight. Solid says "use the product", outlined says "read the code",
+   and the write-up sits between them in what it offers — so it is drawn between
+   them too: filled enough to read as an action, quiet enough not to compete with
+   the demo. Accent-wash rather than a new colour, so it stays inside the palette. */
+.card-src a.src-read{background:var(--accent-wash);color:var(--accent);border-color:transparent;font-weight:500}
+.card-src a.src-read:hover{border-color:var(--accent)}
 .card-src a.src-code{background:transparent;color:var(--ink);border-color:var(--hairline-strong)}
 .card-src a:hover{transform:translateY(-1px);box-shadow:var(--shadow-lift)}
 .card-src a.src-code:hover{border-color:var(--ink)}
