@@ -559,8 +559,26 @@ section{padding:56px 0}
 .card.written .card-link::after{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit}
 .card-link:hover{color:var(--accent)}
 .card-src{position:relative;z-index:2;margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
-.card-src a{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:3px;transition:color .2s,border-color .2s}
-.card-src a:hover{color:var(--accent);border-color:var(--accent)}
+/* These were 11px muted uppercase with a hairline under them — the quietest type on
+   the card, carrying the two things the card most wants you to do. They are buttons
+   now, in the same shape and size as the hero's and the written cards': live demo
+   solid, source outlined, so the pair reads as primary-then-secondary rather than as
+   two equal footnotes. 44px min-height doubles as the tap target. */
+.card-src a{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;min-height:44px;
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;border-radius:10px;
+  text-decoration:none;border:1px solid transparent;
+  transition:transform .15s,box-shadow .2s,border-color .2s,background .2s,color .2s}
+.card-src a.src-live{background:var(--ink);color:var(--paper)}
+.card-src a.src-code{background:transparent;color:var(--ink);border-color:var(--hairline-strong)}
+.card-src a:hover{transform:translateY(-1px);box-shadow:var(--shadow-lift)}
+.card-src a.src-code:hover{border-color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.card-src a,.card-src a:hover{transform:none}}
+/* Stacked, they go full width and keep their order rather than sitting at opposite
+   ends of a narrow card with a gulf between them. */
+@media(max-width:520px){
+  .card-src{gap:10px}
+  .card-src a{flex:1 1 100%;justify-content:center}
+}
 /* Written cards run full width by default — there is no widget to sit beside. A card
    whose article has preview art gets the media column back, which is also what stops
    a short card looking like a thin strip next to the shipped-product cards. */
