@@ -117,6 +117,20 @@ ARTICLES = {
         "icon": "assets/savio-icon.svg", "icon_radius": 0,
         "subject": {"kind": "phone", "src": "writing/savio/images/hero-chat.jpg"},
     },
+    "amazon": {
+        # A browser subject: this one is a dashboard and a digest, not an app.
+        # Field is Amazon's ink-and-amber rather than the orange smile, so it reads
+        # as analysis of the company rather than anything endorsed by it.
+        "kicker": "Shipped product",
+        "title": "Two of My Three Sources Give Me Nothing",
+        "hook": "Every pipeline diagram starts with an arrow labelled data. The arrow "
+                "is the hard bit.",
+        "byline": "Amazon Discovery Intelligence",
+        "brand": "#1F2937", "rgb": "31,41,55",
+        "field": ("#4A5A6B", "#2C3A47", "#1F2937", "#0E141B"),
+        "icon": "assets/amazon-icon.svg", "icon_radius": 0,
+        "subject": {"kind": "browser", "src": "writing/amazon/images/amazon-square-src.jpg"},
+    },
     "crew": {
         "kicker": "Product teardown",
         "title": "You Can’t Hand Off What You Still Have to Hold",

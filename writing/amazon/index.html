@@ -3,23 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Wrong Moment to Be Helpful &mdash; Ritika Das</title>
-<meta name="description" content="A money app that speaks at the checkout gets uninstalled. So Savio waits.">
-<link rel="canonical" href="https://ritikadas.in/writing/savio/">
+<title>Two of My Three Sources Give Me Nothing &mdash; Ritika Das</title>
+<meta name="description" content="A weekly discovery pipeline that ranks what customers complain about, and the collection problem nobody warns you about.">
+<link rel="canonical" href="https://ritikadas.in/writing/amazon/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Ritika Das">
-<meta property="og:url" content="https://ritikadas.in/writing/savio/">
-<meta property="og:title" content="The Wrong Moment to Be Helpful">
-<meta property="og:description" content="Nobody stands in a fitting room and opens an app to ask whether &#8377;3,500 is sensible. So the whole category is fighting for a moment where nobody is listening.">
-<meta property="og:image" content="https://ritikadas.in/assets/og/savio-og.jpg">
+<meta property="og:url" content="https://ritikadas.in/writing/amazon/">
+<meta property="og:title" content="Two of My Three Sources Give Me Nothing">
+<meta property="og:description" content="Every pipeline diagram starts with an arrow labelled data. The arrow is the hard bit.">
+<meta property="og:image" content="https://ritikadas.in/assets/og/amazon-og.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="The Wrong Moment to Be Helpful &mdash; why a money app that speaks at the checkout gets uninstalled, on ritikadas.in.">
+<meta property="og:image:alt" content="Two of My Three Sources Give Me Nothing &mdash; a weekly customer-signal pipeline and its collection problem, on ritikadas.in.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Wrong Moment to Be Helpful">
-<meta name="twitter:description" content="Nobody stands in a fitting room and opens an app to ask whether &#8377;3,500 is sensible.">
-<meta name="twitter:image" content="https://ritikadas.in/assets/og/savio-og.jpg">
+<meta name="twitter:title" content="Two of My Three Sources Give Me Nothing">
+<meta name="twitter:description" content="Every pipeline diagram starts with an arrow labelled data. The arrow is the hard bit.">
+<meta name="twitter:image" content="https://ritikadas.in/assets/og/amazon-og.jpg">
 <meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
@@ -73,57 +73,51 @@
   <header class="art-head">
     <div class="art-wrap">
       <a href="../" class="art-back">&larr; All writing</a>
-      <h1 class="art-title">The wrong moment to be helpful</h1>
-      <p class="art-sub">A money app that speaks at the checkout gets uninstalled. So Savio waits.</p>
-      <!-- Already drawn inside a phone bezel, so no .device wrapper — that would
-           frame an image that is its own frame. -->
-      <figure class="fig-phone art-hero">
-        <img src="images/hero-chat.jpg" alt="The Savio chat screen answering &ldquo;Can I afford a &#8377;5,000 watch?&rdquo; with a verdict, the safe-to-spend maths behind it, named rules and a tradeoffs panel." width="795" height="1533" decoding="async" />
+      <h1 class="art-title">Two of my three sources give me nothing</h1>
+      <p class="art-sub">A weekly discovery pipeline that ranks what customers complain about &mdash; and the collection problem nobody warns you about.</p>
+      <figure class="art-hero-wide">
+        <div class="browser"><img src="images/chat-citations.jpg" alt="The pipeline&rsquo;s chat view answering a question about the week&rsquo;s top complaints, with numbered citation chips linking each claim back to a specific customer signal." width="1600" height="956" decoding="async" /></div>
+        <figcaption>Every claim carries a numbered citation back to the signal behind it. The header says which dataset is in scope &mdash; sample or live.</figcaption>
       </figure>
       <div class="art-meta">
         <div class="am-cell"><div class="am-k">Role</div><div class="am-v">Product and build, solo</div></div>
         <div class="am-cell"><div class="am-k">Type</div><div class="am-v">Shipped product</div></div>
-        <div class="am-cell"><div class="am-k">Surface</div><div class="am-v">Web app, demo</div></div>
-        <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Built, then tested against itself</div></div>
+        <div class="am-cell"><div class="am-k">Surface</div><div class="am-v">Pipeline, dashboard, digest</div></div>
+        <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Built on a fixture, run on live data</div></div>
       </div>
       <div class="art-summary">
-        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">Budget apps assume you check a dashboard before you spend. Nobody does. The ones that interrupt at the checkout get uninstalled inside a week, so the category is fighting for a moment where nobody is listening.</div></div>
-        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Speak only at the seams &mdash; payday, a windfall, a few days after a purchase. No mid-purchase interventions, ever. Code computes every number; the model only chooses which true things to say and in what order.</div></div>
-        <div class="as-cell"><div class="as-k">Evidence</div><div class="as-v">Every figure in a reply is checked against Priya&rsquo;s real data before it ships. If one cannot be traced, the answer is dropped rather than shown. A test suite runs the same questions through Savio and plain Gemini to show what the grounding is doing.</div></div>
-        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">A companion that speaks at the seams and stays quiet at the till, with 123 decisions written down &mdash; including the ones I reversed. What it cannot yet show is whether any of it changes behaviour.</div></div>
+        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">A product manager cannot read every review, so they skim. Skimming feels fine, because you never find out what you missed. The complaint that mattered was in there and nobody counted it.</div></div>
+        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Thirteen steps, and AI runs at three of them &mdash; cleaning messy text, grouping complaints into themes, judging readiness. Every number a PM then sees is computed in code.</div></div>
+        <div class="as-cell"><div class="as-k">Evidence</div><div class="as-v">Every claim in the digest links to the review behind it, and a citation that cannot be resolved is shown as unverified rather than dressed up as a footnote. Three live runs so far, 32 to 47 signals each.</div></div>
+        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">A week of reviews becomes a ranked list a PM could act on. And a finding I did not expect: of three ingestion sources, only one reliably returns anything at all.</div></div>
       </div>
     </div>
   </header>
   <div class="art-wrap">
     <div class="art-body" id="article-body">
-<h2>Every app here picks the same moment, and it is the wrong one</h2>
-<p>Budget apps assume you check a dashboard before you spend. Nobody does. Nobody stands in a fitting room and opens an app to ask whether &#8377;3,500 is sensible.</p>
-<p>The ones that try harder intervene <em>at</em> the decision. Pop-ups, blockers, a warning at checkout. Those get uninstalled inside a week. Nobody wants to be told off by their phone while holding a card.</p>
-<blockquote class="pull">So the category is fighting for a moment where nobody is listening.</blockquote>
-<p>The moments that work are the seams. The 1st, when salary lands and you are already thinking about the month. The day a bonus arrives, before it dissolves into nothing. A few days after a purchase, when you know whether it was worth it.</p>
-<p>Savio speaks only there. <strong>No mid-purchase interventions, ever.</strong> That was the first thing I locked and the hardest to hold. Building the checkout warning always feels like helping.</p>
-<h2>Three things I refused to build</h2>
-<p><strong>The cushion as permission.</strong> Priya has &#8377;50,000 above her safety net. A naive assistant says &ldquo;you can afford it, you have savings.&rdquo; That makes every large purchase rationalisable, and the discipline collapses.</p>
-<p>So the cushion enters a verdict as a cost, never a yes. A purchase that fits inside it moves from red toward amber. It never reaches green. The answer names the price: <em>drops your cushion to &#8377;41,532, about a month to rebuild.</em> She still decides. She decides seeing the bill.</p>
-<p><strong>Savings counted as spendable.</strong> &#8377;15,000 a month leaves Priya&rsquo;s account into two SIPs. It is not a cost &mdash; it is her own money going to her own future. But it is not available either, because it auto-debits on payday. Both are true. The first version encoded only the first, and overstated her spending room by &#8377;15,000 every month.</p>
-<p><strong>Letting the model do arithmetic.</strong> More on that next.</p>
-<h2>Code computes. The model chooses what to say.</h2>
-<p>The rule is simple. If a number can be derived, derive it in code. Hand it to the model as a fixed value it must repeat.</p>
-<p>Which raises the obvious question. Why use a model at all?</p>
-<p>Not for variety, and not for warmth. Templates give you both. It is that the <em>shape</em> of a good answer changes with the question. A verdict might weigh a purchase against this month&rsquo;s headroom, the cushion, the rebuild cost, a goal she is close to, and something she asked two turns ago. Which of those matter, and in what order, differs every time. One branch per combination is a tree nobody can maintain.</p>
-<p>So the model does selection and ordering. The code decides what is true.</p>
-<figure class="fig-phone">
-  <img src="images/reflect-patterns.jpg" alt="Savio&rsquo;s Reflect screen showing a worth-it versus regret trend over six months and a per-merchant breakdown of regret rates." width="796" height="1531" loading="lazy" decoding="async" />
-  <figcaption>The surface where it happened. These patterns are computed from labelled purchases &mdash; the model&rsquo;s job is to describe them, not to count them.</figcaption>
-</figure>
-<p>That split also shows where the model must be cut rather than guarded. It was emitting three different day counts in one session &mdash; 29, 30 and 31. An arithmetic checker would never catch that. A wrong calendar is not a failed sum. The fix was not a better guard. It was removing its chance to invent the number.</p>
-<h2>What it cannot be yet</h2>
-<p>Savio runs on Priya, a seeded user with six months of history. Nobody manages real money with it.</p>
-<p>That is a legal boundary, not an unfinished feature. Touching real accounts in India means the Account Aggregator framework and RBI-registered partners. That is a months-long integration with obligations I cannot take on alone.</p>
-<p>So what exists is the thinking, running end to end, against data honest enough to break it. A handful of people used the demo as beta testers, and found what I could not. One could not work out how to leave. Another never found the Reflect tab at all. The home screen said &ldquo;safe to spend today&rdquo; above a figure that was actually the whole month&rsquo;s.</p>
-<p>Five real fixes came out of that. What it cannot tell me is whether any of this changes what somebody does with their money. Beta testers on a demo are spending nothing.</p>
-<p>That question needs users I am not allowed to have yet.</p>
-<p class="deck-note"><a href="https://savio-financial-app.netlify.app/" target="_blank" rel="noopener noreferrer">Try it live &nearr;</a> &nbsp;&middot;&nbsp; <a href="https://github.com/ritikadas98/Savio" target="_blank" rel="noopener noreferrer">Read the source &nearr;</a></p>
+<h2>It only worked while my laptop was on</h2>
+<p>I built the first version as an n8n workflow. Twenty-nine nodes on a visual canvas, doing the right thing: take customer reviews, clean them, find themes, score them, email a digest.</p>
+<p>Then I tried to put it behind a website and hit the thing nobody mentions about visual automation tools. <strong>It has to be running somewhere.</strong> Either I leave my machine on, or I pay for hosting. I did not want to do either for a portfolio project.</p>
+<p>So I moved it. Every node became a TypeScript module, the canvas became an orchestrator, and the whole thing went onto Cloud Run with scale-to-zero. It costs about &#8377;40 a month and runs on a schedule with nothing left switched on.</p>
+<p>I used Claude for the port. Twenty-nine nodes of working logic, translated rather than reinvented. That is exactly the job worth handing to a model. The design was already settled. What was left was moving it.</p>
+<h2>Thirteen steps, three of them AI</h2>
+<p>The pipeline runs in sequence. Normalise, clean, detect regressions, synthesise themes, aggregate. Then score with RICE, compare week over week, assess readiness, format, write to the sheet, send the digest.</p>
+<p>AI runs at exactly three of those. It cleans messy review text, it groups complaints into themes, and it assesses whether a theme is ready to act on. Everything a product manager then sees as a number &mdash; the RICE score, the week-over-week delta, the counts &mdash; is computed in code.</p>
+<p>That split is deliberate. A model is good at reading a thousand badly written complaints and noticing four hundred are the same problem. It is not good at arithmetic. It does not need to be.</p>
+<p>The chat on top follows the same rule. It cites sources as signal IDs, and every citation is checked against the real signals before it renders. An ID that does not resolve gets an amber <em>unverified</em> chip, not a footnote that looks real. The share that resolves is logged every turn. That is the closest thing here to an accuracy metric.</p>
+<h2>Now the part I did not expect</h2>
+<p>I built three ingestion sources. Two of them produce almost nothing.</p>
+<p><strong>The App Store returns an empty list to a datacentre.</strong> Apple&rsquo;s review feed answers with HTTP 200 and zero entries when the request comes from a Google IP. It is not a country mismatch, which is what I assumed for a while. It is an address-range block. The same code on my own connection returns fifty reviews. In production it returns none.</p>
+<p><strong>Amazon&rsquo;s own reviews are readable and useless.</strong> The source reaches all eight products it watches. The <code>.com</code> pages are wall-to-wall praise, so the relevance filter correctly drops nearly everything. The <code>.in</code> pages return CAPTCHAs. The mechanism works. There is just nothing to collect.</p>
+<p>That leaves the Play Store as the only source I can rely on. A live run pulls fifty reviews. Thirty-two survive the substance filter and get analysed.</p>
+<blockquote class="pull">Every pipeline diagram starts with an arrow labelled <em>data</em>. The arrow is the hard bit.</blockquote>
+<h2>What it cannot tell me</h2>
+<p>No product manager has used this. It runs, it emails, the numbers are real, and nobody&rsquo;s roadmap has moved because of it.</p>
+<p>I know the shape is right. Companies build exactly this internally, or buy it. I chose Amazon because I use it constantly and wanted enterprise-scale mess rather than a tidy dataset.</p>
+<p>Knowing the shape is right is not knowing this one is useful. That needs a PM with a real backlog. Someone to tell me the ranking was wrong, or the digest came on the wrong day, or they read three lines and stopped.</p>
+<p>The numbers here come from two places, and it matters which. The design was proved against a fixture of 140 signals I wrote myself. I made them deliberately specific, so the pipeline could not get away with a theme called &ldquo;Search issues.&rdquo; The limits came from the live runs &mdash; smaller, messier, and only ever from one source.</p>
+<p>Both are honest. Only one is real.</p>
+<p class="deck-note"><a href="https://amazon-discovery-intel-repo.vercel.app" target="_blank" rel="noopener noreferrer">Try it live &nearr;</a> &nbsp;&middot;&nbsp; <a href="https://github.com/ritikadas98/amazon-discovery-intel-repo" target="_blank" rel="noopener noreferrer">Read the source &nearr;</a></p>
     </div>
   </div>
 </article>
