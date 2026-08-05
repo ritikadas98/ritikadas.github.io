@@ -103,6 +103,20 @@ ARTICLES = {
         "icon": "assets/fitcheck-icon.png", "icon_radius": 12,
         "subject": {"kind": "browser", "src": "writing/fitcheck/images/fitcheck-square-src.jpg"},
     },
+    "savio": {
+        # A phone subject, unlike FitCheck's browser: Savio is the app, not something
+        # riding alongside someone else's page. Field is its own sage green.
+        "kicker": "Shipped product",
+        "title": "The Wrong Moment to Be Helpful",
+        "hook": "Nobody stands in a fitting room and opens an app to ask whether "
+                "₹3,500 is sensible. So the category fights for a moment nobody is in.",
+        "byline": "Savio · AI money companion",
+        "brand": "#2F5D50", "rgb": "47,93,80",
+        "field": ("#4E8C77", "#2F5D50", "#1E3F36", "#0F221D"),
+        # Savio's own mark — the gradient dot that fronts every reply in the app.
+        "icon": "assets/savio-icon.svg", "icon_radius": 0,
+        "subject": {"kind": "phone", "src": "writing/savio/images/hero-chat.jpg"},
+    },
     "crew": {
         "kicker": "Product teardown",
         "title": "You Can’t Hand Off What You Still Have to Hold",
