@@ -89,6 +89,20 @@ ARTICLES = {
         "subject": {"kind": "none", "src": ""},
         "variants": ("og",),
     },
+    "fitcheck": {
+        # The first write-up of something built rather than analysed, so the field is
+        # FitCheck's own navy rather than a retailer's colour, and the subject is a
+        # browser: the product lives beside a shop's page, not inside an app.
+        "kicker": "Shipped product",
+        "title": "The Chart Was Never the Problem",
+        "hook": "Across four tabs the same letter meant four different bodies. Every "
+                "page already had a size chart on it.",
+        "byline": "FitCheck · Chrome extension",
+        "brand": "#1E3A5F", "rgb": "30,58,95",
+        "field": ("#3E6EA5", "#2C5581", "#1E3A5F", "#101F33"),
+        "icon": "assets/fitcheck-icon.png", "icon_radius": 12,
+        "subject": {"kind": "browser", "src": "writing/fitcheck/images/fitcheck-square-src.jpg"},
+    },
     "crew": {
         "kicker": "Product teardown",
         "title": "You Can’t Hand Off What You Still Have to Hold",
