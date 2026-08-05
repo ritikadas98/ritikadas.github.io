@@ -840,6 +840,10 @@ figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
   text-transform:uppercase;color:var(--muted)}
 .deck-note a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line)}
 .deck-note a:hover{border-color:var(--accent)}
+/* A landscape figure held to the reading measure rather than breaking past it. For
+   screenshots that read fine at 745px, where fig-wide would spend a third more
+   vertical space to say the same thing. */
+.fig-body{margin:34px 0}
 /* Review cards are landscape and dense, so they break out past the measure. */
 .fig-wide{width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
 .table-scroll{overflow-x:auto;margin:34px 0;width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
@@ -888,6 +892,7 @@ a.wr-in:hover .wr-title{color:var(--accent)}
    column carries them side by side with their own captions. The images must be
    cut to a common aspect ratio before they go in here — mismatched heights leave
    the captions on three different lines and the row reads as an accident. */
+.fig-row.two{grid-template-columns:repeat(2,1fr)}
 .fig-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start;
   margin:44px 0;width:min(1124px,100vw - 56px);margin-left:50%;transform:translateX(-50%)}
 .fig-row figure{margin:0}
