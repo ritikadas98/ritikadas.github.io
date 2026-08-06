@@ -562,7 +562,14 @@ section{padding:56px 0}
    affordance, sitting over an interactive demo — the hover pill used to hint at it,
    and with that gone it would just be a surface that navigates away when someone
    meant to drag a slider. Their links are now named in plain text instead. */
-.card.written .card-link::after{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit}
+/* inset:0 resolves against the nearest positioned ancestor, and .card-details-box
+   is one — so this covered the text column and nothing else. The preview art and
+   the card's own padding were dead space, which is most of a card's surface on a
+   wide screen. Taking the details box out of the positioning flow hands the
+   overlay to .card, which is the thing a reader is aiming at. */
+.card.written .card-details-box{position:static}
+.card.written .card-link::after{content:"";position:absolute;inset:0;z-index:1;
+  border-radius:var(--r)}
 .card-link:hover{color:var(--accent)}
 .card-src{position:relative;z-index:2;margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
 /* These were 11px muted uppercase with a hairline under them — the quietest type on
