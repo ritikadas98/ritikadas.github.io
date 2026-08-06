@@ -430,7 +430,7 @@ document.querySelectorAll('.widget-flip').forEach(wrap => {
   Array.from(pool.children).forEach((p, i) => { p.dataset.idx = String(i); });
   wrap.dataset.turn = '0';
   const a = wrap.querySelector('.flip-slot-a');
-  a.appendChild(pool.firstElementChild);        // panel 0 = the widget
+  a.appendChild(pool.firstElementChild);        // panel 0 = the lead screenshot
   wrap.querySelector('.flip-slot-b').inert = true;
 });
 

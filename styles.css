@@ -16,7 +16,7 @@
   
   --hairline:#DBD3C9; --hairline-strong:#CFC6BA;
   --shadow:0 1px 2px rgba(33,30,36,.04),0 10px 34px rgba(33,30,36,.07);
-  --shadow-lift:0 2px 6px rgba(33,30,36,.06),0 22px 54px rgba(33,30,36,.12);
+  --shadow-lift:0 3px 10px rgba(33,30,36,.09),0 28px 66px rgba(33,30,36,.17);
   --r-sm:9px; --r:14px; --r-lg:18px;
   --display:'Bricolage Grotesque',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
   --wrap:1080px; --measure:58ch;
@@ -29,7 +29,7 @@
   --accent:#8288C4; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
   --hairline:#393242; --hairline-strong:#4B4257;
   --shadow:0 2px 8px rgba(0,0,0,.4);
-  --shadow-lift:0 12px 36px rgba(0,0,0,.6);
+  --shadow-lift:0 4px 14px rgba(0,0,0,.5),0 18px 48px rgba(0,0,0,.72);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -38,7 +38,7 @@
     --accent:#8288C4; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
     --hairline:#393242; --hairline-strong:#4B4257;
     --shadow:0 2px 8px rgba(0,0,0,.4);
-    --shadow-lift:0 12px 36px rgba(0,0,0,.6);
+    --shadow-lift:0 4px 14px rgba(0,0,0,.5),0 18px 48px rgba(0,0,0,.72);
   }
 }
 
@@ -410,7 +410,7 @@ section{padding:56px 0}
 
 .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:8px}
 .about-col{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:24px 26px;transition:transform .2s,box-shadow .2s}
-.about-col:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+.about-col:hover{box-shadow:var(--shadow-lift)}
 .about-col .q{font-family:var(--mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .about-col p{font-size:15px;line-height:1.6;color:var(--ink-2);transition:opacity .25s}
 .about-col p b{color:var(--ink);font-weight:600}
@@ -434,11 +434,11 @@ section{padding:56px 0}
 
 /* CARD LAYOUT */
 .projects{display:flex;flex-direction:column;gap:24px;margin-top:28px}
-.card{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:28px 32px;box-shadow:var(--shadow);transition:transform .15s ease-out,box-shadow .25s,border-color .25s;text-decoration:none;color:inherit;position:relative}
-.card:hover{border-color:var(--hairline-strong);box-shadow:var(--shadow-lift);transform:translateY(-3px)}
-/* The lift is motion, so it goes when motion is unwelcome. The border and shadow
-   stay, which is enough to say the card responds. */
-@media (prefers-reduced-motion:reduce){.card,.card:hover{transform:none;transition:box-shadow .25s,border-color .25s}}
+.card{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:28px 32px;box-shadow:var(--shadow);transition:box-shadow .25s,border-color .25s;text-decoration:none;color:inherit;position:relative}
+/* Hover is depth only — no lift, no tilt. A card that moves under the cursor reads
+   as a toy; a card that deepens its shadow reads as a surface you can pick up. The
+   shadow carries the whole signal now, so it is pitched stronger than the resting one. */
+.card:hover{border-color:var(--hairline-strong);box-shadow:var(--shadow-lift)}
 .card.written{border-style:dashed;border-color:var(--hairline-strong);background:var(--surface)}
 .card.wip{opacity:.76}
 
@@ -509,9 +509,10 @@ section{padding:56px 0}
 .fit-btn .fb-r{font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
 
 /* ---- WIDGET FLIP ----
-   Two physical slots, spun forward forever. Panel 0 is the interactive widget,
-   the rest are screenshots; each press moves the next panel into whichever slot
-   is about to face the viewer and adds another half-turn.
+   Two physical slots, spun forward forever. The screenshots lead — a card should
+   open on the real product, not on a toy — and the interactive widget sits last,
+   so the sequence ends on something to poke at. Each press moves the next panel
+   into whichever slot is about to face the viewer and adds another half-turn.
 
    The obvious approach — one face per screenshot, pre-rotated — cannot work
    past two: with three faces the last press has to unwind 360deg back to the
@@ -541,12 +542,12 @@ section{padding:56px 0}
 /* A published study is finished work, so it loses the dashed outline the unwritten
    ones carry — dashed reads as draft, which is the opposite of "go and read this". */
 .card.written.with-art{border-style:solid;border-color:var(--hairline)}
-.card.written.with-art:hover{border-color:var(--crew-line);transform:translateY(-2px)}
+.card.written.with-art:hover{border-color:var(--crew-line)}
 .tag.solid{border-style:solid}
 
 .card-tease{margin-top:16px;font-size:14px;line-height:1.6;color:var(--muted)}
-.card-cta{display:inline-flex;align-items:center;gap:9px;margin-top:18px;padding:11px 18px;min-height:44px;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:var(--paper);background:var(--ink);border-radius:10px;transition:transform .15s,box-shadow .2s}
-.card:hover .card-cta{transform:translateY(-1px);box-shadow:var(--shadow-lift)}
+.card-cta{display:inline-flex;align-items:center;gap:9px;margin-top:18px;padding:11px 18px;min-height:44px;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:var(--paper);background:var(--ink);border-radius:10px;transition:box-shadow .2s}
+.card:hover .card-cta{box-shadow:var(--shadow-lift)}
 .card-cta .arr{transition:transform .2s}
 .card:hover .card-cta .arr{transform:translate(2px,-2px)}
 @media (prefers-reduced-motion:reduce){.card-cta,.card-cta .arr{transition:none}}
@@ -581,9 +582,9 @@ section{padding:56px 0}
 .card-src a.src-read{background:var(--accent-wash);color:var(--accent);border-color:transparent;font-weight:500}
 .card-src a.src-read:hover{border-color:var(--accent)}
 .card-src a.src-code{background:transparent;color:var(--ink);border-color:var(--hairline-strong)}
-.card-src a:hover{transform:translateY(-1px);box-shadow:var(--shadow-lift)}
+.card-src a:hover{box-shadow:var(--shadow-lift)}
 .card-src a.src-code:hover{border-color:var(--ink)}
-@media (prefers-reduced-motion:reduce){.card-src a,.card-src a:hover{transform:none}}
+
 /* Stacked, they go full width and keep their order rather than sitting at opposite
    ends of a narrow card with a gulf between them. */
 @media(max-width:520px){
