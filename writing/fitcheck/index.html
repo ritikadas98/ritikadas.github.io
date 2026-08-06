@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Chart Was Never the Problem &mdash; Ritika Das</title>
-<meta name="description" content="How an afternoon with four tabs open became a Chrome extension that reads size charts for you.">
+<title>The Size Chart That Is Read for You &mdash; Ritika Das</title>
+<meta name="description" content="An afternoon with four tabs open, and the Chrome extension that came out of it.">
 <link rel="canonical" href="https://ritikadas.in/writing/fitcheck/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Ritika Das">
 <meta property="og:url" content="https://ritikadas.in/writing/fitcheck/">
-<meta property="og:title" content="The Chart Was Never the Problem">
+<meta property="og:title" content="The Size Chart That Is Read for You">
 <meta property="og:description" content="Across four tabs the same letter meant four different bodies. Every page already had a size chart on it.">
 <meta property="og:image" content="https://ritikadas.in/assets/og/fitcheck-og.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="The Chart Was Never the Problem &mdash; how a shopping afternoon became a Chrome extension that reads size charts, on ritikadas.in.">
+<meta property="og:image:alt" content="The Size Chart That Is Read for You &mdash; how a shopping afternoon became a Chrome extension that reads size charts, on ritikadas.in.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Chart Was Never the Problem">
+<meta name="twitter:title" content="The Size Chart That Is Read for You">
 <meta name="twitter:description" content="Across four tabs the same letter meant four different bodies. Every page already had a size chart on it.">
 <meta name="twitter:image" content="https://ritikadas.in/assets/og/fitcheck-og.jpg">
 <meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
@@ -72,8 +72,8 @@
   <header class="art-head">
     <div class="art-wrap">
       <a href="../" class="art-back">&larr; All writing</a>
-      <h1 class="art-title">The chart was never the problem</h1>
-      <p class="art-sub">How an afternoon with four tabs open became a Chrome extension that reads size charts for you.</p>
+      <h1 class="art-title">The size chart that is read for you</h1>
+      <p class="art-sub">An afternoon with four tabs open, and the Chrome extension that came out of it.</p>
       <figure class="art-hero-wide">
         <div class="browser"><img src="images/hero.jpg" alt="The FitCheck side panel open beside an H&amp;M India product page, showing a recommended size with a tinted body silhouette and per-axis markers." width="1600" height="870" decoding="async" /></div>
       </figure>
@@ -96,22 +96,22 @@
 <h2>Four tabs, four different Ms</h2>
 <p>Myntra, AJIO, H&amp;M and Westside were all running sales at once. I had a tab open on each.</p>
 <p>I shop for clothes on a laptop, because a bigger screen shows me more of what I am about to buy. That preference is the only reason I noticed.</p>
-<p>Across four tabs, the same letter meant four different bodies. An M on one site was not the M on another. Myntra and AJIO were worse, because they are aggregators &mdash; every brand inside them ships its own chart.</p>
+<p>Across four tabs, the same letter meant four different bodies. An M on one site was not the M on another. Myntra and AJIO were worse, because they are aggregators: every brand inside them ships its own chart.</p>
 <p>I am an XS in some places. An S in most. An M in a few. There is no version of me that is one size.</p>
 <p>And every one of those pages already had the chart on it. The information was never missing. It just asked me to do arithmetic across four tabs, in my head, while a sale timer ran.</p>
 <blockquote class="pull">So the chart was never the problem. Trusting it was.</blockquote>
 <h2>What I decided not to build</h2>
 <p>The obvious build is a feature inside one retailer. I had already sketched it for Myntra, and I dropped it. A single-retailer fix cannot solve a problem that only exists <em>between</em> retailers. The difficulty was that four sites disagreed. Fixing one changes nothing.</p>
 <p>So: a browser extension, reading whatever page you are on.</p>
-<p>That cost me something worth naming. Roughly 60% of Indian fashion traffic is on mobile, where an extension cannot reach. I am building for the desktop shopper knowing it is the minority. The extension is the proof, not the product.</p>
-<p>I wanted Westside too and could not have it. Its size chart ships only as a PNG image &mdash; no numbers in the page at all &mdash; and my adapters are not allowed to make network calls. That is a privacy rule I set early and would not bend for one retailer, so Westside is a documented scope-out rather than a gap.</p>
+<p>That cost me something. Roughly 60% of Indian fashion traffic is on mobile, where an extension cannot reach. I am building for the desktop shopper knowing it is the minority. The extension is the proof, not the product.</p>
+<p>I wanted Westside too and could not have it. Its size chart ships only as a PNG image, with no numbers in the page at all, and my adapters are not allowed to make network calls. That is a privacy rule I set early and would not bend for one retailer, so Westside is a documented scope-out instead of a gap.</p>
 <h2>What it does</h2>
 <p>You enter your measurements once. On a supported product page, a side panel tells you which size to buy and which parts will be snug, right, or loose.</p>
 <p>The part that took longest is the part nobody sees. A size chart can mean two different things: the body a size is cut for, or the garment&rsquo;s own flat measurement. The gap between them is the designer&rsquo;s intent. Two inches of ease is slim. Eight is oversized.</p>
-<p>Miss that and you get confident nonsense &mdash; an oversized tee reading as &ldquo;too tight&rdquo; on a body it will actually hang loose on. The engine knows the difference. That is the whole product.</p>
+<p>Miss that and you get confident nonsense: an oversized tee reading as &ldquo;too tight&rdquo; on a body it will actually hang loose on. The engine knows the difference. That is the whole product.</p>
 <p>No model, no prediction. The chart is already exact, so arithmetic is the right tool.</p>
 <h2>What it cost</h2>
-<p>I ordered Levi&rsquo;s jeans in size 30. They arrived too loose, so I shipped them back and exchanged for a 28. Both my waist and the label said 30, so the mistake looked impossible &mdash; but that cut&rsquo;s chart puts the <em>body</em> waist for size 28 at 30 inches. The label was misleading. The chart was not.</p>
+<p>I ordered Levi&rsquo;s jeans in size 30. They arrived too loose, so I shipped them back and exchanged for a 28. Both my waist and the label said 30, so the mistake looked impossible. But that cut&rsquo;s chart puts the <em>body</em> waist for size 28 at 30 inches. The label was misleading; the chart was accurate all along.</p>
 <p>FitCheck recommends 28 on that page straight away. One shipment instead of three.</p>
 <!-- Side by side, not stacked: they are a comparison, and the pair reads in one
      glance where two full-width figures cost 900px to say the same thing. Both are
@@ -126,21 +126,21 @@
   <figcaption>And the order it replaced &mdash; a 30, exchanged for a 28.</figcaption>
 </figure>
 </div>
-<p>The honest limits:</p>
+<p>The limits:</p>
 <ul>
-<li><strong>Ten installs.</strong> Seven still using it a week later, nobody uninstalled. Recorded by hand in a spreadsheet &mdash; there is no telemetry here. A signal, not a study.</li>
-<li><strong>Six refusals in twenty-one attempts.</strong> Nearly one in three. Not crashes &mdash; the engine read those pages fine, the chart was just short a measurement. It says so rather than guessing, because a wrong verdict costs more trust than no verdict. That rate is the honest headline: coverage is a bigger limit than accuracy.</li>
+<li><strong>Ten installs.</strong> Seven still using it a week later, nobody uninstalled. Recorded by hand in a spreadsheet, because there is no telemetry here. Ten is a signal, and nowhere near a study.</li>
+<li><strong>Six refusals in twenty-one attempts.</strong> Nearly one in three. These are not crashes. The engine read those pages fine; the chart was just short a measurement. It says so instead of guessing, because a wrong verdict costs more trust than no verdict. Coverage is a bigger limit here than accuracy.</li>
 <li><strong>Two body blocks, male and female</strong>, because retailers organise their charts that way. That underserves anyone those blocks do not describe. A measurements-first model that drops the labels is the next thing I would build.</li>
-<li><strong>Length follows the shelf, not the science.</strong> Biomechanics says inseam should scale with height. Retailers do not &mdash; Levi&rsquo;s lists a 32-inch inseam for every waist from 28 to 40. Predicting an ideal nobody stocks would flag jeans as &ldquo;runs short&rdquo; that are sold to tall women on purpose.</li>
+<li><strong>Length follows the shelf, not the science.</strong> Biomechanics says inseam should scale with height. Retailers do not. Levi&rsquo;s lists a 32-inch inseam for every waist from 28 to 40. Predicting an ideal nobody stocks would flag jeans as &ldquo;runs short&rdquo; that are sold to tall women on purpose.</li>
 </ul>
 <figure class="fig-body">
   <img src="images/refusal-myntra.jpg" alt="A Myntra jacket page beside the FitCheck panel reading &ldquo;Can&rsquo;t compute a fit for this product&rdquo;, explaining that the size chart is missing a measurement it needs." width="1500" height="987" loading="lazy" decoding="async" />
   <figcaption>A refusal, on Myntra &mdash; which has the cleanest data of the three. The size chart is right there on the page. It is just short a measurement, and the panel says so rather than guessing.</figcaption>
 </figure>
 <h2>What would prove me wrong</h2>
-<p>The metric I want is verdict-to-purchase: of the people shown a recommendation, how many buy that size. It is the number a retailer would pay for, because it maps to fewer size-driven returns. I cannot measure it &mdash; that needs data from inside the retailer, and I am outside. Saying so beats inventing a proxy.</p>
+<p>The metric I want is verdict-to-purchase: of the people shown a recommendation, how many buy that size. It is the number a retailer would pay for, because it maps to fewer size-driven returns. I cannot measure it, because that needs data from inside the retailer and I am outside.</p>
 <p>What I can measure is the override rate: how often someone is shown a size and picks a different one. It is the cleanest trust signal there is, and the one most fit tools never instrument. If people override consistently, the verdict is not trusted, and correct arithmetic will not fix that.</p>
-<p>Ten installs cannot tell me. That is the honest end of this &mdash; a working engine, a real case where it would have saved a return, and not enough users to know whether it holds.</p>
+<p>Ten installs cannot tell me. That is where this ends: a working engine, a real case where it would have saved a return, and not enough users to know whether it holds.</p>
 <p class="deck-note"><a href="https://fitcheck-demo.netlify.app" target="_blank" rel="noopener noreferrer">Try it live &nearr;</a> &nbsp;&middot;&nbsp; <a href="https://github.com/ritikadas98/fitchecker" target="_blank" rel="noopener noreferrer">Read the source &nearr;</a></p>
     </div>
   </div>

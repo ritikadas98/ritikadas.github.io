@@ -94,7 +94,7 @@ ARTICLES = {
         # FitCheck's own navy rather than a retailer's colour, and the subject is a
         # browser: the product lives beside a shop's page, not inside an app.
         "kicker": "Shipped product",
-        "title": "The Chart Was Never the Problem",
+        "title": "The Size Chart That Is Read for You",
         "hook": "Across four tabs the same letter meant four different bodies. Every "
                 "page already had a size chart on it.",
         "byline": "FitCheck · Chrome extension",
@@ -107,7 +107,7 @@ ARTICLES = {
         # A phone subject, unlike FitCheck's browser: Savio is the app, not something
         # riding alongside someone else's page. Field is its own sage green.
         "kicker": "Shipped product",
-        "title": "The Wrong Moment to Be Helpful",
+        "title": "A Money App That Waits",
         "hook": "Nobody stands in a fitting room and opens an app to ask whether "
                 "₹3,500 is sensible. So the category fights for a moment nobody is in.",
         "byline": "Savio · AI money companion",
@@ -122,7 +122,7 @@ ARTICLES = {
         # Field is Amazon's ink-and-amber rather than the orange smile, so it reads
         # as analysis of the company rather than anything endorsed by it.
         "kicker": "Shipped product",
-        "title": "Two of My Three Sources Give Me Nothing",
+        "title": "Customer Complaints, Ranked Every Week",
         "hook": "Every pipeline diagram starts with an arrow labelled data. The arrow "
                 "is the hard bit.",
         "byline": "Amazon Discovery Intelligence",

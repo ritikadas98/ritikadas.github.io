@@ -77,7 +77,7 @@
   <header class="art-head">
     <div class="art-wrap">
       <a href="../" class="art-back">&larr; All writing</a>
-      <h1 class="art-title">Reddit Is a Waypoint, Not a Destination</h1>
+      <h1 class="art-title">Reddit is a waypoint, not a destination</h1>
       <p class="art-sub">Reddit&rsquo;s fastest-growing entry point isn&rsquo;t Reddit. It&rsquo;s a Google result that happens to be hosted there.</p>
       <!-- Landscape hero in a window frame: the evidence here is a desktop thread,
            and the portrait slot would render it unreadably small. -->
@@ -88,7 +88,6 @@
       <div class="art-meta">
         <div class="am-cell"><div class="am-k">Role</div><div class="am-v">Product analysis</div></div>
         <div class="am-cell"><div class="am-k">Type</div><div class="am-v">Product improvement</div></div>
-        <div class="am-cell"><div class="am-k">Timeframe</div><div class="am-v">2025&ndash;March 2026</div></div>
         <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Public data, live threads</div></div>
       </div>
       <!-- The four-part summary the Product Thinking card used to carry. It replaces
@@ -104,33 +103,33 @@
   <div class="art-wrap">
     <div class="art-body">
 <h2>Reddit users navigate Reddit by leaving Reddit</h2>
-<p>Search a problem &mdash; a bug, a product, a symptom &mdash; and you'll append one word to get a straight answer: <em>reddit</em>. You're not alone. An entire 48K-upvote thread exists of people describing the habit, unprompted, because Reddit's own search is worse than routing through Google to reach it.</p>
-<p>That behaviour has a name I'd give it: <strong>Reddit is a waypoint, not a destination.</strong> A waypoint is somewhere you pass through on the way to somewhere else. The data agrees &mdash; 62% of desktop visits land on one thread from search, get the answer, and bounce. Reddit is being used as a reference page, not a home.</p>
+<p>Search a bug, a product, a symptom, and you'll append one word to get a straight answer: <em>reddit</em>. You're not alone. An entire 48K-upvote thread exists of people describing the habit, unprompted, because Reddit's own search is worse than routing through Google to reach it.</p>
+<p>That behaviour has a name I'd give it: <strong>Reddit is a waypoint, not a destination.</strong> A waypoint is somewhere you pass through on the way to somewhere else. The data agrees: 62% of desktop visits land on one thread from search, get the answer, and bounce. People treat it as a reference page they consult and then close.</p>
 <h2>Method, briefly</h2>
-<p>Everything here is outside-in: Similarweb traffic data, a live r/NoStupidQuestions thread as qualitative signal, and public benchmarks &mdash; labelled as benchmarks, never as Reddit-specific numbers. The full slide-by-slide analysis &mdash; segmentation, prioritisation, wireframe notes, sources &mdash; is in the deck at the bottom of this page. This piece is the argument, not the appendix.</p>
+<p>Everything here is outside-in: Similarweb traffic data, a live r/NoStupidQuestions thread as qualitative signal, and public benchmarks, labelled as such and never as Reddit-specific numbers. The deck at the bottom of this page carries the full slide-by-slide analysis: segmentation, prioritisation, wireframe notes, sources.</p>
 <h2>The surface everyone ignores</h2>
 <p>Reddit's onboarding assumes you arrived at the homepage and chose to be there. Almost nobody does. The highest-volume visitor lands mid-conversation on a thread page, sees a wall of comments and a login nag, and has no reason to stay. The most valuable surface in the product is the one no one designed for acquisition.</p>
-<h2>The leak &mdash; one journey, three break points</h2>
+<h2>The leak: one journey, three break points</h2>
 <p>Follow a would-be member from search to churn:</p>
 <ol>
 <li><strong>Arrival.</strong> Lands on a thread from Google. Gets the answer. Sees no reason to join. Leaves.</li>
-<li><strong>First participation.</strong> The rare user who tries to post trips Automod &mdash; new-account rules delete it silently. First contribution, gone. Motivation dies here.</li>
+<li><strong>First participation.</strong> The rare user who tries to post trips Automod, whose new-account rules delete it silently. First contribution, gone. Motivation dies here.</li>
 <li><strong>Recovery.</strong> No soft landing after the deletion. No &ldquo;here's what happened, here's where this belongs.&rdquo; The user reads it as rejection and churns.</li>
 </ol>
 <p>Three separate failures, one strategy failing at each stage.</p>
-<h2>The fixes &mdash; mapped to each break point</h2>
-<p>Not five ideas defended thinly. Three, in priority order, each answering one leak:</p>
+<h2>The fixes, mapped to each break point</h2>
+<p>Three fixes, in priority order, each answering one leak:</p>
 <ul>
-<li><strong>Context-aware thread-page onboarding</strong> <em>(primary &rarr; Arrival).</em> A slim, non-modal strip at the top of the thread: community identity, honest social proof, one non-coercive call to action. Onboarding that exists where the user already is, not on a homepage they'll never reach.</li>
+<li><strong>Context-aware thread-page onboarding</strong> <em>(primary &rarr; Arrival).</em> A slim, non-modal strip at the top of the thread: community identity, honest social proof, one non-coercive call to action. Onboarding that lives on the thread page, because that is where the user already is.</li>
 <li><strong>Composer coach</strong> <em>(secondary &rarr; First participation).</em> Catch the doomed first post <em>before</em> Automod does. Baseline is a non-LLM rules linter. An LLM tone check is added only where it earns its ~$0.001-per-check cost. Framed as help, opt-out, new accounts only.</li>
-<li><strong>Megathread fallback routing</strong> <em>(tertiary &rarr; Recovery).</em> When the coach sees a post that will fail, it offers a soft pivot to the subreddit's megathread instead of a silent deletion. A landing, not a wall. It's a path inside the coach flow &mdash; not a standalone &ldquo;kids table.&rdquo;</li>
+<li><strong>Megathread fallback routing</strong> <em>(tertiary &rarr; Recovery).</em> When the coach sees a post that will fail, it offers a soft pivot to the subreddit's megathread instead of a silent deletion. Somewhere to land. It sits inside the coach flow, so it never becomes a standalone &ldquo;kids table.&rdquo;</li>
 </ul>
-<p>Cut deliberately: progressive login blurs, which risk cloaking penalties against the exact SEO traffic keeping the lights on and have drawn documented user backlash, and anonymous carts, which were underdeveloped. Naming what you refuse to build is part of the argument.</p>
+<p>Cut deliberately: progressive login blurs, which risk cloaking penalties against the exact SEO traffic keeping the lights on and have drawn documented user backlash, and anonymous carts, which were underdeveloped.</p>
 <h2>How you'd know it worked</h2>
-<p><strong>North Star:</strong> new-user activation rate &mdash; the share completing one meaningful action (upvote, follow, comment) within 48 hours of signup. Not signups. Not DAU. The action that predicts they'll come back.</p>
-<p><strong>The guardrail that leads:</strong> Google referral traffic must not decline faster than the &minus;14% year-on-year baseline, and thread indexability stays at 100%. Every fix here touches the arrival surface, which means every fix can threaten the 62% the business is built on. That guardrail isn't a footnote &mdash; it's the first thing I'd watch, and it's the line I wouldn't cross to hit the North Star.</p>
+<p><strong>North Star:</strong> new-user activation rate, the share completing one meaningful action (upvote, follow, comment) within 48 hours of signup. Signups and DAU both miss it. This is the action that predicts they'll come back.</p>
+<p><strong>The guardrail that leads:</strong> Google referral traffic must not decline faster than the &minus;14% year-on-year baseline, and thread indexability stays at 100%. Every fix here touches the arrival surface, which means every fix can threaten the 62% the business is built on. That guardrail is the first thing I'd watch, and the line I wouldn't cross to hit the North Star.</p>
 <h2>The horizon</h2>
-<p>AI assistants increasingly answer the question a Reddit thread used to. Today that traffic is under 0.1% of inbound &mdash; but it's the only source growing while Google organic drops double digits. This case study fixes the arrival surface. Making Reddit worth <em>arriving at</em>, not just citing, is the larger open question.</p>
+<p>AI assistants increasingly answer the question a Reddit thread used to. Today that traffic is under 0.1% of inbound, but it's the only source growing while Google organic drops double digits. This case study fixes the arrival surface. Whether Reddit can become somewhere worth <em>arriving at</em> is the larger open question.</p>
 <h2>The full deck</h2>
 <p>Eleven slides: segmentation, prioritisation, wireframe notes and sources. This page is the argument; the deck is the working.</p>
 <div class="deck">

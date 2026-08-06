@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The Wrong Moment to Be Helpful &mdash; Ritika Das</title>
-<meta name="description" content="A money app that speaks at the checkout gets uninstalled. So Savio waits.">
+<title>A Money App That Waits &mdash; Ritika Das</title>
+<meta name="description" content="Speak at the checkout and you get uninstalled. So Savio picks its moment.">
 <link rel="canonical" href="https://ritikadas.in/writing/savio/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Ritika Das">
 <meta property="og:url" content="https://ritikadas.in/writing/savio/">
-<meta property="og:title" content="The Wrong Moment to Be Helpful">
+<meta property="og:title" content="A Money App That Waits">
 <meta property="og:description" content="Nobody stands in a fitting room and opens an app to ask whether &#8377;3,500 is sensible. So the whole category is fighting for a moment where nobody is listening.">
 <meta property="og:image" content="https://ritikadas.in/assets/og/savio-og.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="The Wrong Moment to Be Helpful &mdash; why a money app that speaks at the checkout gets uninstalled, on ritikadas.in.">
+<meta property="og:image:alt" content="A Money App That Waits &mdash; why a money app that speaks at the checkout gets uninstalled, on ritikadas.in.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Wrong Moment to Be Helpful">
+<meta name="twitter:title" content="A Money App That Waits">
 <meta name="twitter:description" content="Nobody stands in a fitting room and opens an app to ask whether &#8377;3,500 is sensible.">
 <meta name="twitter:image" content="https://ritikadas.in/assets/og/savio-og.jpg">
 <meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
@@ -73,8 +73,8 @@
   <header class="art-head">
     <div class="art-wrap">
       <a href="../" class="art-back">&larr; All writing</a>
-      <h1 class="art-title">The wrong moment to be helpful</h1>
-      <p class="art-sub">A money app that speaks at the checkout gets uninstalled. So Savio waits.</p>
+      <h1 class="art-title">A money app that waits</h1>
+      <p class="art-sub">Speak at the checkout and you get uninstalled. So Savio picks its moment.</p>
       <!-- Already drawn inside a phone bezel, so no .device wrapper — that would
            frame an image that is its own frame. -->
       <figure class="fig-phone art-hero">
@@ -88,9 +88,9 @@
       </div>
       <div class="art-summary">
         <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">Budget apps assume you check a dashboard before you spend. Nobody does. The ones that interrupt at the checkout get uninstalled inside a week, so the category is fighting for a moment where nobody is listening.</div></div>
-        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Speak only at the seams &mdash; payday, a windfall, a few days after a purchase. No mid-purchase interventions, ever. Code computes every number; the model only chooses which true things to say and in what order.</div></div>
-        <div class="as-cell"><div class="as-k">Evidence</div><div class="as-v">Every figure in a reply is checked against Priya&rsquo;s real data before it ships. If one cannot be traced, the answer is dropped rather than shown. A test suite runs the same questions through Savio and plain Gemini to show what the grounding is doing.</div></div>
-        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">A companion that speaks at the seams and stays quiet at the till, with 123 decisions written down &mdash; including the ones I reversed. What it cannot yet show is whether any of it changes behaviour.</div></div>
+        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Speak only at the seams: payday, a windfall, a few days after a purchase. No mid-purchase interventions, ever. Code computes every number; the model only chooses which true things to say and in what order.</div></div>
+        <div class="as-cell"><div class="as-k">Evidence</div><div class="as-v">Every figure in a reply is checked against Priya&rsquo;s real data before it ships. If one cannot be traced, the answer is dropped instead of shown. A test suite runs the same questions through Savio and plain Gemini to show what the grounding is doing.</div></div>
+        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">A companion that speaks at the seams and stays quiet at the till, with 123 decisions written down, including the ones I reversed. What it cannot yet show is whether any of it changes behaviour.</div></div>
       </div>
     </div>
   </header>
@@ -105,7 +105,7 @@
 <h2>Three things I refused to build</h2>
 <p><strong>The cushion as permission.</strong> Priya has &#8377;50,000 above her safety net. A naive assistant says &ldquo;you can afford it, you have savings.&rdquo; That makes every large purchase rationalisable, and the discipline collapses.</p>
 <p>So the cushion enters a verdict as a cost, never a yes. A purchase that fits inside it moves from red toward amber. It never reaches green. The answer names the price: <em>drops your cushion to &#8377;41,532, about a month to rebuild.</em> She still decides. She decides seeing the bill.</p>
-<p><strong>Savings counted as spendable.</strong> &#8377;15,000 a month leaves Priya&rsquo;s account into two SIPs. It is not a cost &mdash; it is her own money going to her own future. But it is not available either, because it auto-debits on payday. Both are true. The first version encoded only the first, and overstated her spending room by &#8377;15,000 every month.</p>
+<p><strong>Savings counted as spendable.</strong> &#8377;15,000 a month leaves Priya&rsquo;s account into two SIPs. It is not a cost. It is her own money going to her own future. But it is not available either, because it auto-debits on payday. Both are true. The first version encoded only the first, and overstated her spending room by &#8377;15,000 every month.</p>
 <p><strong>Letting the model do arithmetic.</strong> More on that next.</p>
 <h2>Code computes. The model chooses what to say.</h2>
 <p>The rule is simple. If a number can be derived, derive it in code. Hand it to the model as a fixed value it must repeat.</p>
@@ -114,9 +114,9 @@
 <p>So the model does selection and ordering. The code decides what is true.</p>
 <figure class="fig-phone">
   <img src="images/reflect-patterns.jpg" alt="Savio&rsquo;s Reflect screen showing a worth-it versus regret trend over six months and a per-merchant breakdown of regret rates." width="796" height="1531" loading="lazy" decoding="async" />
-  <figcaption>The surface where it happened. These patterns are computed from labelled purchases &mdash; the model&rsquo;s job is to describe them, not to count them.</figcaption>
+  <figcaption>The surface where it happened. These patterns are computed from labelled purchases. The model&rsquo;s job is to describe them, never to count them.</figcaption>
 </figure>
-<p>That split also shows where the model must be cut rather than guarded. It was emitting three different day counts in one session &mdash; 29, 30 and 31. An arithmetic checker would never catch that. A wrong calendar is not a failed sum. The fix was not a better guard. It was removing its chance to invent the number.</p>
+<p>That split also shows where the model must be cut instead of guarded. It was emitting three different day counts in one session: 29, 30 and 31. An arithmetic checker would never catch that, because a wrong calendar is not a failed sum. The fix was to remove its chance to invent the number at all.</p>
 <h2>What it cannot be yet</h2>
 <p>Savio runs on Priya, a seeded user with six months of history. Nobody manages real money with it.</p>
 <p>That is a legal boundary, not an unfinished feature. Touching real accounts in India means the Account Aggregator framework and RBI-registered partners. That is a months-long integration with obligations I cannot take on alone.</p>
