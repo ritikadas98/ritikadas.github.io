@@ -39,12 +39,11 @@
 
 
 /* ---- CARD HOVER ----
-   The 3D tilt is gone. It skewed the body copy while someone was reading it, which
-   works against the one thing the card is asking them to do — and on a page selling
-   judgment, a card that wobbles under the cursor is the wrong kind of clever.
-   The hover is now a 3px lift in CSS: same "this is interactive" signal, no
-   distortion, no per-frame work on mousemove, and it inherits the reduced-motion
-   handling the stylesheet already does. */
+   Nothing here any more. The 3D tilt went first: it skewed the body copy while
+   someone was reading it, and on a page selling judgment a card that wobbles
+   under the cursor is the wrong kind of clever. The lift that replaced it has
+   since gone too — a card that moves under the cursor reads as a toy. Hover is
+   depth only now, a deeper shadow, and it lives entirely in the stylesheet. */
 
 /* ---- FITCHECK WIDGET ------------------------------------------------------
    A teaser, not a reimplementation. It shows the verdict and nothing else —
@@ -543,5 +542,123 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
   const y = new Date().getFullYear();
   document.querySelectorAll('.foot-in span').forEach(el => {
     el.textContent = el.textContent.replace(/\b20\d{2}\b/, y);
+  });
+})();
+
+/* ---- READING PROGRESS ----
+   Article pages only. Measures the article body rather than the document, so
+   the bar reaches 100% when the argument ends and not when the footer does. */
+(function () {
+  const body = document.querySelector('.art-body');
+  if (!body) return;
+
+  const bar = document.createElement('div');
+  bar.className = 'read-progress';
+  bar.setAttribute('role', 'progressbar');
+  bar.setAttribute('aria-label', 'Reading progress');
+  bar.setAttribute('aria-valuemin', '0');
+  bar.setAttribute('aria-valuemax', '100');
+  document.body.appendChild(bar);
+
+  let ticking = false, last = -1;
+
+  function draw() {
+    ticking = false;
+    const r = body.getBoundingClientRect();
+    const top = r.top + window.scrollY;
+    /* The last viewport of the article is already on screen when you reach the
+       end of the scrollable range, so the denominator stops a screen short —
+       otherwise the bar can never fill. */
+    const span = Math.max(1, body.offsetHeight - window.innerHeight);
+    const pct = Math.min(100, Math.max(0, ((window.scrollY - top) / span) * 100));
+    const rounded = Math.round(pct);
+    if (rounded === last) return;
+    last = rounded;
+    bar.style.width = pct + '%';
+    bar.setAttribute('aria-valuenow', String(rounded));
+  }
+
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(draw); }
+  }
+
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll, { passive: true });
+  draw();
+})();
+
+/* ---- IMAGE LIGHTBOX ----
+   Opens a figure image at full size. Uses a native <dialog> so the focus trap,
+   Escape handling and top-layer stacking come from the platform rather than
+   from me getting them subtly wrong. */
+(function () {
+  const imgs = document.querySelectorAll(
+    '.art-body figure img, .art-hero img, .art-hero-wide img, .fig-body img, .fig-row img'
+  );
+  if (!imgs.length) return;
+
+  const dlg = document.createElement('dialog');
+  dlg.className = 'lightbox';
+  dlg.innerHTML =
+    '<button type="button" class="lb-close" aria-label="Close image">&#10005;</button>' +
+    '<p class="lb-hint">Esc to close</p>' +
+    '<div class="lb-scroll"><figure class="lb-fig"><img alt=""><figcaption class="lb-cap"></figcaption></figure></div>';
+  document.body.appendChild(dlg);
+
+  const full = dlg.querySelector('.lb-fig img');
+  const cap = dlg.querySelector('.lb-cap');
+  const scroll = dlg.querySelector('.lb-scroll');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let opener = null;
+
+  function open(img) {
+    opener = img;
+    full.src = img.currentSrc || img.src;
+    full.alt = img.alt || '';
+    const fc = img.closest('figure') && img.closest('figure').querySelector('figcaption');
+    cap.textContent = fc ? fc.textContent.trim() : '';
+    cap.hidden = !cap.textContent;
+
+    const from = img.getBoundingClientRect();
+    dlg.showModal();
+    scroll.scrollTop = 0;
+
+    /* FLIP: the panel is already where it belongs, so animate the difference
+       from where the thumbnail was. Cheap, and it keeps the two images
+       visually connected instead of one replacing the other. */
+    if (!reduce.matches) {
+      const to = full.getBoundingClientRect();
+      if (to.width && to.height) {
+        const sx = from.width / to.width, sy = from.height / to.height;
+        const dx = (from.left + from.width / 2) - (to.left + to.width / 2);
+        const dy = (from.top + from.height / 2) - (to.top + to.height / 2);
+        full.animate(
+          [{ transform: `translate(${dx}px, ${dy}px) scale(${sx}, ${sy})`, opacity: 0.4 },
+           { transform: 'none', opacity: 1 }],
+          { duration: 260, easing: 'cubic-bezier(.2,.7,.2,1)' }
+        );
+      }
+    }
+  }
+
+  imgs.forEach(img => {
+    img.classList.add('zoomable');
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.setAttribute('aria-label',
+      'Expand image' + (img.alt ? ': ' + img.alt : ''));
+    img.addEventListener('click', () => open(img));
+    img.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
+    });
+  });
+
+  dlg.querySelector('.lb-close').addEventListener('click', () => dlg.close());
+  /* Clicking the backdrop closes. The figure stops the event so a click on the
+     image itself — or a drag while pinch-zoomed — doesn't count as a miss. */
+  dlg.addEventListener('click', e => { if (!e.target.closest('.lb-fig')) dlg.close(); });
+  dlg.addEventListener('close', () => {
+    full.removeAttribute('src');
+    if (opener) { opener.focus({ preventScroll: true }); opener = null; }
   });
 })();

@@ -901,3 +901,62 @@ a.wr-in:hover .wr-title{color:var(--accent)}
 @media(max-width:760px){
   .fig-row{grid-template-columns:1fr;gap:32px;width:auto;margin-left:0;transform:none}
 }
+
+/* ---- READING PROGRESS ----
+   CREW runs to twenty-one phone screens, YouTube to fifteen. A reader that deep
+   in has no way to judge how much is left, and the honest fix is orientation
+   rather than shortening the argument. A hairline across the very top, filling
+   as you move through the article body — the body, not the document, so the
+   footer and the nav don't get counted as reading you've done.
+
+   It sits above the sticky nav (z-index 50) because it belongs to the page
+   edge, not to the header. */
+.read-progress{position:fixed;top:0;left:0;z-index:60;height:2px;width:0;
+  background:var(--accent);border-radius:0 2px 2px 0;pointer-events:none}
+/* No transition: this tracks the scroll position directly, and easing it would
+   make the bar lag behind the thumb on a fast flick. */
+@media print{.read-progress{display:none}}
+
+/* ---- IMAGE LIGHTBOX ----
+   The screenshots carry the evidence, and on a phone they are rendered far
+   below the size that evidence can be read at — the Levi's size chart lands at
+   163px from a 1400px source, which is a grey smudge where the numbers should
+   be. Pairing those figures side by side was right for the page height; it just
+   left the proof illegible. So every figure image opens at full size on tap.
+
+   The trigger is the image itself rather than a wrapper, because .device and
+   .browser both style `img` as a direct child and wrapping would break both. */
+.zoomable{cursor:zoom-in}
+.zoomable:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+dialog.lightbox{padding:0;border:0;background:transparent;max-width:100vw;
+  max-height:100dvh;width:100%;height:100%;overflow:auto;overscroll-behavior:contain}
+dialog.lightbox::backdrop{background:rgba(18,16,20,.96);backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(3px)}
+.lb-scroll{min-height:100%;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:16px;padding:56px 16px 32px}
+.lb-fig{margin:0;max-width:min(1100px,100%)}
+/* width:auto, not 100% — a 795px screenshot blown up to fill the panel is
+   blurrier than the page version it replaced, which defeats the point. Big
+   images fill the panel; small ones stop at their own size. */
+.lb-fig img{display:block;width:auto;max-width:100%;height:auto;border:0;border-radius:8px;
+  background:var(--surface-2)}
+.lb-cap{margin-top:12px;font-size:13.5px;line-height:1.6;color:#D9D4CE;
+  max-width:70ch;text-align:left}
+/* The close control is fixed to the viewport, not the scroller: on a tall
+   screenshot you are several thousand pixels down and still need the way out. */
+.lb-close{position:fixed;top:12px;right:12px;z-index:2;min-width:44px;min-height:44px;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:18px;line-height:1;color:#F5F1EC;
+  background:rgba(28,25,30,.82);border:1px solid rgba(245,241,236,.28);
+  border-radius:10px;cursor:pointer;backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px)}
+.lb-close:hover{background:rgba(48,44,52,.92);border-color:rgba(245,241,236,.5)}
+.lb-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lb-hint{position:fixed;top:18px;left:16px;z-index:2;font-family:var(--mono);
+  font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:rgba(245,241,236,.55);pointer-events:none}
+@media(max-width:600px){
+  .lb-scroll{padding:52px 8px 24px}
+  .lb-hint{display:none}
+}
