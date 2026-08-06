@@ -911,7 +911,7 @@ a.wr-in:hover .wr-title{color:var(--accent)}
 
    It sits above the sticky nav (z-index 50) because it belongs to the page
    edge, not to the header. */
-.read-progress{position:fixed;top:0;left:0;z-index:60;height:2px;width:0;
+.read-progress{position:fixed;top:0;left:0;z-index:60;height:3px;width:0;
   background:var(--accent);border-radius:0 2px 2px 0;pointer-events:none}
 /* No transition: this tracks the scroll position directly, and easing it would
    make the bar lag behind the thumb on a fast flick. */
@@ -928,6 +928,25 @@ a.wr-in:hover .wr-title{color:var(--accent)}
    .browser both style `img` as a direct child and wrapping would break both. */
 .zoomable{cursor:zoom-in}
 .zoomable:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* The affordance. cursor:zoom-in says nothing on a phone, which is exactly where
+   the images are least readable, so there has to be something you can see. The
+   badge sits on the image's own frame — .device and .browser clip it neatly,
+   and a bare figure gets it against the image edge. */
+.has-zoom{position:relative}
+.has-zoom::after{content:"\2921";position:absolute;right:8px;bottom:8px;z-index:1;
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;
+  font-size:13px;line-height:1;color:#F5F1EC;background:rgba(24,21,26,.62);
+  border:1px solid rgba(245,241,236,.22);border-radius:7px;
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  opacity:.72;pointer-events:none;transition:opacity .18s,background .18s}
+/* Always on. The first version hid it behind @media (hover:hover) and only
+   showed it to touch devices, which is clever until a device reports the wrong
+   thing and the badge shows to nobody — the exact failure this badge exists to
+   fix. A 28px chip in the corner is not clutter worth risking that for. */
+.has-zoom:hover::after,
+.has-zoom:focus-within::after{opacity:1;background:rgba(24,21,26,.86)}
+@media (prefers-reduced-motion:reduce){.has-zoom::after{transition:none}}
 
 dialog.lightbox{padding:0;border:0;background:transparent;max-width:100vw;
   max-height:100dvh;width:100%;height:100%;overflow:auto;overscroll-behavior:contain}

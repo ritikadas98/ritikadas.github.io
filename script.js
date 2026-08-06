@@ -647,6 +647,11 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
     img.setAttribute('role', 'button');
     img.setAttribute('aria-label',
       'Expand image' + (img.alt ? ': ' + img.alt : ''));
+    /* The badge goes on the tightest frame around the image: .device and
+       .browser already clip and round, so it lands on the screenshot itself
+       rather than floating beside it. */
+    const frame = img.closest('.device, .browser') || img.parentElement;
+    if (frame) frame.classList.add('has-zoom');
     img.addEventListener('click', () => open(img));
     img.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
