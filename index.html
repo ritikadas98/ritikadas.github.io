@@ -45,6 +45,33 @@
 <link rel="stylesheet" href="styles.css">
 <!-- Without JS the curtain can never be lifted, so hide it outright. -->
 <noscript><style>.preloader{display:none!important}</style></noscript>
+<!-- Tells a search engine this is a person and a portfolio rather than
+     guessing from the markup. Nothing here is new information; it is the
+     same facts the page already states, in a form a machine can read. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ritika Das",
+  "jobTitle": "Product Manager",
+  "url": "https://ritikadas.in",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bengaluru",
+    "addressCountry": "IN"
+  },
+  "sameAs": [
+    "https://linkedin.com/in/ritikadas98",
+    "https://github.com/ritikadas98"
+  ],
+  "knowsAbout": [
+    "Product management",
+    "Fintech",
+    "Consumer e-commerce",
+    "Generative AI"
+  ]
+}
+</script>
 </head>
 <body>
 <a class="skip-link" href="#work">Skip to content</a>

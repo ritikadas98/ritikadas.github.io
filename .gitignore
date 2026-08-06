@@ -16,3 +16,8 @@ writing-drafts/
 # Downloaded webfonts and scratch HTML for tools/og-card.py. Regenerated on
 # demand; the rendered cards in assets/og/ are what get committed.
 tools/.fontcache/
+
+# Resume working copy. Carries a phone number and a personal email, so it stays
+# out of the public repo — the published version is a PDF we add deliberately.
+Ritika_Das_Resume.md
+Ritika_Das_Resume.pdf

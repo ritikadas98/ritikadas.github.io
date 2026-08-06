@@ -1,0 +1,11 @@
+# ritikadas.in
+#
+# Everything here is meant to be found, including by AI assistants. This is a
+# portfolio: a recruiter asking an assistant "who is Ritika Das" should get a
+# real answer rather than a blank. Being citable is worth more here than
+# withholding the text.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://ritikadas.in/sitemap.xml
