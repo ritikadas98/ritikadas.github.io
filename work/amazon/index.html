@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amazon Discovery Intelligence &mdash; Ritika Das</title>
+<meta name="description" content="A thirteen-step pipeline that turns a week of Amazon reviews into a ranked list a PM can act on, with every claim traceable to the review behind it.">
+<link rel="canonical" href="https://ritikadas.in/work/amazon/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ritika Das">
+<meta property="og:url" content="https://ritikadas.in/work/amazon/">
+<meta property="og:title" content="Amazon Discovery Intelligence">
+<meta property="og:description" content="Thirteen steps, and AI runs at three of them. Every number a PM then sees is worked out in code.">
+<meta property="og:image" content="https://ritikadas.in/assets/og/amazon-og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="Amazon Discovery Intelligence &mdash; customer complaints, ranked every week, on ritikadas.in.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Amazon Discovery Intelligence">
+<meta name="twitter:description" content="Thirteen steps, and AI runs at three of them. Every number a PM then sees is worked out in code.">
+<meta name="twitter:image" content="https://ritikadas.in/assets/og/amazon-og.jpg">
+<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<script>
+(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="../../" class="brand" aria-label="Ritika Das &mdash; home"><span class="brand-mark" aria-hidden="true"></span></a>
+    <div class="nav-links">
+      <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
+        <span id="theme-icon">&#127769;</span> <span id="theme-text">Dark</span>
+      </button>
+      <a href="../../#about">About</a>
+      <a href="../../#work">Shipped Products</a>
+      <a href="../../#cases">Product Thinking</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#contact" class="nav-cta">Contact</a>
+      <button type="button" class="nav-toggle" id="nav-toggle"
+              aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Same menu as the homepage. Below 640px every nav link but Contact is hidden,
+       so without this a phone reader has no way back into the site. -->
+  <div class="nav-menu" id="nav-menu">
+    <div class="nm-in">
+      <a href="../../#about">About</a>
+      <a href="../../#work">Shipped Products</a>
+      <a href="../../#cases">Product Thinking</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<article>
+  <header class="art-head">
+    <div class="art-wrap">
+      <a href="../../#work" class="art-back">&larr; All work</a>
+      <div class="card-tags"><span class="tag live">&#9679; Deployed</span><span class="tag">Multi-agent pipeline</span></div>
+      <h1 class="art-title">Amazon Discovery Intelligence</h1>
+      <p class="art-sub">A week of customer complaints becomes a ranked list a PM can act on. AI reads the messy text; code works out every number.</p>
+      <div class="art-meta">
+        <div class="am-cell"><div class="am-k">Role</div><div class="am-v">Product and build, solo</div></div>
+        <div class="am-cell"><div class="am-k">Platform</div><div class="am-v">TypeScript on Cloud Run</div></div>
+        <div class="am-cell"><div class="am-k">Stage</div><div class="am-v">Deployed, scheduled</div></div>
+        <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Built on a fixture, run on live data</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- The argument on the left, the thing itself on the right. This block is the
+       homepage card as it used to be, moved here word for word. -->
+  <div class="art-wrap wk-main">
+    <div class="card-main-grid">
+      <div class="card-details-box">
+        <div class="card-metric-badge">
+          <span class="card-metric-num">13-Step</span>
+          <span class="card-metric-lbl">Pipeline &middot; AI at Three Steps</span>
+        </div>
+        <div class="pdeo">
+          <div class="row"><span class="k">Problem</span><span class="v">A PM cannot read every review, so they skim. Skimming feels fine because you never find out what you missed. The complaint that mattered was in there, and nobody counted it.</span></div>
+          <div class="row"><span class="k">Decision</span><span class="v">Thirteen steps, and AI runs at three of them. It reads the messy text and groups the complaints, which is what it is genuinely good at. Every number a PM then sees is worked out in code.</span></div>
+          <div class="row"><span class="k">Evidence</span><span class="v">140 reviews go in. 136 survive the clean, and the 4 that don't are reported, not quietly dropped. Every claim in the digest links to the review behind it. Anything the evidence doesn't support gets flagged on the page.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="v">A week of reviews becomes a ranked list a PM can act on. On the sample set Delivery &amp; Tracking tops it at 81.6; on live data it is 51.8 across 32 signals. The page says which is which.</span></div>
+        </div>
+        <div class="card-src">
+          <a href="https://amazon-discovery-intel-repo.vercel.app" target="_blank" rel="noopener noreferrer" class="src-live">Try it live &#8599;</a>
+          <a href="../../writing/amazon/" class="src-read">Read the write-up &#8599;</a>
+          <a href="https://github.com/ritikadas98/amazon-discovery-intel-repo" target="_blank" rel="noopener noreferrer" class="src-code">Source &#8599;</a>
+        </div>
+      </div>
+
+      <!-- WIDGET: a teaser. The ranking, not the arithmetic. Every figure here is a
+           real score off the dashboard screenshot: 140 reviews in, 136 kept,
+           Delivery & Tracking top at 81.6. The formula itself is stated below. -->
+      <div class="widget-flip" id="flip-amazon">
+        <div class="widget-flip-inner">
+          <div class="flip-slot flip-slot-a in-flow"></div>
+          <div class="flip-slot flip-slot-b"></div>
+        </div>
+        <div class="flip-pool">
+
+          <div class="mini-widget-box flip-panel shot-face">
+            <img src="../../assets/shot-amazon-1.jpg" class="widget-shot" loading="lazy" decoding="async"
+                 width="1100" height="657"
+                 alt="The digest dashboard: feature groups ranked by RICE score, with signal counts, severity, MoSCoW tags and trend for each — Delivery and Tracking top at 81.6, marked Must Have." />
+            <div class="shot-bar">
+              <span class="shot-cap">Every group ranked, with the evidence count behind each one.</span>
+              <button type="button" class="flip-btn" onclick="flipWidget('amazon')" aria-label="Next screenshot">Next &#8635;</button>
+            </div>
+          </div>
+
+          <div class="mini-widget-box flip-panel shot-face">
+            <img src="../../assets/shot-amazon-2.jpg" class="widget-shot" loading="lazy" decoding="async"
+                 width="1100" height="657"
+                 alt="Asking the digest &quot;What are the top complaints this week? Cite signals&quot; — the answer names the themes and footnotes each claim with the review it came from." />
+            <div class="shot-bar">
+              <span class="shot-cap">Ask it anything. Each claim footnotes the review it came from.</span>
+              <button type="button" class="flip-btn" onclick="flipWidget('amazon')" aria-label="Try the interactive ranking">Try it &#8635;</button>
+            </div>
+          </div>
+
+          <div class="mini-widget-box flip-panel" id="widget-amazon">
+            <div class="widget-head">
+              <span class="widget-title">This week&rsquo;s ranking</span>
+              <button type="button" class="flip-btn" onclick="flipWidget('amazon')"
+                      aria-label="Back to screenshots of the real product">Screenshots &#8635;</button>
+            </div>
+            <div class="widget-controls">
+              <div class="widget-btn-row fit-row">
+                <button class="widget-btn fit-btn active" onclick="setAmazonPipeline('top', this)"><span class="fb-r">Rank 1</span><span>Delivery</span></button>
+                <button class="widget-btn fit-btn" onclick="setAmazonPipeline('mid', this)"><span class="fb-r">Rank 4</span><span>Checkout</span></button>
+                <button class="widget-btn fit-btn" onclick="setAmazonPipeline('low', this)"><span class="fb-r">Rank 7</span><span>Detail pages</span></button>
+              </div>
+            </div>
+            <div class="widget-result" id="amazon-result-box" aria-live="polite"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- These two were tabs inside a drawer on the homepage card, folded shut by
+       default. On their own page they are sections with their own anchors. -->
+  <section id="how-it-works" class="wk-sec band">
+    <div class="art-wrap">
+      <h2 class="wk-h2">How it works</h2>
+      <ol class="wk-list">
+        <li><b>It gathers the complaints.</b> Play Store, App Store and Amazon listings. Play Store is the one that reliably delivers; the others chip in when they can.</li>
+        <li><b>Sample or live, never mixed.</b> A switch at the top decides whether you are looking at a fixed test set or reviews pulled this week. The two never blend, so a demo can never be mistaken for real data.</li>
+        <li><b>Then it ranks.</b> How many people hit it, how badly, how many sources agree, whether a recent version made it worse, how hard it looks to fix, and whether it is trending up or down. Formally: <code>(reach &times; impact &times; confidence &times; version) / effort &times; trend</code>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="decisions" class="wk-sec">
+    <div class="art-wrap">
+      <h2 class="wk-h2">The calls I made</h2>
+      <ul class="wk-list">
+        <li><b>AI reads, code ranks.</b> Sorting thousands of messy complaints into themes is exactly what a model is good at, so that is its job here. Turning those themes into a priority order is arithmetic, and arithmetic is what a PM has to defend in a roadmap meeting.</li>
+        <li><b>Nothing disappears quietly.</b> If a review is dropped during the clean, the digest says how many went and why. 140 in, 136 kept.</li>
+        <li><b>Every claim is traceable.</b> Ask the digest a question and each sentence in the answer footnotes the review it came from.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wk-deeper band">
+    <div class="art-wrap">
+      <div class="sec-head">
+        <div><h2 class="concept">Go deeper</h2><div class="sub">Pick the part you care about.</div></div>
+      </div>
+      <div class="work-grid">
+        <div class="card work-card">
+          <h3><a class="card-link" href="#how-it-works">How it works <span class="arr">&#8595;</span></a></h3>
+          <p class="card-dek">Where the complaints come from, why sample and live data never mix, and the formula that does the ranking.</p>
+          <div class="card-foot"><span class="card-facts">On this page</span></div>
+        </div>
+        <div class="card work-card">
+          <h3><a class="card-link" href="#decisions">The calls I made <span class="arr">&#8595;</span></a></h3>
+          <p class="card-dek">Why AI reads but code ranks, why dropped reviews are reported rather than swallowed, and how every claim stays traceable.</p>
+          <div class="card-foot"><span class="card-facts">On this page</span></div>
+        </div>
+        <div class="card work-card">
+          <h3><a class="card-link" href="../../writing/amazon/">The full write-up <span class="arr">&#8599;</span></a></h3>
+          <p class="card-dek">A discovery pipeline built on Amazon reviews, and the collection problem nobody warns you about.</p>
+          <div class="card-foot"><span class="card-facts">Long read &middot; ritikadas.in/writing</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Ritika Das &mdash; 2026</span>
+    <span>ritikadas.in</span>
+  </div>
+</footer>
+
+<script src="../../script.js" defer></script>
+</body>
+</html>

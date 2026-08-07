@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FitCheck &mdash; Ritika Das</title>
+<meta name="description" content="A Chrome extension that reads the size chart already on the page and works out whether the size will fit, before you buy.">
+<link rel="canonical" href="https://ritikadas.in/work/fitcheck/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ritika Das">
+<meta property="og:url" content="https://ritikadas.in/work/fitcheck/">
+<meta property="og:title" content="FitCheck">
+<meta property="og:description" content="A calculator, not a guess. It compares the fit a garment was designed for with the fit you would actually get.">
+<meta property="og:image" content="https://ritikadas.in/assets/og/fitcheck-og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="FitCheck &mdash; a Chrome extension that reads size charts, on ritikadas.in.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FitCheck">
+<meta name="twitter:description" content="A calculator, not a guess. It compares the fit a garment was designed for with the fit you would actually get.">
+<meta name="twitter:image" content="https://ritikadas.in/assets/og/fitcheck-og.jpg">
+<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<script>
+(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="../../" class="brand" aria-label="Ritika Das &mdash; home"><span class="brand-mark" aria-hidden="true"></span></a>
+    <div class="nav-links">
+      <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
+        <span id="theme-icon">&#127769;</span> <span id="theme-text">Dark</span>
+      </button>
+      <a href="../../#about">About</a>
+      <a href="../../#work">Shipped Products</a>
+      <a href="../../#cases">Product Thinking</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#contact" class="nav-cta">Contact</a>
+      <button type="button" class="nav-toggle" id="nav-toggle"
+              aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Same menu as the homepage. Below 640px every nav link but Contact is hidden,
+       so without this a phone reader has no way back into the site. -->
+  <div class="nav-menu" id="nav-menu">
+    <div class="nm-in">
+      <a href="../../#about">About</a>
+      <a href="../../#work">Shipped Products</a>
+      <a href="../../#cases">Product Thinking</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<article>
+  <header class="art-head">
+    <div class="art-wrap">
+      <a href="../../#work" class="art-back">&larr; All work</a>
+      <div class="card-tags"><span class="tag live">&#9679; In use</span><span class="tag">Chrome extension</span></div>
+      <h1 class="art-title">FitCheck</h1>
+      <p class="art-sub">A calculator, not a guess. It reads the size chart already on the page and works out whether the size will actually fit.</p>
+      <div class="art-meta">
+        <div class="am-cell"><div class="am-k">Role</div><div class="am-v">Product and build, solo</div></div>
+        <div class="am-cell"><div class="am-k">Platform</div><div class="am-v">Chrome extension</div></div>
+        <div class="am-cell"><div class="am-k">Stage</div><div class="am-v">Shipped, in use</div></div>
+        <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Built, shipped, calibrated on my own returns</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- The argument on the left, the thing itself on the right. This block is the
+       homepage card as it used to be, moved here word for word — the homepage now
+       carries a picture, a line and a number, and this is where the depth lives. -->
+  <div class="art-wrap wk-main">
+    <div class="card-main-grid">
+      <div class="card-details-box">
+        <div class="card-metric-badge">
+          <span class="card-metric-num">70%</span>
+          <span class="card-metric-lbl">Week 1 Retention &middot; Zero Uninstalls</span>
+        </div>
+        <div class="pdeo">
+          <div class="row"><span class="k">Problem</span><span class="v">Free returns are why people in India buy clothes online. You can't tell if something fits, so you order it and send it back. A quarter to a third of orders come back. Size is the biggest reason. Each one costs the retailer shipping both ways, handling, and often a garment it can't sell again. The chart that would prevent it sits on the page, unread.</span></div>
+          <div class="row"><span class="k">Decision</span><span class="v">Build a calculator, not a guess. It compares the fit a garment was <b>designed for</b> with the fit you'd actually get. The chart is already exact, so arithmetic is the right tool here.</span></div>
+          <div class="row"><span class="k">Evidence</span><span class="v">Ten installs. 70% were still using it a week later. Nobody uninstalled it. And it refuses to answer when the size chart is missing or unreadable &mdash; eight cases where it says so instead of guessing.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="v">It caught a real sizing mistake of mine. One that had already cost a return and an exchange. Every verdict can be checked against the store's own chart.</span></div>
+        </div>
+        <div class="card-src">
+          <a href="https://fitcheck-demo.netlify.app" target="_blank" rel="noopener noreferrer" class="src-live">Try it live &#8599;</a>
+          <a href="../../writing/fitcheck/" class="src-read">Read the write-up &#8599;</a>
+          <a href="https://github.com/ritikadas98/fitchecker" target="_blank" rel="noopener noreferrer" class="src-code">Source &#8599;</a>
+        </div>
+      </div>
+
+      <!-- WIDGET: deliberately a teaser, not the product. Shows only the verdict,
+           no maths. The real engine and the per-axis breakdown live in the repo and
+           the demo; this exists to make someone curious enough to go there.
+           Products and size charts are the real ones from the repo. -->
+      <div class="widget-flip" id="flip-fitcheck">
+        <div class="widget-flip-inner">
+          <div class="flip-slot flip-slot-a in-flow"></div>
+          <div class="flip-slot flip-slot-b"></div>
+        </div>
+        <div class="flip-pool">
+          <div class="mini-widget-box flip-panel shot-face">
+            <img src="../../assets/shot-fitcheck-2.jpg?v=2" class="widget-shot" loading="lazy" decoding="async"
+                 width="681" height="1622"
+                 alt="The FitCheck side panel on a Myntra jeans page: verdict &quot;34, loose at waist&quot;, a red &quot;Not recommended&quot; chip, a tinted silhouette pinned &quot;Hip loose by 4.0 inches&quot;, the per-axis reasoning, and a size selector marking 30 as the recommendation." />
+            <div class="shot-bar">
+              <span class="shot-cap">A size it turns down, with the axis that fails and where to go instead.</span>
+              <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')" aria-label="Next screenshot">Next &#8635;</button>
+            </div>
+          </div>
+          <div class="mini-widget-box flip-panel shot-face">
+            <img src="../../assets/shot-fitcheck.jpg?v=2" class="widget-shot" loading="lazy" decoding="async"
+                 width="681" height="1623"
+                 alt="The FitCheck side panel: verdict &quot;L, slightly long&quot;, an amber &quot;May work for you&quot; chip, a callout reading &quot;You previously bought size M. The fit math now recommends L&quot;, a tinted silhouette with per-axis pins, and the reasoning for each axis." />
+            <div class="shot-bar">
+              <span class="shot-cap">Live on Myntra. It disagrees with your last purchase, and says why.</span>
+              <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')" aria-label="Try the interactive demo">Try it &#8635;</button>
+            </div>
+          </div>
+          <div class="mini-widget-box flip-panel" id="widget-fitcheck">
+            <div class="widget-head">
+              <span class="widget-title">FitCheck</span>
+              <button type="button" class="flip-btn" onclick="flipWidget('fitcheck')"
+                      aria-label="Back to screenshots of the real extension">Screenshots &#8635;</button>
+            </div>
+            <div class="widget-controls">
+              <div class="widget-label">
+                <span id="fit-axis-label">Waist measurement</span>
+                <span><b id="fit-chest-val">30 in</b></span>
+              </div>
+              <input type="range" min="24" max="46" value="30" step="1" class="widget-slider" id="fit-chest-slider" oninput="updateFitWidget()" aria-label="Your measurement">
+              <div class="widget-btn-row fit-row">
+                <button class="widget-btn fit-btn active" onclick="setFitGarment('jeans', this)"><span class="fb-r">AJIO</span><span>Jeans</span></button>
+                <button class="widget-btn fit-btn" onclick="setFitGarment('tee', this)"><span class="fb-r">Myntra</span><span>Tee</span></button>
+                <button class="widget-btn fit-btn" onclick="setFitGarment('blouse', this)"><span class="fb-r">H&amp;M</span><span>Blouse</span></button>
+              </div>
+            </div>
+            <div class="widget-result" id="fit-result-box" aria-live="polite">
+              <!-- verdict only — populated by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- These two were tabs inside a drawer on the homepage card, folded shut by
+       default. On their own page they are sections with their own anchors, so the
+       cards at the foot of the page have somewhere real to point. -->
+  <section id="how-it-works" class="wk-sec band">
+    <div class="art-wrap">
+      <h2 class="wk-h2">How it works</h2>
+      <ol class="wk-list">
+        <li><b>It reads the page.</b> Each of the three stores publishes its size chart in a different way, so there is a small reader for each one. They all hand back the same set of numbers.</li>
+        <li><b>It does the maths.</b> Your body against what the garment was actually cut for. Two inches of room means slim. Eight means oversized.</li>
+        <li><b>It looks at what you already own.</b> On a past order it knows the size you bought, and can build your profile from it &mdash; so you never have to measure yourself.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="decisions" class="wk-sec">
+    <div class="art-wrap">
+      <h2 class="wk-h2">The calls I made</h2>
+      <ul class="wk-list">
+        <li><b>Exact, not estimated.</b> The store already publishes the numbers, so the fit is worked out straight from them. A centimetre of drift here costs someone a return and a reshipment, so nothing about the answer is approximated.</li>
+        <li><b>Nothing leaves your browser.</b> Your measurements stay on your own machine. No account, no server, nothing sent anywhere.</li>
+        <li><b>It tells you when it can't tell.</b> If the chart is missing, incomplete or published as a picture, it says so rather than inventing an answer. Eight defined cases where it does that.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="wk-deeper band">
+    <div class="art-wrap">
+      <div class="sec-head">
+        <div><h2 class="concept">Go deeper</h2><div class="sub">Pick the part you care about.</div></div>
+      </div>
+      <div class="work-grid">
+        <div class="card work-card">
+          <h3><a class="card-link" href="#how-it-works">How it works <span class="arr">&#8595;</span></a></h3>
+          <p class="card-dek">Three steps: reading the chart off the page, the arithmetic, and building your profile from what you already own.</p>
+          <div class="card-foot"><span class="card-facts">On this page</span></div>
+        </div>
+        <div class="card work-card">
+          <h3><a class="card-link" href="#decisions">The calls I made <span class="arr">&#8595;</span></a></h3>
+          <p class="card-dek">Why it calculates instead of estimating, why nothing leaves your browser, and the eight cases where it refuses to answer.</p>
+          <div class="card-foot"><span class="card-facts">On this page</span></div>
+        </div>
+        <div class="card work-card">
+          <h3><a class="card-link" href="../../writing/fitcheck/">The full write-up <span class="arr">&#8599;</span></a></h3>
+          <p class="card-dek">An afternoon with four tabs open, and the Chrome extension that came out of it &mdash; including the limit it hasn't cleared.</p>
+          <div class="card-foot"><span class="card-facts">Long read &middot; ritikadas.in/writing</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Ritika Das &mdash; 2026</span>
+    <span>ritikadas.in</span>
+  </div>
+</footer>
+
+<script src="../../script.js" defer></script>
+</body>
+</html>

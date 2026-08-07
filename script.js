@@ -274,45 +274,17 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 })();
 
-/* ---- SCOPED CURSOR SCRIPT (DESKTOP ONLY) ---- */
-(function(){
-  if (!window.matchMedia('(hover: hover)').matches) return;
-  const cursor = document.getElementById('cursor');
-  const label = document.getElementById('cursor-label');
-  if(!cursor) return;
-  /* The custom cursor was drawn without ever hiding the real one, so two pointers
-     were on screen at once — and because this one lags on purpose for smoothness,
-     they were never in the same place. Reads as a glitch rather than a flourish.
-     The class is set from here, not in the markup, so the native pointer is only
-     hidden once we know the custom one is actually running. */
-  document.documentElement.classList.add('has-custom-cursor');
-  let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
-  
-  window.addEventListener('mousemove', e => {
-    mouseX = e.clientX; mouseY = e.clientY; cursor.classList.add('active');
-  });
-  
-  function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.2; cursorY += (mouseY - cursorY) * 0.2;
-    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-  
-  /* The label pill that used to name a destination on hover is gone. It was
-     desktop-and-mouse only, so most visitors never saw it, and the cards now say
-     where they go in plain text — which everyone can read. */
+/* The script-driven custom cursor that used to live here is gone. It drew a ring at
+   a lerped position — about five frames behind the real pointer — and hid the real
+   one with `cursor:none`, so you aimed with a marker that was never where the click
+   would land. Smoothing is the whole point of that effect and also the whole problem
+   with it: any lag at all breaks pointing, and with the lag removed there is nothing
+   left that a script needs to draw.
 
-  document.querySelectorAll('a, button, input, .side-dot, .widget-btn, .mini-widget-box, .card-drawer-row, .arr, h3, h3 .arr').forEach(el => {
-    el.addEventListener('mouseenter', (e) => {
-      e.stopPropagation();
-      cursor.classList.add('hovering');
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.classList.remove('hovering');
-    });
-  });
-})();
+   The ring still exists. It is now `cursor: url(...)` art at the bottom of
+   styles.css, composited by the browser at the OS level and therefore always exactly
+   on its hotspot. If you want to change how the cursor looks, change it there and
+   rerun tools/cursor-art.py — do not bring the pointer back under JS control. */
 
 /* ---- AUDIENCE SWITCHER ---- */
 (function(){

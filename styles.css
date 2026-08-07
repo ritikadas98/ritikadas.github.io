@@ -128,42 +128,12 @@ body{
 
 @media (prefers-reduced-motion:reduce){.preloader{display:none!important}}
 
-/* ---- DYNAMIC CURSOR WITH 80% TRANSLUCENT TEXT BADGE ---- */
-.custom-cursor{
-  position:fixed;
-  top:0;
-  left:0;
-  width:16px;
-  height:16px;
-  border:1.5px solid var(--accent);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:width 0.18s ease-out, height 0.18s ease-out, border-color 0.18s, background-color 0.18s, opacity 0.2s;
-  background:transparent;
-  opacity:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.custom-cursor.active{opacity:1}
-/* Hide the native pointer only where the custom one actually runs — the media query
-   below is the same one that disables it. */
-@media (min-width:901px) and (hover:hover){
-  html.has-custom-cursor,html.has-custom-cursor *{cursor:none}
-  html.has-custom-cursor a,html.has-custom-cursor button,
-  html.has-custom-cursor [role="button"],html.has-custom-cursor input,
-  html.has-custom-cursor select,html.has-custom-cursor textarea{cursor:none}
-}
-@media (prefers-reduced-motion:reduce){html.has-custom-cursor,html.has-custom-cursor *{cursor:auto}}
-.custom-cursor.hovering{
-  width:26px;
-  height:26px;
-  border-color:var(--accent);
-  background:rgba(75,79,145,0.08);
-}
-@media(max-width:900px), (hover:none), (prefers-reduced-motion:reduce){.custom-cursor{display:none!important}}
+/* The custom cursor block that used to sit here is gone, along with the
+   `cursor:none` rules that hid the native pointer to make room for it. It put a
+   ring on screen five frames behind the real pointer, so you aimed with
+   something that was never where the click would land. Nothing replaces it: the
+   native cursor is precise, and it is whatever the visitor chose at the OS
+   level, including any accessibility size or contrast setting. */
 
 /* ---- SIDE DOTS NAV ---- */
 .side-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;gap:14px}
@@ -204,11 +174,13 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
 
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 
-/* TOP NAV BRAND MARK — inline SVG so the theme drives its colour.
-   Replaces a PNG that needed four stacked drop-shadows to fake a thicker
-   stroke, plus a brightness(0) invert(1) filter that bleached it white in
-   dark mode. Neither hack is needed now. */
-:root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --logo-weight:2.98; --pdeo-label:#3A3D73; --pill-line:#9B9084; --hm-me:#A9AEE6;
+/* TOP NAV BRAND MARK — one external SVG, painted through a CSS mask.
+   It used to be ~9KB of inline <path> repeated in every HTML file on the site,
+   which was the price of letting the theme drive its colour. A mask buys the
+   same thing for one <span>: the element's background is the ink, the file only
+   supplies the shape, so --brand still switches with the theme and the asset is
+   cached once instead of re-downloaded inside every page. */
+:root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --pdeo-label:#3A3D73; --pill-line:#9B9084; --hm-me:#A9AEE6;
        --crew-brand:#A62B22; --crew-line:rgba(166,43,34,.38); --crew-tint:rgba(166,43,34,.07); }
 [data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73;
        --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
@@ -216,23 +188,23 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
   :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73;
        --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
 }
+/* aspect-ratio replaces width:auto — a masked <span> is an empty box and has no
+   intrinsic size to derive a width from. 1610/507 is the source viewBox. */
 .brand-mark{
   height:var(--logo-h);
-  width:auto;
+  aspect-ratio:1610/507;
   display:block;
-  color:var(--brand);
-  transition:transform .25s, color .3s;
+  background:var(--brand);
+  -webkit-mask:url(/assets/brand-signature.svg) no-repeat center/contain;
+          mask:url(/assets/brand-signature.svg) no-repeat center/contain;
+  transition:transform .25s, background-color .3s;
 }
 /* The signature is a FILLED outline, not a stroked line, so its weight can't be
    dialled directly. Stroking the same path in the same colour grows it by half
    the stroke width on every edge — what a thicker pen does. 2.98 units measures
-   as ~23% more ink at this size (verified by rendering and counting pixels). */
-.brand-mark path{
-  stroke:currentColor;
-  stroke-width:var(--logo-weight);
-  stroke-linejoin:round;
-  stroke-linecap:round;
-}
+   as ~23% more ink at this size. That stroke is now baked into
+   assets/brand-signature.svg, since a mask reads the file's alpha and cannot be
+   restyled from here — --logo-weight lives in that file's stroke-width now. */
 .brand:hover .brand-mark{ transform:scale(1.04); }
 
 /* THEME TOGGLE BUTTON */
@@ -621,6 +593,75 @@ section{padding:56px 0}
      reserving its space from first paint. */
   .card-art{order:-1;width:min(300px,100%);justify-self:center;margin:0 0 4px}
 }
+
+/* ============================================================================
+   WORK GRID — the homepage index (tier 1)
+   The homepage used to expand every project inline: four PROBLEM/DECISION rows,
+   a screenshot flipper, a live widget and a spec drawer, three times over. That
+   is 470 of 754 lines before a reader has decided what they care about. These
+   cards carry a picture, a line and a number, and the depth moved to /work/.
+   .projects above is a one-column stack and cannot do this, so the grid is new;
+   everything inside a card reuses the components already defined above. */
+.work-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:28px}
+/* Column, not the 1.45fr/1fr split .card-main-grid uses — at a third of the wrap
+   width there is no room for two columns, so the art stacks over the text. */
+.work-card{display:flex;flex-direction:column;padding:20px}
+.work-card .card-art{aspect-ratio:16/10;margin-bottom:16px}
+/* cover, unlike the full-width .card-art above — a fixed box keeps the grid rows
+   level. Anchored to the top, not the centre: every one of these images is built by
+   tools/og-card.py with its mono kicker on the first line, and a centre crop of a
+   1:1 source into a 16:10 box would cut exactly that line off. */
+.work-card .card-art img{height:100%;object-fit:cover;object-position:center top}
+/* The whole card is the link here. On the old homepage cards this was deliberately
+   avoided — they carried three destinations and a slider you were meant to drag, so
+   a full-card overlay was an invisible fourth target sitting on top of a demo. A
+   grid card has exactly one destination and nothing to poke, which is the condition
+   that overlay was always waiting for. */
+.work-card .card-link::after{content:"";position:absolute;inset:0;z-index:1;border-radius:var(--r)}
+/* Block, not the flex row .card h3 uses. That row pins the arrow to the card's right
+   edge with margin-left:auto, which reads fine beside a one-line heading and reads as
+   a stray glyph beside a heading that wraps — "Amazon Discovery Intelligence" takes
+   two lines in a third of the wrap. Inline, the arrow stays attached to the last word. */
+.work-card h3{display:block;font-size:19px;margin-bottom:0}
+.work-card h3 .card-link{display:inline;flex:none}
+.work-card h3 .arr{margin-left:5px;font-size:15px}
+.work-card .card-dek{margin-top:10px;font-size:14.5px;line-height:1.6;max-width:none}
+/* auto pushes the foot down so the metric line sits on the same baseline in every
+   card of a row, however long the dek above it runs. */
+.work-card .card-foot{margin-top:auto;padding-top:18px;gap:0}
+.work-card .card-metric-badge{margin-bottom:0;padding:5px 11px}
+.work-card .card-metric-num{font-size:17px}
+.work-card .card-tags{margin-bottom:10px}
+/* The study cards keep their solid border in the grid too — dashed reads as draft. */
+.work-card.written{border-style:solid}
+@media(max-width:880px){
+  /* Undoes the stacked-card override above, which assumed the wide two-column
+     layout. In the grid the art is already on top and already full width. */
+  .work-card .card-art{order:0;width:auto;justify-self:auto;margin:0 0 16px}
+}
+
+/* ============================================================================
+   PROJECT PAGE (tier 2) — /work/<slug>/
+   Reuses the article header (.art-head, .art-title, .art-meta) and the card
+   interior (.card-main-grid, .pdeo, .widget-flip, .card-src) wholesale. Only the
+   spacing between those borrowed blocks is new, plus headings for the two
+   sections that used to be tabs inside a folded drawer. */
+.wk-main{padding:34px 0 44px}
+.wk-sec{padding:44px 0}
+.wk-h2{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,28px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 20px}
+/* 72ch, not the .art-body 80ch: these lists sit in the 1180px header wrap rather
+   than the article's centred column, so without a measure they would run the full
+   width of a laptop screen. */
+.wk-list{max-width:72ch;margin:0;padding-left:22px}
+.wk-list li{font-size:16px;line-height:1.7;color:var(--ink-2);margin:0 0 14px}
+.wk-list li::marker{color:var(--muted)}
+.wk-list b{color:var(--ink);font-weight:600}
+.wk-deeper{padding:48px 0 60px}
+/* The go-deeper cards carry no art, so the arrow is the only thing marking them as
+   a way onward — it points down for a jump within the page, out for a new one. */
+.wk-deeper .work-card h3{margin-bottom:0}
+@media(max-width:640px){.wk-main{padding:24px 0 32px}.wk-sec{padding:32px 0}.wk-deeper{padding:34px 0 44px}}
+
 .card.written .pdeo{display:grid;grid-template-columns:1fr 1fr;gap:18px 44px}
 /* A card whose article is live carries one lead paragraph rather than a 2x2 of rows,
    so it runs the full width instead of sitting in the left-hand column. */
@@ -673,21 +714,37 @@ code{font-family:var(--mono);font-size:.86em;background:var(--accent-wash);borde
 .tool-pill{font-family:var(--mono);font-size:10.5px;padding:4px 9px;border-radius:6px;background:var(--paper-alt);color:var(--ink-2);border:1px solid var(--hairline-strong)}
 
 /* experience */
-.exp{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:30px 32px;box-shadow:var(--shadow);margin-top:26px}
-.exp-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:5px}
-.exp-role{font-family:var(--display);font-weight:600;font-size:21px;letter-spacing:-.01em}
+/* Rail + body. The measure that keeps the prose readable is now enforced by the
+   grid column rather than by a max-width sitting inside a much wider box, so the
+   card has no unreachable half. */
+.exp{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:30px 32px;box-shadow:var(--shadow);margin-top:26px;
+  display:grid;grid-template-columns:210px minmax(0,1fr);gap:14px 40px;align-items:start}
+/* The date leads the rail. It is the one fact a reader scans a job history for,
+   and in the corner of a wide card it was the thing marooned furthest from
+   everything else. */
 .exp-when{font-family:var(--mono);font-size:12px;color:var(--faint)}
-.exp-org{font-family:var(--mono);font-size:13px;color:var(--accent);margin-bottom:16px}
-.exp p{color:var(--muted);font-size:15px;line-height:1.62;max-width:66ch}
+.exp-role{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.01em;line-height:1.2;margin:7px 0 8px}
+.exp-org{font-family:var(--mono);font-size:12.5px;line-height:1.5;color:var(--accent)}
+.exp p{color:var(--muted);font-size:15px;line-height:1.62}
 .exp p b{color:var(--ink-2);font-weight:600}
 /* The lead line carries how the role came about; the list carries what it was.
    No bold lead-ins inside the items — a bolded stub followed by an explanation
    is a formatting tell, and these lines are short enough not to need one. */
-.exp-lead{margin-bottom:14px}
-.exp-list{margin:0;padding-left:20px;max-width:70ch;list-style:disc}
-.exp-list li{color:var(--muted);font-size:15px;line-height:1.62;margin:0 0 9px;padding-left:3px}
-.exp-list li:last-child{margin-bottom:0}
+.exp-lead{margin-bottom:20px;max-width:62ch}
+/* Two columns. The four lines are short, parallel claims about the same role, so
+   read side by side they scan as a set; stacked in a single column inside a wide
+   card they read as a paragraph broken up with dots. display:list-item keeps the
+   markers, which grid would otherwise be free to drop. */
+.exp-list{margin:0;padding-left:20px;list-style:disc;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 34px}
+.exp-list li{display:list-item;color:var(--muted);font-size:15px;line-height:1.62;margin:0;padding-left:3px}
 .exp-list li::marker{color:var(--hairline-strong)}
+/* 880 is where the card grids collapse; the rail goes with them so the section
+   doesn't keep a two-column header over one-column content. */
+@media(max-width:880px){
+  .exp{grid-template-columns:1fr;gap:18px}
+  .exp-list{grid-template-columns:1fr;gap:9px}
+}
 @media(max-width:880px){.card-main-grid{grid-template-columns:1fr;gap:22px}.mini-widget-box{width:100%}.toolbox-grid{grid-template-columns:1fr}}
 
 /* contact */
@@ -994,3 +1051,62 @@ dialog.lightbox::backdrop{background:rgba(18,16,20,.96);backdrop-filter:blur(4px
   .lb-scroll{padding:52px 8px 24px}
   .lb-hint{display:none}
 }
+
+/* ---- CURSOR ART ON INTERACTIVE ELEMENTS ----
+   This replaces the JavaScript cursor that used to live at the top of this file.
+   The difference that matters: the browser composites `cursor:` art itself, at the
+   OS level, so it is always exactly on the hotspot. The old one was positioned by
+   a script running an eased lerp, which meant it trailed the real pointer by about
+   five frames while `cursor:none` hid the pointer it was trailing — you aimed with
+   a marker that was never where the click would land.
+
+   Scope is deliberate. Only links and buttons get the ring:
+   - the default arrow stays native, because its tip is what tells a visitor which
+     pixel is live, and a symmetrical dot throws that away everywhere at once;
+   - `input` is deliberately absent from the selector, so the FitCheck slider keeps
+     the plain `cursor:pointer` set on .widget-slider above. Dragging it is a
+     precision gesture and a 24px ring centred on the thumb would cover the track
+     either side of it — exactly the readout you are dragging against;
+   - .zoomable keeps `zoom-in` further down, because that shape means something
+     specific and a generic ring would say less.
+
+   Two declarations, not one: the plain url() runs everywhere, and image-set adds
+   the 2x art on retina. A browser that cannot parse image-set drops only the
+   second line and keeps the first. A browser that cannot load either falls through
+   to the `pointer` keyword after the comma, which is required for exactly that.
+
+   `12 12` is the hotspot and must stay equal to half the image's CSS size. It is
+   generated by tools/cursor-art.py — rerun that if the art or the accent changes,
+   and do not hand-edit the PNGs.
+
+   :is() takes the specificity of its most specific argument, a[href], which is what
+   lets these win over the single-class `cursor:pointer` rules set earlier. */
+:is(a[href], button, [role="button"], .card-link){
+  cursor:url("/assets/cursor/ring-light.png") 12 12, pointer;
+  cursor:image-set(url("/assets/cursor/ring-light.png") 1x,
+                   url("/assets/cursor/ring-light@2x.png") 2x) 12 12, pointer;
+}
+/* Bitmap art cannot read a CSS variable, so unlike the masked signature the accent
+   is baked in and the theme swap has to be a second declaration. Same three-way
+   pattern the rest of this file uses: explicit choice, then system preference. */
+[data-theme="dark"] :is(a[href], button, [role="button"], .card-link){
+  cursor:url("/assets/cursor/ring-dark.png") 12 12, pointer;
+  cursor:image-set(url("/assets/cursor/ring-dark.png") 1x,
+                   url("/assets/cursor/ring-dark@2x.png") 2x) 12 12, pointer;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) :is(a[href], button, [role="button"], .card-link){
+    cursor:url("/assets/cursor/ring-dark.png") 12 12, pointer;
+    cursor:image-set(url("/assets/cursor/ring-dark.png") 1x,
+                     url("/assets/cursor/ring-dark@2x.png") 2x) 12 12, pointer;
+  }
+}
+/* Touch and pen have no cursor to style, and a coarse pointer means the ring would
+   only ever be paid for and never seen. */
+@media (hover:none), (pointer:coarse){
+  :is(a[href], button, [role="button"], .card-link){cursor:pointer}
+}
+/* Restated last so the meaningful shapes beat the decorative one where they overlap
+   — a zoomable figure wrapped in a link should still say "this magnifies". */
+.zoomable{cursor:zoom-in}
+.lb-close{cursor:pointer}
