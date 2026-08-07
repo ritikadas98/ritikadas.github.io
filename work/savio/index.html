@@ -34,6 +34,7 @@
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav id="nav">
   <div class="nav-in">
@@ -67,6 +68,8 @@
   </div>
 </nav>
 
+<main id="main">
+
 <article>
   <header class="art-head">
     <div class="art-wrap">
@@ -80,6 +83,10 @@
         <div class="am-cell"><div class="am-k">Stage</div><div class="am-v">Deployed, actively maintained</div></div>
         <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Built, then tested against itself</div></div>
       </div>
+      <div class="wk-teaser">
+        <span class="wk-teaser-k">Turned down</span>
+        <p>A warning at the checkout. <span>Location nudging.</span> <span>Telling you what to invest in.</span> <a href="#decisions">All six, and why &darr;</a></p>
+      </div>
     </div>
   </header>
 
@@ -89,8 +96,9 @@
     <div class="card-main-grid">
       <div class="card-details-box">
         <div class="card-metric-badge">
-          <span class="card-metric-num">123</span>
-          <span class="card-metric-lbl">Logged Decisions &middot; Zero Number Hallucinations</span>
+          <span class="card-metric-num">6</span>
+          <span class="card-metric-unit">refused</span>
+          <span class="card-metric-lbl">features I turned down, and the reasoning for each</span>
         </div>
         <div class="pdeo">
           <div class="row"><span class="k">Problem</span><span class="v">Money apps tell you where your salary went. None answer the question you actually have. Can I afford this, right now? Will it break something I've already promised? So people guess. Guessing is how a month quietly goes wrong.</span></div>
@@ -100,7 +108,6 @@
         </div>
         <div class="card-src">
           <a href="https://savio-financial-app.netlify.app/" target="_blank" rel="noopener noreferrer" class="src-live">Try it live &#8599;</a>
-          <a href="../../writing/savio/" class="src-read">Read the write-up &#8599;</a>
           <a href="https://github.com/ritikadas98/Savio" target="_blank" rel="noopener noreferrer" class="src-code">Source &#8599;</a>
         </div>
       </div>
@@ -157,54 +164,230 @@
     </div>
   </div>
 
-  <!-- These two were tabs inside a drawer on the homepage card, folded shut by
-       default. On their own page they are sections with their own anchors. -->
+  <!-- Everything below came from the long write-up that used to live under
+       /writing/. Two pages argued the same case, and the second one asked a reader
+       to start over. The write-up is gone; its unique parts are here. -->
+  <section id="how-it-started" class="wk-sec">
+    <div class="art-wrap">
+      <h2 class="wk-h2">Every app picks the same moment, and it is the wrong one</h2>
+      <div class="wk-split">
+      <div>
+        <p class="wk-lead">Budget apps assume you check a dashboard before you spend. Nobody does. The ones that try harder interrupt at the checkout, and get uninstalled inside a week.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">The assumption</span><span class="v">Every budget app expects you to consult it before spending. Nobody stands in a fitting room and opens an app to ask whether &#8377;3,500 is sensible.</span></div>
+          <div class="row"><span class="k">The harder try</span><span class="v">Pop-ups, blockers, a warning at checkout. Those get uninstalled inside a week. Nobody wants to be told off by their phone while holding a card.</span></div>
+          <div class="row"><span class="k">The result</span><span class="v">The whole category is fighting for a moment where nobody is listening.</span></div>
+          <div class="row"><span class="k">The seams</span><span class="v">The 1st, when salary lands. The day a bonus arrives, before it dissolves. A few days after a purchase, when you know whether it was worth it.</span></div>
+          <div class="row"><span class="k">The rule</span><span class="v">Savio speaks only there. No mid-purchase interventions, ever. That was the first thing I locked and the hardest to hold. Building the checkout warning always feels like helping.</span></div>
+        </div>
+      </div>
+      <figure class="cost-fig">
+        <svg viewBox="0 0 320 250" role="img" aria-labelledby="mo-t mo-d">
+          <title id="mo-t">When Savio speaks, across one month</title>
+          <desc id="mo-d">Savio speaks on payday, when a windfall arrives, and a few days
+            after a purchase. It never speaks at the checkout, which is the moment every
+            other budgeting app targets.</desc>
+
+          <line class="cd-rule" x1="0" y1="60" x2="320" y2="60"/>
+
+          <circle class="cd-dot-on" cx="14" cy="60" r="6"/>
+          <text class="cd-k" x="14" y="40" text-anchor="middle">1ST</text>
+          <text class="cd-lg" x="0" y="84">Payday</text>
+          <text class="cd-note" x="0" y="99">Already thinking</text>
+          <text class="cd-note" x="0" y="112">about the month</text>
+
+          <circle class="cd-dot-off" cx="150" cy="60" r="6"/>
+          <line class="cd-strike" x1="144" y1="54" x2="156" y2="66"/>
+          <line class="cd-strike" x1="156" y1="54" x2="144" y2="66"/>
+          <text class="cd-lg cd-warn" x="150" y="84" text-anchor="middle">Checkout</text>
+          <text class="cd-note" x="150" y="99" text-anchor="middle">Silent, always</text>
+
+          <circle class="cd-dot-on" cx="222" cy="60" r="6"/>
+          <text class="cd-lg" x="222" y="130" text-anchor="middle">A few days</text>
+          <text class="cd-note" x="222" y="145" text-anchor="middle">after</text>
+
+          <circle class="cd-dot-on" cx="306" cy="60" r="6"/>
+          <text class="cd-lg" x="320" y="84" text-anchor="end">Windfall</text>
+          <text class="cd-note" x="320" y="99" text-anchor="end">Before it goes</text>
+
+          <line class="cd-rule" x1="0" y1="176" x2="320" y2="176"/>
+          <text class="cd-k" x="0" y="196">THE ONE IT SKIPS</text>
+          <text class="cd-note" x="0" y="216">A purchase that matters is made in ninety</text>
+          <text class="cd-note" x="0" y="230">seconds. Nobody opens an app inside them.</text>
+        </svg>
+        <figcaption>Every other budgeting app aims at the checkout. That is the moment
+          nobody is listening, and the one Savio was built to skip.</figcaption>
+      </figure>
+      </div>
+      
+    </div>
+  </section>
+
   <section id="how-it-works" class="wk-sec band">
     <div class="art-wrap">
       <h2 class="wk-h2">How it works</h2>
-      <ol class="wk-list">
-        <li><b>It picks its moment.</b> Not a popup at checkout, when you have already decided. It steps in when your salary lands, when a windfall arrives, and a few days after you bought something. Quiet moments, when you can actually think.</li>
-        <li><b>The AI does the explaining, grounded in your own figures.</b> Code produces the numbers. The AI turns them into something you would act on, and it can only draw on what is really yours: your commitments, your safety net, what is left this month. That is the harder half of the job. A correct number nobody reads changes nothing.</li>
-        <li><b>It quotes your own rule back to you.</b> Not &ldquo;this is over budget&rdquo;, but &ldquo;over the &#8377;3,000 impulse-wait limit you set&rdquo;. A rule you wrote yourself is a rule you will accept.</li>
-      </ol>
+      <div class="wk-split">
+      <div>
+        <p class="wk-lead">It waits for a moment you are already reflective, grounds every figure in your own data, and quotes back a rule you set yourself.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">Picks its moment</span><span class="v">Not a popup at checkout, when you have already decided. It steps in when salary lands, when a windfall arrives, and a few days after you bought something.</span></div>
+          <div class="row"><span class="k">Explains, grounded</span><span class="v">Code produces the numbers. The model turns them into something you would act on, drawing only on what is really yours. A correct number nobody reads changes nothing.</span></div>
+          <div class="row"><span class="k">Quotes your rule</span><span class="v">Not &ldquo;this is over budget&rdquo;, but &ldquo;over the &#8377;3,000 impulse-wait limit you set&rdquo;. A rule you wrote yourself is a rule you will accept.</span></div>
+        </div>
+      </div>
+      <figure class="wk-side-fig fig-body">
+        <img src="images/hero-chat.jpg" alt="The Savio chat screen answering &ldquo;Can I afford a &#8377;5,000 watch?&rdquo; with a verdict, the safe-to-spend maths behind it, and the named rules it used." width="760" height="1466" loading="lazy" decoding="async" />
+        <figcaption>The answer, the working, and the rule it used, in one screen.</figcaption>
+      </figure>
+      </div>
     </div>
   </section>
 
   <section id="decisions" class="wk-sec">
     <div class="art-wrap">
-      <h2 class="wk-h2">The calls I made</h2>
-      <ul class="wk-list">
-        <li><b>Every number gets traced.</b> The AI is good at explaining; it is not the place to source a figure. So each number it writes is checked back against your real data before you see it, and anything that can't be traced gets replaced with a note telling you to check.</li>
-        <li><b>Your safety net is the floor.</b> Savio flags anything that would eat into the cash you said you want to keep, or into what you have already promised elsewhere. Green, amber or red, with the reason.</li>
-      </ul>
+      <h2 class="wk-h2">What I turned down, and why</h2>
+      <p class="wk-lead">Six things, and the first was the idea the whole product started as. None were turned down for being hard to build.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">The checkout</span><span class="v">The original idea. A purchase that matters is made in about ninety seconds, and nobody opens an app inside them. An app cannot see that moment coming either. You would have to open it yourself, exactly when you will not.</span></div>
+          <div class="row"><span class="k">Location nudging</span><span class="v">&ldquo;You&rsquo;re near a Myntra. Careful, you&rsquo;ve regretted four of four purchases there.&rdquo; That turns a companion into something that watches you. The wrong voice, and voice is why people keep it installed.</span></div>
+          <div class="row"><span class="k">Investment advice</span><span class="v">Naming a specific fund or stock is regulated advice and needs a licence I do not have. Blocked in code rather than in the prompt.</span></div>
+          <div class="row"><span class="k">Tax planning</span><span class="v">Comparing regimes and recommending 80C instruments is a chartered accountant&rsquo;s job. The same filter catches it.</span></div>
+          <div class="row"><span class="k">Portfolio view</span><span class="v">Stocks, funds and deposits together is a real product, with different competitors. Savio answers one question about the money arriving and leaving this month.</span></div>
+          <div class="row"><span class="k">Household mode</span><span class="v">Joint money has its own problems: who consents, whose goal is whose, which spending is shared. Bolted onto a single-person model it would half-work for both.</span></div>
+        </div>
     </div>
   </section>
 
-  <section class="wk-deeper band">
+  <section id="evidence" class="wk-sec band">
     <div class="art-wrap">
-      <div class="sec-head">
-        <div><h2 class="concept">Go deeper</h2><div class="sub">Pick the part you care about.</div></div>
+      <h2 class="wk-h2">Three things the first version got wrong</h2>
+      <div class="wk-split">
+      <div>
+        <p class="wk-lead">Three errors, and none of them were bugs. Each was the product encoding something true in a way that produced a wrong answer.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">Cushion as yes</span><span class="v">Priya has &#8377;50,000 above her safety net. A naive assistant says you can afford it, you have savings. That makes every large purchase rationalisable and the discipline collapses. Now the cushion enters a verdict as a cost, never a yes. It never reaches green.</span></div>
+          <div class="row"><span class="k">Savings as spendable</span><span class="v">&#8377;15,000 a month leaves into two SIPs. Not a cost, it is her money going to her future. But not available either, because it auto-debits on payday. The first version encoded only the first and overstated her room by &#8377;15,000 a month.</span></div>
+          <div class="row"><span class="k">Model doing maths</span><span class="v">It emitted three different day counts in one session: 29, 30 and 31. A checker that verifies sums would never catch that, because a wrong calendar is not a failed sum. The fix was removing its chance to invent the number.</span></div>
+        </div>
       </div>
-      <div class="work-grid">
-        <div class="card work-card">
-          <h3><a class="card-link" href="#how-it-works">How it works <span class="arr">&#8595;</span></a></h3>
-          <p class="card-dek">Why it waits for a quiet moment, what the AI is allowed to do, and why it quotes your own rule back at you.</p>
-          <div class="card-foot"><span class="card-facts">On this page</span></div>
-        </div>
-        <div class="card work-card">
-          <h3><a class="card-link" href="#decisions">The calls I made <span class="arr">&#8595;</span></a></h3>
-          <p class="card-dek">Tracing every figure back to your data before it is shown, and treating your safety net as a floor rather than a suggestion.</p>
-          <div class="card-foot"><span class="card-facts">On this page</span></div>
-        </div>
-        <div class="card work-card">
-          <h3><a class="card-link" href="../../writing/savio/">The full write-up <span class="arr">&#8599;</span></a></h3>
-          <p class="card-dek">Speak at the checkout and you get uninstalled. So Savio picks its moment &mdash; the whole argument, and what testing it against itself turned up.</p>
-          <div class="card-foot"><span class="card-facts">Long read &middot; ritikadas.in/writing</span></div>
-        </div>
+      <figure class="wk-side-fig fig-body">
+        <img src="images/reflect-patterns.jpg" alt="Savio&rsquo;s Reflect screen showing a worth-it versus regret trend over six months and a per-merchant breakdown of regret rates." width="760" height="1466" loading="lazy" decoding="async" />
+        <figcaption>These patterns are computed from labelled purchases. The model&rsquo;s job is to describe them, never to count them.</figcaption>
+      </figure>
       </div>
     </div>
   </section>
+
+  <section id="economics" class="wk-sec">
+    <div class="art-wrap">
+      <h2 class="wk-h2">What it costs to run, and how it could pay</h2>
+      <!-- Prose left, arithmetic right. The 61% figure is the reason this
+           diagram exists: it is the kind of proportion a bar shows in a second
+           and a sentence never quite lands. -->
+      <div class="wk-split">
+      <div class="wk-prose">
+        <p class="wk-lead">A verdict costs $0.0043 to produce. An active user costs about
+          &#8377;4 a month. Cost is not what limits this product. A forced model migration
+          and three regulatory boundaries are.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">Calls the model</span><span class="v">Three of five functions. The monthly ritual and the windfall allocation run in code and cost nothing.</span></div>
+          <div class="row"><span class="k">Per verdict</span><span class="v">6,800 tokens in, 900 out. <b>$0.0043</b>, about a third of a rupee.</span></div>
+          <div class="row"><span class="k">Biggest lever</span><span class="v">The system prompt is 61% of every input and never changes. Cached at a tenth of the rate, a verdict drops to <b>$0.0032</b>.</span></div>
+          <div class="row"><span class="k">Per user</span><span class="v">About ten model calls a month. <b>$0.041</b>, or &#8377;3.6.</span></div>
+          <div class="row"><span class="k">Assumption</span><span class="v">Ten calls is derived, not measured. One ritual follow-up, two reflections, five considered purchases. The five is the number to argue with.</span></div>
+          <div class="row"><span class="k">Deadline</span><span class="v">Gemini 2.5 is deprecated from October 2026 and repriced after January 2027. The deadline is January.</span></div>
+          <div class="row"><span class="k">The choice</span><span class="v">Three migration targets, six times apart. 3.1 Flash-Lite is 40% cheaper than today. 3.5 Flash-Lite is the same. 3.5 Flash is four times more. Move to a Lite tier and prove quality on the existing tests. Cost is not a reason to move up a tier. A failed grounding would be.</span></div>
+          <div class="row"><span class="k">The real work</span><span class="v">The model ID is already an environment variable, so the swap is config. But Gemini 3 needs thought signatures carried between turns, and Savio replays six. That is the change that takes time.</span></div>
+          <div class="row"><span class="k">Revenue</span><span class="v">Three rejections close the usual doors. Naming investments needs a SEBI licence. Tax needs a chartered accountant. Real accounts need Account Aggregator and an RBI-registered partner. A subscription is what is left.</span></div>
+          <div class="row"><span class="k">The real cap</span><span class="v">At &#8377;4 of cost, price is not the constraint. Until account connectivity lands you type your own numbers in, and a product you maintain by hand is one you stop paying for.</span></div>
+        </div>
+      </div>
+      <figure class="cost-fig">
+        <svg viewBox="0 0 320 545" role="img" aria-labelledby="cd-t cd-d">
+          <title id="cd-t">Cost of one Savio verdict, broken down</title>
+          <desc id="cd-d">Input is 6,800 tokens: 4,175 of static system prompt, 1,800 of
+            conversation history, 825 of financial context. At $0.30 per million that is
+            $0.0020. Output is 900 tokens at $2.50 per million, or $0.0023. One verdict
+            costs $0.0043. About ten model calls a month brings a user to $0.041.</desc>
+
+          <text class="cd-k" x="0" y="10">INPUT</text>
+          <text class="cd-v" x="320" y="10" text-anchor="end">6,800 tokens</text>
+
+          <g class="cd-bar">
+            <rect class="cd-fill-a" x="0"     y="20" width="194"  height="20" rx="3"/>
+            <rect class="cd-fill-b" x="196"   y="20" width="83.6" height="20" rx="3"/>
+            <rect class="cd-fill-c" x="281.6" y="20" width="38.4" height="20" rx="3"/>
+          </g>
+
+          <g class="cd-legend">
+            <rect class="cd-fill-a" x="0" y="56" width="9" height="9" rx="2"/>
+            <text class="cd-lg" x="15" y="64">System prompt</text>
+            <text class="cd-lv" x="320" y="64" text-anchor="end">4,175 &#183; 61%</text>
+
+            <rect class="cd-fill-b" x="0" y="74" width="9" height="9" rx="2"/>
+            <text class="cd-lg" x="15" y="82">History, 6 turns</text>
+            <text class="cd-lv" x="320" y="82" text-anchor="end">1,800</text>
+
+            <rect class="cd-fill-c" x="0" y="92" width="9" height="9" rx="2"/>
+            <text class="cd-lg" x="15" y="100">Her financial data</text>
+            <text class="cd-lv" x="320" y="100" text-anchor="end">825</text>
+          </g>
+
+          <text class="cd-note" x="0" y="122">Identical on every call. Cacheable at 10%.</text>
+
+          <line class="cd-rule" x1="0" y1="140" x2="320" y2="140"/>
+          <text class="cd-k" x="0" y="160">&#215; $0.30 / 1M</text>
+          <text class="cd-sum" x="320" y="160" text-anchor="end">$0.0020</text>
+
+          <text class="cd-k" x="0" y="196">OUTPUT</text>
+          <text class="cd-v" x="320" y="196" text-anchor="end">900 tokens</text>
+          <rect class="cd-fill-d" x="0" y="206" width="42" height="20" rx="3"/>
+          <text class="cd-note" x="52" y="220">response + reasoning</text>
+
+          <line class="cd-rule" x1="0" y1="244" x2="320" y2="244"/>
+          <text class="cd-k" x="0" y="264">&#215; $2.50 / 1M</text>
+          <text class="cd-sum" x="320" y="264" text-anchor="end">$0.0023</text>
+
+          <rect class="cd-panel" x="0" y="288" width="320" height="56" rx="8"/>
+          <text class="cd-k" x="14" y="310">ONE VERDICT</text>
+          <text class="cd-big" x="306" y="316" text-anchor="end">$0.0043</text>
+          <text class="cd-note" x="14" y="330">about a third of a rupee</text>
+
+          <text class="cd-arrow" x="160" y="368" text-anchor="middle">&#8595;</text>
+          <text class="cd-note" x="160" y="388" text-anchor="middle">&#215; ~10 model calls a month</text>
+
+          <rect class="cd-panel cd-panel-strong" x="0" y="404" width="320" height="56" rx="8"/>
+          <text class="cd-k" x="14" y="426">PER ACTIVE USER</text>
+          <text class="cd-big" x="306" y="432" text-anchor="end">$0.041</text>
+          <text class="cd-note" x="14" y="446">&#8377;3.6 a month</text>
+
+          <line class="cd-rule" x1="0" y1="484" x2="320" y2="484"/>
+          <text class="cd-k" x="0" y="504">ON 3.5 FLASH INSTEAD</text>
+          <text class="cd-sum cd-warn" x="320" y="504" text-anchor="end">$0.171</text>
+          <text class="cd-note" x="0" y="522">The same product, four times the bill.</text>
+        </svg>
+        <figcaption>One verdict, priced. The system prompt is the same text on every call,
+          which is what makes caching the biggest lever here. Not all ten monthly calls are
+          full verdicts &mdash; two are the cheaper reflection synthesis.</figcaption>
+      </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="limits" class="wk-sec band">
+    <div class="art-wrap">
+      <h2 class="wk-h2">What it cannot be yet</h2>
+      <p class="wk-lead">Nobody manages real money with it, and that is a legal boundary rather than an unfinished feature.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">Who uses it</span><span class="v">Savio runs on Priya, a seeded user with six months of history.</span></div>
+          <div class="row"><span class="k">Why not real money</span><span class="v">Touching real accounts in India means the Account Aggregator framework and RBI-registered partners. A months-long integration with obligations I cannot take on alone.</span></div>
+          <div class="row"><span class="k">What beta found</span><span class="v">A handful of people used the demo and found what I could not. One could not work out how to leave. Another never found the Reflect tab. The home screen said &ldquo;safe to spend today&rdquo; above a figure that was the whole month&rsquo;s. Five real fixes.</span></div>
+          <div class="row"><span class="k">The open question</span><span class="v">Whether any of this changes what somebody does with their money. Beta testers on a demo are spending nothing. That needs users I am not allowed to have yet.</span></div>
+        </div>
+    </div>
+  </section>
 </article>
+</main>
 
 <footer>
   <div class="wrap foot-in">

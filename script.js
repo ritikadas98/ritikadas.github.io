@@ -565,7 +565,7 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
    from me getting them subtly wrong. */
 (function () {
   const imgs = document.querySelectorAll(
-    '.art-body figure img, .art-hero img, .art-hero-wide img, .fig-body img, .fig-row img'
+    '.art-body figure img, .art-hero img, .art-hero-wide img, .fig-body img, .fig-row img, .wk-side-fig img'
   );
   if (!imgs.length) return;
 

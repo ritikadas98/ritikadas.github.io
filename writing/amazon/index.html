@@ -3,152 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Customer Complaints, Ranked Every Week &mdash; Ritika Das</title>
-<meta name="description" content="A discovery pipeline built on Amazon reviews, and the collection problem nobody warns you about.">
-<link rel="canonical" href="https://ritikadas.in/writing/amazon/">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="Ritika Das">
-<meta property="og:url" content="https://ritikadas.in/writing/amazon/">
-<meta property="og:title" content="Customer Complaints, Ranked Every Week">
-<meta property="og:description" content="Every pipeline diagram starts with an arrow labelled data. The arrow is the hard bit.">
-<meta property="og:image" content="https://ritikadas.in/assets/og/amazon-og.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="2400">
-<meta property="og:image:height" content="1260">
-<meta property="og:image:alt" content="Customer Complaints, Ranked Every Week &mdash; a customer-signal pipeline built on Amazon reviews, and its collection problem, on ritikadas.in.">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Customer Complaints, Ranked Every Week">
-<meta name="twitter:description" content="Every pipeline diagram starts with an arrow labelled data. The arrow is the hard bit.">
-<meta name="twitter:image" content="https://ritikadas.in/assets/og/amazon-og.jpg">
-<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<title>Moved &mdash; Amazon Discovery Intelligence</title>
+<!-- This write-up was merged into the project page. It argued the same case the
+     project page already made, so a reader who followed the link started over
+     instead of going deeper. GitHub Pages cannot issue a 301, so this is the
+     substitute: a canonical tag for search engines, a meta refresh for browsers,
+     and a real link for anyone whose browser ignores both. -->
+<link rel="canonical" href="https://ritikadas.in/work/amazon/">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=/work/amazon/">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
-<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
-<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../styles.css">
-<script>
-(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Customer Complaints, Ranked Every Week",
-  "description": "A discovery pipeline built on Amazon reviews, and the collection problem nobody warns you about.",
-  "url": "https://ritikadas.in/writing/amazon/",
-  "author": {
-    "@type": "Person",
-    "name": "Ritika Das",
-    "url": "https://ritikadas.in"
-  },
-  "publisher": {
-    "@type": "Person",
-    "name": "Ritika Das"
-  },
-  "mainEntityOfPage": "https://ritikadas.in/writing/amazon/",
-  "image": "https://ritikadas.in/assets/og/amazon-og.jpg"
-}
-</script>
+<script>location.replace('/work/amazon/');</script>
 </head>
 <body>
-<a class="skip-link" href="#article-body">Skip to content</a>
-
-<nav id="nav">
-  <div class="nav-in">
-    <a href="../../" class="brand" aria-label="Ritika Das &mdash; home"><span class="brand-mark" aria-hidden="true"></span></a>
-    <div class="nav-links">
-      <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
-        <span id="theme-icon">&#127769;</span> <span id="theme-text">Dark</span>
-      </button>
-      <a href="../../#about">About</a>
-      <a href="../../#work">Shipped Products</a>
-      <a href="../../#cases">Product Thinking</a>
-      <a href="../../#experience">Experience</a>
-      <a href="../../#contact" class="nav-cta">Contact</a>
-      <button type="button" class="nav-toggle" id="nav-toggle"
-              aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
-        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Same menu as the homepage. Below 640px every nav link but Contact is hidden,
-       so without this an article page left a phone reader with no way back into the
-       site except the signature. -->
-  <div class="nav-menu" id="nav-menu">
-    <div class="nm-in">
-      <a href="../../#about">About</a>
-      <a href="../../#work">Shipped Products</a>
-      <a href="../../#cases">Product Thinking</a>
-      <a href="../../#experience">Experience</a>
-      <a href="../../#contact">Contact</a>
-    </div>
-  </div>
-</nav>
-
-<article>
-  <header class="art-head">
-    <div class="art-wrap">
-      <a href="../" class="art-back">&larr; All writing</a>
-      <h1 class="art-title">Customer complaints, ranked every week</h1>
-      <p class="art-sub">A discovery pipeline built on Amazon reviews, and the collection problem nobody warns you about.</p>
-      <figure class="art-hero-wide">
-        <div class="browser"><img src="images/chat-citations.jpg" alt="The pipeline&rsquo;s chat view answering a question about the week&rsquo;s top complaints, with numbered citation chips linking each claim back to a specific customer signal." width="1600" height="956" decoding="async" /></div>
-        <figcaption>Every claim carries a numbered citation back to the signal behind it. The header says which dataset is in scope, sample or live.</figcaption>
-      </figure>
-      <div class="art-meta">
-        <div class="am-cell"><div class="am-k">Role</div><div class="am-v">Product and build, solo</div></div>
-        <div class="am-cell"><div class="am-k">Type</div><div class="am-v">Shipped product</div></div>
-        <div class="am-cell"><div class="am-k">Surface</div><div class="am-v">Pipeline, dashboard, digest</div></div>
-        <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Built on a fixture, run on live data</div></div>
-      </div>
-      <div class="art-summary">
-        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">A product manager cannot read every review, so they skim. Skimming feels fine, because you never find out what you missed. The complaint that mattered was in there and nobody counted it.</div></div>
-        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Thirteen steps, and AI runs at three of them: cleaning messy text, grouping complaints into themes, judging readiness. Every number a PM then sees is computed in code.</div></div>
-        <div class="as-cell"><div class="as-k">Evidence</div><div class="as-v">Every claim in the digest links to the review behind it, and a citation that cannot be resolved is shown as unverified instead of dressed up as a footnote. Three live runs so far, 32 to 47 signals each.</div></div>
-        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">A week of reviews becomes a ranked list a PM could act on. And a finding I did not expect: of three ingestion sources, only one reliably returns anything at all.</div></div>
-      </div>
-    </div>
-  </header>
-  <div class="art-wrap">
-    <div class="art-body" id="article-body">
-<h2>It only worked while my laptop was on</h2>
-<p>I built the first version as an n8n workflow. Twenty-nine nodes on a visual canvas, doing the right thing: take customer reviews, clean them, find themes, score them, email a digest.</p>
-<p>Then I tried to put it behind a website and hit the thing nobody mentions about visual automation tools. <strong>It has to be running somewhere.</strong> Either I leave my machine on, or I pay for hosting. I did not want to do either for a portfolio project.</p>
-<p>So I moved it. Every node became a TypeScript module, the canvas became an orchestrator, and the whole thing went onto Cloud Run with scale-to-zero. It costs about &#8377;40 a month and runs on a schedule with nothing left switched on.</p>
-<p>I used Claude for the port. Twenty-nine nodes of working logic, translated instead of reinvented. That is exactly the job worth handing to a model. The design was already settled. What was left was moving it.</p>
-<h2>Thirteen steps, three of them AI</h2>
-<p>The pipeline runs in sequence. Normalise, clean, detect regressions, synthesise themes, aggregate. Then score with RICE, compare week over week, assess readiness, format, write to the sheet, send the digest.</p>
-<p>AI runs at exactly three of those. It cleans messy review text, it groups complaints into themes, and it assesses whether a theme is ready to act on. Everything a product manager then sees as a number, the RICE score and the week-over-week delta and the counts, is computed in code.</p>
-<p>That split is deliberate. A model is good at reading a thousand badly written complaints and noticing four hundred are the same problem. It is not good at arithmetic. It does not need to be.</p>
-<p>The chat on top follows the same rule. It cites sources as signal IDs, and every citation is checked against the real signals before it renders. An ID that does not resolve gets an amber <em>unverified</em> chip instead of a footnote that looks real. The share that resolves is logged every turn. That is the closest thing here to an accuracy metric.</p>
-<h2>Now the part I did not expect</h2>
-<p>I built three ingestion sources. Two of them produce almost nothing.</p>
-<p><strong>The App Store returns an empty list to a datacentre.</strong> Apple&rsquo;s review feed answers with HTTP 200 and zero entries when the request comes from a Google IP. It is not a country mismatch, which is what I assumed for a while. It is an address-range block. The same code on my own connection returns fifty reviews. In production it returns none.</p>
-<p><strong>Amazon&rsquo;s own reviews are readable and useless.</strong> The source reaches all eight products it watches. The <code>.com</code> pages are wall-to-wall praise, so the relevance filter correctly drops nearly everything. The <code>.in</code> pages return CAPTCHAs. The mechanism works. There is just nothing to collect.</p>
-<p>That leaves the Play Store as the only source I can rely on. A live run pulls fifty reviews. Thirty-two survive the substance filter and get analysed.</p>
-<blockquote class="pull">Every pipeline diagram starts with an arrow labelled <em>data</em>. The arrow is the hard bit.</blockquote>
-<h2>What it cannot tell me</h2>
-<p>No product manager has used this. It runs, it emails, the numbers are real, and nobody&rsquo;s roadmap has moved because of it.</p>
-<p>I know the shape is right. Companies build exactly this internally, or buy it. I chose Amazon because I use it constantly and wanted enterprise-scale mess instead of a tidy dataset.</p>
-<p>Knowing the shape is right is not knowing this one is useful. That needs a PM with a real backlog. Someone to tell me the ranking was wrong, or the digest came on the wrong day, or they read three lines and stopped.</p>
-<p>The numbers here come from two places, and it matters which. The design was proved against a fixture of 140 signals I wrote myself. I made them deliberately specific, so the pipeline could not get away with a theme called &ldquo;Search issues.&rdquo; The limits came from the live runs, which are smaller, messier, and only ever from one source.</p>
-<p>Both are honest. Only one is real.</p>
-<p class="deck-note"><a href="https://amazon-discovery-intel-repo.vercel.app" target="_blank" rel="noopener noreferrer">Try it live &nearr;</a> &nbsp;&middot;&nbsp; <a href="https://github.com/ritikadas98/amazon-discovery-intel-repo" target="_blank" rel="noopener noreferrer">Read the source &nearr;</a></p>
-    </div>
-  </div>
-</article>
-
-<footer>
-  <div class="wrap foot-in">
-    <span>Ritika Das &mdash; 2026</span>
-    <span>ritikadas.in</span>
-  </div>
-</footer>
-
-<script src="../../script.js" defer></script>
+<main class="art-wrap" style="padding-top:80px">
+  <h1 class="art-title">Customer complaints, ranked every week</h1>
+  <p class="art-sub">This write-up now lives on the project page.
+    <a href="../../work/amazon/">Continue to Amazon Discovery Intelligence &rarr;</a></p>
+</main>
 </body>
 </html>

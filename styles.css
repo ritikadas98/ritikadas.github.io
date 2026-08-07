@@ -7,7 +7,7 @@
 
 :root{
   --paper:#EDE8E1; --paper-alt:#E7E1D8; --surface:#F6F2EB; --surface-2:#FBF8F2; --soft-band:#F6F5F2;
-  --ink:#211E24; --ink-2:#38333B; --muted:#6A6369; --faint:#948C90;
+  --ink:#211E24; --ink-2:#38333B; --muted:#6A6369; --faint:#6E676B; --faint-deco:#8B8387;
   
   /* BUILD SPEC EXACT TOKENS: MUTED INDIGO */
   --accent:#4B4F91;
@@ -25,8 +25,8 @@
 /* ---- DARK THEME OVERRIDES (BUILD SPEC §3) ---- */
 [data-theme="dark"] {
   --paper:#1A171C; --paper-alt:#221E24; --surface:#25202B; --surface-2:#2B2533; --soft-band:#1C1821;
-  --ink:#EDE8E1; --ink-2:#DDD6E3; --muted:#A29ABC; --faint:#776F7E;
-  --accent:#8288C4; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
+  --ink:#EDE8E1; --ink-2:#DDD6E3; --muted:#A29ABC; --faint:#948B9E; --faint-deco:#776F7E;
+  --accent:#878DC9; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
   --hairline:#393242; --hairline-strong:#4B4257;
   --shadow:0 2px 8px rgba(0,0,0,.4);
   --shadow-lift:0 4px 14px rgba(0,0,0,.5),0 18px 48px rgba(0,0,0,.72);
@@ -34,8 +34,8 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper:#1A171C; --paper-alt:#221E24; --surface:#25202B; --surface-2:#2B2533; --soft-band:#1C1821;
-    --ink:#EDE8E1; --ink-2:#DDD6E3; --muted:#A29ABC; --faint:#776F7E;
-    --accent:#8288C4; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
+    --ink:#EDE8E1; --ink-2:#DDD6E3; --muted:#A29ABC; --faint:#948B9E; --faint-deco:#776F7E;
+    --accent:#878DC9; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
     --hairline:#393242; --hairline-strong:#4B4257;
     --shadow:0 2px 8px rgba(0,0,0,.4);
     --shadow-lift:0 4px 14px rgba(0,0,0,.5),0 18px 48px rgba(0,0,0,.72);
@@ -181,12 +181,12 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    supplies the shape, so --brand still switches with the theme and the asset is
    cached once instead of re-downloaded inside every page. */
 :root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --pdeo-label:#3A3D73; --pill-line:#9B9084; --hm-me:#A9AEE6;
-       --crew-brand:#A62B22; --crew-line:rgba(166,43,34,.38); --crew-tint:rgba(166,43,34,.07); }
+       --study-reddit:#CE3700; --study-youtube:#E00000; --crew-brand:#A62B22; --crew-line:rgba(166,43,34,.38); --crew-tint:rgba(166,43,34,.07); }
 [data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73;
-       --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
+       --study-reddit:#FF7A47; --study-youtube:#FF6B6B; --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73;
-       --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
+       --study-reddit:#FF7A47; --study-youtube:#FF6B6B; --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
 }
 /* aspect-ratio replaces width:auto — a masked <span> is an empty box and has no
    intrinsic size to derive a width from. 1610/507 is the source viewBox. */
@@ -343,7 +343,11 @@ h1.hero{animation-delay:.17s}
 .hm-track{display:flex;width:max-content;animation:hm-scroll 74s linear infinite}
 .hero-marquee:hover .hm-track{animation-play-state:paused}
 .hm-item{display:inline-flex;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--paper);white-space:nowrap}
-.hm-dot{color:var(--accent);font-size:7px;margin:0 26px}
+/* The bar is background:var(--ink), which flips with the theme — so any fixed colour
+   passes on one side and fails on the other. The indigo accent was 2.22:1 in light;
+   lifting it to --accent-soft then broke dark at 1.9:1. Mixing from --paper, the same
+   token the marquee text uses, tracks the bar in both themes and stays quieter. */
+.hm-dot{color:color-mix(in srgb,var(--paper) 70%,var(--ink));font-size:7px;margin:0 26px}
 /* The band inverts between themes — a dark strip in light mode, light in dark —
    so --hm-me inverts with it. The personal lines carry their own colour so the
    change of register is visible, not something you infer from the wording. */
@@ -419,8 +423,18 @@ section{padding:56px 0}
 .card-details-box{border-radius:var(--r-sm);padding:4px;transition:background .2s}
 
 /* METRIC BADGE CALLOUT */
-.card-metric-badge{display:inline-flex;align-items:baseline;gap:8px;background:var(--accent-wash);border:1px solid var(--hairline-strong);border-radius:var(--r-sm);padding:7px 14px;margin-bottom:16px}
-.card-metric-num{font-family:var(--display);font-weight:700;font-size:22px;color:var(--accent);line-height:1}
+/* Two rows: the figure and what it measures, then the evidence under it. A bare
+   "70%" says nothing on its own, and "70% / 7 of 10 returned..." run together on one
+   line read as a single sentence that had to be parsed. Naming the unit on the top
+   row makes the number mean something before the sample size qualifies it. */
+.card-metric-badge{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:0 7px;background:var(--accent-wash);border:1px solid var(--hairline-strong);border-radius:var(--r-sm);padding:8px 14px;margin-bottom:16px}
+.card-metric-unit{font-family:var(--display);font-weight:600;font-size:14px;color:var(--ink);letter-spacing:-.01em}
+/* flex-basis forces the evidence onto its own row however short the figure is. */
+.card-metric-badge .card-metric-lbl{flex-basis:100%;margin-top:4px}
+/* nowrap because the figures are now phrases, not single numbers — "7 of 10" broke
+   across two lines and read as two separate stats. The sample size is the point of
+   writing them this way, so it has to stay attached to the number. */
+.card-metric-num{font-family:var(--display);font-weight:700;font-size:22px;color:var(--accent);line-height:1;white-space:nowrap}
 .card-metric-lbl{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;color:var(--ink-2);letter-spacing:.05em}
 
 .card-tags{display:flex;gap:9px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
@@ -433,7 +447,7 @@ section{padding:56px 0}
    be the row. Putting the arrow inside the anchor also makes it clickable, which
    matters more since the product cards stopped being one big link. */
 .card h3 .card-link{display:flex;align-items:center;gap:12px;flex:1;min-width:0}
-.card h3 .arr{margin-left:auto;color:var(--faint);font-size:18px;transition:transform .2s,color .2s}
+.card h3 .arr{margin-left:auto;color:var(--faint-deco);font-size:18px;transition:transform .2s,color .2s}
 .card:hover h3 .arr{transform:translate(3px,-3px);color:var(--accent)}
 /* The four labels carry the structure of every case study, and at 9px in the
    faint grey they measured 3.1:1 — effectively invisible. Now a two-column
@@ -454,7 +468,7 @@ section{padding:56px 0}
 .widget-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
 .widget-status{font-family:var(--mono);font-size:10.5px;padding:2px 7px;border-radius:10px;background:var(--accent-wash);color:var(--accent);font-weight:500}
 .widget-controls{display:flex;flex-direction:column;gap:10px}
-.widget-label{font-family:var(--mono);font-size:10px;color:var(--muted);display:flex;justify-content:space-between}
+.widget-label{font-family:var(--mono);font-size:10px;color:var(--ink-2);display:flex;justify-content:space-between}
 
 /* RANGE SLIDER MOBILE TOUCH TARGETS */
 .widget-slider{
@@ -468,9 +482,18 @@ section{padding:56px 0}
 .widget-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;}
 
 .widget-result{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r-sm);padding:12px;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--ink);line-height:1.5}
-.widget-result .verdict-good{color:#27C93F;font-weight:600}
-.widget-result .verdict-warn{color:#D97706;font-weight:600}
-.widget-result .verdict-bad{color:#DC2626;font-weight:600}
+/* Traffic-light verdicts. The tier is always spelled out in words beside the
+   colour ("Recommended for you"), so colour is never the only signal — but the
+   text still has to be readable. Bright green on a pale panel measured 2.08:1,
+   the worst contrast on the site. Split by theme: no single green clears both. */
+:root{ --v-good:#007400; --v-warn:#A74500; --v-bad:#C61010; }
+[data-theme="dark"]{ --v-good:#27C93F; --v-warn:#F0A429; --v-bad:#FF6B6B; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --v-good:#27C93F; --v-warn:#F0A429; --v-bad:#FF6B6B; }
+}
+.widget-result .verdict-good{color:var(--v-good);font-weight:600}
+.widget-result .verdict-warn{color:var(--v-warn);font-weight:600}
+.widget-result .verdict-bad{color:var(--v-bad);font-weight:600}
 .widget-btn-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
 .fit-row{flex-wrap:nowrap}
 .fit-row .fit-btn{flex:1 1 0;min-width:0}
@@ -625,6 +648,10 @@ section{padding:56px 0}
 .work-card h3{display:block;font-size:19px;margin-bottom:0}
 .work-card h3 .card-link{display:inline;flex:none}
 .work-card h3 .arr{margin-left:5px;font-size:15px}
+/* The arrow is inline now, so on a title that fills the line it wrapped alone onto
+   the next one and read as a stray glyph. Binding it to the final word means the
+   pair moves together: "Amazon Discovery / Intelligence 97", never an orphan. */
+.nb{white-space:nowrap}
 .work-card .card-dek{margin-top:10px;font-size:14.5px;line-height:1.6;max-width:none}
 /* auto pushes the foot down so the metric line sits on the same baseline in every
    card of a row, however long the dek above it runs. */
@@ -656,6 +683,120 @@ section{padding:56px 0}
 .wk-list li{font-size:16px;line-height:1.7;color:var(--ink-2);margin:0 0 14px}
 .wk-list li::marker{color:var(--muted)}
 .wk-list b{color:var(--ink);font-weight:600}
+/* Paragraphs, not bullets. The rejections read as short arguments — a claim and
+   then the reasoning that earned it — and the article pages already set that
+   pattern: a bold noun phrase naming the thing, then plain prose. A bulleted list
+   would make six arguments look like a feature comparison. */
+.wk-prose{max-width:72ch}
+.wk-prose p{font-size:16px;line-height:1.72;color:var(--ink-2);margin:0 0 20px}
+.wk-prose p:last-child{margin-bottom:0}
+.wk-prose strong{color:var(--ink);font-weight:600}
+.wk-prose em{color:var(--ink-2)}
+/* REJECTION TEASER — the hook, directly under the header's meta strip.
+   The reasoning that shows judgment sits mid-page, which a skimmer never reaches.
+   Three of the six as bare noun phrases, on one line, buy that section a reader. */
+.wk-teaser{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;
+  border-bottom:1px solid var(--hairline);padding:14px 0 16px}
+.wk-teaser-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--pdeo-label);flex:none}
+.wk-teaser p{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
+/* Each phrase keeps its own full stop, so the line reads as a list of refusals
+   rather than one sentence that happens to contain commas. */
+.wk-teaser p span{color:var(--ink-2)}
+.wk-teaser a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);
+  white-space:nowrap;margin-left:4px}
+.wk-teaser a:hover{border-color:var(--accent)}
+@media(max-width:640px){.wk-teaser{gap:8px}.wk-teaser p{font-size:13.5px}}
+
+/* SPEC ROWS — the conclusion, then the breakdown
+   Arithmetic does not need paragraphs around it. The lead states the answer and the
+   rows carry the workings, so a reader can take the number and leave, or stay for
+   the reasoning. Reuses .pdeo, with a wider label column: "The real work" does not
+   fit the 84px that "PROBLEM" was sized for. */
+.wk-lead{font-size:17px;line-height:1.6;color:var(--ink);margin:0 0 26px;max-width:60ch}
+/* Capped to a reading measure. Without it the value column runs the full 1180px
+   wrap and a two-line row becomes one 900px line nobody tracks to the end of. */
+.pdeo.spec{gap:16px;max-width:680px}
+.pdeo.spec .row{grid-template-columns:132px 1fr;font-size:14.5px}
+.pdeo.spec .k{text-transform:uppercase;color:var(--pdeo-label);line-height:1.5}
+.pdeo.spec .v b{color:var(--ink);font-weight:600}
+@media(max-width:640px){
+  /* Stacked. At 390px a 118px label column leaves the value about 40 characters,
+     which breaks every sentence across four lines. */
+  .pdeo.spec .row{grid-template-columns:1fr;gap:4px}
+}
+
+/* PROSE + DIAGRAM SPLIT
+   The reading measure only uses 72ch of an 1180px wrap, so the right third of these
+   sections was empty. A diagram belongs there: it is read alongside the argument
+   rather than after it, and it costs no vertical space. */
+.wk-split{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:0 48px;align-items:start}
+@media(max-width:980px){
+  /* Under the text, not beside it. A 320px column of numbers squeezed next to a
+     narrowed paragraph is worse than either one alone. */
+  .wk-split{grid-template-columns:1fr;gap:32px 0}
+  .cost-fig{max-width:420px}
+}
+
+/* SIDE FIGURES — a screenshot in the right column rather than under the rows
+   The rows cap at 680px, so a full-width image below them left a band of empty
+   page beside the text and pushed everything down. Beside the argument it costs
+   no vertical space and is read against the point it illustrates. It keeps
+   .fig-body so the lightbox still opens it at full size, which matters more here
+   than usual: at 320px a screenshot is a thumbnail, not a readable image. */
+.wk-side-fig{margin:6px 0 0}
+.wk-side-fig img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--hairline)}
+.wk-side-fig figcaption{font-size:12px;line-height:1.5;color:var(--muted);margin-top:12px}
+@media(max-width:980px){
+  /* Centred and capped once it drops below the text, so a portrait phone shot does
+     not become a full-width tower. */
+  .wk-side-fig{max-width:330px;margin:0 auto}
+}
+
+/* COST DIAGRAM
+   Inline SVG so it takes its colours from the page and switches with the theme —
+   the same reason the article diagrams are inline. No fills of its own beyond the
+   accent washes, so it sits on whichever band it lands in. */
+.cost-fig{margin:6px 0 0}
+.cost-fig svg{display:block;width:100%;height:auto;overflow:visible}
+.cost-fig figcaption{font-size:12px;line-height:1.5;color:var(--muted);margin-top:14px}
+.cd-k{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;fill:var(--pdeo-label)}
+.cd-v{font-family:var(--mono);font-size:10px;fill:var(--ink-2)}
+.cd-lg{font-family:var(--body);font-size:11.5px;fill:var(--ink-2)}
+.cd-lv{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+.cd-note{font-family:var(--body);font-size:10.5px;font-style:italic;fill:var(--muted)}
+.cd-sum{font-family:var(--mono);font-size:13px;font-weight:500;fill:var(--ink)}
+.cd-big{font-family:var(--display);font-size:23px;font-weight:700;fill:var(--accent)}
+/* Decoration, not text: the flow is also stated in the <desc>. Held to the 3:1
+   non-text bar (WCAG 1.4.11) rather than the 4.5 text bar. */
+.cd-arrow{font-size:14px;fill:var(--faint-deco)}
+.cd-rule{stroke:var(--hairline);stroke-width:1}
+.cd-panel{fill:var(--accent-wash);stroke:var(--hairline-strong);stroke-width:1}
+.cd-panel-strong{stroke:var(--accent)}
+/* Three weights of the accent, so the 61% block reads as the dominant share without
+   introducing a colour the palette does not already have. */
+.cd-fill-a{fill:var(--accent)}
+.cd-fill-b{fill:var(--accent);opacity:.45}
+.cd-fill-c{fill:var(--accent);opacity:.2}
+.cd-fill-d{fill:var(--accent);opacity:.62}
+.cd-warn{fill:var(--crew-brand)}
+/* The ease band is drawn as an outline, not a fill: it is the space the garment
+   leaves around the body, so showing it as empty is the honest picture. */
+.cd-gap{fill:none;stroke:var(--accent);stroke-width:1;stroke-dasharray:2 2}
+/* Timeline dots. The skipped moment is drawn hollow and struck through rather than
+   simply left out — the point is that it is the one everyone else aims at. */
+.cd-dot-on{fill:var(--accent)}
+.cd-dot-off{fill:var(--paper);stroke:var(--crew-line);stroke-width:1.5}
+.cd-strike{stroke:var(--crew-brand);stroke-width:1.5;stroke-linecap:round}
+/* Pipeline steps. Ten quiet rows and three accented ones, so "3 of 13" is countable
+   at a glance instead of asserted in a badge. */
+.cd-step{fill:var(--surface-2);stroke:var(--hairline);stroke-width:1}
+.cd-step-ai{fill:var(--accent-wash);stroke:var(--accent);stroke-width:1}
+.cd-num{font-family:var(--mono);font-size:8.5px;fill:var(--faint)}
+.cd-num-ai{font-family:var(--mono);font-size:8.5px;font-weight:700;fill:var(--accent)}
+.cd-step-t{font-family:var(--body);font-size:10.5px;fill:var(--ink-2)}
+.cd-step-ai-t{font-family:var(--mono);font-size:8.5px;font-weight:700;letter-spacing:.08em;fill:var(--accent)}
+
 .wk-deeper{padding:48px 0 60px}
 /* The go-deeper cards carry no art, so the arrow is the only thing marking them as
    a way onward — it points down for a jump within the page, out for a new one. */
@@ -1018,6 +1159,11 @@ a.wr-in:hover .wr-title{color:var(--accent)}
    fix. A 28px chip in the corner is not clutter worth risking that for. */
 .has-zoom:hover::after,
 .has-zoom:focus-within::after{opacity:1;background:rgba(24,21,26,.86)}
+/* On a .device or .browser frame the badge sits at the bottom right of the image,
+   because the frame is the image. On a bare <figure> the frame also contains the
+   caption, so bottom:8px put the badge on top of the caption text. Anchor it to the
+   top on those instead — same corner convention, never over the words. */
+figure.has-zoom::after{top:8px;bottom:auto}
 @media (prefers-reduced-motion:reduce){.has-zoom::after{transition:none}}
 
 dialog.lightbox{padding:0;border:0;background:transparent;max-width:100vw;
@@ -1110,3 +1256,19 @@ dialog.lightbox::backdrop{background:rgba(18,16,20,.96);backdrop-filter:blur(4px
    — a zoomable figure wrapped in a link should still say "this magnifies". */
 .zoomable{cursor:zoom-in}
 .lb-close{cursor:pointer}
+
+
+/* ---- TAP TARGETS ----
+   WCAG 2.5.8 asks for 24x24 CSS px on anything you have to hit. These are inline
+   links, so their box was only as tall as the text — 17 to 20px. Padding is added
+   without moving the text: a negative margin pulls the extra height back out of the
+   layout, so the target grows but nothing shifts. */
+.art-back,
+.wk-teaser a,
+.sec-head .sub a,
+.nav-cta{
+  display:inline-flex;
+  align-items:center;
+  min-height:24px;
+}
+.art-back,.wk-teaser a,.sec-head .sub a{padding-block:4px;margin-block:-4px}

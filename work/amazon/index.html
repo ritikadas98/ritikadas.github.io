@@ -34,6 +34,7 @@
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav id="nav">
   <div class="nav-in">
@@ -67,6 +68,8 @@
   </div>
 </nav>
 
+<main id="main">
+
 <article>
   <header class="art-head">
     <div class="art-wrap">
@@ -80,6 +83,10 @@
         <div class="am-cell"><div class="am-k">Stage</div><div class="am-v">Deployed, scheduled</div></div>
         <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Built on a fixture, run on live data</div></div>
       </div>
+      <div class="wk-teaser">
+        <span class="wk-teaser-k">Turned down</span>
+        <p>A database. <span>My own cleaner schema.</span> <span>Navigation by week.</span> <a href="#decisions">All six, and why &darr;</a></p>
+      </div>
     </div>
   </header>
 
@@ -89,8 +96,9 @@
     <div class="card-main-grid">
       <div class="card-details-box">
         <div class="card-metric-badge">
-          <span class="card-metric-num">13-Step</span>
-          <span class="card-metric-lbl">Pipeline &middot; AI at Three Steps</span>
+          <span class="card-metric-num">3 of 13</span>
+          <span class="card-metric-unit">steps use AI</span>
+          <span class="card-metric-lbl">every number is computed in code</span>
         </div>
         <div class="pdeo">
           <div class="row"><span class="k">Problem</span><span class="v">A PM cannot read every review, so they skim. Skimming feels fine because you never find out what you missed. The complaint that mattered was in there, and nobody counted it.</span></div>
@@ -100,7 +108,6 @@
         </div>
         <div class="card-src">
           <a href="https://amazon-discovery-intel-repo.vercel.app" target="_blank" rel="noopener noreferrer" class="src-live">Try it live &#8599;</a>
-          <a href="../../writing/amazon/" class="src-read">Read the write-up &#8599;</a>
           <a href="https://github.com/ritikadas98/amazon-discovery-intel-repo" target="_blank" rel="noopener noreferrer" class="src-code">Source &#8599;</a>
         </div>
       </div>
@@ -156,55 +163,141 @@
     </div>
   </div>
 
-  <!-- These two were tabs inside a drawer on the homepage card, folded shut by
-       default. On their own page they are sections with their own anchors. -->
+  <!-- Everything below came from the long write-up that used to live under
+       /writing/. Two pages argued the same case, and the second one asked a reader
+       to start over. The write-up is gone; its unique parts are here. -->
+  <section id="how-it-started" class="wk-sec">
+    <div class="art-wrap">
+      <h2 class="wk-h2">It only worked while my laptop was on</h2>
+      <p class="wk-lead">The first version was a visual workflow that only ran while my laptop was on. Moving it to code cost a weekend and about &#8377;40 a month.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">The first build</span><span class="v">An n8n workflow. Twenty-nine nodes on a visual canvas, doing the right thing. Take reviews, clean them, find themes, score them, email a digest.</span></div>
+          <div class="row"><span class="k">What broke</span><span class="v">Putting it behind a website means it has to be running somewhere. Either I leave my machine on, or I pay for hosting. I did not want either for a portfolio project.</span></div>
+          <div class="row"><span class="k">The move</span><span class="v">Every node became a TypeScript module. The canvas became an orchestrator. Onto Cloud Run with scale-to-zero: about &#8377;40 a month, on a schedule, nothing left switched on.</span></div>
+          <div class="row"><span class="k">Who did the port</span><span class="v">I used Claude for it. Twenty-nine nodes of working logic, translated rather than reinvented. The design was already settled. What was left was moving it.</span></div>
+        </div>
+      <figure class="art-hero-wide">
+        <div class="browser"><img src="images/chat-citations.jpg" alt="The pipeline&rsquo;s chat view answering a question about the week&rsquo;s top complaints, with numbered citation chips linking back to individual reviews." width="1600" height="870" loading="lazy" decoding="async" /></div>
+        <figcaption>Every claim carries a numbered citation back to the signal behind it. The header says which dataset is in scope, sample or live.</figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section id="how-it-works" class="wk-sec band">
     <div class="art-wrap">
       <h2 class="wk-h2">How it works</h2>
-      <ol class="wk-list">
-        <li><b>It gathers the complaints.</b> Play Store, App Store and Amazon listings. Play Store is the one that reliably delivers; the others chip in when they can.</li>
-        <li><b>Sample or live, never mixed.</b> A switch at the top decides whether you are looking at a fixed test set or reviews pulled this week. The two never blend, so a demo can never be mistaken for real data.</li>
-        <li><b>Then it ranks.</b> How many people hit it, how badly, how many sources agree, whether a recent version made it worse, how hard it looks to fix, and whether it is trending up or down. Formally: <code>(reach &times; impact &times; confidence &times; version) / effort &times; trend</code>.</li>
-      </ol>
+      <div class="wk-split">
+      <div>
+        <p class="wk-lead">Thirteen steps in sequence. The model runs at three of them, and every number a PM then sees is computed in code.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">What AI does</span><span class="v">It cleans messy review text, groups complaints into themes, and judges whether a theme is ready to act on. Reading a thousand badly written complaints and noticing four hundred are the same problem is exactly what a model is good at.</span></div>
+          <div class="row"><span class="k">What code does</span><span class="v">The RICE score, the week-over-week delta, the counts. Arithmetic, which a model is not good at and does not need to be.</span></div>
+          <div class="row"><span class="k">Why the split</span><span class="v">Turning themes into a priority order is what a PM has to defend in a roadmap meeting. That has to be reproducible.</span></div>
+          <div class="row"><span class="k">The chat too</span><span class="v">It cites sources as signal IDs, and every citation is checked against the real signals before it renders. An ID that does not resolve gets an amber unverified chip instead of a footnote that looks real.</span></div>
+        </div>
+      </div>
+      <figure class="cost-fig">
+        <svg viewBox="0 0 320 345" role="img" aria-labelledby="pp-t pp-d">
+          <title id="pp-t">Thirteen pipeline steps, three of them AI</title>
+          <desc id="pp-d">The pipeline runs thirteen steps in sequence. The model runs at
+            three: cleaning messy review text, grouping complaints into themes, and
+            assessing whether a theme is ready to act on. The other ten are code.</desc>
+          <text class="cd-k" x="0" y="10">THE PIPELINE, IN ORDER</text>
+          <rect class="cd-step" x="0" y="26" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="38">01</text>
+          <text class="cd-step-t" x="30" y="38">Load signals</text>
+          <rect class="cd-step" x="0" y="47" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="59">02</text>
+          <text class="cd-step-t" x="30" y="59">Normalise</text>
+          <rect class="cd-step-ai" x="0" y="68" width="320" height="16" rx="3"/>
+          <text class="cd-num-ai" x="8" y="80">03</text>
+          <text class="cd-step-t" x="30" y="80">Clean signals</text>
+          <text class="cd-step-ai-t" x="312" y="80" text-anchor="end">AI</text>
+          <rect class="cd-step" x="0" y="89" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="101">04</text>
+          <text class="cd-step-t" x="30" y="101">Detect regressions</text>
+          <rect class="cd-step" x="0" y="110" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="122">05</text>
+          <text class="cd-step-t" x="30" y="122">Regression email</text>
+          <rect class="cd-step-ai" x="0" y="131" width="320" height="16" rx="3"/>
+          <text class="cd-num-ai" x="8" y="143">06</text>
+          <text class="cd-step-t" x="30" y="143">Synthesise themes</text>
+          <text class="cd-step-ai-t" x="312" y="143" text-anchor="end">AI</text>
+          <rect class="cd-step" x="0" y="152" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="164">07</text>
+          <text class="cd-step-t" x="30" y="164">Write signals</text>
+          <rect class="cd-step" x="0" y="173" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="185">08</text>
+          <text class="cd-step-t" x="30" y="185">Read digests</text>
+          <rect class="cd-step" x="0" y="194" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="206">09</text>
+          <text class="cd-step-t" x="30" y="206">Aggregate by group</text>
+          <rect class="cd-step-ai" x="0" y="215" width="320" height="16" rx="3"/>
+          <text class="cd-num-ai" x="8" y="227">10</text>
+          <text class="cd-step-t" x="30" y="227">Assess readiness</text>
+          <text class="cd-step-ai-t" x="312" y="227" text-anchor="end">AI</text>
+          <rect class="cd-step" x="0" y="236" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="248">11</text>
+          <text class="cd-step-t" x="30" y="248">Write digest row</text>
+          <rect class="cd-step" x="0" y="257" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="269">12</text>
+          <text class="cd-step-t" x="30" y="269">Build summary</text>
+          <rect class="cd-step" x="0" y="278" width="320" height="16" rx="3"/>
+          <text class="cd-num" x="8" y="290">13</text>
+          <text class="cd-step-t" x="30" y="290">Send digest</text>
+          <line class="cd-rule" x1="0" y1="306" x2="320" y2="306"/>
+          <text class="cd-note" x="0" y="326">Every number a PM sees comes from the other ten.</text>
+        </svg>
+        <figcaption>The model reads and groups. It never counts. A model is good at
+          noticing four hundred complaints are the same problem, and bad at arithmetic
+          &mdash; and arithmetic is what a PM has to defend in a roadmap meeting.</figcaption>
+      </figure>
+      </div>
     </div>
   </section>
 
   <section id="decisions" class="wk-sec">
     <div class="art-wrap">
-      <h2 class="wk-h2">The calls I made</h2>
-      <ul class="wk-list">
-        <li><b>AI reads, code ranks.</b> Sorting thousands of messy complaints into themes is exactly what a model is good at, so that is its job here. Turning those themes into a priority order is arithmetic, and arithmetic is what a PM has to defend in a roadmap meeting.</li>
-        <li><b>Nothing disappears quietly.</b> If a review is dropped during the clean, the digest says how many went and why. 140 in, 136 kept.</li>
-        <li><b>Every claim is traceable.</b> Ask the digest a question and each sentence in the answer footnotes the review it came from.</li>
-      </ul>
+      <h2 class="wk-h2">What I turned down, and why</h2>
+      <p class="wk-lead">Six things, mostly turned down because a PM already has a tool for that job and it is a spreadsheet.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">A database</span><span class="v">It writes to a Google Sheet. PMs already work in spreadsheets, which sort, filter, take comments and share without anyone asking for access. Postgres was about &#8377;1,100 a month to hold seven rows a week. Cloud Run scale-to-zero does it for &#8377;40.</span></div>
+          <div class="row"><span class="k">My own schema</span><span class="v">The sheet was built before the code. They disagreed, so I changed the code. A PM may already be filtering and pivoting on those columns. That included leaving a misspelled column header alone.</span></div>
+          <div class="row"><span class="k">Weekly navigation</span><span class="v">The first version made each weekly run the thing you clicked between. Nobody asks what happened in week 22. They ask what is going wrong in Checkout.</span></div>
+          <div class="row"><span class="k">Live scrapers first</span><span class="v">The value is the analysis, not the collecting. I proved the analysis on a fixture I wrote, made deliberately specific so the pipeline could not hide behind a theme called &ldquo;Search issues&rdquo;.</span></div>
+          <div class="row"><span class="k">A login</span><span class="v">A key inside a public page can be read out of it, and a login in front of a portfolio piece means nobody sees the product. Rate limits and an allowlist stop runaway bills and mail relaying, and leave the demo clickable.</span></div>
+          <div class="row"><span class="k">Certainty</span><span class="v">Companies build this internally or buy it, so the shape is not in doubt. Whether this one is useful is. That needs a PM with a real backlog.</span></div>
+        </div>
     </div>
   </section>
 
-  <section class="wk-deeper band">
+  <section id="evidence" class="wk-sec band">
     <div class="art-wrap">
-      <div class="sec-head">
-        <div><h2 class="concept">Go deeper</h2><div class="sub">Pick the part you care about.</div></div>
-      </div>
-      <div class="work-grid">
-        <div class="card work-card">
-          <h3><a class="card-link" href="#how-it-works">How it works <span class="arr">&#8595;</span></a></h3>
-          <p class="card-dek">Where the complaints come from, why sample and live data never mix, and the formula that does the ranking.</p>
-          <div class="card-foot"><span class="card-facts">On this page</span></div>
+      <h2 class="wk-h2">The part I did not expect</h2>
+      <p class="wk-lead">I built three ingestion sources. Two of them return almost nothing, and I did not find that out until production.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">App Store</span><span class="v">Apple&rsquo;s review feed answers with HTTP 200 and zero entries when the request comes from a Google IP. Not a country mismatch, which is what I assumed for a while. An address-range block. The same code on my own connection returns fifty reviews.</span></div>
+          <div class="row"><span class="k">Amazon itself</span><span class="v">The source reaches all eight products it watches. The .com pages are wall-to-wall praise, so the relevance filter correctly drops nearly everything. The .in pages return CAPTCHAs. The mechanism works. There is nothing to collect.</span></div>
+          <div class="row"><span class="k">What is left</span><span class="v">The Play Store. A live run pulls fifty reviews. Thirty-two survive the substance filter and get analysed.</span></div>
+          <div class="row"><span class="k">The lesson</span><span class="v">Every pipeline diagram starts with an arrow labelled data. The arrow is the hard bit. I was right to ship without live sources and wrong about how hard they would be.</span></div>
         </div>
-        <div class="card work-card">
-          <h3><a class="card-link" href="#decisions">The calls I made <span class="arr">&#8595;</span></a></h3>
-          <p class="card-dek">Why AI reads but code ranks, why dropped reviews are reported rather than swallowed, and how every claim stays traceable.</p>
-          <div class="card-foot"><span class="card-facts">On this page</span></div>
+    </div>
+  </section>
+
+  <section id="limits" class="wk-sec">
+    <div class="art-wrap">
+      <h2 class="wk-h2">What it cannot tell me</h2>
+      <p class="wk-lead">It runs, it emails, the numbers are real, and nobody&rsquo;s roadmap has moved because of it.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">Who has used it</span><span class="v">No product manager. That is the gap.</span></div>
+          <div class="row"><span class="k">What I know</span><span class="v">The shape is right. Companies build exactly this internally or buy it. I chose Amazon because I use it constantly and wanted enterprise-scale mess instead of a tidy dataset.</span></div>
+          <div class="row"><span class="k">What I do not</span><span class="v">Whether this one is useful. That needs someone to tell me the ranking was wrong, or the digest came on the wrong day, or that they read three lines and stopped.</span></div>
+          <div class="row"><span class="k">Which numbers</span><span class="v">The design was proved on a fixture of 140 signals I wrote. The limits came from live runs of 32 to 47, smaller and messier and from one source. Both are honest. Only one is real.</span></div>
         </div>
-        <div class="card work-card">
-          <h3><a class="card-link" href="../../writing/amazon/">The full write-up <span class="arr">&#8599;</span></a></h3>
-          <p class="card-dek">A discovery pipeline built on Amazon reviews, and the collection problem nobody warns you about.</p>
-          <div class="card-foot"><span class="card-facts">Long read &middot; ritikadas.in/writing</span></div>
-        </div>
-      </div>
     </div>
   </section>
 </article>
+</main>
 
 <footer>
   <div class="wrap foot-in">

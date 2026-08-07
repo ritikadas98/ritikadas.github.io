@@ -2,6 +2,10 @@
 BUILD_SPEC.md
 PORTFOLIO_WORKLOG.md
 
+# Reusable migration brief for the GCP projects. Nothing to do with this site —
+# it lives here only because it was written here, and gets copied out.
+VERTEX_MIGRATION_PROMPT.md
+
 # OS / editor noise
 .DS_Store
 Thumbs.db

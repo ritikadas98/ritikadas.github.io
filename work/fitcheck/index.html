@@ -34,6 +34,7 @@
 </script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
 <nav id="nav">
   <div class="nav-in">
@@ -67,6 +68,8 @@
   </div>
 </nav>
 
+<main id="main">
+
 <article>
   <header class="art-head">
     <div class="art-wrap">
@@ -80,6 +83,12 @@
         <div class="am-cell"><div class="am-k">Stage</div><div class="am-v">Shipped, in use</div></div>
         <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Built, shipped, calibrated on my own returns</div></div>
       </div>
+      <!-- The hook for the section further down. Three of the six, one line each,
+           for a reader who is skimming and has not scrolled to the reasoning yet. -->
+      <div class="wk-teaser">
+        <span class="wk-teaser-k">Turned down</span>
+        <p>A Myntra-only feature. <span>3D scanning and virtual try-on.</span> <span>Asking you for your measurements.</span> <a href="#decisions">All six, and why &darr;</a></p>
+      </div>
     </div>
   </header>
 
@@ -91,7 +100,8 @@
       <div class="card-details-box">
         <div class="card-metric-badge">
           <span class="card-metric-num">70%</span>
-          <span class="card-metric-lbl">Week 1 Retention &middot; Zero Uninstalls</span>
+          <span class="card-metric-unit">retention</span>
+          <span class="card-metric-lbl">7 of 10 returned in week one, zero uninstalls</span>
         </div>
         <div class="pdeo">
           <div class="row"><span class="k">Problem</span><span class="v">Free returns are why people in India buy clothes online. You can't tell if something fits, so you order it and send it back. A quarter to a third of orders come back. Size is the biggest reason. Each one costs the retailer shipping both ways, handling, and often a garment it can't sell again. The chart that would prevent it sits on the page, unread.</span></div>
@@ -101,7 +111,6 @@
         </div>
         <div class="card-src">
           <a href="https://fitcheck-demo.netlify.app" target="_blank" rel="noopener noreferrer" class="src-live">Try it live &#8599;</a>
-          <a href="../../writing/fitcheck/" class="src-read">Read the write-up &#8599;</a>
           <a href="https://github.com/ritikadas98/fitchecker" target="_blank" rel="noopener noreferrer" class="src-code">Source &#8599;</a>
         </div>
       </div>
@@ -161,56 +170,137 @@
     </div>
   </div>
 
-  <!-- These two were tabs inside a drawer on the homepage card, folded shut by
-       default. On their own page they are sections with their own anchors, so the
-       cards at the foot of the page have somewhere real to point. -->
+  <!-- Everything below came from the long write-up that used to live at
+       /writing/fitcheck/. Two pages argued the same case, and the second one asked
+       a reader to start over. The write-up is gone; its unique parts are here. -->
+  <section id="how-it-started" class="wk-sec">
+    <div class="art-wrap">
+      <h2 class="wk-h2">Four tabs, four different Ms</h2>
+      <div class="wk-prose">
+        <p>Myntra, AJIO, H&amp;M and Westside were all running sales at once. I had a tab open on each.</p>
+        <p>I shop for clothes on a laptop, because a bigger screen shows me more of what I am about to buy. That preference is the only reason I noticed.</p>
+        <p>Across four tabs, the same letter meant four different bodies. An M on one site was not the M on another. Myntra and AJIO were worse, because they are aggregators. Every brand inside them ships its own chart.</p>
+        <p>I am an XS in some places. An S in most. An M in a few. There is no version of me that is one size.</p>
+        <p>And every one of those pages already had the chart on it. The information was never missing. It just asked me to do arithmetic across four tabs, in my head, while a sale timer ran.</p>
+        <p>So the chart was never the problem. Trusting it was.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="how-it-works" class="wk-sec band">
     <div class="art-wrap">
       <h2 class="wk-h2">How it works</h2>
-      <ol class="wk-list">
-        <li><b>It reads the page.</b> Each of the three stores publishes its size chart in a different way, so there is a small reader for each one. They all hand back the same set of numbers.</li>
-        <li><b>It does the maths.</b> Your body against what the garment was actually cut for. Two inches of room means slim. Eight means oversized.</li>
-        <li><b>It looks at what you already own.</b> On a past order it knows the size you bought, and can build your profile from it &mdash; so you never have to measure yourself.</li>
-      </ol>
+      <div class="wk-split">
+      <div>
+        <p class="wk-lead">It reads the chart the shop already published, works out your fit from it, and can build your profile from something you already own.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">Reads the page</span><span class="v">Each of the three stores publishes its chart differently, so there is a small reader for each one. They all hand back the same set of numbers.</span></div>
+          <div class="row"><span class="k">Does the maths</span><span class="v">Your body against what the garment was actually cut for. Two inches of room means slim. Eight means oversized.</span></div>
+          <div class="row"><span class="k">Uses what you own</span><span class="v">On a past order it knows the size you bought, and can build your profile from it. So you never have to measure yourself.</span></div>
+        </div>
+      </div>
+      <figure class="cost-fig">
+        <svg viewBox="0 0 320 300" role="img" aria-labelledby="ez-t ez-d">
+          <title id="ez-t">Body measurement against garment measurement</title>
+          <desc id="ez-d">A size chart gives the body a size is cut for. The garment measured
+            flat is larger. The difference is ease: about two inches reads as slim, about
+            eight inches reads as oversized. Both garments target the same 36-inch body.</desc>
+
+          <text class="cd-k" x="0" y="10">THE BODY THE SIZE IS CUT FOR</text>
+          <rect class="cd-fill-a" x="0" y="20" width="112.5" height="18" rx="3"/>
+          <text class="cd-v" x="120" y="33">36 in</text>
+
+          <text class="cd-k" x="0" y="70">THE SAME SIZE, MEASURED FLAT</text>
+
+          <rect class="cd-fill-c" x="0" y="82" width="112.5" height="18" rx="3"/>
+          <rect class="cd-gap"    x="112.5" y="82" width="37.5" height="18" rx="3"/>
+          <text class="cd-v" x="158" y="95">38 in</text>
+          <text class="cd-note" x="114" y="114">+2 in &#183; slim</text>
+
+          <rect class="cd-fill-c" x="0" y="132" width="112.5" height="18" rx="3"/>
+          <rect class="cd-gap"    x="112.5" y="132" width="150" height="18" rx="3"/>
+          <text class="cd-v" x="270" y="145">44 in</text>
+          <text class="cd-note" x="114" y="164">+8 in &#183; oversized</text>
+
+          <line class="cd-rule" x1="112.5" y1="14" x2="112.5" y2="176" stroke-dasharray="3 3"/>
+          <text class="cd-note" x="0" y="186">Bars start at 30 in. Ease drawn to the same scale.</text>
+
+          <line class="cd-rule" x1="0" y1="200" x2="320" y2="200"/>
+          <text class="cd-k" x="0" y="220">THE GAP IS THE DESIGN</text>
+          <text class="cd-note" x="0" y="240">Both target the same 36-inch body.</text>
+          <text class="cd-note" x="0" y="256">One is cut close. One is meant to hang.</text>
+          <text class="cd-note cd-warn" x="0" y="278">Miss it and an oversized tee reads as too tight.</text>
+        </svg>
+        <figcaption>The chart alone cannot tell you how something will fit. The distance
+          between the body and the garment is what the designer decided, and it is the whole
+          product.</figcaption>
+      </figure>
+      </div>
     </div>
   </section>
 
   <section id="decisions" class="wk-sec">
     <div class="art-wrap">
-      <h2 class="wk-h2">The calls I made</h2>
-      <ul class="wk-list">
-        <li><b>Exact, not estimated.</b> The store already publishes the numbers, so the fit is worked out straight from them. A centimetre of drift here costs someone a return and a reshipment, so nothing about the answer is approximated.</li>
-        <li><b>Nothing leaves your browser.</b> Your measurements stay on your own machine. No account, no server, nothing sent anywhere.</li>
-        <li><b>It tells you when it can't tell.</b> If the chart is missing, incomplete or published as a picture, it says so rather than inventing an answer. Eight defined cases where it does that.</li>
-      </ul>
+      <h2 class="wk-h2">What I turned down, and why</h2>
+      <p class="wk-lead">Seven things, and none of them were turned down for being hard to build. The first one was the original idea for the whole product.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">One retailer</span><span class="v">The first version was a feature inside Myntra. I sketched it, then dropped it. You cannot ship inside Myntra&rsquo;s page without being Myntra. And the problem is not inside any one shop. It is that four shops disagree about what an M is.</span></div>
+          <div class="row"><span class="k">3D and try-on</span><span class="v">Both chase accuracy. Every page already has a size chart, so accuracy was never the missing piece. Trust was. Promise a perfect fit and you only get to be wrong once.</span></div>
+          <div class="row"><span class="k">Your measurements</span><span class="v">Most people do not know their bust, waist and hip. That is where they quit the form. But everyone knows which shirt fits them.</span></div>
+          <div class="row"><span class="k">Westside</span><span class="v">Its chart is published as a picture. I could have fetched the numbers from a server, but I had set a rule that the extension never calls out to the network. I kept the rule and dropped the retailer.</span></div>
+          <div class="row"><span class="k">The true inseam</span><span class="v">Real inseam scales with height, at about 0.45 of it. I use 0.3. Levi&rsquo;s lists a 32-inch inseam for every waist from 28 to 40. The anatomically right answer would flag jeans as too short that are sold to tall women on purpose.</span></div>
+          <div class="row"><span class="k">A guess</span><span class="v">When the chart is short a number it says it cannot tell. That happened six times in twenty-one attempts. A confident answer with nothing behind it costs more trust than no answer.</span></div>
+          <div class="row"><span class="k">The extension itself</span><span class="v">It only runs on desktop, about 40% of fashion traffic here. It exists to test whether a fit verdict changes what people buy, on the one surface I can reach without permission. The version that reaches everyone runs on the retailer&rsquo;s own page.</span></div>
+        </div>
     </div>
   </section>
 
-  <section class="wk-deeper band">
+  <section id="evidence" class="wk-sec band">
     <div class="art-wrap">
-      <div class="sec-head">
-        <div><h2 class="concept">Go deeper</h2><div class="sub">Pick the part you care about.</div></div>
+      <h2 class="wk-h2">What it cost me to find out</h2>
+      <p class="wk-lead">It caught a mistake that had already cost me a return and an exchange, on a page where the label and the chart disagreed.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">What happened</span><span class="v">I ordered Levi&rsquo;s jeans in size 30. They arrived too loose. I shipped them back and exchanged them for a 28.</span></div>
+          <div class="row"><span class="k">Why it looked odd</span><span class="v">Both my waist and the label said 30. The mistake should have been impossible.</span></div>
+          <div class="row"><span class="k">What the chart said</span><span class="v">That cut puts the body waist for size 28 at 30 inches. The label was misleading. The chart was accurate all along.</span></div>
+          <div class="row"><span class="k">What it saves</span><span class="v">FitCheck recommends 28 on that page straight away. One shipment instead of three.</span></div>
+        </div>
+      <div class="fig-row two">
+        <figure>
+          <img src="images/state-recommended.jpg" alt="The FitCheck panel on the AJIO Levi&rsquo;s jeans page recommending size 28, with the waist marked on target and a green silhouette." width="1400" height="700" loading="lazy" decoding="async" />
+          <figcaption>FitCheck picking 28 on the live product page.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/real-world-order.jpg" alt="AJIO order history showing the same Levi&rsquo;s jeans delivered in size 28, marked as an exchange order." width="1180" height="590" loading="lazy" decoding="async" />
+          <figcaption>And the order it replaced. A 30, exchanged for a 28.</figcaption>
+        </figure>
       </div>
-      <div class="work-grid">
-        <div class="card work-card">
-          <h3><a class="card-link" href="#how-it-works">How it works <span class="arr">&#8595;</span></a></h3>
-          <p class="card-dek">Three steps: reading the chart off the page, the arithmetic, and building your profile from what you already own.</p>
-          <div class="card-foot"><span class="card-facts">On this page</span></div>
+    </div>
+  </section>
+
+  <section id="limits" class="wk-sec">
+    <div class="art-wrap">
+      <h2 class="wk-h2">What it still cannot tell me</h2>
+      <div class="wk-split">
+      <div>
+        <p class="wk-lead">A working engine, one real case where it would have saved a return, and nowhere near enough users to know whether it holds.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">Ten installs</span><span class="v">Seven still using it a week later, nobody uninstalled. Recorded by hand in a spreadsheet, because there is no telemetry in this. Ten is a signal, not a study.</span></div>
+          <div class="row"><span class="k">Six refusals</span><span class="v">In twenty-one attempts, so almost one in three. Not crashes. The engine read those pages fine and the chart was short a measurement. Coverage is a bigger limit here than accuracy.</span></div>
+          <div class="row"><span class="k">Two body blocks</span><span class="v">Male and female, because retailers organise their charts that way. That underserves anyone those two blocks do not describe. A measurements-first model is the next thing I would build.</span></div>
+          <div class="row"><span class="k">The number I want</span><span class="v">Verdict-to-purchase. Of the people shown a recommendation, how many buy that size. It is what a retailer would pay for. I cannot measure it from outside.</span></div>
+          <div class="row"><span class="k">What I can measure</span><span class="v">The override rate. How often someone is shown a size and picks a different one. The cleanest trust signal there is, and the one most fit tools never instrument.</span></div>
         </div>
-        <div class="card work-card">
-          <h3><a class="card-link" href="#decisions">The calls I made <span class="arr">&#8595;</span></a></h3>
-          <p class="card-dek">Why it calculates instead of estimating, why nothing leaves your browser, and the eight cases where it refuses to answer.</p>
-          <div class="card-foot"><span class="card-facts">On this page</span></div>
-        </div>
-        <div class="card work-card">
-          <h3><a class="card-link" href="../../writing/fitcheck/">The full write-up <span class="arr">&#8599;</span></a></h3>
-          <p class="card-dek">An afternoon with four tabs open, and the Chrome extension that came out of it &mdash; including the limit it hasn't cleared.</p>
-          <div class="card-foot"><span class="card-facts">Long read &middot; ritikadas.in/writing</span></div>
-        </div>
+      </div>
+      <figure class="wk-side-fig fig-body">
+        <img src="images/refusal-myntra.jpg" alt="A Myntra jacket page beside the FitCheck panel reading &ldquo;Can&rsquo;t compute a fit for this product&rdquo;, explaining that the size chart is missing a measurement." width="1400" height="700" loading="lazy" decoding="async" />
+        <figcaption>A refusal, on Myntra, which has the cleanest data of the three. The size chart is right there on the page. It is just short a measurement, and the panel says so rather than guessing.</figcaption>
+      </figure>
       </div>
     </div>
   </section>
 </article>
+</main>
 
 <footer>
   <div class="wrap foot-in">

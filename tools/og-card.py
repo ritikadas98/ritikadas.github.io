@@ -101,7 +101,7 @@ ARTICLES = {
         "brand": "#1E3A5F", "rgb": "30,58,95",
         "field": ("#3E6EA5", "#2C5581", "#1E3A5F", "#101F33"),
         "icon": "assets/fitcheck-icon.png", "icon_radius": 12,
-        "subject": {"kind": "browser", "src": "writing/fitcheck/images/fitcheck-square-src.jpg"},
+        "subject": {"kind": "browser", "src": "work/fitcheck/images/fitcheck-square-src.jpg"},
     },
     "savio": {
         # A phone subject, unlike FitCheck's browser: Savio is the app, not something
@@ -115,7 +115,7 @@ ARTICLES = {
         "field": ("#4E8C77", "#2F5D50", "#1E3F36", "#0F221D"),
         # Savio's own mark — the gradient dot that fronts every reply in the app.
         "icon": "assets/savio-icon.svg", "icon_radius": 0,
-        "subject": {"kind": "phone", "src": "writing/savio/images/hero-chat.jpg"},
+        "subject": {"kind": "phone", "src": "work/savio/images/hero-chat.jpg"},
     },
     "amazon": {
         # A browser subject: this one is a dashboard and a digest, not an app.
@@ -129,7 +129,7 @@ ARTICLES = {
         "brand": "#1F2937", "rgb": "31,41,55",
         "field": ("#4A5A6B", "#2C3A47", "#1F2937", "#0E141B"),
         "icon": "assets/amazon-icon.svg", "icon_radius": 0,
-        "subject": {"kind": "browser", "src": "writing/amazon/images/amazon-square-src.jpg"},
+        "subject": {"kind": "browser", "src": "work/amazon/images/amazon-square-src.jpg"},
     },
     "crew": {
         "kicker": "Product teardown",
