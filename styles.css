@@ -858,12 +858,13 @@ code{font-family:var(--mono);font-size:.86em;background:var(--accent-wash);borde
 .toolbox-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 40px;margin-top:26px}
 .toolbox-card{padding:16px 0 0;border-top:1px solid var(--hairline)}
 .toolbox-title{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--pdeo-label);margin-bottom:10px;font-weight:700}
-/* 15px, not the 10.5px the chips used. They were small because a chip has to be;
-   as text it can sit at a readable size. */
-.tool-list{margin:0;font-size:15px;line-height:1.7;color:var(--ink-2)}
-/* --muted, not --faint-deco. These middots sit inside a line of text rather than
-   standing alone as a graphic, so the 4.5 text bar is the one that applies. */
-.tool-sep{color:var(--muted);padding:0 2px}
+/* A real list, so it reads as one item per line rather than a run-on sentence
+   broken up with punctuation. 15px, not the 10.5px the chips used — they were
+   small because a chip has to be; as text it can sit at a readable size. */
+.tool-list{margin:0;padding-left:18px;list-style:disc;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.tool-list li{margin:0 0 7px;padding-left:2px}
+.tool-list li:last-child{margin-bottom:0}
+.tool-list li::marker{color:var(--muted)}
 @media(max-width:640px){.toolbox-grid{gap:22px 0}}
 
 /* experience */
