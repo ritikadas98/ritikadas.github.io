@@ -91,7 +91,7 @@ ARTICLES = {
     # the positioning, set in type. See home().
     "home": {
         "kicker": "Portfolio",
-        "title": "I build products people actually use",
+        "title": "I decide what’s worth building, then build it",
         "hook": "Product manager and builder, Bengaluru. Three products shipped solo, "
                 "plus long-form case studies on social, luxury and platforms.",
         "byline": "Ritika Das",
@@ -106,10 +106,10 @@ ARTICLES = {
         # FitCheck's own navy rather than a retailer's colour, and the subject is a
         # browser: the product lives beside a shop's page, not inside an app.
         "kicker": "Shipped product",
-        "title": "The Size Chart That Is Read for You",
-        "hook": "Across four tabs the same letter meant four different bodies. Every "
-                "page already had a size chart on it.",
-        "byline": "FitCheck · Chrome extension",
+        "title": "FitCheck",
+        "hook": "A calculator, not a guess. It reads the size chart already on the "
+                "page and works out whether the size will actually fit.",
+        "byline": "Chrome extension · shipped, in use",
         "brand": "#1E3A5F", "rgb": "30,58,95",
         "field": ("#3E6EA5", "#2C5581", "#1E3A5F", "#101F33"),
         "icon": "assets/fitcheck-icon.png", "icon_radius": 12,
@@ -119,10 +119,10 @@ ARTICLES = {
         # A phone subject, unlike FitCheck's browser: Savio is the app, not something
         # riding alongside someone else's page. Field is its own sage green.
         "kicker": "Shipped product",
-        "title": "A Money App That Waits",
-        "hook": "Nobody stands in a fitting room and opens an app to ask whether "
-                "₹3,500 is sensible. So the category fights for a moment nobody is in.",
-        "byline": "Savio · AI money companion",
+        "title": "Savio",
+        "hook": "An AI companion for the one question budget apps never answer: "
+                "can I afford this, right now?",
+        "byline": "AI money companion · deployed",
         "brand": "#2F5D50", "rgb": "47,93,80",
         "field": ("#4E8C77", "#2F5D50", "#1E3F36", "#0F221D"),
         # Savio's own mark — the gradient dot that fronts every reply in the app.
@@ -134,10 +134,10 @@ ARTICLES = {
         # Field is Amazon's ink-and-amber rather than the orange smile, so it reads
         # as analysis of the company rather than anything endorsed by it.
         "kicker": "Shipped product",
-        "title": "Customer Complaints, Ranked Every Week",
-        "hook": "Every pipeline diagram starts with an arrow labelled data. The arrow "
-                "is the hard bit.",
-        "byline": "Amazon Discovery Intelligence",
+        "title": "Amazon Discovery Intelligence",
+        "hook": "An agentic pipeline that reads a week of customer complaints and "
+                "hands a PM a ranked, cited backlog.",
+        "byline": "Agentic AI pipeline · deployed",
         "brand": "#1F2937", "rgb": "31,41,55",
         "field": ("#4A5A6B", "#2C3A47", "#1F2937", "#0E141B"),
         "icon": "assets/amazon-icon.svg", "icon_radius": 0,
@@ -147,7 +147,8 @@ ARTICLES = {
         "kicker": "Product teardown",
         "title": "Handing Over Is the Hard Part",
         "hook": "A concierge sells one thing: the freedom to stop thinking about "
-                "something. CREW’s own reviewers describe checking its work.",
+                "something. CREW’s own reviewers say they check its bookings "
+                "and plan the trip themselves anyway.",
         # No quote: the field is the product plate — mark, device, name — not a
         # second place to restate the argument the hook already makes.
         "byline": "CREW · Swiggy’s travel concierge",
