@@ -676,13 +676,6 @@ section{padding:56px 0}
 .wk-main{padding:34px 0 44px}
 .wk-sec{padding:44px 0}
 .wk-h2{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,28px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:0 0 20px}
-/* 72ch, not the .art-body 80ch: these lists sit in the 1180px header wrap rather
-   than the article's centred column, so without a measure they would run the full
-   width of a laptop screen. */
-.wk-list{max-width:72ch;margin:0;padding-left:22px}
-.wk-list li{font-size:16px;line-height:1.7;color:var(--ink-2);margin:0 0 14px}
-.wk-list li::marker{color:var(--muted)}
-.wk-list b{color:var(--ink);font-weight:600}
 /* Paragraphs, not bullets. The rejections read as short arguments — a claim and
    then the reasoning that earned it — and the article pages already set that
    pattern: a bold noun phrase naming the thing, then plain prose. A bulleted list
@@ -861,10 +854,15 @@ code{font-family:var(--mono);font-size:.86em;background:var(--accent-wash);borde
 /* A real list, so it reads as one item per line rather than a run-on sentence
    broken up with punctuation. 15px, not the 10.5px the chips used — they were
    small because a chip has to be; as text it can sit at a readable size. */
-.tool-list{margin:0;padding-left:18px;list-style:disc;font-size:15px;line-height:1.55;color:var(--ink-2)}
-.tool-list li{margin:0 0 7px;padding-left:2px}
+/* Markers drawn as a grid column rather than by list-style, so the bullet starts
+   exactly on the section's left edge instead of hanging outside it. padding-left
+   plus an outside marker put the dot ~11px left of the heading and hairline above
+   it, which is what made the column look misaligned. The 1fr text column also
+   keeps a wrapped item lined up under its own text, not under its bullet. */
+.tool-list{margin:0;padding:0;list-style:none;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.tool-list li{display:grid;grid-template-columns:15px minmax(0,1fr);margin:0 0 7px}
 .tool-list li:last-child{margin-bottom:0}
-.tool-list li::marker{color:var(--muted)}
+.tool-list li::before{content:"•";color:var(--muted)}
 @media(max-width:640px){.toolbox-grid{gap:22px 0}}
 
 /* experience */
@@ -889,10 +887,13 @@ code{font-family:var(--mono);font-size:.86em;background:var(--accent-wash);borde
    read side by side they scan as a set; stacked in a single column inside a wide
    card they read as a paragraph broken up with dots. display:list-item keeps the
    markers, which grid would otherwise be free to drop. */
-.exp-list{margin:0;padding-left:20px;list-style:disc;
+.exp-list{margin:0;padding:0;list-style:none;
   display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 34px}
-.exp-list li{display:list-item;color:var(--muted);font-size:15px;line-height:1.62;margin:0;padding-left:3px}
-.exp-list li::marker{color:var(--hairline-strong)}
+/* Same fix as .tool-list: the bullet was hanging left of the lead paragraph it
+   sits under. A marker column lines the first one up with the text above it. */
+.exp-list li{display:grid;grid-template-columns:15px minmax(0,1fr);
+  color:var(--muted);font-size:15px;line-height:1.62;margin:0}
+.exp-list li::before{content:"•";color:var(--hairline-strong)}
 /* 880 is where the card grids collapse; the rail goes with them so the section
    doesn't keep a two-column header over one-column content. */
 @media(max-width:880px){
