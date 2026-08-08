@@ -848,11 +848,23 @@ code{font-family:var(--mono);font-size:.86em;background:var(--accent-wash);borde
 
 /* PM TOOLBOX GRID */
 .toolbox-section{margin-top:48px;background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:28px 32px}
-.toolbox-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:16px}
-.toolbox-card{background:var(--surface);border:1px solid var(--hairline);border-radius:var(--r-sm);padding:18px}
-.toolbox-title{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:10px;font-weight:600}
-.toolbox-pills{display:flex;flex-wrap:wrap;gap:6px}
-.tool-pill{font-family:var(--mono);font-size:10.5px;padding:4px 9px;border-radius:6px;background:var(--paper-alt);color:var(--ink-2);border:1px solid var(--hairline-strong)}
+/* WHAT I WORK WITH
+   Was a grid of bordered, rounded, padded chips inside Product Thinking. Two
+   problems: it read as a footnote to the three studies rather than a statement
+   about the work as a whole, and chips shaped like that are buttons — on a site
+   where everything else that looks pressable is pressable, twelve dead controls
+   is the one place the styling lies. Now plain text in three labelled columns,
+   separated by hairlines rather than boxes. */
+.toolbox-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 40px;margin-top:26px}
+.toolbox-card{padding:16px 0 0;border-top:1px solid var(--hairline)}
+.toolbox-title{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--pdeo-label);margin-bottom:10px;font-weight:700}
+/* 15px, not the 10.5px the chips used. They were small because a chip has to be;
+   as text it can sit at a readable size. */
+.tool-list{margin:0;font-size:15px;line-height:1.7;color:var(--ink-2)}
+/* --muted, not --faint-deco. These middots sit inside a line of text rather than
+   standing alone as a graphic, so the 4.5 text bar is the one that applies. */
+.tool-sep{color:var(--muted);padding:0 2px}
+@media(max-width:640px){.toolbox-grid{gap:22px 0}}
 
 /* experience */
 /* Rail + body. The measure that keeps the prose readable is now enforced by the

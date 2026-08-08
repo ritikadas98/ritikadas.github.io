@@ -35,6 +35,7 @@ webfaces; after that they are cached under tools/.fontcache/.
 import base64
 import io
 import mimetypes
+import os
 import pathlib
 import re
 import subprocess
@@ -46,7 +47,18 @@ from PIL import Image
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "og"
 CACHE = pathlib.Path(__file__).parent / ".fontcache"
-CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+# Chrome renders these cards, and it lives somewhere different on every OS. The
+# original hardcoded the macOS path, so the script could not run on Windows at all.
+# First existing path wins; override with CHROME_PATH if yours is somewhere else.
+CHROME_CANDIDATES = [
+    os.environ.get("CHROME_PATH", ""),
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",           # macOS
+    r"C:\Program Files\Google\Chrome\Application\chrome.exe",              # Windows
+    r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+    os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"),
+    "/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/chromium-browser",  # Linux
+]
+CHROME = next((p for p in CHROME_CANDIDATES if p and pathlib.Path(p).exists()), "")
 
 FONT_URL = ("https://fonts.googleapis.com/css2"
             "?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700"
@@ -133,7 +145,7 @@ ARTICLES = {
     },
     "crew": {
         "kicker": "Product teardown",
-        "title": "You Can’t Hand Off What You Still Have to Hold",
+        "title": "Handing Over Is the Hard Part",
         "hook": "A concierge sells one thing: the freedom to stop thinking about "
                 "something. CREW’s own reviewers describe checking its work.",
         # No quote: the field is the product plate — mark, device, name — not a
@@ -184,7 +196,7 @@ def fonts_css():
     network or on which fonts happen to be installed locally."""
     cached = CACHE / "fonts-inline.css"
     if cached.exists():
-        return cached.read_text()
+        return cached.read_text(encoding="utf-8")
 
     req = urllib.request.Request(FONT_URL, headers={"User-Agent": UA})
     src = urllib.request.urlopen(req).read().decode()
@@ -201,7 +213,7 @@ def fonts_css():
 
     css = "\n".join(faces)
     CACHE.mkdir(exist_ok=True)
-    cached.write_text(css)
+    cached.write_text(css, encoding="utf-8")
     return css
 
 
@@ -212,13 +224,22 @@ def data_uri(rel):
 
 
 def signature_svg():
-    """The 'Ritika Das' script mark, lifted out of the nav so the card and the site
-    can never drift apart."""
-    html = (ROOT / "index.html").read_text()
-    m = re.search(r'<svg[^>]*class="brand-mark"[^>]*>.*?</svg>', html, re.S)
-    if not m:
-        sys.exit("brand-mark svg not found in index.html")
-    return m.group(0).replace('class="brand-mark"', 'class="sig"')
+    """The 'Ritika Das' script mark, read from the same file the site paints through
+    a CSS mask, so the card and the nav can never drift apart.
+
+    It used to be scraped out of index.html, where the signature was inlined into the
+    nav — about 9KB of <path> repeated in every page. That inline copy is gone; the
+    nav is now a <span> with mask-image pointing here. Scraping index.html stopped
+    working the moment that changed, and nothing failed until this script next ran."""
+    svg = ROOT / "assets" / "brand-signature.svg"
+    if not svg.exists():
+        sys.exit(f"signature not found at {svg}")
+    markup = svg.read_text(encoding="utf-8")
+    # The file is built for a mask, so it is filled flat black. The card paints it
+    # in ink, and .sig sets that colour — so hand the fill back to CSS.
+    markup = markup.replace('fill="#000"', 'fill="currentColor"')
+    markup = markup.replace(' stroke="#000"', ' stroke="currentColor"')
+    return markup.replace("<svg ", '<svg class="sig" ', 1)
 
 
 def field_bg(stops, bloom):
@@ -597,8 +618,10 @@ def main():
             print(f"skipped {slug}: art is on hold (placeholder subject). "
                   f"build anyway with `og-card.py {slug}`")
 
-    if not pathlib.Path(CHROME).exists():
-        sys.exit(f"Google Chrome not found at {CHROME}")
+    if not CHROME:
+        looked = "\n  ".join(p for p in CHROME_CANDIDATES if p)
+        sys.exit("Chrome not found. Set CHROME_PATH to its executable.\n"
+                 f"Looked in:\n  {looked}")
     OUT.mkdir(parents=True, exist_ok=True)
     CACHE.mkdir(exist_ok=True)
 
@@ -607,7 +630,7 @@ def main():
         if slug == "home":
             fn = home
         html = CACHE / f"{slug}-{variant}.html"
-        html.write_text(fn(ARTICLES[slug]))
+        html.write_text(fn(ARTICLES[slug]), encoding="utf-8")
         shot = CACHE / f"{slug}-{variant}.png" if variant in JPEG \
             else OUT / f"{slug}-{variant}.png"
         subprocess.run([
