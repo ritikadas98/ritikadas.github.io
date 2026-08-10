@@ -639,3 +639,23 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
     if (opener) { opener.focus({ preventScroll: true }); opener = null; }
   });
 })();
+
+/* ── Résumé click, counted as an event ─────────────────────────────────────────
+   The résumé lives on Google Drive, so the visit itself is invisible to us: the
+   click is the only signal that someone went looking for it, and it is the
+   strongest intent signal on the page short of using the contact form.
+   goatcounter.count() is the documented manual API; the guards mean a blocked or
+   still-loading counter can never break the link. */
+(() => {
+  const link = document.querySelector('.hero-actions a[href*="drive.google.com"]');
+  if (!link) return;
+  link.addEventListener('click', () => {
+    try {
+      window.goatcounter?.count?.({
+        path:  'resume-click',
+        title: 'Résumé button',
+        event: true,
+      });
+    } catch (e) { /* counting must never get in the way of opening the résumé */ }
+  });
+})();

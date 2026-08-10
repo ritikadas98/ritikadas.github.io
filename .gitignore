@@ -25,3 +25,6 @@ tools/.fontcache/
 # out of the public repo — the published version is a PDF we add deliberately.
 Ritika_Das_Resume.md
 Ritika_Das_Resume.pdf
+
+# Local editor/agent settings, not part of the site.
+.claude/
