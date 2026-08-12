@@ -1286,3 +1286,13 @@ dialog.lightbox::backdrop{background:rgba(18,16,20,.96);backdrop-filter:blur(4px
   min-height:24px;
 }
 .art-back,.wk-teaser a,.sec-head .sub a{padding-block:4px;margin-block:-4px}
+
+/* Sits under the try-it / source links on a project card. Used for the one
+   constraint someone needs before they click, not for general prose. */
+.card-note{
+  margin:8px 0 0;
+  font-family:var(--mono);
+  font-size:.72rem;
+  line-height:1.5;
+  color:var(--faint);
+}
