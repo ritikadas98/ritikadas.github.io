@@ -593,6 +593,15 @@ section{padding:56px 0}
   .card-src{gap:10px}
   .card-src a{flex:1 1 100%;justify-content:center}
 }
+/* Same pair, moved up under the summary. Most people now arrive on these pages from
+   a link rather than from the homepage, and the buttons used to sit below the whole
+   Problem/Decision/Evidence/Outcome block — a scroll away from the only two things
+   the page wants you to do. Up here they are visible on landing.
+   The card version spreads to the edges of a narrow column; across the full width of
+   the header that opens a gulf between the two, so these group left instead and take
+   their natural width. */
+.art-cta{justify-content:flex-start;margin-top:22px}
+.art-cta + .card-note{margin-top:10px;max-width:52ch}
 /* Written cards run full width by default — there is no widget to sit beside. A card
    whose article has preview art gets the media column back, which is also what stops
    a short card looking like a thin strip next to the shipped-product cards. */
