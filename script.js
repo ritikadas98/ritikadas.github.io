@@ -659,3 +659,53 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
     } catch (e) { /* counting must never get in the way of opening the résumé */ }
   });
 })();
+
+/* ── Leaving a work page for the thing itself, counted as an event ─────────────
+   Page views already say someone opened a case study. They do not say whether
+   anyone went on to the product, which is the only reason the page exists.
+
+   Add to Chrome is the one that matters most. The Web Store dashboard reports
+   installs but not clicks, so without this there is no way to tell "nobody
+   clicked" from "plenty clicked and didn't install" — two problems with opposite
+   fixes.
+
+   Labelled by destination rather than by CSS class, because the classes no longer
+   mean the same thing on every page: src-live is Add to Chrome on FitCheck and
+   the demo on the other two. The host is unambiguous. Delegated from the document
+   so it survives the buttons being moved again.
+
+   These links open in a new tab, so the page is never torn down mid-request and
+   a plain count() has time to land — no sendBeacon needed. */
+(() => {
+  const DESTINATIONS = [
+    ['chromewebstore.google.com', 'add-to-chrome'],
+    ['github.com',                'source'],
+  ];
+
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('.card-src a[href^="http"]');
+    if (!link) return;
+
+    let host;
+    try { host = new URL(link.href).hostname; } catch { return; }
+
+    // Anything on a ritikadas.in subdomain is one of the three live demos.
+    const match = DESTINATIONS.find(([h]) => host === h || host.endsWith('.' + h));
+    const action = match ? match[1]
+                 : /(^|\.)ritikadas\.in$/.test(host) && host !== 'ritikadas.in' ? 'demo'
+                 : null;
+    if (!action) return;
+
+    // /work/fitcheck/ → fitcheck. Falls back to the host so a stray link still
+    // records something rather than being silently dropped.
+    const project = location.pathname.match(/\/work\/([^/]+)\//)?.[1] || host;
+
+    try {
+      window.goatcounter?.count?.({
+        path:  `${project}-${action}`,
+        title: `${project}: ${action}`,
+        event: true,
+      });
+    } catch (err) { /* counting must never get in the way of the click */ }
+  });
+})();
