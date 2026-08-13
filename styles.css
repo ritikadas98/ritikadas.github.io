@@ -961,7 +961,13 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   .card-main-grid { gap: 18px; }
   .card h3 { font-size: 20px; }
   .pdeo .row{grid-template-columns:1fr;gap:5px}
-  .card-metric-badge { width: 100%; flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 12px; }
+  .card-metric-badge { width: 100%; min-width: 0; flex-direction: column; align-items: flex-start; gap: 4px; padding: 8px 12px; }
+  /* The label carries flex-basis:100% so it drops onto its own line in the row
+     layout. Once the badge turns into a column that basis becomes a HEIGHT, the
+     label falls back to sizing on its own text, and a sentence that never wraps
+     pushed the badge — and the card with it — 75px wider than the phone. Stretch
+     it across the column instead and let the words wrap. */
+  .card-metric-badge .card-metric-lbl { flex: 0 0 auto; align-self: stretch; margin-top: 2px; }
   .card-metric-num { font-size: 20px; }
   .meta { flex-wrap: wrap; gap: 12px; }
   .meta .cell { min-width: 45%; }
