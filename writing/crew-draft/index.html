@@ -33,15 +33,27 @@
 .fig-card{max-width:430px;margin:36px auto}
 .fig-card img{width:100%;height:auto;display:block;border-radius:12px}
 .fig-card figcaption{font-size:13px;margin-top:10px;text-align:center}
-.dgm{
-  border:1px dashed var(--pill-line,#cfc7ba); border-radius:4px;
-  padding:22px 20px; margin:36px 0; background:var(--panel,transparent);
-}
-.dgm-k{
-  font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.13em;
-  text-transform:uppercase; color:var(--pdeo-label,#8a8178); margin:0 0 9px;
-}
-.dgm p{font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0}
+/* Diagrams. viewBox with no fixed width, so they scale to any screen; every
+   colour comes from a site token, so both themes and the toggle are handled
+   without a second stylesheet. */
+.fig-dgm{max-width:430px;margin:38px auto}
+.fig-dgm svg{width:100%;height:auto;display:block}
+.fig-dgm figcaption{font-size:13px;margin-top:12px;text-align:center;color:var(--faint)}
+.d-cell{fill:none;stroke:var(--hairline);stroke-width:1}
+.d-cell-crew{fill:var(--crew-tint);stroke:var(--crew-line);stroke-width:1.5}
+.d-axis{stroke:var(--hairline-strong);stroke-width:1}
+.d-name{font-family:var(--display);font-size:15px;font-weight:500;fill:var(--ink);text-anchor:middle}
+.d-name-crew{fill:var(--crew-brand)}
+.d-sub{font-family:var(--body);font-size:11px;fill:var(--faint);text-anchor:middle}
+.d-axlbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;fill:var(--muted);text-transform:uppercase}
+.d-box{fill:var(--surface);stroke:var(--hairline);stroke-width:1}
+.d-chip{fill:var(--accent-wash);stroke:var(--hairline);stroke-width:1}
+.d-chip-hard{fill:none;stroke:var(--crew-line);stroke-width:1.5}
+.d-lane{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;fill:var(--ink);text-transform:uppercase}
+.d-desc{font-family:var(--body);font-size:12.5px;fill:var(--ink-2)}
+.d-who{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;fill:var(--faint);text-anchor:end}
+.d-rail{stroke:var(--accent);fill:none}
+.d-flow{stroke:var(--hairline-strong);stroke-width:1;fill:none}
 </style>
 </head>
 <body>
@@ -133,10 +145,38 @@
 <p>To send that airport message you need the flight number, the connection, and both terminals. Every large booking platform holds all of it, for far more travellers, and not one of them has ever sent anyone a message about a gate.</p>
 <p>Three things have to be true at the same time. You need the trip. You need people who will stay with a customer through a day. And you need a relationship that makes spending an hour on one traveller reasonable. A booking platform has the first and cannot afford the second, because a service layer breaks a business built on volume. A travel agent has the second without live data. A general-purpose assistant has neither the trip nor a reason to speak first.</p>
 
-<div class="dgm">
-  <p class="dgm-k">Diagram 1 &mdash; to build</p>
-  <p>Four positions on two axes: holds the trip data, and stays with the customer. A booking platform has the data and no service. A travel agent has the service and no live data. A general assistant has neither. CREW is alone in the corner that has both.</p>
-</div>
+<figure class="fig-dgm">
+<svg viewBox="0 0 380 300" role="img" aria-labelledby="d1t d1d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d1t">Who holds the trip, and who stays with you</title>
+  <desc id="d1d">A two-by-two chart. The horizontal axis is whether a company holds your trip details; the vertical axis is whether it stays with you during the trip. A booking site holds the trip but offers no service. A travel agent stays with you but has no live data. A general AI assistant has neither. CREW occupies the corner that has both, and it is there on its own.</desc>
+
+  <line class="d-axis" x1="46" y1="248" x2="46" y2="14"/>
+  <line class="d-axis" x1="46" y1="248" x2="374" y2="248"/>
+  <path class="d-axis" d="M42 20 L46 12 L50 20" fill="none"/>
+  <path class="d-axis" d="M368 244 L376 248 L368 252" fill="none"/>
+
+  <rect class="d-cell" x="58" y="18" width="152" height="106"/>
+  <rect class="d-cell-crew" x="214" y="18" width="152" height="106"/>
+  <rect class="d-cell" x="58" y="128" width="152" height="106"/>
+  <rect class="d-cell" x="214" y="128" width="152" height="106"/>
+
+  <text class="d-name" x="134" y="66">Travel agent</text>
+  <text class="d-sub"  x="134" y="84">no live data</text>
+
+  <text class="d-name d-name-crew" x="290" y="66">CREW</text>
+  <text class="d-sub"  x="290" y="84">both</text>
+
+  <text class="d-name" x="134" y="176">AI assistant</text>
+  <text class="d-sub"  x="134" y="194">neither</text>
+
+  <text class="d-name" x="290" y="176">Booking site</text>
+  <text class="d-sub"  x="290" y="194">no service</text>
+
+  <text class="d-axlbl" x="212" y="272" text-anchor="middle">holds your trip &#8594;</text>
+  <text class="d-axlbl" x="0" y="0" transform="translate(28,131) rotate(-90)" text-anchor="middle">stays with you &#8594;</text>
+</svg>
+<figcaption>Very few companies are standing in the top right.</figcaption>
+</figure>
 
 <p>That is a real position to hold, and very few companies are standing in it.</p>
 <p>It is also an awkward one, because the thing that makes it work is the same thing that decides how far it can go.</p>
@@ -169,10 +209,52 @@
 <p>Above those sit the ones that change a plan or spend money. The system finds the alternative and writes the message; an assistant reads it and approves. Seconds, rather than an hour.</p>
 <p>Everything else goes to a person who decides.</p>
 
-<div class="dgm">
-  <p class="dgm-k">Diagram 2 &mdash; to build</p>
-  <p>One message splits into its parts, and each part lands in one of three lanes: sent automatically, drafted and approved by an assistant, or handled by an assistant. Lanes labelled, not distinguished by colour alone.</p>
-</div>
+<figure class="fig-dgm">
+<svg viewBox="0 0 360 330" role="img" aria-labelledby="d2t d2d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d2t">How one request gets sorted</title>
+  <desc id="d2d">One request usually contains several questions. Each is sorted into one of three lanes. Most are sent automatically with no person involved: gate changes, delays, tight connections, weather. Some are drafted by the system and approved by a person in seconds: anything that changes a plan or spends money. A few are handled by a person from the start: anything that has failed, and anything nobody has seen before.</desc>
+
+  <rect class="d-box" x="2" y="8" width="356" height="44" rx="8"/>
+  <text class="d-lane" x="180" y="27" text-anchor="middle">One request</text>
+  <text class="d-desc" x="180" y="43" text-anchor="middle">several questions inside one message</text>
+
+  <g>
+    <rect class="d-chip" x="2"   y="64" width="44" height="16" rx="4"/>
+    <rect class="d-chip" x="54"  y="64" width="44" height="16" rx="4"/>
+    <rect class="d-chip" x="106" y="64" width="44" height="16" rx="4"/>
+    <rect class="d-chip" x="158" y="64" width="44" height="16" rx="4"/>
+    <rect class="d-chip" x="210" y="64" width="44" height="16" rx="4"/>
+    <rect class="d-chip" x="262" y="64" width="44" height="16" rx="4"/>
+    <rect class="d-chip-hard" x="314" y="64" width="44" height="16" rx="4"/>
+  </g>
+  <path class="d-flow" d="M180 84 V96"/>
+
+  <g>
+    <line class="d-rail" x1="4" y1="106" x2="4" y2="164" stroke-width="3"/>
+    <text class="d-lane" x="20" y="120">Sent on its own</text>
+    <text class="d-who"  x="356" y="120">no person</text>
+    <text class="d-desc" x="20" y="140">Gate changes, delays, a connection now</text>
+    <text class="d-desc" x="20" y="156">too tight, rain against an outdoor plan.</text>
+  </g>
+
+  <g>
+    <line class="d-rail" x1="4" y1="176" x2="4" y2="234" stroke-width="3" stroke-dasharray="5 4"/>
+    <text class="d-lane" x="20" y="190">Drafted, then approved</text>
+    <text class="d-who"  x="356" y="190">a person approves</text>
+    <text class="d-desc" x="20" y="210">Anything that changes a plan or spends</text>
+    <text class="d-desc" x="20" y="226">money. Seconds, rather than an hour.</text>
+  </g>
+
+  <g>
+    <line class="d-rail" x1="4" y1="246" x2="4" y2="304" stroke-width="7"/>
+    <text class="d-lane" x="20" y="260">Handled by a person</text>
+    <text class="d-who"  x="356" y="260">a person decides</text>
+    <text class="d-desc" x="20" y="280">Anything that has failed, and anything</text>
+    <text class="d-desc" x="20" y="296">nobody has answered before.</text>
+  </g>
+</svg>
+<figcaption>The seventh question is the one that needs a person. Today all seven wait for one.</figcaption>
+</figure>
 
 <p>The second change is smaller and worth more. Requests arrive as one message and get worked as one job. A couple wants a day at a vineyard two hours outside the city &mdash; and inside that sentence are seven questions. Is it open that day. What time. What to wear. Is there lunch. How do they get there. Who books the car. And can they get onto the tasting that is usually full.</p>
 <p>Six of those have answers already. One does not. Today all seven wait for the same person.</p>
