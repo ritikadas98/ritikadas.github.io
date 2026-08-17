@@ -33,27 +33,63 @@
 .fig-card{max-width:430px;margin:36px auto}
 .fig-card img{width:100%;height:auto;display:block;border-radius:12px}
 .fig-card figcaption{font-size:13px;margin-top:10px;text-align:center}
-/* Diagrams. viewBox with no fixed width, so they scale to any screen; every
-   colour comes from a site token, so both themes and the toggle are handled
-   without a second stylesheet. */
-.fig-dgm{max-width:430px;margin:38px auto}
-.fig-dgm svg{width:100%;height:auto;display:block}
-.fig-dgm figcaption{font-size:13px;margin-top:12px;text-align:center;color:var(--faint)}
-.d-cell{fill:none;stroke:var(--hairline);stroke-width:1}
-.d-cell-crew{fill:var(--crew-tint);stroke:var(--crew-line);stroke-width:1.5}
-.d-axis{stroke:var(--hairline-strong);stroke-width:1}
-.d-name{font-family:var(--display);font-size:15px;font-weight:500;fill:var(--ink);text-anchor:middle}
-.d-name-crew{fill:var(--crew-brand)}
-.d-sub{font-family:var(--body);font-size:11px;fill:var(--faint);text-anchor:middle}
-.d-axlbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;fill:var(--muted);text-transform:uppercase}
-.d-box{fill:var(--surface);stroke:var(--hairline);stroke-width:1}
-.d-chip{fill:var(--accent-wash);stroke:var(--hairline);stroke-width:1}
-.d-chip-hard{fill:none;stroke:var(--crew-line);stroke-width:1.5}
-.d-lane{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;fill:var(--ink);text-transform:uppercase}
-.d-desc{font-family:var(--body);font-size:12.5px;fill:var(--ink-2)}
-.d-who{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;fill:var(--faint);text-anchor:end}
-.d-rail{stroke:var(--accent);fill:none}
-.d-flow{stroke:var(--hairline-strong);stroke-width:1;fill:none}
+/* Diagrams. viewBox with no fixed width so they scale to a phone. Colour is
+   scoped here rather than pulled from the article tokens, because these need
+   saturation the reading palette deliberately avoids. Both themes defined. */
+:root{
+  --dg-known:#1F7A66; --dg-known-fill:#D8EFE7; --dg-known-ink:#0E4A3C;
+  --dg-human:#B26A16; --dg-human-fill:#FBEBD4; --dg-human-ink:#7A4408;
+  --dg-quiet:#5A5470; --dg-quiet-fill:#EAE7F2;
+  --dg-crew:#A62B22; --dg-crew-2:#D14A32; --dg-on-crew:#FFF4F1;
+  --dg-line:#B9B0A4;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --dg-known:#4FC7A6; --dg-known-fill:#12332C; --dg-known-ink:#8FE6CC;
+    --dg-human:#E8A94F; --dg-human-fill:#33240F; --dg-human-ink:#F5CE93;
+    --dg-quiet:#A3A0BC; --dg-quiet-fill:#272334;
+    --dg-crew:#E8776A; --dg-crew-2:#F0968A; --dg-on-crew:#2A1512;
+    --dg-line:#5F5570;
+  }
+}
+[data-theme="dark"]{
+  --dg-known:#4FC7A6; --dg-known-fill:#12332C; --dg-known-ink:#8FE6CC;
+  --dg-human:#E8A94F; --dg-human-fill:#33240F; --dg-human-ink:#F5CE93;
+  --dg-quiet:#A3A0BC; --dg-quiet-fill:#272334;
+  --dg-crew:#E8776A; --dg-crew-2:#F0968A; --dg-on-crew:#2A1512;
+  --dg-line:#5F5570;
+}
+.fig-dgm{max-width:460px;margin:42px auto}
+.fig-dgm svg{width:100%;height:auto;display:block;overflow:visible}
+.fig-dgm figcaption{font-size:13px;margin-top:14px;text-align:center;color:var(--faint)}
+
+.d-tile{fill:var(--dg-quiet-fill);stroke:none}
+.d-tile-crew{fill:url(#crewgrad);stroke:none}
+.d-name{font-family:var(--display);font-size:16px;font-weight:600;fill:var(--dg-quiet);text-anchor:middle}
+.d-name-crew{font-size:22px;fill:var(--dg-on-crew)}
+.d-sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;fill:var(--dg-quiet);text-anchor:middle;opacity:.8}
+.d-sub-crew{fill:var(--dg-on-crew);opacity:.85}
+.d-pip-on{fill:var(--dg-quiet)}
+.d-pip-off{fill:none;stroke:var(--dg-quiet);stroke-width:1.4}
+.d-pip-on-crew{fill:var(--dg-on-crew)}
+.d-ax{stroke:var(--dg-line);stroke-width:1.5;fill:none;stroke-linecap:round}
+.d-axlbl{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.11em;fill:var(--muted);text-transform:uppercase}
+
+.d-chip-known{fill:var(--dg-known-fill);stroke:var(--dg-known);stroke-width:1.5}
+.d-chip-human{fill:var(--dg-human);stroke:none}
+.d-chip-tick{stroke:var(--dg-known);stroke-width:1.8;fill:none;stroke-linecap:round}
+.d-chip-q{font-family:var(--display);font-size:13px;font-weight:700;fill:var(--dg-human-fill);text-anchor:middle}
+.d-blk-known{fill:var(--dg-known);stroke:none}
+.d-blk-human{fill:var(--dg-human);stroke:none}
+.d-blk-t{font-family:var(--display);font-size:13.5px;font-weight:600;text-anchor:middle}
+.d-blk-n{font-family:var(--mono);font-size:20px;font-weight:500;text-anchor:middle}
+.on-known{fill:var(--dg-known-fill)}
+.on-human{fill:var(--dg-human-fill)}
+.d-flow-known{stroke:var(--dg-known);fill:none;stroke-linecap:round}
+.d-flow-human{stroke:var(--dg-human);fill:none;stroke-linecap:round}
+.d-loop{stroke:var(--dg-crew);stroke-width:1.6;fill:none;stroke-dasharray:5 4;stroke-linecap:round}
+.d-loop-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;fill:var(--dg-crew);text-anchor:middle;text-transform:uppercase}
+.d-cap{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;fill:var(--muted);text-transform:uppercase;text-anchor:middle}
 </style>
 </head>
 <body>
@@ -148,34 +184,50 @@
 <figure class="fig-dgm">
 <svg viewBox="0 0 380 300" role="img" aria-labelledby="d1t d1d" xmlns="http://www.w3.org/2000/svg">
   <title id="d1t">Who holds the trip, and who stays with you</title>
-  <desc id="d1d">A two-by-two chart. The horizontal axis is whether a company holds your trip details; the vertical axis is whether it stays with you during the trip. A booking site holds the trip but offers no service. A travel agent stays with you but has no live data. A general AI assistant has neither. CREW occupies the corner that has both, and it is there on its own.</desc>
+  <desc id="d1d">A two-by-two chart. Across: whether a company holds your trip details. Up: whether it stays with you during the trip. A booking site holds the trip but offers no service. A travel agent stays with you but has no live data. A general AI assistant has neither. CREW is alone in the corner that has both, and is drawn larger and in full colour to show it.</desc>
+  <defs>
+    <linearGradient id="crewgrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="var(--dg-crew-2)"/>
+      <stop offset="100%" stop-color="var(--dg-crew)"/>
+    </linearGradient>
+    <filter id="pop" x="-30%" y="-30%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="var(--dg-crew)" flood-opacity="0.34"/>
+    </filter>
+  </defs>
 
-  <line class="d-axis" x1="46" y1="248" x2="46" y2="14"/>
-  <line class="d-axis" x1="46" y1="248" x2="374" y2="248"/>
-  <path class="d-axis" d="M42 20 L46 12 L50 20" fill="none"/>
-  <path class="d-axis" d="M368 244 L376 248 L368 252" fill="none"/>
+  <path class="d-ax" d="M34 252 V16 M28 24 L34 13 L40 24"/>
+  <path class="d-ax" d="M44 264 H372 M364 258 L375 264 L364 270"/>
 
-  <rect class="d-cell" x="58" y="18" width="152" height="106"/>
-  <rect class="d-cell-crew" x="214" y="18" width="152" height="106"/>
-  <rect class="d-cell" x="58" y="128" width="152" height="106"/>
-  <rect class="d-cell" x="214" y="128" width="152" height="106"/>
+  <rect class="d-tile" x="48" y="16" width="158" height="112" rx="12"/>
+  <text class="d-name" x="127" y="62">Travel agent</text>
+  <text class="d-sub"  x="127" y="80">no live data</text>
+  <circle class="d-pip-off" cx="117" cy="100" r="4.5"/>
+  <circle class="d-pip-on"  cx="137" cy="100" r="4.5"/>
 
-  <text class="d-name" x="134" y="66">Travel agent</text>
-  <text class="d-sub"  x="134" y="84">no live data</text>
+  <rect class="d-tile" x="48" y="140" width="158" height="112" rx="12"/>
+  <text class="d-name" x="127" y="186">AI assistant</text>
+  <text class="d-sub"  x="127" y="204">neither</text>
+  <circle class="d-pip-off" cx="117" cy="224" r="4.5"/>
+  <circle class="d-pip-off" cx="137" cy="224" r="4.5"/>
 
-  <text class="d-name d-name-crew" x="290" y="66">CREW</text>
-  <text class="d-sub"  x="290" y="84">both</text>
+  <rect class="d-tile" x="218" y="140" width="158" height="112" rx="12"/>
+  <text class="d-name" x="297" y="186">Booking site</text>
+  <text class="d-sub"  x="297" y="204">no service</text>
+  <circle class="d-pip-on"  cx="287" cy="224" r="4.5"/>
+  <circle class="d-pip-off" cx="307" cy="224" r="4.5"/>
 
-  <text class="d-name" x="134" y="176">AI assistant</text>
-  <text class="d-sub"  x="134" y="194">neither</text>
+  <g filter="url(#pop)">
+    <rect class="d-tile-crew" x="212" y="8" width="170" height="128" rx="14"/>
+  </g>
+  <text class="d-name d-name-crew" x="297" y="66">CREW</text>
+  <text class="d-sub d-sub-crew"  x="297" y="88">holds it &#183; stays with you</text>
+  <circle class="d-pip-on-crew" cx="287" cy="110" r="4.5"/>
+  <circle class="d-pip-on-crew" cx="307" cy="110" r="4.5"/>
 
-  <text class="d-name" x="290" y="176">Booking site</text>
-  <text class="d-sub"  x="290" y="194">no service</text>
-
-  <text class="d-axlbl" x="212" y="272" text-anchor="middle">holds your trip &#8594;</text>
-  <text class="d-axlbl" x="0" y="0" transform="translate(28,131) rotate(-90)" text-anchor="middle">stays with you &#8594;</text>
+  <text class="d-axlbl" x="208" y="288" text-anchor="middle">holds your trip &#8594;</text>
+  <text class="d-axlbl" x="0" y="0" transform="translate(18,134) rotate(-90)" text-anchor="middle">stays with you &#8594;</text>
 </svg>
-<figcaption>Very few companies are standing in the top right.</figcaption>
+<figcaption>Filled dots are what a company has. Only one corner has both.</figcaption>
 </figure>
 
 <p>That is a real position to hold, and very few companies are standing in it.</p>
@@ -210,50 +262,57 @@
 <p>Everything else goes to a person who decides.</p>
 
 <figure class="fig-dgm">
-<svg viewBox="0 0 360 330" role="img" aria-labelledby="d2t d2d" xmlns="http://www.w3.org/2000/svg">
-  <title id="d2t">How one request gets sorted</title>
-  <desc id="d2d">One request usually contains several questions. Each is sorted into one of three lanes. Most are sent automatically with no person involved: gate changes, delays, tight connections, weather. Some are drafted by the system and approved by a person in seconds: anything that changes a plan or spends money. A few are handled by a person from the start: anything that has failed, and anything nobody has seen before.</desc>
+<svg viewBox="0 0 360 244" role="img" aria-labelledby="d2t d2d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d2t">The seventh question</title>
+  <desc id="d2d">One request holds seven questions. Six of them already have answers, so they can be answered without a person. The seventh does not, and a person works it out. Once that answer is written down against the place it belongs to, it becomes one of the six for every customer after.</desc>
+  <defs>
+    <marker id="ak" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--dg-known)"/>
+    </marker>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--dg-human)"/>
+    </marker>
+    <marker id="al" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--dg-crew)"/>
+    </marker>
+  </defs>
 
-  <rect class="d-box" x="2" y="8" width="356" height="44" rx="8"/>
-  <text class="d-lane" x="180" y="27" text-anchor="middle">One request</text>
-  <text class="d-desc" x="180" y="43" text-anchor="middle">several questions inside one message</text>
-
-  <g>
-    <rect class="d-chip" x="2"   y="64" width="44" height="16" rx="4"/>
-    <rect class="d-chip" x="54"  y="64" width="44" height="16" rx="4"/>
-    <rect class="d-chip" x="106" y="64" width="44" height="16" rx="4"/>
-    <rect class="d-chip" x="158" y="64" width="44" height="16" rx="4"/>
-    <rect class="d-chip" x="210" y="64" width="44" height="16" rx="4"/>
-    <rect class="d-chip" x="262" y="64" width="44" height="16" rx="4"/>
-    <rect class="d-chip-hard" x="314" y="64" width="44" height="16" rx="4"/>
-  </g>
-  <path class="d-flow" d="M180 84 V96"/>
+  <text class="d-cap" x="180" y="12">one request &#183; seven questions</text>
 
   <g>
-    <line class="d-rail" x1="4" y1="106" x2="4" y2="164" stroke-width="3"/>
-    <text class="d-lane" x="20" y="120">Sent on its own</text>
-    <text class="d-who"  x="356" y="120">no person</text>
-    <text class="d-desc" x="20" y="140">Gate changes, delays, a connection now</text>
-    <text class="d-desc" x="20" y="156">too tight, rain against an outdoor plan.</text>
+    <rect class="d-chip-known" x="2"   y="22" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M18 35 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="54"  y="22" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M70 35 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="106" y="22" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M122 35 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="158" y="22" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M174 35 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="210" y="22" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M226 35 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="262" y="22" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M278 35 l4 4 l8 -9"/>
+    <rect class="d-chip-human" x="314" y="22" width="44" height="26" rx="7"/>
+    <text class="d-chip-q" x="336" y="41">?</text>
   </g>
 
-  <g>
-    <line class="d-rail" x1="4" y1="176" x2="4" y2="234" stroke-width="3" stroke-dasharray="5 4"/>
-    <text class="d-lane" x="20" y="190">Drafted, then approved</text>
-    <text class="d-who"  x="356" y="190">a person approves</text>
-    <text class="d-desc" x="20" y="210">Anything that changes a plan or spends</text>
-    <text class="d-desc" x="20" y="226">money. Seconds, rather than an hour.</text>
-  </g>
+  <path class="d-flow-known" d="M154 54 C154 74 109 74 109 88" stroke-width="7" marker-end="url(#ak)"/>
+  <path class="d-flow-human" d="M336 54 C336 74 293 74 293 88" stroke-width="2.5" marker-end="url(#ah)"/>
 
-  <g>
-    <line class="d-rail" x1="4" y1="246" x2="4" y2="304" stroke-width="7"/>
-    <text class="d-lane" x="20" y="260">Handled by a person</text>
-    <text class="d-who"  x="356" y="260">a person decides</text>
-    <text class="d-desc" x="20" y="280">Anything that has failed, and anything</text>
-    <text class="d-desc" x="20" y="296">nobody has answered before.</text>
-  </g>
+  <rect class="d-blk-known" x="2"   y="96" width="214" height="72" rx="12"/>
+  <text class="d-blk-n on-known" x="109" y="126">6</text>
+  <text class="d-blk-t on-known" x="109" y="146">answered from what</text>
+  <text class="d-blk-t on-known" x="109" y="161">is already known</text>
+
+  <rect class="d-blk-human" x="228" y="96" width="130" height="72" rx="12"/>
+  <text class="d-blk-n on-human" x="293" y="126">1</text>
+  <text class="d-blk-t on-human" x="293" y="146">a person</text>
+  <text class="d-blk-t on-human" x="293" y="161">works it out</text>
+
+  <path class="d-loop" d="M293 176 V192 Q293 200 285 200 H117 Q109 200 109 192 V182" marker-end="url(#al)"/>
+  <text class="d-loop-lbl" x="180" y="228">written down &#183; one of the six next time</text>
 </svg>
-<figcaption>The seventh question is the one that needs a person. Today all seven wait for one.</figcaption>
+<figcaption>The seventh is the only one that needs a person &mdash; and only once.</figcaption>
 </figure>
 
 <p>The second change is smaller and worth more. Requests arrive as one message and get worked as one job. A couple wants a day at a vineyard two hours outside the city &mdash; and inside that sentence are seven questions. Is it open that day. What time. What to wear. Is there lunch. How do they get there. Who books the car. And can they get onto the tasting that is usually full.</p>
