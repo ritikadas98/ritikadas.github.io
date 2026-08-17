@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>One Trip at a Time &mdash; draft &mdash; Ritika Das</title>
+<meta name="description" content="Working draft. A product case study on CREW, Swiggy&#x27;s travel concierge.">
+<!-- UNLISTED DRAFT. Not in sitemap.xml, not linked from /writing/, not indexed.
+     The live piece stays at /writing/crew/ until this replaces it. -->
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=20260813b">
+<script>
+(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<style>
+/* Scoped to this draft only — nothing here touches the shared stylesheet, so the
+   live CREW page is unaffected. Remove when this is promoted. */
+.draft-flag{
+  background:var(--pill-line,#d8d2c8); color:var(--ink);
+  font-family:var(--mono); font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+  text-align:center; padding:9px 16px; line-height:1.5;
+}
+/* The marketing cards are portrait but not phone-shaped. Full measure is too wide
+   for a chat bubble; this keeps them readable and centred. */
+.fig-card{max-width:430px;margin:36px auto}
+.fig-card img{width:100%;height:auto;display:block;border-radius:12px}
+.fig-card figcaption{font-size:13px;margin-top:10px;text-align:center}
+.dgm{
+  border:1px dashed var(--pill-line,#cfc7ba); border-radius:4px;
+  padding:22px 20px; margin:36px 0; background:var(--panel,transparent);
+}
+.dgm-k{
+  font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--pdeo-label,#8a8178); margin:0 0 9px;
+}
+.dgm p{font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#article">Skip to content</a>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="../../" class="brand" aria-label="Ritika Das &mdash; home"><span class="brand-mark" aria-hidden="true"></span></a>
+    <div class="nav-links">
+      <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
+        <span id="theme-icon">&#127769;</span> <span id="theme-text">Dark</span>
+      </button>
+      <a href="../../#about">About</a>
+      <a href="../../#work">Shipped Products</a>
+      <a href="../../#cases">Product Thinking</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#contact" class="nav-cta">Contact</a>
+      <button type="button" class="nav-toggle" id="nav-toggle"
+              aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nav-menu" id="nav-menu">
+    <div class="nm-in">
+      <a href="../../#about">About</a>
+      <a href="../../#work">Shipped Products</a>
+      <a href="../../#cases">Product Thinking</a>
+      <a href="../../#experience">Experience</a>
+      <a href="../../#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<p class="draft-flag">Draft 2 &middot; unlisted and not indexed &middot; the published piece is still at /writing/crew/</p>
+
+<main id="main">
+
+<article id="article" tabindex="-1">
+  <header class="art-head">
+    <div class="art-wrap">
+      <a href="../" class="art-back">&larr; All writing</a>
+      <h1 class="art-title">One trip at a time</h1>
+      <p class="art-sub">A product case study on CREW, Swiggy's travel concierge.</p>
+      <figure class="fig-phone art-hero">
+        <img src="../crew/images/crew-hero.jpg?v=2" alt="CREW's opening screen: the wordmark inside an aircraft window, above &ldquo;Welcome to Crew, your travel concierge&rdquo; and a Begin the Journey button." width="1080" height="1590" decoding="async" />
+      </figure>
+      <div class="art-meta">
+        <div class="am-cell"><div class="am-k">Role</div><div class="am-v">Product analysis</div></div>
+        <div class="am-cell"><div class="am-k">Type</div><div class="am-v">Product case study</div></div>
+        <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Public pages, the launch, my own use</div></div>
+      </div>
+      <div class="art-summary">
+        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">The best thing CREW does is made by hand, one trip at a time, which is what decides how far it can travel.</div></div>
+        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Move the making of it into the product, so a trip assistant is spent only where a person is genuinely needed.</div></div>
+        <div class="as-cell"><div class="as-k">Evidence</div><div class="as-v">CREW&rsquo;s own product pages, this week&rsquo;s launch, the app itself, and public App Store and Play Store reviews.</div></div>
+        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">The share of trips where the customer never had to hold on &mdash; and the test that would prove me wrong.</div></div>
+      </div>
+    </div>
+  </header>
+  <div class="art-wrap">
+    <div class="art-body">
+
+<h2>CREW speaks first</h2>
+<p>You have fifty-five minutes to make a connection, in an airport you have never been to, and your next flight leaves from a different terminal.</p>
+<p>You did not have to find that out. You were told before you landed, along with which train to take and how long it runs.</p>
+
+<figure class="fig-card">
+  <img src="../crew/images/crew-07-airport.jpg" alt="A CREW card headed &ldquo;Maps the airport before you even land.&rdquo; CREW writes: You land in T1 but your next flight is from T2 in 55 mins. Take the inter-terminal train (8 mins) to Gate D. The traveller replies: Thanks! Where can i grab a coffee before i board? CREW answers: Luckin coffee is right outside Gate D, try out the coconut Latte!" width="900" height="1306" loading="lazy" decoding="async" />
+  <figcaption>From CREW's product pages. In half the exchanges shown there, CREW speaks before the customer does.</figcaption>
+</figure>
+
+<p>Nobody asked for that.</p>
+<p>Any travel app can sell you the flight. Almost none will tell you about a terminal you have not reached yet &mdash; and the reason is not that the others never thought of it.</p>
+
+<h2>The customer who never asks the price</h2>
+<p>Read those exchanges for what is missing. Nobody asks the price. Nobody asks for a cheaper option, a second choice, or a comparison. A recommendation arrives and the answer is <em>book it</em> &mdash; the table at seven, the gallery slot at eleven, the spa at six. The decision is handed over, and then it is not checked.</p>
+<p>Wealth is only half of that. The other half is someone who has decided that choosing is the expensive part.</p>
+
+<figure class="fig-card">
+  <img src="../crew/images/crew-09-price-contrast.jpg" alt="A CREW page headed &ldquo;Ignore online rates, get Crew exclusive prices,&rdquo; showing the Cinnamon Velifushi in the Maldives. Crew exclusive rate starts from &#8377;36,000. Below it: Other platforms are at &#8377;42,900+." width="900" height="1436" loading="lazy" decoding="async" />
+  <figcaption>Two accurate descriptions of the same service, arriving from opposite directions.</figcaption>
+</figure>
+
+<p>Which is what makes the entrance worth a look. <em>Ignore online rates</em>, it says, and then sets its own against them &mdash; one of four price arguments the app makes before it asks for &#8377;999. A comparison is an invitation to check, and checking is the habit that everything further in is built to remove.</p>
+
+<h2>The part a competitor cannot buy</h2>
+<p>The reason is not the data.</p>
+<p>To send that airport message you need the flight number, the connection, and both terminals. Every large booking platform holds all of it, for far more travellers, and not one of them has ever sent anyone a message about a gate.</p>
+<p>Three things have to be true at the same time. You need the trip. You need people who will stay with a customer through a day. And you need a relationship that makes spending an hour on one traveller reasonable. A booking platform has the first and cannot afford the second, because a service layer breaks a business built on volume. A travel agent has the second without live data. A general-purpose assistant has neither the trip nor a reason to speak first.</p>
+
+<div class="dgm">
+  <p class="dgm-k">Diagram 1 &mdash; to build</p>
+  <p>Four positions on two axes: holds the trip data, and stays with the customer. A booking platform has the data and no service. A travel agent has the service and no live data. A general assistant has neither. CREW is alone in the corner that has both.</p>
+</div>
+
+<p>That is a real position to hold, and very few companies are standing in it.</p>
+<p>It is also an awkward one, because the thing that makes it work is the same thing that decides how far it can go.</p>
+
+<h2>Expertise does not travel with you</h2>
+<p>Someone who knows Bombay street by street lands in Lisbon knowing nothing. A traveller on their twentieth European trip still has not done the paperwork for this particular country. Competence is local, and it does not come in the suitcase.</p>
+<p>That is the situation this service is for, and almost everyone is in it eventually. You are capable everywhere except here, for the next nine days.</p>
+<p>It is worth most where the ground is new and the stakes are high &mdash; a first long-haul trip, a holiday that took a year to arrange, a honeymoon that only happens once. Someone on their thirtieth flight through the same airport already knows where the lounge is. Someone landing somewhere they have never seen does not, and would rather not work it out at the gate.</p>
+
+<h2>CREW has just built the trip</h2>
+<p>Until this week the app held stays, flights, visa, cabs and forex, and each one was its own request. You looked for hotels in one place and flights in another. Nothing held a trip together.</p>
+<p>Yesterday that changed. CREW now plans the whole thing &mdash; the flight out, the flight home, a day-by-day itinerary, and stays chosen against it.</p>
+
+<figure class="fig-card">
+  <img src="../crew/images/crew-10-weather.jpg" alt="A CREW card headed &ldquo;Rewrites your day before the weather does.&rdquo; CREW writes: High chance of rain in London, not great for Parks. Can swap it for Tate Modern - free entry, great art. The traveller replies: Thanks, can you book us a slot for the morning then? CREW answers: Done, booked you a slot at 11am to avoid the crowd. Best way to see art without the rush." width="900" height="1306" loading="lazy" decoding="async" />
+  <figcaption>A message that is only possible if the plan exists somewhere as a record.</figcaption>
+</figure>
+
+<p>You cannot move someone's Tuesday afternoon unless you know what was in their Tuesday afternoon. Until yesterday, nothing in the app held one.</p>
+<p>So the foundation is built. What sits on top of it is still made by a person, one trip at a time, and only for the customers who ask.</p>
+
+<h2>The better it plans, the bigger the first leap</h2>
+<p>Anything made by hand has to be rationed, and CREW rations it sensibly. It arrives alongside a booking large enough to justify the hours.</p>
+<p>Which puts the best evidence of what CREW is worth on the far side of the decision it should be changing. You find out whether you can hand over a trip by handing over a trip.</p>
+<p>The launch raises that stake. CREW can now take all of it &mdash; both flights, the itinerary, the hotels. The better the planning gets, the larger the leap.</p>
+
+<h2>Two layers left</h2>
+<p>The aim is not fewer trip assistants. It is to spend them only where a person is genuinely needed.</p>
+<p>Most of the messages are not judgement calls. A gate change. A delay. A connection now too tight. Rain against an outdoor afternoon. Each of those is structured data checked against a plan the app now holds, and each can go out without anyone touching it.</p>
+<p>Above those sit the ones that change a plan or spend money. The system finds the alternative and writes the message; an assistant reads it and approves. Seconds, rather than an hour.</p>
+<p>Everything else goes to a person who decides.</p>
+
+<div class="dgm">
+  <p class="dgm-k">Diagram 2 &mdash; to build</p>
+  <p>One message splits into its parts, and each part lands in one of three lanes: sent automatically, drafted and approved by an assistant, or handled by an assistant. Lanes labelled, not distinguished by colour alone.</p>
+</div>
+
+<p>The second change is smaller and worth more. Requests arrive as one message and get worked as one job. A couple wants a day at a vineyard two hours outside the city &mdash; and inside that sentence are seven questions. Is it open that day. What time. What to wear. Is there lunch. How do they get there. Who books the car. And can they get onto the tasting that is usually full.</p>
+<p>Six of those have answers already. One does not. Today all seven wait for the same person.</p>
+<p>Then the third, and it is the one that compounds. When an assistant solves the question that had no answer &mdash; that the tasting is only held on Saturdays, booked by phone, through one person, two days ahead &mdash; that fact exists nowhere else. It was learned on a call.</p>
+<p>Written down against that vineyard, the next thousand customers get it in a second. The booking was never the output. The output was a fact nobody had recorded.</p>
+<p>Some of this stays human permanently.</p>
+
+<figure class="fig-card">
+  <img src="../crew/images/crew-08-villa.jpg" alt="A CREW card headed &ldquo;Your insider wherever you go.&rdquo; The traveller asks: Can you arrange for a masseuse at my Villa in Goa? CREW answers: Of Course! Here are the packages, they can come anytime after 3PM. The traveller replies: Amazing! Book the full body spa for me and my wife for 6PM." width="900" height="1306" loading="lazy" decoding="async" />
+  <figcaption>The other half of the same set, and the half no software arranges.</figcaption>
+</figure>
+
+<p>A masseuse at a villa in Goa is not an API. Neither is a supplier who will not answer the phone. And nobody has automated being the person who is answerable once something has already gone wrong.</p>
+
+<h2>Where it goes</h2>
+<p>CREW is hard to find on purpose. It is not a tile inside the Swiggy app the way Instamart and Dineout are, because it was never meant to be for everyone.</p>
+<p>But Swiggy already runs an invitation. One BLCK costs &#8377;299 for three months, goes out by invite, and already carries a travel benefit.</p>
+<p>So the group is chosen and the category is settled. One BLCK can be the way in, and it can carry the first journey &mdash; one accompanied trip for a member who has already been invited. Nothing is discounted and nothing is given away. An invited member simply gets to feel the service once before committing a whole holiday to it. CREW already accepts flight details for flights booked elsewhere, so the mechanism exists. Only the requirement has to move.</p>
+
+<h2>How you would know it worked</h2>
+<p>One number restates the whole argument: the share of trips where the customer never had to hold on. Never checked a confirmation, never chased a reply, never queried a bill that was supposed to be settled. Call it the let-go rate.</p>
+<p>It needs a second beside it, because the first can be bought with headcount. Human minutes per trip. If the let-go rate climbs while minutes fall, this is working. If it climbs while minutes hold flat, CREW has bought quality it cannot afford to keep.</p>
+<p>And the test that would prove me wrong. Compare the members who lean on the service against the ones who only book and handle the rest themselves. If both come back at the same rate, the accompaniment was never the advantage, and the honest move is to unbundle it.</p>
+
+<h2>A note on method</h2>
+<p>This is built on CREW's public pages and this week's launch materials, my own use of the app, and public App Store and Play Store reviews. Reviews are a self-selected sample: directional, not representative. The vineyard request above is an illustration, not a reported case.</p>
+<p>Disclosure: I have worked on part of this product. Everything here comes from material CREW has published or from using the app as a customer.</p>
+
+    </div>
+  </div>
+</article>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Ritika Das &mdash; 2026</span>
+    <span>ritikadas.in</span>
+  </div>
+</footer>
+
+<script src="../../script.js?v=20260813b" defer></script>
+</body>
+</html>
