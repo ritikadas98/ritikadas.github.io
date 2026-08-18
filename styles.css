@@ -77,7 +77,11 @@ body{
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
-  overflow-x:hidden;
+  /* clip, not hidden: `hidden` makes the body a scroll container, which
+     silently disables position:sticky for everything inside it — that is what
+     the case-study cascade depends on. `clip` contains the overflow without
+     creating the container. */
+  overflow-x:clip;
 }
 
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
@@ -1009,6 +1013,12 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   padding:6px 11px 5px;border-radius:5px;white-space:nowrap;position:relative;top:-2px}
 .art-badge::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
   background:var(--paper);opacity:.7;margin-right:7px;vertical-align:middle;position:relative;top:-1px}
+/* Card type marker. Same solid block as the article badge, sized for a card —
+   it is the one thing on a card that says what kind of thing this is, so it
+   leads the tag row and does not share the brand colour with the topic tag. */
+.tag-type{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;background:var(--accent);color:var(--paper);
+  padding:5px 9px 4px;border-radius:4px;line-height:1;white-space:nowrap}
 h1.art-title{font-family:var(--display);font-weight:500;font-size:clamp(28px,3.9vw,46px);line-height:1.08;letter-spacing:-.03em;max-width:none;margin:0}
 .art-sub{margin-top:18px;font-size:clamp(16px,1.5vw,19px);line-height:1.55;color:var(--muted);max-width:52ch}
 /* The meta strip sits under the hero, not above it, so the reader meets the piece
@@ -1320,3 +1330,84 @@ dialog.lightbox::backdrop{background:rgba(18,16,20,.96);backdrop-filter:blur(4px
   line-height:1.5;
   color:var(--faint);
 }
+
+/* ============================================================
+   CASCADE — case study cards stack instead of scrolling past
+   ============================================================
+   Case studies drop to one column at every width. Two reasons: a full-width
+   card is far more visible than a third-width one, which was the thing
+   reviewers said they could not find; and a single column is the only layout
+   a sticky stack works in. Products stay a three-up grid, so the two sections
+   read as different kinds of thing.
+
+   Each card pins a little lower than the one before, so the covered cards
+   leave a visible edge and you can see the stack building. The next card
+   rises over the last rather than the page sliding past — which is the whole
+   point: the work arrives at the reader instead of the reader travelling to
+   it. */
+#cases .work-grid{grid-template-columns:1fr;gap:0}
+#cases .work-card{
+  position:sticky;
+  top:calc(var(--nav-h) + 14px);
+  background:var(--surface-2);
+  box-shadow:var(--shadow);
+  margin-bottom:26px;
+}
+#cases .work-card:nth-of-type(2){top:calc(var(--nav-h) + 26px)}
+#cases .work-card:nth-of-type(3){top:calc(var(--nav-h) + 38px)}
+#cases .work-card:last-child{margin-bottom:0}
+/* A wide card can afford the art beside the copy again. */
+@media(min-width:820px){
+  #cases .work-card{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:26px;align-items:start;padding:24px}
+  #cases .work-card .card-art{aspect-ratio:1/1;margin-bottom:0}
+}
+@media(max-width:640px){
+  #cases .work-card{top:calc(var(--nav-h) + 8px);margin-bottom:18px}
+  #cases .work-card:nth-of-type(2){top:calc(var(--nav-h) + 16px)}
+  #cases .work-card:nth-of-type(3){top:calc(var(--nav-h) + 24px)}
+}
+/* A stack you cannot see past is worse than no stack, so anyone who has asked
+   for less motion gets plain flow. Same for a short viewport, where a pinned
+   card would cover the screen with no room to read the next. */
+@media (prefers-reduced-motion:reduce),(max-height:560px){
+  #cases .work-card{position:static;box-shadow:none}
+}
+
+/* ============================================================
+   FIRST-PAINT SEQUENCE
+   ============================================================ */
+/* 1 — the headline arrives a word at a time, each rising from behind its own
+   edge. Words are wrapped by script.js so the effect survives any line break
+   at any width. */
+.wm{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
+.wi{display:inline-block;transform:translateY(112%);animation:word-rise .72s cubic-bezier(.19,1,.22,1) forwards;animation-play-state:paused}
+html.lit .wi{animation-play-state:running}
+@keyframes word-rise{to{transform:none}}
+
+/* 2 — the signature writes itself left to right. clip-path rather than a mask
+   trick, because the mark is already painted through a mask and two masks
+   cannot be composited reliably across engines. */
+/* The hidden state lives in the keyframe, not on the element: if .lit never
+   arrives because a script failed, the signature is simply visible rather
+   than clipped to nothing. */
+html.lit .brand-mark{animation:sig-draw 1.05s cubic-bezier(.5,0,.2,1) .1s both}
+@keyframes sig-draw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+
+/* 3 — the marquee starts still and eases up to speed, so nothing is already
+   moving when the page appears. */
+.hm-track{animation-play-state:paused}
+html.lit .hm-track{animation-play-state:running}
+.hero-marquee{opacity:0;transition:opacity .8s ease 1.1s}
+html.lit .hero-marquee{opacity:1}
+
+@media (prefers-reduced-motion:reduce){
+  .wi{transform:none;animation:none}
+  .brand-mark,html.lit .brand-mark{clip-path:none;animation:none}
+  .hero-marquee{opacity:1;transition:none}
+  .hm-track{animation-play-state:running}
+}
+
+/* Lenis drives the scroll position itself; the CSS smooth-scroll fights it. */
+html.lenis-on{scroll-behavior:auto}
+html.lenis-on,html.lenis-on body{height:auto}
+.lenis.lenis-stopped{overflow:hidden}

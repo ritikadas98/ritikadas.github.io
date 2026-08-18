@@ -709,3 +709,78 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
     } catch (err) { /* counting must never get in the way of the click */ }
   });
 })();
+
+/* ── FIRST PAINT: word-by-word headline, then the marquee ──────────────────
+   The heading is split here rather than in the HTML so the markup stays one
+   readable sentence and the effect survives whatever line breaks a given
+   width produces. Each word gets a clipping wrapper and rises from behind it,
+   40ms apart. */
+(function () {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const h = document.querySelector('h1.hero');
+
+  if (h && !reduce) {
+    const text = h.textContent.trim();
+    h.textContent = '';
+    text.split(/\s+/).forEach((word, i) => {
+      const mask = document.createElement('span');
+      mask.className = 'wm';
+      const inner = document.createElement('span');
+      inner.className = 'wi';
+      inner.textContent = word;
+      inner.style.animationDelay = (0.18 + i * 0.04).toFixed(2) + 's';
+      mask.appendChild(inner);
+      h.appendChild(mask);
+      h.appendChild(document.createTextNode(' '));
+    });
+    /* One label for the whole line — a screen reader should hear the sentence,
+       not thirty separate words. */
+    h.setAttribute('aria-label', text);
+  }
+
+  /* `lit` releases the marquee and the signature. Held until the preloader is
+     out of the way so the sequence is not playing behind a curtain. */
+  const light = () => document.documentElement.classList.add('lit');
+  const pre = document.getElementById('preloader');
+  if (!pre || reduce) { light(); return; }
+  const watch = new MutationObserver(() => {
+    if (pre.classList.contains('done')) { light(); watch.disconnect(); }
+  });
+  watch.observe(pre, { attributes: true, attributeFilter: ['class'] });
+  setTimeout(light, 2400);   /* never wait past the preloader's own ceiling */
+})();
+
+/* ── SMOOTH SCROLL ─────────────────────────────────────────────────────────
+   Lenis eases the scroll position instead of letting it jump per wheel notch.
+   Desktop only by design: touch scrolling is already smooth and momentum-
+   correct on a phone, and overriding it there makes the page feel slower than
+   the OS, not better. */
+(function () {
+  if (!window.Lenis) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (matchMedia('(hover: none)').matches) return;
+
+  document.documentElement.classList.add('lenis-on');
+  const lenis = new Lenis({
+    duration: 0.85,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    wheelMultiplier: 0.9,
+  });
+  (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
+
+  /* In-page links have to go through Lenis, or the browser jumps while Lenis
+     is mid-ease and the two fight over the scroll position. */
+  const navH = () =>
+    parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 73;
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      if (!id || id.length < 2) return;
+      const el = document.querySelector(id);
+      if (!el) return;
+      e.preventDefault();
+      lenis.scrollTo(el, { offset: -(navH() + 8) });
+    });
+  });
+})();
