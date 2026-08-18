@@ -33,3 +33,6 @@ Ritika_Das_Resume.pdf
 
 # Local editor/agent settings, not part of the site.
 .claude/
+
+# Scratch output from local page-audit scripts. Not part of the site.
+result.txt
