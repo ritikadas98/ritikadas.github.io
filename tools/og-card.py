@@ -144,11 +144,10 @@ ARTICLES = {
         "subject": {"kind": "browser", "src": "work/amazon/images/amazon-square-src.jpg"},
     },
     "crew": {
-        "kicker": "Product teardown",
-        "title": "Handing Over Is the Hard Part",
-        "hook": "A concierge sells one thing: the freedom to stop thinking about "
-                "something. CREW’s own reviewers say they check its bookings "
-                "and plan the trip themselves anyway.",
+        "kicker": "Product case study",
+        "title": "One Trip at a Time",
+        "hook": "CREW’s best work is a person travelling with you — and those "
+                "people are the hardest thing it has to hire.",
         # No quote: the field is the product plate — mark, device, name — not a
         # second place to restate the argument the hook already makes.
         "byline": "CREW · Swiggy’s travel concierge",
