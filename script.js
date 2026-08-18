@@ -710,34 +710,11 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
   });
 })();
 
-/* ── FIRST PAINT: word-by-word headline, then the marquee ──────────────────
-   The heading is split here rather than in the HTML so the markup stays one
-   readable sentence and the effect survives whatever line breaks a given
-   width produces. Each word gets a clipping wrapper and rises from behind it,
-   40ms apart. */
+/* ── FIRST PAINT ───────────────────────────────────────────────────────────
+   Releases the signature draw and the marquee once the preloader is out of
+   the way, so neither plays behind the curtain. */
 (function () {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const h = document.querySelector('h1.hero');
-
-  if (h && !reduce) {
-    const text = h.textContent.trim();
-    h.textContent = '';
-    text.split(/\s+/).forEach((word, i) => {
-      const mask = document.createElement('span');
-      mask.className = 'wm';
-      const inner = document.createElement('span');
-      inner.className = 'wi';
-      inner.textContent = word;
-      inner.style.animationDelay = (0.18 + i * 0.04).toFixed(2) + 's';
-      mask.appendChild(inner);
-      h.appendChild(mask);
-      h.appendChild(document.createTextNode(' '));
-    });
-    /* One label for the whole line — a screen reader should hear the sentence,
-       not thirty separate words. */
-    h.setAttribute('aria-label', text);
-  }
-
   /* `lit` releases the marquee and the signature. Held until the preloader is
      out of the way so the sequence is not playing behind a curtain. */
   const light = () => document.documentElement.classList.add('lit');

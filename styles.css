@@ -1335,24 +1335,20 @@ dialog.lightbox::backdrop{background:rgba(18,16,20,.96);backdrop-filter:blur(4px
 /* ============================================================
    FIRST-PAINT SEQUENCE
    ============================================================ */
-/* 1 — the headline arrives a word at a time, each rising from behind its own
-   edge. Words are wrapped by script.js so the effect survives any line break
-   at any width. */
-.wm{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
-.wi{display:inline-block;transform:translateY(112%);animation:word-rise .72s cubic-bezier(.19,1,.22,1) forwards;animation-play-state:paused}
-html.lit .wi{animation-play-state:running}
-@keyframes word-rise{to{transform:none}}
-
-/* 2 — the signature writes itself left to right. clip-path rather than a mask
+/* 1 — the signature writes itself left to right. clip-path rather than a mask
    trick, because the mark is already painted through a mask and two masks
    cannot be composited reliably across engines. */
 /* The hidden state lives in the keyframe, not on the element: if .lit never
    arrives because a script failed, the signature is simply visible rather
    than clipped to nothing. */
-html.lit .brand-mark{animation:sig-draw 1.05s cubic-bezier(.5,0,.2,1) .1s both}
+/* Nearly two seconds, and held back half a second after the curtain lifts.
+   At 1s starting immediately it was over before the eye had finished landing
+   on the page. The easing is close to steady on purpose — a pen moves at a
+   fairly even pace, and an ease-in-out reads as a wipe rather than writing. */
+html.lit .brand-mark{animation:sig-draw 1.9s cubic-bezier(.4,.05,.35,1) .55s both}
 @keyframes sig-draw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 
-/* 3 — the marquee starts still and eases up to speed, so nothing is already
+/* 2 — the marquee starts still and eases up to speed, so nothing is already
    moving when the page appears. */
 .hm-track{animation-play-state:paused}
 html.lit .hm-track{animation-play-state:running}
@@ -1360,7 +1356,6 @@ html.lit .hm-track{animation-play-state:running}
 html.lit .hero-marquee{opacity:1}
 
 @media (prefers-reduced-motion:reduce){
-  .wi{transform:none;animation:none}
   .brand-mark,html.lit .brand-mark{clip-path:none;animation:none}
   .hero-marquee{opacity:1;transition:none}
   .hm-track{animation-play-state:running}
