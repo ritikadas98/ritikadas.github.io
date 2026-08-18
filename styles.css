@@ -1331,47 +1331,6 @@ dialog.lightbox::backdrop{background:rgba(18,16,20,.96);backdrop-filter:blur(4px
   color:var(--faint);
 }
 
-/* ============================================================
-   CASCADE — case study cards stack instead of scrolling past
-   ============================================================
-   Case studies drop to one column at every width. Two reasons: a full-width
-   card is far more visible than a third-width one, which was the thing
-   reviewers said they could not find; and a single column is the only layout
-   a sticky stack works in. Products stay a three-up grid, so the two sections
-   read as different kinds of thing.
-
-   Each card pins a little lower than the one before, so the covered cards
-   leave a visible edge and you can see the stack building. The next card
-   rises over the last rather than the page sliding past — which is the whole
-   point: the work arrives at the reader instead of the reader travelling to
-   it. */
-#cases .work-grid{grid-template-columns:1fr;gap:0}
-#cases .work-card{
-  position:sticky;
-  top:calc(var(--nav-h) + 14px);
-  background:var(--surface-2);
-  box-shadow:var(--shadow);
-  margin-bottom:26px;
-}
-#cases .work-card:nth-of-type(2){top:calc(var(--nav-h) + 26px)}
-#cases .work-card:nth-of-type(3){top:calc(var(--nav-h) + 38px)}
-#cases .work-card:last-child{margin-bottom:0}
-/* A wide card can afford the art beside the copy again. */
-@media(min-width:820px){
-  #cases .work-card{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:26px;align-items:start;padding:24px}
-  #cases .work-card .card-art{aspect-ratio:1/1;margin-bottom:0}
-}
-@media(max-width:640px){
-  #cases .work-card{top:calc(var(--nav-h) + 8px);margin-bottom:18px}
-  #cases .work-card:nth-of-type(2){top:calc(var(--nav-h) + 16px)}
-  #cases .work-card:nth-of-type(3){top:calc(var(--nav-h) + 24px)}
-}
-/* A stack you cannot see past is worse than no stack, so anyone who has asked
-   for less motion gets plain flow. Same for a short viewport, where a pinned
-   card would cover the screen with no room to read the next. */
-@media (prefers-reduced-motion:reduce),(max-height:560px){
-  #cases .work-card{position:static;box-shadow:none}
-}
 
 /* ============================================================
    FIRST-PAINT SEQUENCE
@@ -1407,7 +1366,3 @@ html.lit .hero-marquee{opacity:1}
   .hm-track{animation-play-state:running}
 }
 
-/* Lenis drives the scroll position itself; the CSS smooth-scroll fights it. */
-html.lenis-on{scroll-behavior:auto}
-html.lenis-on,html.lenis-on body{height:auto}
-.lenis.lenis-stopped{overflow:hidden}

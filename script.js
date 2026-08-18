@@ -750,37 +750,3 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
   setTimeout(light, 2400);   /* never wait past the preloader's own ceiling */
 })();
 
-/* ── SMOOTH SCROLL ─────────────────────────────────────────────────────────
-   Lenis eases the scroll position instead of letting it jump per wheel notch.
-   Desktop only by design: touch scrolling is already smooth and momentum-
-   correct on a phone, and overriding it there makes the page feel slower than
-   the OS, not better. */
-(function () {
-  if (!window.Lenis) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (matchMedia('(hover: none)').matches) return;
-
-  document.documentElement.classList.add('lenis-on');
-  const lenis = new Lenis({
-    duration: 0.85,
-    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
-    wheelMultiplier: 0.9,
-  });
-  (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
-
-  /* In-page links have to go through Lenis, or the browser jumps while Lenis
-     is mid-ease and the two fight over the scroll position. */
-  const navH = () =>
-    parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 73;
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const id = a.getAttribute('href');
-      if (!id || id.length < 2) return;
-      const el = document.querySelector(id);
-      if (!el) return;
-      e.preventDefault();
-      lenis.scrollTo(el, { offset: -(navH() + 8) });
-    });
-  });
-})();
