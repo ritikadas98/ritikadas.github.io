@@ -36,17 +36,37 @@
   top:var(--nav-h);
   z-index:6;
   padding:18px 0 14px;
-  /* An opaque ground is what makes it read as a header rather than as text
-     floating over the cards. It has to match the section it belongs to. */
   background:var(--paper);
   border-bottom:1px solid var(--hairline);
+  /* Everything that changes on pinning is transitioned, so the heading
+     compacts into place instead of snapping. That is also what makes the
+     hand-off readable: the outgoing heading is already small when the next
+     one pushes it out. */
+  transition:padding .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
 }
 section.band .sec-head{background:var(--soft-band)}
-/* Slightly smaller while pinned would be nicer, but that needs scroll
-   measurement in JS. Holding it at one size keeps this to pure CSS. */
-@media(max-width:640px){.sec-head{padding:14px 0 11px}}
+.sec-head .concept{transition:font-size .3s cubic-bezier(.2,.7,.2,1)}
+.sec-head .sub{
+  max-height:44px;overflow:hidden;
+  transition:max-height .3s cubic-bezier(.2,.7,.2,1),opacity .22s ease,margin-top .3s ease;
+}
+
+/* Pinned state. On a 375px phone the nav is 73px and a full heading is ~74px
+   more — a quarter of the screen gone before any content. Dropping the
+   subtitle and the type size takes the heading to ~35px, which is the
+   difference between this being usable on a phone and not. */
+.sec-head.stuck{padding:9px 0 8px;box-shadow:0 8px 20px -16px rgba(33,30,36,.55);border-color:var(--hairline-strong)}
+.sec-head.stuck .concept{font-size:clamp(16px,2.1vw,20px)}
+.sec-head.stuck .sub{max-height:0;opacity:0;margin-top:0}
+.stick-sentinel{height:1px;margin-bottom:-1px;pointer-events:none}
+
+@media(max-width:640px){.sec-head{padding:14px 0 11px}.sec-head.stuck{padding:8px 0 7px}}
+@media (prefers-reduced-motion:reduce){
+  .sec-head,.sec-head .concept,.sec-head .sub{transition:none}
+}
 @media (prefers-reduced-motion:reduce),(max-height:520px){
-  .sec-head{position:static;border-bottom:none;background:none}
+  .sec-head{position:static;border-bottom:none;background:none;box-shadow:none}
+  .sec-head .sub{max-height:none;opacity:1}
 }
 
 .tst{max-width:var(--wrap);margin:0 auto;padding:calc(var(--nav-h) + 80px) 28px 60px;font-family:var(--body);color:var(--ink-2)}
@@ -250,5 +270,23 @@ section.band .sec-head{background:var(--soft-band)}
 
 <div class="spacer">end</div>
 <script src="../../script.js?v=20260813b" defer></script>
+<script>
+/* A sticky element cannot tell you it is stuck, so a 1px sentinel sits just
+   above each heading. When the sentinel crosses the line the nav sits on, the
+   heading below it must be pinned. */
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const navH = parseInt(getComputedStyle(document.documentElement)
+                 .getPropertyValue('--nav-h')) || 73;
+  document.querySelectorAll('.sec-head').forEach(head => {
+    const sentinel = document.createElement('div');
+    sentinel.className = 'stick-sentinel';
+    head.parentNode.insertBefore(sentinel, head);
+    new IntersectionObserver(([entry]) => {
+      head.classList.toggle('stuck', !entry.isIntersecting && entry.boundingClientRect.top < navH);
+    }, { rootMargin: `-${navH + 1}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
+  });
+})();
+</script>
 </body>
 </html>
