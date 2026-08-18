@@ -36,15 +36,28 @@
   top:var(--nav-h);
   z-index:6;
   padding:18px 0 14px;
-  background:var(--paper);
-  border-bottom:1px solid var(--hairline);
+  /* Translucent and blurred rather than a flat fill. The section paints
+     #EDE8E1 and the cards paint #FBF8F2 — a real step in tone that was
+     invisible until the heading gained an edge. Letting what passes underneath
+     tint the bar removes the step instead of trying to match two colours that
+     do not match. */
+  background:color-mix(in srgb, var(--paper) 78%, transparent);
+  -webkit-backdrop-filter:saturate(1.5) blur(12px);
+          backdrop-filter:saturate(1.5) blur(12px);
+  border-bottom:1px solid transparent;
   /* Everything that changes on pinning is transitioned, so the heading
      compacts into place instead of snapping. That is also what makes the
      hand-off readable: the outgoing heading is already small when the next
      one pushes it out. */
   transition:padding .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
 }
-section.band .sec-head{background:var(--soft-band)}
+section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, transparent)}
+/* No blur support: fall back to a solid fill, which is still correct against
+   its own section — it only looks stepped where a card slides under it. */
+@supports not (backdrop-filter:blur(1px)){
+  .sec-head{background:var(--paper)}
+  section.band .sec-head{background:var(--soft-band)}
+}
 .sec-head .concept{transition:font-size .3s cubic-bezier(.2,.7,.2,1)}
 .sec-head .sub{
   max-height:44px;overflow:hidden;
@@ -55,7 +68,7 @@ section.band .sec-head{background:var(--soft-band)}
    more — a quarter of the screen gone before any content. Dropping the
    subtitle and the type size takes the heading to ~35px, which is the
    difference between this being usable on a phone and not. */
-.sec-head.stuck{padding:9px 0 8px;box-shadow:0 8px 20px -16px rgba(33,30,36,.55);border-color:var(--hairline-strong)}
+.sec-head.stuck{padding:9px 0 8px;box-shadow:0 10px 24px -20px rgba(33,30,36,.5);border-bottom-color:var(--hairline)}
 .sec-head.stuck .concept{font-size:clamp(16px,2.1vw,20px)}
 .sec-head.stuck .sub{max-height:0;opacity:0;margin-top:0}
 .stick-sentinel{height:1px;margin-bottom:-1px;pointer-events:none}
@@ -93,7 +106,7 @@ section.band .sec-head{background:var(--soft-band)}
 
 <div class="spacer">scroll &darr;</div>
 
-<section id="work" class="band">
+<section id="work">
   <div class="wrap">
     <div class="sec-head reveal">
       <div><h2 class="concept">Products I built</h2><div class="sub">Three products, built and shipped solo. Open one for the reasoning, the evidence and a demo you can use.</div></div>
@@ -151,7 +164,7 @@ section.band .sec-head{background:var(--soft-band)}
     </div>
   </div>
 </section>
-<section id="cases">
+<section id="cases" class="band">
   <div class="wrap">
     <div class="sec-head reveal">
       <div>
@@ -221,7 +234,7 @@ section.band .sec-head{background:var(--soft-band)}
     </div>
   </div>
 </section>
-<section id="about" class="band">
+<section id="about">
   <div class="wrap">
     <div class="sec-head reveal">
       <div>
@@ -267,7 +280,6 @@ section.band .sec-head{background:var(--soft-band)}
     </div>
   </div>
 </section>
-
 <div class="spacer">end</div>
 <script src="../../script.js?v=20260813b" defer></script>
 <script>
