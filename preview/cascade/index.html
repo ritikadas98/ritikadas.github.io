@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cascade test &mdash; Ritika Das</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=20260813b">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<style>
+/* ============================================================
+   THE CASCADE — under test, scoped to this page only
+   ============================================================
+   Two things went wrong last time. The card was turned into a two-column grid,
+   which dealt a flex column's five children into cells and scattered it. And
+   the card was 600-700px tall, so on a phone it pinned but you were still
+   scrolling inside it and nothing appeared to happen.
+
+   So: no structural change at all this time. The card keeps its own layout.
+   The only thing that changes is the art, which drops from a 16:10 block to a
+   banner strip — that alone takes the card under a phone viewport, which is
+   what the effect needs to be visible. */
+.tst{max-width:var(--wrap);margin:0 auto;padding:120px 28px;font-family:var(--body);color:var(--ink-2)}
+.tst h1{font-family:var(--display);font-size:32px;color:var(--ink);margin:0 0 14px}
+.tst ul{line-height:1.8;padding-left:18px;max-width:60ch}
+.tst code{font-family:var(--mono);font-size:13px;background:var(--surface-2);padding:2px 6px;border-radius:4px}
+.spacer{height:70vh;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+
+#cases .work-grid{grid-template-columns:1fr;gap:0}
+#cases .work-card{
+  position:sticky;
+  top:14px;
+  background:var(--surface-2);
+  border-color:var(--hairline-strong);
+  margin-bottom:20px;
+}
+#cases .work-card:nth-of-type(2){top:26px}
+#cases .work-card:nth-of-type(3){top:38px}
+#cases .work-card:last-child{margin-bottom:0}
+/* The one change that makes the card short enough for the stack to read. */
+#cases .work-card .card-art{aspect-ratio:24/7}
+@media(max-width:640px){
+  #cases .work-card .card-art{aspect-ratio:16/7}
+  #cases .work-card{top:10px;margin-bottom:14px}
+  #cases .work-card:nth-of-type(2){top:18px}
+  #cases .work-card:nth-of-type(3){top:26px}
+}
+/* A pinned card taller than the screen is worse than no pinning at all. */
+@media (prefers-reduced-motion:reduce),(max-height:520px){
+  #cases .work-card{position:static}
+}
+</style>
+</head>
+<body>
+<div class="tst">
+  <h1>Cascade test</h1>
+  <p>Not linked from anywhere and not indexed. Nothing here is on the live site.</p>
+  <ul>
+    <li>Scroll down slowly. Each case study should <strong>pin near the top</strong> and the next should rise over it, leaving a visible edge.</li>
+    <li><strong>Check on your phone first.</strong> Each card has to fit the screen, or it pins and you are still scrolling inside it &mdash; that is what failed last time.</li>
+    <li>Flip the theme. Check the covered cards still read as behind, not merged.</li>
+    <li>The only change to the card is <code>aspect-ratio</code> on the image. Its layout is untouched.</li>
+  </ul>
+</div>
+
+<div class="spacer">scroll &darr;</div>
+
+<section id="cases" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2 class="concept" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          Case studies
+          <span style="display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--hairline-strong);padding:5px 12px;border-radius:20px;margin-left:4px">
+            <!-- CREW leads, matching the card order below. Its mark is a full-colour
+                 app tile rather than a flat glyph, so it carries the same corner radius
+                 it has on the card instead of sitting as a hard square. -->
+            <img src="../../assets/crew-icon.png" alt="CREW Logo" width="20" height="20" style="width:20px;height:20px;display:block;border-radius:5px" loading="lazy" decoding="async" />
+            <img src="../../assets/reddit.svg" alt="Reddit Logo" width="20" height="20" style="width:20px;height:20px;display:block" loading="lazy" decoding="async" />
+            <img src="../../assets/youtube.svg" alt="YouTube Logo" width="22" height="22" style="width:22px;height:22px;display:block" loading="lazy" decoding="async" />
+          </span>
+        </h2>
+        <div class="sub">Product decisions on products already built. Across social, luxury, and platforms. <a href="../../writing/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px;white-space:nowrap">All writing &rarr;</a></div>
+      </div>
+    </div>
+    <div class="work-grid">
+
+      <!-- The three studies keep their approved dek and their own preview art. The
+           card already linked straight to the piece; the only change is that it now
+           sits beside its siblings in a grid instead of stacked below them. -->
+      <div class="card written work-card reveal" data-project="crew">
+        <figure class="card-art">
+          <img src="../../assets/og/crew-card.jpg?v=7" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags">
+          <span class="tag-type">Case study</span>
+          <span class="tag solid" style="color:var(--crew-brand);border-color:var(--crew-line);background:var(--crew-tint);font-weight:600">&#9679; CREW</span>
+        </div>
+        <h3><a class="card-link" href="../../writing/crew/">One trip at a <span class="nb">time <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">CREW tells you which terminal your connecting flight leaves from, before you land. No competitor does that &mdash; and every message like it is made by hand.</p>
+        <div class="card-foot">
+          <span class="card-facts">Luxury travel &middot; Scale &amp; unit economics &middot; 7 min read</span>
+        </div>
+      </div>
+
+      <div class="card written work-card reveal" data-project="reddit">
+        <figure class="card-art">
+          <img src="../../assets/og/reddit-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags">
+          <span class="tag-type">Case study</span>
+          <span class="tag solid" style="color:var(--study-reddit);border-color:color-mix(in srgb,var(--study-reddit) 38%,transparent);background:color-mix(in srgb,var(--study-reddit) 8%,transparent);font-weight:600">&#9679; Reddit</span>
+        </div>
+        <h3><a class="card-link" href="../../writing/reddit/">Reddit is a waypoint, not a <span class="nb">destination <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">Around 62% of Reddit&rsquo;s visitors arrive from Google, land on one thread, get their answer and leave. Reddit spends its welcome effort on a homepage those visitors never see.</p>
+        <div class="card-foot">
+          <span class="card-facts">Consumer social &middot; Activation &middot; Summary + deck</span>
+        </div>
+      </div>
+
+      <div class="card written work-card reveal" data-project="youtube">
+        <figure class="card-art">
+          <img src="../../assets/og/youtube-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags">
+          <span class="tag-type">Case study</span>
+          <span class="tag solid" style="color:var(--study-youtube);border-color:color-mix(in srgb,var(--study-youtube) 38%,transparent);background:color-mix(in srgb,var(--study-youtube) 8%,transparent);font-weight:600">&#9679; YouTube</span>
+        </div>
+        <h3><a class="card-link" href="../../writing/youtube/">The Demand You Can&rsquo;t <span class="nb">See <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">A product can only measure what it lets you do. The wants it blocks leave no trace. So look at the trouble people go to on their own to get around it.</p>
+        <div class="card-foot">
+          <span class="card-facts">Platform economics &middot; Three-sided market &middot; 9 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer">end of the stack</div>
+<script src="../../script.js?v=20260813b" defer></script>
+</body>
+</html>
