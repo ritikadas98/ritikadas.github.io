@@ -30,6 +30,16 @@
 }
 /* The marketing cards are portrait but not phone-shaped. Full measure is too wide
    for a chat bubble; this keeps them readable and centred. */
+.art-kicker{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--pdeo-label);
+  border:1px solid var(--pill-line);border-radius:20px;padding:5px 13px;margin:0 0 20px}
+.art-summary{grid-template-columns:repeat(3,1fr)}
+@media(max-width:760px){.art-summary{grid-template-columns:1fr}}
+/* Key terms and metrics, marked so they can be caught while scanning. Used
+   sparingly — four in the whole piece. More than that and it stops meaning
+   anything. */
+.art-note{font-size:14px;color:var(--faint);border-top:1px solid var(--hairline);padding-top:20px;margin-top:44px}
+.k{background:var(--accent-wash);border-radius:3px;padding:1px 4px;font-weight:500;color:var(--ink)}
 .fig-card{max-width:430px;margin:36px auto}
 .fig-card img{width:100%;height:auto;display:block;border-radius:12px}
 .fig-card figcaption{font-size:13px;margin-top:10px;text-align:center}
@@ -132,21 +142,16 @@
   <header class="art-head">
     <div class="art-wrap">
       <a href="../" class="art-back">&larr; All writing</a>
+      <p class="art-kicker">Product case study</p>
       <h1 class="art-title">One trip at a time</h1>
-      <p class="art-sub">A product case study on CREW, Swiggy's travel concierge.</p>
+      <p class="art-sub">On CREW, Swiggy's travel concierge.</p>
       <figure class="fig-phone art-hero">
         <img src="../crew/images/crew-hero.jpg?v=2" alt="CREW's opening screen: the wordmark inside an aircraft window, above &ldquo;Welcome to Crew, your travel concierge&rdquo; and a Begin the Journey button." width="1080" height="1590" decoding="async" />
       </figure>
-      <div class="art-meta">
-        <div class="am-cell"><div class="am-k">Role</div><div class="am-v">Product analysis</div></div>
-        <div class="am-cell"><div class="am-k">Type</div><div class="am-v">Product case study</div></div>
-        <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Public pages, the launch, my own use</div></div>
-      </div>
       <div class="art-summary">
-        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">The best thing CREW does is made by hand, one trip at a time, and the people who make it are the hardest thing it has to hire.</div></div>
-        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Move the making of it into the product, so a trip assistant is spent only where a person is genuinely needed.</div></div>
-        <div class="as-cell"><div class="as-k">Evidence</div><div class="as-v">CREW&rsquo;s own product pages, this week&rsquo;s launch, the app itself, and public App Store and Play Store reviews.</div></div>
-        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">The share of trips where the customer never had to hold on &mdash; and the test that would prove me wrong.</div></div>
+        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">CREW&rsquo;s best work is made by hand, and the people who do it are the hardest thing it has to hire.</div></div>
+        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Let software do the routine work, so the people are saved for the parts only a person can do.</div></div>
+        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">The customer stops checking up on things, and each trip costs less human time.</div></div>
       </div>
     </div>
   </header>
@@ -167,19 +172,20 @@
 
 <h2>The customer who never asks the price</h2>
 <p>Read those exchanges for what is missing. Nobody asks the price. Nobody asks for a cheaper option, a second choice, or a comparison. A recommendation arrives and the answer is <em>book it</em> &mdash; the table at seven, the spa at six. The decision is handed over, and never checked.</p>
-<p>Wealth is only half of that. The other half is someone who has decided that choosing is the expensive part.</p>
+<p>Money is only half of that. The other half is someone who has decided that choosing is the expensive part.</p>
 
 <figure class="fig-card">
   <img src="../crew/images/crew-09-price-contrast.jpg" alt="A CREW page headed &ldquo;Ignore online rates, get Crew exclusive prices,&rdquo; showing the Cinnamon Velifushi in the Maldives. Crew exclusive rate starts from &#8377;36,000. Below it: Other platforms are at &#8377;42,900+." width="900" height="1436" loading="lazy" decoding="async" />
   <figcaption>Two accurate descriptions of the same service, arriving from opposite directions.</figcaption>
 </figure>
 
-<p>Which makes the entrance worth a look. <em>Ignore online rates</em>, it says, and then sets its own against them &mdash; one of four price arguments before the app asks for &#8377;999. A comparison is an invitation to check, and checking is the habit that everything further in is built to remove.</p>
+<p>Which makes the entrance worth a look. <em>Ignore online rates</em>, it says, and then sets its own against them &mdash; one of four price arguments before the app asks for &#8377;999.</p>
+<blockquote class="pull">A comparison is an invitation to check. Checking is the habit everything further in is built to remove.</blockquote>
 
 <h2>Why a competitor cannot copy it</h2>
 <p>The reason is not the data.</p>
 <p>To send that airport message you need the flight number, the connection, and both terminals. Every large booking platform holds all of it, for far more travellers, and none of them has ever sent anyone a message about a gate.</p>
-<p>Three things have to be true at the same time. You need the trip. You need people who will stay with a customer through a day. And you need a relationship that makes spending an hour on one traveller reasonable. A booking platform has the first and cannot afford the second, because a service layer breaks a business built on volume. A travel agent has the second without live data. A general-purpose assistant has neither the trip nor a reason to speak first.</p>
+<p>Three things have to be true at the same time. You need the trip. You need people who will stay with a customer through a day. And you need a relationship that makes spending an hour on one traveller reasonable. A booking platform has the first and cannot afford the second, because adding a service team breaks a business built on volume. A travel agent has the second without live data. A general-purpose assistant has neither the trip nor a reason to speak first.</p>
 
 <figure class="fig-dgm">
 <svg viewBox="0 0 380 300" role="img" aria-labelledby="d1t d1d" xmlns="http://www.w3.org/2000/svg">
@@ -254,8 +260,10 @@
 <p>Swiggy built its business on physical dispatch, where a rider is interchangeable. One in Indiranagar can deliver in Koramangala and the routing works out the same. That is what let the fleet scale.</p>
 <p>The people who do this job are not interchangeable. They need hard knowledge &mdash; visa rules, connection windows, what an airport is like at six in the morning &mdash; and the softer kind, which is harder to hire for: staying calm, reading a mood, knowing when not to speak.</p>
 <p>That bar exists because the stakes do. A wrong burger is a refund and an apology. A missed visa clause or a broken connection is somebody's one holiday of the year.</p>
-<p>So the moat and the constraint are the same fact. CREW is hard to copy because these people are rare, and hard to grow for exactly that reason.</p>
-<p>Anything that scarce has to be rationed, and CREW rations it sensibly: it arrives alongside a booking large enough to justify it. Which puts the best evidence of what CREW is worth on the far side of the decision it should be changing. You find out whether you can hand over a trip by handing over a trip.</p>
+<blockquote class="pull">The thing that makes CREW hard to copy is the same thing that makes it hard to grow.</blockquote>
+<p>These people are rare. That is the <span class="k">moat</span>, and it is also the ceiling.</p>
+<p>Anything that scarce has to be rationed, and CREW rations it sensibly. It comes with a booking big enough to pay for it.</p>
+<p>So the best proof of what CREW is worth arrives only after you have already trusted it with a trip. You find out whether you can hand over a trip by handing one over.</p>
 <p>The launch raises that stake. CREW can now take all of it.</p>
 
 <h2>What to build, and in what order</h2>
@@ -320,7 +328,8 @@
 
 <p>The second change is smaller and worth more. Requests arrive as one message and get worked as one job. A couple wants a day at a vineyard outside the city &mdash; and inside that sentence are seven questions. Is it open that day. What time. What to wear. Is there lunch. How do they get there. Who books the car. And can they get onto the tasting that is always full.</p>
 <p>Six have answers already. One does not. Today all seven wait for the same person.</p>
-<p>Then the third, and it compounds. When an assistant solves the one with no answer, it is written down against that place &mdash; what worked, and who to call when the obvious number does not. The booking was never the output. The output was a fact nobody had recorded.</p>
+<p>Then the third, and it compounds. When an assistant solves the one with no answer, it is written down against that place &mdash; what worked, and who to call when the obvious number does not.</p>
+<blockquote class="pull">The booking was never the output. The output was a fact nobody had recorded.</blockquote>
 <p>Done well, the traveller experiences it as someone paying attention. Underneath, it was arithmetic.</p>
 
 <figure class="fig-card">
@@ -337,13 +346,11 @@
 <p>Swiggy owns both halves already. The card is the gate, the membership is the invitation, and one accompanied trip is what a member feels before committing a whole holiday to it.</p>
 
 <h2>How you would know it worked</h2>
-<p>One number restates the whole argument: the share of trips where the customer never had to hold on. Never checked a confirmation, never chased a reply, never queried a bill that was supposed to be settled. Call it the let-go rate.</p>
-<p>It needs a second beside it, because the first can be bought with headcount. Cost to serve &mdash; the human minutes one trip consumes. If the let-go rate climbs while that number falls, the service is running at software margins. If it climbs while the minutes stay flat, CREW has bought quality it cannot afford to keep.</p>
+<p>One number restates the whole argument: the share of trips where the customer never had to hold on. Never checked a confirmation, never chased a reply, never queried a bill that was supposed to be settled. Call it the <span class="k">let-go rate</span>.</p>
+<p>It needs a second beside it, because the first can be bought with headcount. <span class="k">Cost to serve</span> &mdash; the human minutes one trip consumes. If the let-go rate climbs while that number falls, the service is running at <span class="k">software margins</span>. If it climbs while the minutes stay flat, CREW has bought quality it cannot afford to keep.</p>
 <p>And the test that would prove me wrong. Compare the members who lean on the service against those who only book and handle the rest themselves. If both come back at the same rate, the accompaniment was never the advantage, and the honest move is to unbundle it.</p>
 
-<h2>A note on method</h2>
-<p>This is built on CREW's public pages and this week's launch materials, my own use of the app, and public App Store and Play Store reviews. Reviews are a self-selected sample: directional, not representative. The vineyard request above is an illustration, not a reported case.</p>
-<p>Disclosure: I have worked on part of this product. Everything here comes from material CREW has published or from using the app as a customer.</p>
+<p class="art-note"><em>Disclosure: I have worked on part of this product. Everything here comes from material CREW has published or from using the app as a customer.</em></p>
 
 
     </div>
