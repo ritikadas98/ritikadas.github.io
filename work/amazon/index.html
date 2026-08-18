@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://ritikadas.in/work/amazon/">
 <meta property="og:title" content="Amazon Discovery Intelligence">
 <meta property="og:description" content="An agentic pipeline that reads a week of customer complaints and hands a PM a ranked, cited backlog.">
-<meta property="og:image" content="https://ritikadas.in/assets/og/amazon-og.jpg?v=2">
+<meta property="og:image" content="https://ritikadas.in/assets/og/amazon-og.jpg?v=3">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
@@ -19,7 +19,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Amazon Discovery Intelligence">
 <meta name="twitter:description" content="An agentic pipeline that reads a week of customer complaints and hands a PM a ranked, cited backlog.">
-<meta name="twitter:image" content="https://ritikadas.in/assets/og/amazon-og.jpg?v=2">
+<meta name="twitter:image" content="https://ritikadas.in/assets/og/amazon-og.jpg?v=3">
 <meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
@@ -97,13 +97,13 @@
         <div class="card-metric-badge">
           <span class="card-metric-num">4</span>
           <span class="card-metric-unit">kinds of cost</span>
-          <span class="card-metric-lbl">money, order lost, couldn&rsquo;t finish, just annoyed &mdash; the loudest complaint is rarely the costly one</span>
+          <span class="card-metric-lbl">the loudest complaint is rarely the costly one</span>
         </div>
         <div class="pdeo">
-          <div class="row"><span class="k">Problem</span><span class="v">A PM cannot read every review, so they skim. Skimming feels fine because you never find out what you missed. The complaint that mattered was in there, and nobody counted it.</span></div>
-          <div class="row"><span class="k">Decision</span><span class="v">A ranked list is not an answer. It hands the queue back to the PM. So the score is small print, and each problem leads with a finding, a first move and a price. The cost is a longer page than a list.</span></div>
-          <div class="row"><span class="k">Evidence</span><span class="v">299 complaints in the latest week, sorted into 33 problems across 7 parts of the app. Every claim links to the review behind it. 60 complaints did not fit a named problem, and the page says so rather than hiding them.</span></div>
-          <div class="row"><span class="k">Outcome</span><span class="v">One problem out of 33 had enough behind it to act on this week, and the page says so plainly instead of ranking all 33 and implying otherwise. The rest carry what is missing and the one step that would settle it.</span></div>
+          <div class="row"><span class="k">Problem</span><span class="v">A PM cannot read every review, so they skim. Skimming feels fine, because you never find out what you missed.</span></div>
+          <div class="row"><span class="k">Decision</span><span class="v">A ranked list hands the queue back to the PM. So the score is small print, and each problem leads with a finding, a first move and a price.</span></div>
+          <div class="row"><span class="k">Evidence</span><span class="v">299 complaints in the latest week, sorted into 33 problems across 7 parts of the app. Every claim links to the review behind it.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="v">One problem out of 33 had enough behind it to act on, and the page says so plainly instead of ranking all 33.</span></div>
         </div>
       </div>
 
@@ -119,8 +119,8 @@
         <div class="flip-pool">
 
           <div class="mini-widget-box flip-panel shot-face">
-            <img src="../../assets/shot-amazon-1.jpg?v=2" class="widget-shot" loading="lazy" decoding="async"
-                 width="1100" height="657"
+            <img src="../../assets/shot-amazon-1.jpg?v=3" class="widget-shot" loading="lazy" decoding="async"
+                 width="1100" height="596"
                  alt="The week at a glance: 500 complaints read, 33 problems found across 7 parts of the app, 32 of them not yet safe to act on, and 23 that cost people money. A coloured bar shows which part of the app each complaint came from. Below it, the one problem with enough behind it to act on." />
             <div class="shot-bar">
               <span class="shot-cap">A week in one screen, and the one problem worth opening first.</span>
@@ -129,11 +129,11 @@
           </div>
 
           <div class="mini-widget-box flip-panel shot-face">
-            <img src="../../assets/shot-amazon-2.jpg?v=2" class="widget-shot" loading="lazy" decoding="async"
-                 width="1100" height="657"
-                 alt="One problem in full: 55 complaints in Search and Discovery, five of them from people who could not finish what they came to do. Three panels sit side by side &mdash; what people reported with two quotes, what we think is going on marked provisional, and what we still do not know. Below them, the one step to take first, owned by Data Science, about a day of work." />
+            <img src="../../assets/shot-amazon-2.jpg?v=3" class="widget-shot" loading="lazy" decoding="async"
+                 width="1100" height="596"
+                 alt="The chat view, scoped to all groups for week 34 on live data. It offers three questions to start with &mdash; the top complaints this week, which themes are worsening, and how ready this group is to act on &mdash; and states that answers cite specific signals by ID." />
             <div class="shot-bar">
-              <span class="shot-cap">Open one problem: the evidence, the inference, and what we still cannot see.</span>
+              <span class="shot-cap">Ask the week a question. It answers only from the signals in scope, and cites them.</span>
               <button type="button" class="flip-btn" onclick="flipWidget('amazon')" aria-label="Try the interactive ranking">Try it &#8635;</button>
             </div>
           </div>
@@ -164,17 +164,16 @@
        to start over. The write-up is gone; its unique parts are here. -->
   <section id="how-it-started" class="wk-sec">
     <div class="art-wrap">
-      <h2 class="wk-h2">It only worked while my laptop was on</h2>
-      <p class="wk-lead">The first version was a visual workflow that only ran while my laptop was on. Moving it to code cost a weekend and about &#8377;40 a month.</p>
+      <h2 class="wk-h2">From a visual workflow to hosted code</h2>
         <div class="pdeo spec">
           <div class="row"><span class="k">The first build</span><span class="v">An n8n workflow. Twenty-nine nodes on a visual canvas, doing the right thing. Take reviews, clean them, find themes, score them, email a digest.</span></div>
           <div class="row"><span class="k">What broke</span><span class="v">Putting it behind a website means it has to be running somewhere. Either I leave my machine on, or I pay for hosting. I did not want either for a portfolio project.</span></div>
-          <div class="row"><span class="k">The move</span><span class="v">Every node became a TypeScript module. The canvas became an orchestrator. Onto Cloud Run with scale-to-zero: about &#8377;40 a month, on a schedule, nothing left switched on.</span></div>
-          <div class="row"><span class="k">Who did the port</span><span class="v">I used Claude for it. Twenty-nine nodes of working logic, translated rather than reinvented. The design was already settled. What was left was moving it.</span></div>
+          <div class="row"><span class="k">The move</span><span class="v">Every node became a TypeScript module. The canvas became an orchestrator.</span></div>
+          <div class="row"><span class="k">Who did the port</span><span class="v">I used Claude for it. Twenty-nine nodes of settled logic, translated rather than reinvented.</span></div>
         </div>
       <figure class="art-hero-wide">
-        <div class="browser"><img src="images/chat-citations.jpg" alt="The pipeline&rsquo;s chat view answering a question about the week&rsquo;s top complaints, with numbered citation chips linking back to individual reviews." width="1600" height="870" loading="lazy" decoding="async" /></div>
-        <figcaption>Every claim carries a numbered citation back to the signal behind it. The header says which dataset is in scope, sample or live.</figcaption>
+        <div class="browser"><img src="images/chat-citations.jpg?v=2" alt="The pipeline&rsquo;s chat view before a question is asked. The header names the group, the week and whether the data is live or a sample. The empty state says answers cite specific signals, and shows the citation format." width="1600" height="869" loading="lazy" decoding="async" /></div>
+        <figcaption>The chat opens scoped to one week of live data, and says up front that every answer cites the signals it used.</figcaption>
       </figure>
     </div>
   </section>
@@ -260,14 +259,11 @@
   <section id="decisions" class="wk-sec">
     <div class="art-wrap">
       <h2 class="wk-h2">What I turned down, and why</h2>
-      <p class="wk-lead">Six things, mostly turned down because a PM already has a tool for that job and it is a spreadsheet.</p>
+      <p class="wk-lead">Three, turned down because a PM already has the tool, or asks a different question.</p>
         <div class="pdeo spec">
-          <div class="row"><span class="k">A database</span><span class="v">It writes to a Google Sheet. PMs already work in spreadsheets, which sort, filter, take comments and share without anyone asking for access. Postgres was about &#8377;1,100 a month to hold seven rows a week. Cloud Run scale-to-zero does it for &#8377;40.</span></div>
-          <div class="row"><span class="k">My own schema</span><span class="v">The sheet was built before the code. They disagreed, so I changed the code. A PM may already be filtering and pivoting on those columns. That included leaving a misspelled column header alone.</span></div>
+          <div class="row"><span class="k">A database</span><span class="v">It writes to a Google Sheet, which PMs already sort, filter and share. Postgres was about &#8377;1,100 a month to hold seven rows a week; Cloud Run scale-to-zero does it for &#8377;40.</span></div>
+          <div class="row"><span class="k">My own schema</span><span class="v">The sheet was built before the code. They disagreed, so I changed the code &mdash; including leaving a misspelled column header alone.</span></div>
           <div class="row"><span class="k">Weekly navigation</span><span class="v">The first version made each weekly run the thing you clicked between. Nobody asks what happened in week 22. They ask what is going wrong in Checkout.</span></div>
-          <div class="row"><span class="k">Live scrapers first</span><span class="v">The value is the analysis, not the collecting. I proved the analysis on a fixture I wrote, made deliberately specific so the pipeline could not hide behind a theme called &ldquo;Search issues&rdquo;.</span></div>
-          <div class="row"><span class="k">A login</span><span class="v">A key inside a public page can be read out of it, and a login in front of a portfolio piece means nobody sees the product. Rate limits and an allowlist stop runaway bills and mail relaying, and leave the demo clickable.</span></div>
-          <div class="row"><span class="k">Certainty</span><span class="v">Companies build this internally or buy it, so the shape is not in doubt. Whether this one is useful is. That needs a PM with a real backlog.</span></div>
         </div>
     </div>
   </section>
@@ -275,17 +271,30 @@
   <section id="evidence" class="wk-sec band">
     <div class="art-wrap">
       <h2 class="wk-h2">The part I did not expect</h2>
-      <p class="wk-lead">I built three ingestion sources. Two of them return almost nothing, and I did not find that out until production.</p>
+      <p class="wk-lead">I built three places to collect reviews from. Two of them send back almost nothing, and I only found that out once it was live.</p>
         <div class="pdeo spec">
-          <div class="row"><span class="k">App Store</span><span class="v">Apple&rsquo;s review feed answers with HTTP 200 and zero entries when the request comes from a Google IP. Not a country mismatch, which is what I assumed for a while. An address-range block. The same code on my own connection returns fifty reviews.</span></div>
-          <div class="row"><span class="k">Amazon itself</span><span class="v">The source reaches all eight products it watches. The .com pages are wall-to-wall praise, so the relevance filter correctly drops nearly everything. The .in pages return CAPTCHAs. The mechanism works. There is nothing to collect.</span></div>
-          <div class="row"><span class="k">What is left</span><span class="v">The Play Store. A live run pulls fifty reviews. Thirty-two survive the substance filter and get analysed.</span></div>
+          <div class="row"><span class="k">App Store</span><span class="v">Apple answers as if nothing is wrong, then sends an empty list. It is not a country problem, which is what I assumed for a while. Apple blocks requests coming from rented servers. The same code, run from my own laptop, returns fifty reviews.</span></div>
+          <div class="row"><span class="k">Amazon itself</span><span class="v">It reaches all eight products. The US pages are almost all praise, so the filter that keeps complaints correctly drops nearly everything. The India pages ask the machine to prove it is human, and it cannot. Nothing to collect.</span></div>
+          <div class="row"><span class="k">What is left</span><span class="v">The Play Store. A live run pulls fifty reviews. Thirty-two say something specific enough to analyse; the rest are one word long.</span></div>
           <div class="row"><span class="k">The lesson</span><span class="v">Every pipeline diagram starts with an arrow labelled data. The arrow is the hard bit. I was right to ship without live sources and wrong about how hard they would be.</span></div>
         </div>
     </div>
   </section>
 
-  <section id="limits" class="wk-sec">
+  <section id="prior-art" class="wk-sec">
+    <div class="art-wrap">
+      <h2 class="wk-h2">Who already built this, and what mine does after</h2>
+      <p class="wk-lead">Big companies ship a version of this and publish what it saved them. The shape is settled. The argument is about what happens once the complaints are grouped.</p>
+        <div class="pdeo spec">
+          <div class="row"><span class="k">It works</span><span class="v">Atlassian says its product managers save about 40 minutes a day since an agent started reading their feedback queue. Dovetail and Amplitude sell the same clustering to Canva, Meta and NTT DOCOMO.</span></div>
+          <div class="row"><span class="k">Where they stop</span><span class="v">They hand back a ranked list of themes. A ranked list is still a queue, and the person who opens it has to start deciding from the top all over again.</span></div>
+          <div class="row"><span class="k">What this adds</span><span class="v">Each problem arrives with a first move, an owner and a rough cost. And when only one of 33 has enough behind it, the page says that out loud instead of ranking all 33.</span></div>
+          <div class="row"><span class="k">Why you can check it</span><span class="v">The model reads and groups. Code does every count. So any number on the page can be traced back to the reviews underneath it, one citation at a time.</span></div>
+        </div>
+    </div>
+  </section>
+
+  <section id="limits" class="wk-sec band">
     <div class="art-wrap">
       <h2 class="wk-h2">What it cannot tell me</h2>
       <p class="wk-lead">It runs, it emails, the numbers are real, and nobody&rsquo;s roadmap has moved because of it.</p>
