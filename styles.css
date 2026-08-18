@@ -378,6 +378,18 @@ section{padding:56px 0}
 .band{background:var(--soft-band);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
 .sec-head{display:flex;align-items:center;gap:18px;margin-bottom:28px}
 .sec-head .concept{font-family:var(--display);font-weight:600;font-size:clamp(22px,3.2vw,32px);letter-spacing:-.02em;line-height:1.12}
+/* Product and study marks beside a section heading. Was three inline style
+   attributes repeated per logo; now one class, so the second section could
+   reuse it rather than copying twenty lines of style attribute. */
+.concept.with-marks{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.concept-marks{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);
+  border:1px solid var(--hairline-strong);padding:5px 12px;border-radius:20px;margin-left:4px}
+.concept-marks img{display:block;width:20px;height:20px}
+/* The wordmark logos read smaller than the square tiles at the same box, so
+   they get a couple of pixels back. */
+.concept-marks img.wide{width:22px;height:22px}
+/* App tiles keep the corner radius they have on their own cards. */
+.concept-marks img.tile{border-radius:5px}
 .sec-head .sub{color:var(--muted);font-size:14.5px;margin-top:3px}
 
 /* about & audience switcher */

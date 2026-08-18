@@ -71,6 +71,10 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
 .sec-head.stuck{padding:9px 0 8px;box-shadow:0 10px 24px -20px rgba(33,30,36,.5);border-bottom-color:var(--hairline)}
 .sec-head.stuck .concept{font-size:clamp(16px,2.1vw,20px)}
 .sec-head.stuck .sub{max-height:0;opacity:0;margin-top:0}
+/* The marks are fixed-size images, so a shrinking title beside them would look
+   unbalanced. They come down with it. */
+.sec-head .concept-marks{transition:transform .3s cubic-bezier(.2,.7,.2,1);transform-origin:left center}
+.sec-head.stuck .concept-marks{transform:scale(.82)}
 .stick-sentinel{height:1px;margin-bottom:-1px;pointer-events:none}
 
 @media(max-width:640px){.sec-head{padding:14px 0 11px}.sec-head.stuck{padding:8px 0 7px}}
@@ -109,7 +113,14 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
 <section id="work">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><h2 class="concept">Products I built</h2><div class="sub">Three products, built and shipped solo. Open one for the reasoning, the evidence and a demo you can use.</div></div>
+      <div><h2 class="concept with-marks">
+          Products I built
+          <span class="concept-marks">
+            <img src="../../assets/fitcheck-icon.png" class="tile" alt="FitCheck" width="20" height="20" loading="lazy" decoding="async" />
+            <img src="../../assets/savio-icon.svg" alt="Savio" width="20" height="20" loading="lazy" decoding="async" />
+            <img src="../../assets/amazon-icon.svg" alt="Amazon Discovery Intelligence" width="20" height="20" loading="lazy" decoding="async" />
+          </span>
+        </h2><div class="sub">Three products, built and shipped solo. Open one for the reasoning, the evidence and a demo you can use.</div></div>
     </div>
     <div class="work-grid">
 
@@ -168,15 +179,12 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
   <div class="wrap">
     <div class="sec-head reveal">
       <div>
-        <h2 class="concept" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <h2 class="concept with-marks">
           Case studies
-          <span style="display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--hairline-strong);padding:5px 12px;border-radius:20px;margin-left:4px">
-            <!-- CREW leads, matching the card order below. Its mark is a full-colour
-                 app tile rather than a flat glyph, so it carries the same corner radius
-                 it has on the card instead of sitting as a hard square. -->
-            <img src="../../assets/crew-icon.png" alt="CREW Logo" width="20" height="20" style="width:20px;height:20px;display:block;border-radius:5px" loading="lazy" decoding="async" />
-            <img src="../../assets/reddit.svg" alt="Reddit Logo" width="20" height="20" style="width:20px;height:20px;display:block" loading="lazy" decoding="async" />
-            <img src="../../assets/youtube.svg" alt="YouTube Logo" width="22" height="22" style="width:22px;height:22px;display:block" loading="lazy" decoding="async" />
+          <span class="concept-marks">
+            <img src="../../assets/crew-icon.png" class="tile" alt="CREW" width="20" height="20" loading="lazy" decoding="async" />
+            <img src="../../assets/reddit.svg" alt="Reddit" width="20" height="20" loading="lazy" decoding="async" />
+            <img src="../../assets/youtube.svg" class="wide" alt="YouTube" width="22" height="22" loading="lazy" decoding="async" />
           </span>
         </h2>
         <div class="sub">Product decisions on products already built. Across social, luxury, and platforms. <a href="../../writing/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px;white-space:nowrap">All writing &rarr;</a></div>
