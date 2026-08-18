@@ -98,9 +98,10 @@
 <!-- DESKTOP SIDE DOTS NAV -->
 <div class="side-nav">
   <a href="#top" class="side-dot active" aria-label="Elevator Pitch"><span class="tooltip">Elevator Pitch</span></a>
+  <a href="#toolbox" class="side-dot" aria-label="How I work"><span class="tooltip">How I work</span></a>
+  <a href="#work" class="side-dot" aria-label="Products I built"><span class="tooltip">Products</span></a>
+  <a href="#cases" class="side-dot" aria-label="Case studies"><span class="tooltip">Case studies</span></a>
   <a href="#about" class="side-dot" aria-label="About"><span class="tooltip">About</span></a>
-  <a href="#work" class="side-dot" aria-label="Shipped Products"><span class="tooltip">Shipped Products</span></a>
-  <a href="#cases" class="side-dot" aria-label="Product Thinking"><span class="tooltip">Product Thinking</span></a>
   <a href="#experience" class="side-dot" aria-label="Work Experience"><span class="tooltip">Experience</span></a>
   <a href="#contact" class="side-dot" aria-label="Contact"><span class="tooltip">Contact</span></a>
 </div>
@@ -117,9 +118,9 @@
       <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
         <span id="theme-icon">🌙</span> <span id="theme-text">Dark</span>
       </button>
-      <a href="#about">About</a>
       <a href="#work">Products</a>
       <a href="#cases">Case studies</a>
+      <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#contact" class="nav-cta">Contact</a>
       <button type="button" class="nav-toggle" id="nav-toggle"
@@ -133,9 +134,9 @@
        the side dots vanish below 900px, leaving no way to jump between sections. -->
   <div class="nav-menu" id="nav-menu">
     <div class="nm-in">
-      <a href="#about">About</a>
       <a href="#work">Products</a>
       <a href="#cases">Case studies</a>
+      <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </div>
@@ -162,6 +163,46 @@
   </div>
 </header>
 
+<!-- Moved out of Product Thinking, where it sat under the three studies and read
+     as a footnote to them rather than a statement about the work as a whole.
+     Restyled too: bordered rounded rectangles read as buttons, and these do not
+     click. Plain text separated by middots reads as what it is, a list. -->
+<section id="toolbox" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><h2 class="concept">How I work</h2><div class="sub">The methods behind everything below.</div></div>
+    </div>
+    <div class="toolbox-grid reveal">
+      <div class="toolbox-card">
+        <div class="toolbox-title">Product Strategy & Research</div>
+        <ul class="tool-list">
+          <li>0-to-1 Discovery</li>
+          <li>User Interviews</li>
+          <li>Success Metrics &amp; Counter-Tests</li>
+          <li>Competitor Benchmarking</li>
+        </ul>
+      </div>
+      <div class="toolbox-card">
+        <div class="toolbox-title">Growth & Platform Economics</div>
+        <ul class="tool-list">
+          <li>Activation Funnels</li>
+          <li>Retention Cohorts</li>
+          <li>Multi-Sided Markets</li>
+          <li>Trust Gating</li>
+        </ul>
+      </div>
+      <div class="toolbox-card">
+        <div class="toolbox-title">AI & Technical Prototyping</div>
+        <ul class="tool-list">
+          <li>LLM Integration & Orchestration</li>
+          <li>Rapid Full-Stack Prototyping</li>
+          <li>Deterministic AI & Grounding</li>
+          <li>Browser Extension Surfaces</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="work">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -358,46 +399,6 @@
 
 
 
-<!-- Moved out of Product Thinking, where it sat under the three studies and read
-     as a footnote to them rather than a statement about the work as a whole.
-     Restyled too: bordered rounded rectangles read as buttons, and these do not
-     click. Plain text separated by middots reads as what it is, a list. -->
-<section id="toolbox">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div><h2 class="concept">What I work with</h2><div class="sub">The methods behind the work above.</div></div>
-    </div>
-    <div class="toolbox-grid reveal">
-      <div class="toolbox-card">
-        <div class="toolbox-title">Product Strategy & Research</div>
-        <ul class="tool-list">
-          <li>0-to-1 Discovery</li>
-          <li>User Interviews</li>
-          <li>Success Metrics &amp; Counter-Tests</li>
-          <li>Competitor Benchmarking</li>
-        </ul>
-      </div>
-      <div class="toolbox-card">
-        <div class="toolbox-title">Growth & Platform Economics</div>
-        <ul class="tool-list">
-          <li>Activation Funnels</li>
-          <li>Retention Cohorts</li>
-          <li>Multi-Sided Markets</li>
-          <li>Trust Gating</li>
-        </ul>
-      </div>
-      <div class="toolbox-card">
-        <div class="toolbox-title">AI & Technical Prototyping</div>
-        <ul class="tool-list">
-          <li>LLM Integration & Orchestration</li>
-          <li>Rapid Full-Stack Prototyping</li>
-          <li>Deterministic AI & Grounding</li>
-          <li>Browser Extension Surfaces</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- WORK EXPERIENCE -->
 <section id="experience" class="band">
