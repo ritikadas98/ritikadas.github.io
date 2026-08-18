@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sticky section headers &mdash; Ritika Das</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=20260813b">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<style>
+/* ============================================================
+   STICKY SECTION HEADINGS — under test, scoped to this page
+   ============================================================
+   Full-panel stacking cannot work on these sections: once a pinned element is
+   taller than the screen you can never reach its lower half, and every section
+   here runs several screens long. This does the same job within that limit.
+
+   Each section's heading pins under the nav while that section's content
+   scrolls beneath it. When the next section arrives, its heading pushes the
+   previous one out and takes the position. You always know which section you
+   are in, and each one visibly arrives rather than you travelling to it.
+
+   Nothing about any card or grid changes. Only the heading block moves. */
+.fakenav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:40;
+  background:var(--paper);border-bottom:1px solid var(--hairline);
+  display:flex;align-items:center;padding:0 28px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+
+.sec-head{
+  position:sticky;
+  top:var(--nav-h);
+  z-index:6;
+  padding:18px 0 14px;
+  /* An opaque ground is what makes it read as a header rather than as text
+     floating over the cards. It has to match the section it belongs to. */
+  background:var(--paper);
+  border-bottom:1px solid var(--hairline);
+}
+section.band .sec-head{background:var(--soft-band)}
+/* Slightly smaller while pinned would be nicer, but that needs scroll
+   measurement in JS. Holding it at one size keeps this to pure CSS. */
+@media(max-width:640px){.sec-head{padding:14px 0 11px}}
+@media (prefers-reduced-motion:reduce),(max-height:520px){
+  .sec-head{position:static;border-bottom:none;background:none}
+}
+
+.tst{max-width:var(--wrap);margin:0 auto;padding:calc(var(--nav-h) + 80px) 28px 60px;font-family:var(--body);color:var(--ink-2)}
+.tst h1{font-family:var(--display);font-size:32px;color:var(--ink);margin:0 0 14px}
+.tst ul{line-height:1.8;padding-left:18px;max-width:60ch}
+.spacer{height:60vh;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+</style>
+</head>
+<body>
+<div class="fakenav">stand-in for the real nav &mdash; so the offsets are honest</div>
+
+<div class="tst">
+  <h1>Sticky section headings</h1>
+  <p>Not linked from anywhere and not indexed. Nothing here is on the live site.</p>
+  <ul>
+    <li>Scroll slowly. Each heading should <strong>pin under the bar</strong> while its own cards scroll past underneath.</li>
+    <li>When the next section arrives, its heading should <strong>push the last one out</strong> rather than overlapping it.</li>
+    <li><strong>Phone first.</strong> This is where knowing which section you are in actually helps.</li>
+    <li>Flip the theme &mdash; the pinned heading has an opaque background and it has to match its own section.</li>
+    <li>Compare against the card version at <strong>/preview/cascade/</strong>.</li>
+  </ul>
+</div>
+
+<div class="spacer">scroll &darr;</div>
+
+<section id="work" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><h2 class="concept">Products I built</h2><div class="sub">Three products, built and shipped solo. Open one for the reasoning, the evidence and a demo you can use.</div></div>
+    </div>
+    <div class="work-grid">
+
+      <div class="card work-card reveal" data-project="fitcheck">
+        <figure class="card-art">
+          <img src="../../assets/og/fitcheck-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags"><span class="tag-type">Product</span><span class="tag live">&#9679; In use</span><span class="tag">Chrome extension</span></div>
+        <h3><a class="card-link" href="../../work/fitcheck/"><span class="nb">FitCheck <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">A calculator, not a guess. It compares the fit a garment was <b>designed for</b> with the fit you&rsquo;d actually get, using the size chart already on the page.</p>
+        <div class="card-foot">
+          <div class="card-metric-badge">
+            <span class="card-metric-num">70%</span>
+            <span class="card-metric-unit">retention</span>
+            <span class="card-metric-lbl">7 of 10 returned in week one, zero uninstalls</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card work-card reveal" data-project="savio">
+        <figure class="card-art">
+          <img src="../../assets/og/savio-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags"><span class="tag-type">Product</span><span class="tag live">&#9679; Deployed</span><span class="tag">Consumer AI</span></div>
+        <h3><a class="card-link" href="../../work/savio/"><span class="nb">Savio <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">An AI companion for the one question budget apps never answer: can I afford this, right now? It reasons over your real income, commitments and goals.</p>
+        <div class="card-foot">
+          <div class="card-metric-badge">
+            <span class="card-metric-num">0</span>
+            <span class="card-metric-unit">hallucinated figures</span>
+            <span class="card-metric-lbl">every number the AI writes is checked against your data first</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card work-card reveal" data-project="amazon">
+        <figure class="card-art">
+          <img src="../../assets/og/amazon-card.jpg?v=7" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags"><span class="tag-type">Product</span><span class="tag live">&#9679; Deployed</span><span class="tag">Multi-agent pipeline</span></div>
+        <h3><a class="card-link" href="../../work/amazon/">Amazon Discovery <span class="nb">Intelligence <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">Reads a week of customer complaints and says what to work on Monday. Every claim links to the review behind it, and it says plainly what it cannot see yet. <a href="../../writing/amazon/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px">What to work on Monday &rarr;</a></p>
+        <div class="card-foot">
+          <div class="card-metric-badge">
+            <span class="card-metric-num">4</span>
+            <span class="card-metric-unit">kinds of cost</span>
+            <span class="card-metric-lbl">the loudest complaint is rarely the costly one</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section id="cases">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2 class="concept" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          Case studies
+          <span style="display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--hairline-strong);padding:5px 12px;border-radius:20px;margin-left:4px">
+            <!-- CREW leads, matching the card order below. Its mark is a full-colour
+                 app tile rather than a flat glyph, so it carries the same corner radius
+                 it has on the card instead of sitting as a hard square. -->
+            <img src="../../assets/crew-icon.png" alt="CREW Logo" width="20" height="20" style="width:20px;height:20px;display:block;border-radius:5px" loading="lazy" decoding="async" />
+            <img src="../../assets/reddit.svg" alt="Reddit Logo" width="20" height="20" style="width:20px;height:20px;display:block" loading="lazy" decoding="async" />
+            <img src="../../assets/youtube.svg" alt="YouTube Logo" width="22" height="22" style="width:22px;height:22px;display:block" loading="lazy" decoding="async" />
+          </span>
+        </h2>
+        <div class="sub">Product decisions on products already built. Across social, luxury, and platforms. <a href="../../writing/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px;white-space:nowrap">All writing &rarr;</a></div>
+      </div>
+    </div>
+    <div class="work-grid">
+
+      <!-- The three studies keep their approved dek and their own preview art. The
+           card already linked straight to the piece; the only change is that it now
+           sits beside its siblings in a grid instead of stacked below them. -->
+      <div class="card written work-card reveal" data-project="crew">
+        <figure class="card-art">
+          <img src="../../assets/og/crew-card.jpg?v=7" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags">
+          <span class="tag-type">Case study</span>
+          <span class="tag solid" style="color:var(--crew-brand);border-color:var(--crew-line);background:var(--crew-tint);font-weight:600">&#9679; CREW</span>
+        </div>
+        <h3><a class="card-link" href="../../writing/crew/">One trip at a <span class="nb">time <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">CREW tells you which terminal your connecting flight leaves from, before you land. No competitor does that &mdash; and every message like it is made by hand.</p>
+        <div class="card-foot">
+          <span class="card-facts">Luxury travel &middot; Scale &amp; unit economics &middot; 7 min read</span>
+        </div>
+      </div>
+
+      <div class="card written work-card reveal" data-project="reddit">
+        <figure class="card-art">
+          <img src="../../assets/og/reddit-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags">
+          <span class="tag-type">Case study</span>
+          <span class="tag solid" style="color:var(--study-reddit);border-color:color-mix(in srgb,var(--study-reddit) 38%,transparent);background:color-mix(in srgb,var(--study-reddit) 8%,transparent);font-weight:600">&#9679; Reddit</span>
+        </div>
+        <h3><a class="card-link" href="../../writing/reddit/">Reddit is a waypoint, not a <span class="nb">destination <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">Around 62% of Reddit&rsquo;s visitors arrive from Google, land on one thread, get their answer and leave. Reddit spends its welcome effort on a homepage those visitors never see.</p>
+        <div class="card-foot">
+          <span class="card-facts">Consumer social &middot; Activation &middot; Summary + deck</span>
+        </div>
+      </div>
+
+      <div class="card written work-card reveal" data-project="youtube">
+        <figure class="card-art">
+          <img src="../../assets/og/youtube-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags">
+          <span class="tag-type">Case study</span>
+          <span class="tag solid" style="color:var(--study-youtube);border-color:color-mix(in srgb,var(--study-youtube) 38%,transparent);background:color-mix(in srgb,var(--study-youtube) 8%,transparent);font-weight:600">&#9679; YouTube</span>
+        </div>
+        <h3><a class="card-link" href="../../writing/youtube/">The Demand You Can&rsquo;t <span class="nb">See <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">A product can only measure what it lets you do. The wants it blocks leave no trace. So look at the trouble people go to on their own to get around it.</p>
+        <div class="card-foot">
+          <span class="card-facts">Platform economics &middot; Three-sided market &middot; 9 min read</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="about" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2 class="concept">About</h2>
+        <div class="sub">Where I came from, what I've built, how I decide.</div>
+      </div>
+    </div>
+
+    <div class="audience-wrapper reveal">
+      <div class="audience-tabs" id="audience-tabs">
+        <button type="button" class="aud-tab active" data-aud="all">● General Overview</button>
+        <button type="button" class="aud-tab" data-aud="recruiter">● For Recruiters</button>
+        <button type="button" class="aud-tab" data-aud="founder">● For Founders</button>
+        <button type="button" class="aud-tab" data-aud="pm-lead">● For PM Directors</button>
+      </div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-col reveal">
+        <div class="q">
+          <!-- waypoint route — the stages that got her here -->
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><path d="M7.5 16.5 10.5 13.5"/><path d="M13.5 10.5 16.5 7.5"/></svg>
+          Background
+        </div>
+        <p id="about-bg-text"><span class="ln">I came to product from technical delivery. SAP consulting first. Then a project of my own, when the lead seat opened up mid-project.</span><span class="ln">It taught me to own the gap between what's promised and what ships.</span></p>
+      </div>
+      <div class="about-col reveal">
+        <div class="q">
+          <!-- three stacked cards — three shipped products -->
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="12" height="10" rx="2"/><path d="M7 7h8a2 2 0 0 1 2 2v8"/><path d="M11 4h6a2 2 0 0 1 2 2v6"/></svg>
+          Products
+        </div>
+        <p id="about-prod-text"><span class="ln">Three products, designed, built and shipped solo.</span><span class="ln">Commerce, personal finance, and PM tooling. Plus case studies on products already built.</span></p>
+      </div>
+      <div class="about-col reveal">
+        <div class="q">
+          <!-- balance scales — weighing tradeoffs -->
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v15"/><path d="M8.5 20h7"/><path d="M4 9h16"/><path d="M4 9l-2 5h4z"/><path d="M20 9l-2 5h4z"/></svg>
+          Principles
+        </div>
+        <p id="about-prin-text"><span class="ln">I know what to check, when to stop, and what not to build.</span><span class="ln">I write down the reasoning before I start. Including the calls I later reversed.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer">end</div>
+<script src="../../script.js?v=20260813b" defer></script>
+</body>
+</html>
