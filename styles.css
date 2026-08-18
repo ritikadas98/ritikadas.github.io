@@ -1341,11 +1341,11 @@ dialog.lightbox::backdrop{background:rgba(18,16,20,.96);backdrop-filter:blur(4px
 /* The hidden state lives in the keyframe, not on the element: if .lit never
    arrives because a script failed, the signature is simply visible rather
    than clipped to nothing. */
-/* Nearly two seconds, and held back half a second after the curtain lifts.
+/* 1.5s, held back half a second after the curtain lifts.
    At 1s starting immediately it was over before the eye had finished landing
    on the page. The easing is close to steady on purpose — a pen moves at a
    fairly even pace, and an ease-in-out reads as a wipe rather than writing. */
-html.lit .brand-mark{animation:sig-draw 1.9s cubic-bezier(.4,.05,.35,1) .55s both}
+html.lit .brand-mark{animation:sig-draw 1.5s cubic-bezier(.4,.05,.35,1) .55s both}
 @keyframes sig-draw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
 
 /* 2 — the marquee starts still and eases up to speed, so nothing is already
