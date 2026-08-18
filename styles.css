@@ -392,6 +392,58 @@ section{padding:56px 0}
 .concept-marks img.tile{border-radius:5px}
 .sec-head .sub{color:var(--muted);font-size:14.5px;margin-top:3px}
 
+/* ---- STICKY SECTION HEADINGS ----
+   Each section's heading pins under the nav while its own content scrolls
+   beneath it, and the next heading pushes it out on arrival. Sections arrive
+   at the reader rather than the reader travelling to them, and on a phone you
+   always know which one you are in. `.sec-head` exists only on the homepage,
+   so this reaches nothing else.
+
+   Frosted rather than filled. A plain section paints --paper and a card paints
+   --surface-2, a real step in tone that stayed invisible until the heading
+   gained an edge; letting what passes underneath tint the bar removes the step
+   instead of trying to match two colours that never match. Same treatment the
+   nav already uses, so the two read as one system. */
+.sec-head{
+  position:sticky;
+  top:var(--nav-h);
+  z-index:6;
+  padding:18px 0 14px;
+  margin-bottom:20px;
+  background:color-mix(in srgb, var(--paper) 78%, transparent);
+  -webkit-backdrop-filter:saturate(1.5) blur(12px);
+          backdrop-filter:saturate(1.5) blur(12px);
+  border-bottom:1px solid transparent;
+  transition:padding .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease,border-color .3s ease;
+}
+section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, transparent)}
+@supports not (backdrop-filter:blur(1px)){
+  .sec-head{background:var(--paper)}
+  section.band .sec-head{background:var(--soft-band)}
+}
+.sec-head .concept{transition:font-size .3s cubic-bezier(.2,.7,.2,1)}
+.sec-head .sub{max-height:44px;overflow:hidden;
+  transition:max-height .3s cubic-bezier(.2,.7,.2,1),opacity .22s ease,margin-top .3s ease}
+.sec-head .concept-marks{transition:transform .3s cubic-bezier(.2,.7,.2,1);transform-origin:left center}
+
+/* Pinned. At 375px the nav is 73px and a full heading another 74px — a quarter
+   of a small phone screen before any content. Dropping the subtitle and the
+   type size takes the heading to ~34px. */
+.sec-head.stuck{padding:9px 0 8px;box-shadow:0 10px 24px -20px rgba(33,30,36,.5);border-bottom-color:var(--hairline)}
+.sec-head.stuck .concept{font-size:clamp(16px,2.1vw,20px)}
+.sec-head.stuck .sub{max-height:0;opacity:0;margin-top:0}
+.sec-head.stuck .concept-marks{transform:scale(.82)}
+.stick-sentinel{height:1px;margin-bottom:-1px;pointer-events:none}
+[data-theme="dark"] .sec-head.stuck{box-shadow:0 10px 26px -20px rgba(0,0,0,.75)}
+
+@media(max-width:640px){.sec-head{padding:14px 0 11px}.sec-head.stuck{padding:8px 0 7px}}
+/* A heading that eats a third of the screen is worse than no heading. */
+@media (prefers-reduced-motion:reduce),(max-height:520px){
+  .sec-head{position:static;background:none;border-bottom:none;box-shadow:none;
+    backdrop-filter:none;-webkit-backdrop-filter:none;margin-bottom:28px;transition:none}
+  .sec-head .sub{max-height:none;opacity:1}
+}
+
 /* about & audience switcher */
 .audience-wrapper{margin-bottom:34px}
 .audience-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}

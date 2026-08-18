@@ -727,3 +727,24 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
   setTimeout(light, 2400);   /* never wait past the preloader's own ceiling */
 })();
 
+
+
+/* ---- STICKY SECTION HEADINGS ----
+   A sticky element cannot report that it is stuck, so a 1px sentinel sits just
+   above each heading and an observer watches it cross the line the nav sits on.
+   Cheaper and steadier than measuring positions on every scroll frame. */
+(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const heads = document.querySelectorAll('.sec-head');
+  if (!heads.length) return;
+  const navH = parseInt(getComputedStyle(document.documentElement)
+                 .getPropertyValue('--nav-h')) || 73;
+  heads.forEach(head => {
+    const sentinel = document.createElement('div');
+    sentinel.className = 'stick-sentinel';
+    head.parentNode.insertBefore(sentinel, head);
+    new IntersectionObserver(([entry]) => {
+      head.classList.toggle('stuck', !entry.isIntersecting && entry.boundingClientRect.top < navH);
+    }, { rootMargin: `-${navH + 1}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
+  });
+})();
