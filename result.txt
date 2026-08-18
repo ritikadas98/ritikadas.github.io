@@ -1,0 +1,38 @@
+tab:digest | h1="Start with payments." nodes=521 watch=11 rows=0 kpi=4
+tab:signals | h1="NONE" nodes=1341 watch=0 rows=120 kpi=0
+tab:report | h1="Search & Discovery" nodes=101 watch=0 rows=2 kpi=0
+groups(8)=all,account_performance,search_discovery,delivery_tracking,product_detail,prime_subscriptions,returns_refunds,checkout_payment
+digest/all | h1="Start with payments." nodes=521 watch=11 rows=0 kpi=4
+digest/account_performance | h1="Account & Performance has nothing ready to act on." nodes=155 watch=3 rows=0 kpi=4
+digest/search_discovery | h1="Search & Discovery has nothing ready to act on." nodes=131 watch=2 rows=0 kpi=4
+digest/delivery_tracking | h1="Delivery & Tracking has nothing ready to act on." nodes=124 watch=2 rows=0 kpi=4
+digest/product_detail | h1="Product Detail Pages has nothing ready to act on." nodes=89 watch=1 rows=0 kpi=4
+digest/prime_subscriptions | h1="Prime & Subscriptions has nothing ready to act on." nodes=121 watch=2 rows=0 kpi=4
+digest/returns_refunds | h1="Returns & Refunds has nothing ready to act on." nodes=88 watch=1 rows=0 kpi=4
+digest/checkout_payment | h1="Checkout takes money it shouldn’t, and blocks money it should" nodes=126 watch=0 rows=0 kpi=4
+report/all | h1="Search & Discovery" nodes=101 watch=0 rows=2 kpi=0
+report/account_performance | h1="Account & Performance" nodes=134 watch=0 rows=3 kpi=0
+report/search_discovery | h1="Search & Discovery" nodes=97 watch=0 rows=2 kpi=0
+report/delivery_tracking | h1="Delivery & Tracking" nodes=97 watch=0 rows=2 kpi=0
+report/product_detail | h1="Product Detail Pages" nodes=60 watch=0 rows=1 kpi=0
+report/prime_subscriptions | h1="Prime & Subscriptions" nodes=97 watch=0 rows=2 kpi=0
+report/returns_refunds | h1="Returns & Refunds" nodes=60 watch=0 rows=1 kpi=0
+report/checkout_payment | h1="Checkout & Payment" nodes=60 watch=0 rows=1 kpi=0
+kpi:all | h1="Start with payments." nodes=521 watch=11 rows=0 kpi=4
+kpi:thin | h1="Start with payments." nodes=449 watch=11 rows=0 kpi=4
+kpi:money | h1="Start with payments." nodes=132 watch=0 rows=0 kpi=4
+search refund -> 7 of 122
+src amazon_review -> 3 of 122
+sev high -> 32 of 122
+sev low -> 29 of 122
+no-match empty state: true
+effort XL changed the row: true
+  before: ThemePayment processing and cart issuest4People5Severity4.0Sources0.8EffortXSSMLXLScore19.2Your score19.2Evidence✓ Enough evidence
+  after : ThemePayment processing and cart issuest4People5Severity4.0Sources0.8EffortXSSMLXLScore19.2Your score4.8Evidence✓ Enough evidence
+chat open=true asks=5
+chat replies=6
+toast shown: true
+theme attr=light
+expanded row survived re-render: true
+ask-about-this opened chat: true
+ERRORS: none
