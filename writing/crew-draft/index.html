@@ -30,16 +30,25 @@
 }
 /* The marketing cards are portrait but not phone-shaped. Full measure is too wide
    for a chat bubble; this keeps them readable and centred. */
-.art-kicker{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;
-  letter-spacing:.13em;text-transform:uppercase;color:var(--pdeo-label);
-  border:1px solid var(--pill-line);border-radius:20px;padding:5px 13px;margin:0 0 20px}
+/* Case-study badge. Solid fill, not a hairline — everything else on the page is
+   paper and thin rules, so a filled block is the one thing that cannot be
+   mistaken for body furniture. Sits on the title's first baseline. */
+.art-titlerow{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.art-badge{
+  flex:none;font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  background:var(--accent);color:var(--paper);
+  padding:6px 11px 5px;border-radius:5px;white-space:nowrap;
+  position:relative;top:-2px;
+}
+.art-badge::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;
+  background:var(--paper);opacity:.7;margin-right:7px;vertical-align:middle;position:relative;top:-1px}
 .art-summary{grid-template-columns:repeat(3,1fr)}
 @media(max-width:760px){.art-summary{grid-template-columns:1fr}}
 /* Key terms and metrics, marked so they can be caught while scanning. Used
    sparingly — four in the whole piece. More than that and it stops meaning
    anything. */
-.art-note{font-size:14px;color:var(--faint);border-top:1px solid var(--hairline);padding-top:20px;margin-top:44px}
-.k{background:var(--accent-wash);border-radius:3px;padding:1px 4px;font-weight:500;color:var(--ink)}
+.k{background:var(--mark-bg);color:var(--mark-ink);border-radius:3px;padding:1px 5px;font-weight:500}
 .fig-card{max-width:430px;margin:36px auto}
 .fig-card img{width:100%;height:auto;display:block;border-radius:12px}
 .fig-card figcaption{font-size:13px;margin-top:10px;text-align:center}
@@ -52,6 +61,7 @@
   --dg-quiet:#5A5470; --dg-quiet-fill:#EAE7F2;
   --dg-crew:#A62B22; --dg-crew-2:#D14A32; --dg-on-crew:#FFF4F1;
   --dg-line:#B9B0A4;
+  --mark-bg:#DDD9F0; --mark-ink:#2C2966;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
@@ -59,7 +69,7 @@
     --dg-human:#E8A94F; --dg-human-fill:#33240F; --dg-human-ink:#F5CE93;
     --dg-quiet:#A3A0BC; --dg-quiet-fill:#272334;
     --dg-crew:#E8776A; --dg-crew-2:#F0968A; --dg-on-crew:#2A1512;
-    --dg-line:#5F5570;
+    --dg-line:#5F5570; --mark-bg:rgba(163,167,216,.22); --mark-ink:#C8CBEE;
   }
 }
 [data-theme="dark"]{
@@ -67,12 +77,18 @@
   --dg-human:#E8A94F; --dg-human-fill:#33240F; --dg-human-ink:#F5CE93;
   --dg-quiet:#A3A0BC; --dg-quiet-fill:#272334;
   --dg-crew:#E8776A; --dg-crew-2:#F0968A; --dg-on-crew:#2A1512;
-  --dg-line:#5F5570;
+  --dg-line:#5F5570; --mark-bg:rgba(163,167,216,.22); --mark-ink:#C8CBEE;
 }
 .fig-dgm{max-width:460px;margin:42px auto}
 .fig-dgm svg{width:100%;height:auto;display:block;overflow:visible}
 .fig-dgm figcaption{font-size:13px;margin-top:14px;text-align:center;color:var(--faint)}
 
+/* CSS vars do not resolve inside SVG presentation attributes in every engine,
+   so gradient stops, filter flood and marker fills are set here instead. That
+   was why the diagrams stayed light-themed in dark mode. */
+.gs1{stop-color:var(--dg-crew-2)} .gs2{stop-color:var(--dg-crew)}
+.popsh{flood-color:var(--dg-crew)}
+.mk-known{fill:var(--dg-known)} .mk-human{fill:var(--dg-human)} .mk-crew{fill:var(--dg-crew)}
 .d-tile{fill:var(--dg-quiet-fill);stroke:none}
 .d-tile-crew{fill:url(#crewgrad);stroke:none}
 .d-name{font-family:var(--display);font-size:16px;font-weight:600;fill:var(--dg-quiet);text-anchor:middle}
@@ -99,6 +115,8 @@
 .d-flow-human{stroke:var(--dg-human);fill:none;stroke-linecap:round}
 .d-loop{stroke:var(--dg-crew);stroke-width:1.6;fill:none;stroke-dasharray:5 4;stroke-linecap:round}
 .d-loop-lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.07em;fill:var(--dg-crew);text-anchor:middle;text-transform:uppercase}
+.d-note-h{font-family:var(--body);font-size:12px;fill:var(--dg-human);text-anchor:middle;font-weight:500}
+.d-note-k{font-family:var(--body);font-size:12px;fill:var(--dg-known);text-anchor:middle;font-weight:500}
 .d-cap{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;fill:var(--muted);text-transform:uppercase;text-anchor:middle}
 </style>
 </head>
@@ -142,16 +160,18 @@
   <header class="art-head">
     <div class="art-wrap">
       <a href="../" class="art-back">&larr; All writing</a>
-      <p class="art-kicker">Product case study</p>
-      <h1 class="art-title">One trip at a time</h1>
+      <div class="art-titlerow">
+        <h1 class="art-title">One trip at a time</h1>
+        <span class="art-badge">Product case study</span>
+      </div>
       <p class="art-sub">On CREW, Swiggy's travel concierge.</p>
       <figure class="fig-phone art-hero">
         <img src="../crew/images/crew-hero.jpg?v=2" alt="CREW's opening screen: the wordmark inside an aircraft window, above &ldquo;Welcome to Crew, your travel concierge&rdquo; and a Begin the Journey button." width="1080" height="1590" decoding="async" />
       </figure>
       <div class="art-summary">
-        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">CREW&rsquo;s best work is made by hand, and the people who do it are the hardest thing it has to hire.</div></div>
-        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Let software do the routine work, so the people are saved for the parts only a person can do.</div></div>
-        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">The customer stops checking up on things, and each trip costs less human time.</div></div>
+        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">CREW&rsquo;s best work is a person travelling with you, and those people are the hardest thing it has to hire.</div></div>
+        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Make the service scale now, before growth forces a choice between quality and headcount.</div></div>
+        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">More trips, without hiring at the same pace and without the service thinning out.</div></div>
       </div>
     </div>
   </header>
@@ -180,7 +200,7 @@
 </figure>
 
 <p>Which makes the entrance worth a look. <em>Ignore online rates</em>, it says, and then sets its own against them &mdash; one of four price arguments before the app asks for &#8377;999.</p>
-<blockquote class="pull">A comparison is an invitation to check. Checking is the habit everything further in is built to remove.</blockquote>
+<p>A comparison is an invitation to check, and checking is the habit that everything further in is built to remove.</p>
 
 <h2>Why a competitor cannot copy it</h2>
 <p>The reason is not the data.</p>
@@ -193,11 +213,11 @@
   <desc id="d1d">A two-by-two chart. Across: whether a company holds your trip details. Up: whether it stays with you during the trip. A booking site holds the trip but offers no service. A travel agent stays with you but has no live data. A general AI assistant has neither. CREW is alone in the corner that has both, and is drawn larger and in full colour to show it.</desc>
   <defs>
     <linearGradient id="crewgrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="var(--dg-crew-2)"/>
-      <stop offset="100%" stop-color="var(--dg-crew)"/>
+      <stop offset="0%" class="gs1"/>
+      <stop offset="100%" class="gs2"/>
     </linearGradient>
     <filter id="pop" x="-30%" y="-30%" width="170%" height="170%">
-      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="var(--dg-crew)" flood-opacity="0.34"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="5" class="popsh" flood-opacity="0.30"/>
     </filter>
   </defs>
 
@@ -260,7 +280,7 @@
 <p>Swiggy built its business on physical dispatch, where a rider is interchangeable. One in Indiranagar can deliver in Koramangala and the routing works out the same. That is what let the fleet scale.</p>
 <p>The people who do this job are not interchangeable. They need hard knowledge &mdash; visa rules, connection windows, what an airport is like at six in the morning &mdash; and the softer kind, which is harder to hire for: staying calm, reading a mood, knowing when not to speak.</p>
 <p>That bar exists because the stakes do. A wrong burger is a refund and an apology. A missed visa clause or a broken connection is somebody's one holiday of the year.</p>
-<blockquote class="pull">The thing that makes CREW hard to copy is the same thing that makes it hard to grow.</blockquote>
+<p>The thing that makes CREW hard to copy is the same thing that makes it hard to grow.</p>
 <p>These people are rare. That is the <span class="k">moat</span>, and it is also the ceiling.</p>
 <p>Anything that scarce has to be rationed, and CREW rations it sensibly. It comes with a booking big enough to pay for it.</p>
 <p>So the best proof of what CREW is worth arrives only after you have already trusted it with a trip. You find out whether you can hand over a trip by handing one over.</p>
@@ -273,27 +293,13 @@
 <p>Everything else goes to someone who decides.</p>
 
 <figure class="fig-dgm">
-<svg viewBox="0 0 360 244" role="img" aria-labelledby="d2t d2d" xmlns="http://www.w3.org/2000/svg">
-  <title id="d2t">The seventh question</title>
-  <desc id="d2d">One request holds seven questions. Six of them already have answers, so they can be answered without a person. The seventh does not, and a person works it out. Once that answer is written down against the place it belongs to, it becomes one of the six for every customer after.</desc>
-  <defs>
-    <marker id="ak" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 z" fill="var(--dg-known)"/>
-    </marker>
-    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 z" fill="var(--dg-human)"/>
-    </marker>
-    <marker id="al" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M0 0 L10 5 L0 10 z" fill="var(--dg-crew)"/>
-    </marker>
-  </defs>
-
-  <text class="d-cap" x="180" y="12">one request &#183; seven questions</text>
-
-  <g>
-    <rect class="d-chip-known" x="2"   y="22" width="44" height="26" rx="7"/>
+<svg viewBox="0 0 360 190" role="img" aria-labelledby="d2t d2d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d2t">The seventh question, and the next customer</title>
+  <desc id="d2d">The same request, twice. The first time it holds seven questions: six already have answers, and the seventh does not, so a person works it out. That answer is written down against the place it belongs to. Every customer after that gets all seven answered, and nobody has to work it out again.</desc>
+  <text class="d-cap" x="180" y="12">the first time</text>
+    <rect class="d-chip-known" x="2" y="22" width="44" height="26" rx="7"/>
     <path class="d-chip-tick" d="M18 35 l4 4 l8 -9"/>
-    <rect class="d-chip-known" x="54"  y="22" width="44" height="26" rx="7"/>
+    <rect class="d-chip-known" x="54" y="22" width="44" height="26" rx="7"/>
     <path class="d-chip-tick" d="M70 35 l4 4 l8 -9"/>
     <rect class="d-chip-known" x="106" y="22" width="44" height="26" rx="7"/>
     <path class="d-chip-tick" d="M122 35 l4 4 l8 -9"/>
@@ -305,31 +311,32 @@
     <path class="d-chip-tick" d="M278 35 l4 4 l8 -9"/>
     <rect class="d-chip-human" x="314" y="22" width="44" height="26" rx="7"/>
     <text class="d-chip-q" x="336" y="41">?</text>
-  </g>
-
-  <path class="d-flow-known" d="M154 54 C154 74 109 74 109 88" stroke-width="7" marker-end="url(#ak)"/>
-  <path class="d-flow-human" d="M336 54 C336 74 293 74 293 88" stroke-width="2.5" marker-end="url(#ah)"/>
-
-  <rect class="d-blk-known" x="2"   y="96" width="214" height="72" rx="12"/>
-  <text class="d-blk-n on-known" x="109" y="126">6</text>
-  <text class="d-blk-t on-known" x="109" y="146">answered from what</text>
-  <text class="d-blk-t on-known" x="109" y="161">is already known</text>
-
-  <rect class="d-blk-human" x="228" y="96" width="130" height="72" rx="12"/>
-  <text class="d-blk-n on-human" x="293" y="126">1</text>
-  <text class="d-blk-t on-human" x="293" y="146">a person</text>
-  <text class="d-blk-t on-human" x="293" y="161">works it out</text>
-
-  <path class="d-loop" d="M293 176 V192 Q293 200 285 200 H117 Q109 200 109 192 V182" marker-end="url(#al)"/>
-  <text class="d-loop-lbl" x="180" y="228">written down &#183; one of the six next time</text>
+  <text class="d-note-h" x="180" y="68">one question nobody had answered yet</text>
+  <text class="d-loop-lbl" x="180" y="96">&#8595;&#160;&#160;the answer is written down&#160;&#160;&#8595;</text>
+  <text class="d-cap" x="180" y="122">every time after</text>
+    <rect class="d-chip-known" x="2" y="132" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M18 145 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="54" y="132" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M70 145 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="106" y="132" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M122 145 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="158" y="132" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M174 145 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="210" y="132" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M226 145 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="262" y="132" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M278 145 l4 4 l8 -9"/>
+    <rect class="d-chip-known" x="314" y="132" width="44" height="26" rx="7"/>
+    <path class="d-chip-tick" d="M330 145 l4 4 l8 -9"/>
+  <text class="d-note-k" x="180" y="178">nobody has to work it out again</text>
 </svg>
-<figcaption>The seventh is the only one that needs a person &mdash; and only once.</figcaption>
+<figcaption>A person answers it once. Everyone after gets it for free.</figcaption>
 </figure>
 
 <p>The second change is smaller and worth more. Requests arrive as one message and get worked as one job. A couple wants a day at a vineyard outside the city &mdash; and inside that sentence are seven questions. Is it open that day. What time. What to wear. Is there lunch. How do they get there. Who books the car. And can they get onto the tasting that is always full.</p>
 <p>Six have answers already. One does not. Today all seven wait for the same person.</p>
 <p>Then the third, and it compounds. When an assistant solves the one with no answer, it is written down against that place &mdash; what worked, and who to call when the obvious number does not.</p>
-<blockquote class="pull">The booking was never the output. The output was a fact nobody had recorded.</blockquote>
+<p>The booking was never the output. The output was a fact nobody had recorded.</p>
 <p>Done well, the traveller experiences it as someone paying attention. Underneath, it was arithmetic.</p>
 
 <figure class="fig-card">
@@ -350,7 +357,6 @@
 <p>It needs a second beside it, because the first can be bought with headcount. <span class="k">Cost to serve</span> &mdash; the human minutes one trip consumes. If the let-go rate climbs while that number falls, the service is running at <span class="k">software margins</span>. If it climbs while the minutes stay flat, CREW has bought quality it cannot afford to keep.</p>
 <p>And the test that would prove me wrong. Compare the members who lean on the service against those who only book and handle the rest themselves. If both come back at the same rate, the accompaniment was never the advantage, and the honest move is to unbundle it.</p>
 
-<p class="art-note"><em>Disclosure: I have worked on part of this product. Everything here comes from material CREW has published or from using the app as a customer.</em></p>
 
 
     </div>
