@@ -415,6 +415,11 @@ section{padding:56px 0}
           backdrop-filter:saturate(1.5) blur(12px);
   border-bottom:1px solid transparent;
   transition:padding .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease,border-color .3s ease;
+  /* Same reason the nav carries it, twenty lines up. A frosted bar that stays put
+     while the page moves under it has to re-read and re-blur everything behind it
+     on every frame. Without its own layer that redraw lands on the main one, and
+     the bar strobes and dithers instead of holding still. */
+  transform:translateZ(0);
 }
 section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, transparent)}
 @supports not (backdrop-filter:blur(1px)){
