@@ -467,8 +467,17 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
    Only Chrome and Edge support this today. Everything else falls through to the
    class-based version above, which still works. -------------------------- */
 @supports (animation-timeline: view()) {
+  /* The name has to be hoisted to the element that contains both the ruler and the
+     heading. Declaring it on the ruler alone is not enough — the heading cannot see
+     it, the timeline never attaches, and the animation sits at its end state at every
+     scroll position, which is exactly the "big, then small" with nothing in between. */
+  section > .wrap{timeline-scope:--pin}
   .stick-sentinel{
-    height:130px;margin-bottom:-130px;
+    /* margin-TOP, so the ruler lies in the 130px ABOVE the heading and its bottom edge
+       ends on the heading's top edge. With margin-bottom the heading was pulled up onto
+       the ruler instead, and the whole measurement ran 130px late. Layout is unchanged
+       either way, and the observer still trips on the same edge. */
+    height:130px;margin-top:-130px;margin-bottom:0;
     view-timeline-name:--pin;
     view-timeline-axis:block;
     view-timeline-inset:var(--nav-h) auto;
