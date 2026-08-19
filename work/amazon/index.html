@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=20260819l">
+<link rel="stylesheet" href="../../styles.css?v=20260819m">
 <script>
 (function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 </script>
@@ -253,12 +253,12 @@
 
   <section id="decisions" class="wk-sec">
     <div class="art-wrap">
-      <h2 class="wk-h2">Non-goals, and why</h2>
-      <p class="wk-lead">Three, turned down because a PM already has the tool, or asks a different question.</p>
+      <h2 class="wk-h2">Trade-offs</h2>
+      <p class="wk-lead">Three calls. Each gave something up, and each bought something worth more.</p>
         <div class="pdeo spec">
-          <div class="row"><span class="k">A database</span><span class="v">It writes to a Google Sheet, which PMs already sort, filter and share. Postgres was about &#8377;1,100 a month to hold seven rows a week; Cloud Run scale-to-zero does it for &#8377;40.</span></div>
-          <div class="row"><span class="k">My own schema</span><span class="v">The sheet was built before the code. They disagreed, so I changed the code &mdash; including leaving a misspelled column header alone.</span></div>
-          <div class="row"><span class="k">Weekly navigation</span><span class="v">The first version made each weekly run the thing you clicked between. Nobody asks what happened in week 22. They ask what is going wrong in Checkout.</span></div>
+          <div class="row"><span class="k">A spreadsheet over a database</span><span class="v">It writes to a Google Sheet. I gave up queries and schema control, and got a store PMs already sort, filter, comment on and share. Postgres was about &#8377;1,100 a month to hold seven rows a week; Cloud Run scale-to-zero does it for &#8377;40.</span></div>
+          <div class="row"><span class="k">Their schema over mine</span><span class="v">The sheet was built before the code, and the two disagreed. I changed the code rather than the sheet &mdash; including leaving a misspelled column header alone, because a PM may already be filtering and pivoting on it.</span></div>
+          <div class="row"><span class="k">The question over the archive</span><span class="v">The first version made each weekly run the thing you clicked between. I gave up the history view. Nobody asks what happened in week 22; they ask what is going wrong in Checkout.</span></div>
         </div>
     </div>
   </section>

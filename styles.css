@@ -896,6 +896,10 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
    no vertical space and is read against the point it illustrates. It keeps
    .fig-body so the lightbox still opens it at full size, which matters more here
    than usual: at 320px a screenshot is a thumbnail, not a readable image. */
+/* Money inside a body row. The figures are the argument in the economics section —
+   a third of a rupee per verdict, ₹3.6 a user a month — and in plain bold they read
+   as emphasis rather than as the number to take away. */
+.amt{color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
 .wk-side-fig{margin:6px 0 0}
 .wk-side-fig img{display:block;width:100%;height:auto;border-radius:10px;border:1px solid var(--hairline)}
 .wk-side-fig figcaption{font-size:12px;line-height:1.5;color:var(--muted);margin-top:12px}

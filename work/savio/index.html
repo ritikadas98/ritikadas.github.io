@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=20260819l">
+<link rel="stylesheet" href="../../styles.css?v=20260819m">
 <script>
 (function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 </script>
@@ -239,29 +239,17 @@
 
   <section id="decisions" class="wk-sec">
     <div class="art-wrap">
-      <h2 class="wk-h2">Non-goals, and why</h2>
-      <p class="wk-lead">Six things, and the first was the idea the whole product started as. None were turned down for being hard to build.</p>
-        <div class="pdeo spec">
-          <div class="row"><span class="k">The checkout</span><span class="v">The original idea. A purchase that matters is made in about ninety seconds, and nobody opens an app inside them. An app cannot see that moment coming either. You would have to open it yourself, exactly when you will not.</span></div>
-          <div class="row"><span class="k">Location nudging</span><span class="v">&ldquo;You&rsquo;re near a Myntra. Careful, you&rsquo;ve regretted four of four purchases there.&rdquo; That turns a companion into something that watches you. The wrong voice, and voice is why people keep it installed.</span></div>
-          <div class="row"><span class="k">Investment advice</span><span class="v">Naming a specific fund or stock is regulated advice and needs a licence I do not have. Blocked in code rather than in the prompt.</span></div>
-          <div class="row"><span class="k">Tax planning</span><span class="v">Comparing regimes and recommending 80C instruments is a chartered accountant&rsquo;s job. The same filter catches it.</span></div>
-          <div class="row"><span class="k">Portfolio view</span><span class="v">Stocks, funds and deposits together is a real product, with different competitors. Savio answers one question about the money arriving and leaving this month.</span></div>
-          <div class="row"><span class="k">Household mode</span><span class="v">Joint money has its own problems: who consents, whose goal is whose, which spending is shared. Bolted onto a single-person model it would half-work for both.</span></div>
-        </div>
-    </div>
-  </section>
-
-  <section id="evidence" class="wk-sec band">
-    <div class="art-wrap">
-      <h2 class="wk-h2">Three things the first version got wrong</h2>
+      <h2 class="wk-h2">Trade-offs</h2>
       <div class="wk-split">
       <div>
-        <p class="wk-lead">Three errors, and none of them were bugs. Each was the product encoding something true in a way that produced a wrong answer.</p>
+        <p class="wk-lead">Six calls. Each gave up something real, and each bought something I wanted more.</p>
         <div class="pdeo spec">
-          <div class="row"><span class="k">Cushion as yes</span><span class="v">Priya has &#8377;50,000 above her safety net. A naive assistant says you can afford it, you have savings. That makes every large purchase rationalisable and the discipline collapses. Now the cushion enters a verdict as a cost, never a yes. It never reaches green.</span></div>
-          <div class="row"><span class="k">Savings as spendable</span><span class="v">&#8377;15,000 a month leaves into two SIPs. Not a cost, it is her money going to her future. But not available either, because it auto-debits on payday. The first version encoded only the first and overstated her room by &#8377;15,000 a month.</span></div>
-          <div class="row"><span class="k">Model doing maths</span><span class="v">It emitted three different day counts in one session: 29, 30 and 31. A checker that verifies sums would never catch that, because a wrong calendar is not a failed sum. The fix was removing its chance to invent the number.</span></div>
+          <div class="row"><span class="k">Timing over presence</span><span class="v">The checkout was the original idea. A purchase that matters is made in about ninety seconds and nobody opens an app inside one. I gave up the moment of decision to speak at the moments people do open an app: payday, a windfall, a few days after buying.</span></div>
+          <div class="row"><span class="k">Voice over vigilance</span><span class="v">&ldquo;You&rsquo;re near a Myntra. Careful, you&rsquo;ve regretted four of four purchases there.&rdquo; Accurate, and it turns a companion into something that watches you. I gave up the most timely warning to keep the voice people stay installed for.</span></div>
+          <div class="row"><span class="k">Licence over leverage</span><span class="v">Naming a fund or a stock is regulated advice and needs a licence I do not have. I gave up the highest-value answer in personal finance, and blocked it in code rather than in the prompt so it cannot be talked around.</span></div>
+          <div class="row"><span class="k">One job over the next one</span><span class="v">Comparing tax regimes and recommending 80C instruments is a chartered accountant&rsquo;s job. Adjacent, tempting, and the same filter catches it.</span></div>
+          <div class="row"><span class="k">One question over a dashboard</span><span class="v">Stocks, funds and deposits together is a real product with different competitors. I gave up breadth to answer one thing properly: the money arriving and leaving this month.</span></div>
+          <div class="row"><span class="k">One model over half-fitting two</span><span class="v">Joint money has its own problems: who consents, whose goal is whose, which spending is shared. I gave up the second audience rather than bolt it onto a single-person model and half-work for both.</span></div>
         </div>
       </div>
       <figure class="wk-side-fig fig-body">
@@ -281,19 +269,19 @@
       <div class="wk-split">
       <div class="wk-prose">
         <p class="wk-lead">A verdict costs $0.0043 to produce. An active user costs about
-          &#8377;4 a month. Cost is not what limits this product. A forced model migration
+          <b class="amt">&#8377;4</b> a month. Cost is not what limits this product. A forced model migration
           and three regulatory boundaries are.</p>
         <div class="pdeo spec">
           <div class="row"><span class="k">Calls the model</span><span class="v">Three of five functions. The monthly ritual and the windfall allocation run in code and cost nothing.</span></div>
-          <div class="row"><span class="k">Per verdict</span><span class="v">6,800 tokens in, 900 out. <b>$0.0043</b>, about a third of a rupee.</span></div>
-          <div class="row"><span class="k">Biggest lever</span><span class="v">The system prompt is 61% of every input and never changes. Cached at a tenth of the rate, a verdict drops to <b>$0.0032</b>.</span></div>
-          <div class="row"><span class="k">Per user</span><span class="v">About ten model calls a month. <b>$0.041</b>, or &#8377;3.6.</span></div>
+          <div class="row"><span class="k">Per verdict</span><span class="v">6,800 tokens in, 900 out. <b class="amt">$0.0043</b>, about a third of a rupee.</span></div>
+          <div class="row"><span class="k">Biggest lever</span><span class="v">The system prompt is 61% of every input and never changes. Cached at a tenth of the rate, a verdict drops to <b class="amt">$0.0032</b>.</span></div>
+          <div class="row"><span class="k">Per user</span><span class="v">About ten model calls a month. <b class="amt">$0.041</b>, or <b class="amt">&#8377;3.6</b>.</span></div>
           <div class="row"><span class="k">Assumption</span><span class="v">Ten calls is derived, not measured. One ritual follow-up, two reflections, five considered purchases. The five is the number to argue with.</span></div>
           <div class="row"><span class="k">Deadline</span><span class="v">Gemini 2.5 is deprecated from October 2026 and repriced after January 2027. The deadline is January.</span></div>
           <div class="row"><span class="k">The choice</span><span class="v">Three migration targets, six times apart. 3.1 Flash-Lite is 40% cheaper than today. 3.5 Flash-Lite is the same. 3.5 Flash is four times more. Move to a Lite tier and prove quality on the existing tests. Cost is not a reason to move up a tier. A failed grounding would be.</span></div>
           <div class="row"><span class="k">The real work</span><span class="v">The model ID is already an environment variable, so the swap is config. But Gemini 3 needs thought signatures carried between turns, and Savio replays six. That is the change that takes time.</span></div>
           <div class="row"><span class="k">Revenue</span><span class="v">Three rejections close the usual doors. Naming investments needs a SEBI licence. Tax needs a chartered accountant. Real accounts need Account Aggregator and an RBI-registered partner. A subscription is what is left.</span></div>
-          <div class="row"><span class="k">The real cap</span><span class="v">At &#8377;4 of cost, price is not the constraint. Until account connectivity lands you type your own numbers in, and a product you maintain by hand is one you stop paying for.</span></div>
+          <div class="row"><span class="k">The real cap</span><span class="v">At <b class="amt">&#8377;4</b> of cost, price is not the constraint. Until account connectivity lands you type your own numbers in, and a product you maintain by hand is one you stop paying for.</span></div>
         </div>
       </div>
       <figure class="cost-fig">
