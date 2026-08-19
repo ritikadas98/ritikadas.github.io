@@ -374,7 +374,12 @@ h1.hero em{font-style:normal;color:var(--accent)}
 .btn .arr{transition:transform .2s}.btn:hover .arr{transform:translate(2px,-2px)}
 
 /* sections */
-section{padding:56px 0}
+/* 34, not 56. At 56 the gap from the last card of one section to the next heading
+   measured 113px — the two paddings plus the heading's own. That much dead ground
+   stops reading as a break between sections and starts reading as a page that has
+   run out of things to say. The band colour already marks where one section ends,
+   so the space does not have to do it twice. Now 69px. */
+section{padding:34px 0}
 .band{background:var(--soft-band);border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
 .sec-head{display:flex;align-items:center;gap:18px;margin-bottom:28px}
 .sec-head .concept{font-family:var(--display);font-weight:600;font-size:clamp(22px,3.2vw,32px);letter-spacing:-.02em;line-height:1.12}
