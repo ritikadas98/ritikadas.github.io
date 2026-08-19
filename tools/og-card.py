@@ -135,8 +135,11 @@ ARTICLES = {
         # as analysis of the company rather than anything endorsed by it.
         "kicker": "Shipped product",
         "title": "Amazon Discovery Intelligence",
-        "hook": "An agentic pipeline that reads a week of customer complaints and "
-                "hands a PM a ranked, cited backlog.",
+        # Not "a ranked, cited backlog" any more. The case study now argues that a
+        # ranked list is still a backlog and hands the queue straight back, so the
+        # card cannot promise the thing the page spends a section arguing against.
+        "hook": "Reads a week of public Amazon reviews and names the one problem "
+                "worth starting. For the rest, it says what evidence is missing.",
         "byline": "Agentic AI pipeline · deployed",
         "brand": "#1F2937", "rgb": "31,41,55",
         "field": ("#4A5A6B", "#2C3A47", "#1F2937", "#0E141B"),
