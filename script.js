@@ -732,19 +732,36 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
 /* ---- STICKY SECTION HEADINGS ----
    A sticky element cannot report that it is stuck, so a 1px sentinel sits just
    above each heading and an observer watches it cross the line the nav sits on.
-   Cheaper and steadier than measuring positions on every scroll frame. */
+   Cheaper and steadier than measuring positions on every scroll frame.
+
+   Two observers, not one, and this is the whole point. Pinning collapses the
+   heading — subtitle gone, padding halved, type smaller — which takes about 74px
+   out of the section. On a long section nobody notices. On a short one that lost
+   height can carry the sentinel back across a single toggle line, which unpins the
+   heading, which restores the 74px, which pins it again. The heading strobes, and
+   only on the shortest section on the page.
+
+   So the line to pin sits below the line to unpin, and between them nothing
+   happens. The gap is wider than the height the heading can lose, so the collapse
+   can never reach across it. */
 (function () {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const heads = document.querySelectorAll('.sec-head');
   if (!heads.length) return;
   const navH = parseInt(getComputedStyle(document.documentElement)
                  .getPropertyValue('--nav-h')) || 73;
+  const GAP = 44;                    /* half the dead zone; 74px of collapse cannot span 88 */
   heads.forEach(head => {
     const sentinel = document.createElement('div');
     sentinel.className = 'stick-sentinel';
     head.parentNode.insertBefore(sentinel, head);
+    /* Pin once the sentinel is clearly above the nav. */
     new IntersectionObserver(([entry]) => {
-      head.classList.toggle('stuck', !entry.isIntersecting && entry.boundingClientRect.top < navH);
-    }, { rootMargin: `-${navH + 1}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
+      if (!entry.isIntersecting) head.classList.add('stuck');
+    }, { rootMargin: `-${navH + GAP}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
+    /* Release only once it is clearly back below it. */
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) head.classList.remove('stuck');
+    }, { rootMargin: `-${Math.max(navH - GAP, 0)}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
   });
 })();
