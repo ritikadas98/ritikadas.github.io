@@ -740,11 +740,25 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
   const navH = parseInt(getComputedStyle(document.documentElement)
                  .getPropertyValue('--nav-h')) || 73;
   heads.forEach(head => {
+    const section = head.closest('section');
+
+    /* A heading can only pin if its own section is long enough to scroll one through.
+       Work Experience is a heading and a single card at the foot of the page: it pins,
+       the collapse takes 74px out of the page, and the page bottom gives that scroll
+       straight back — so it pins and unpins against itself. Short sections keep a
+       plain heading, which is also what they look like they want. */
+    const fits = () => !section ||
+      section.getBoundingClientRect().height > innerHeight - navH;
+    const gate = () => head.classList.toggle('no-pin', !fits());
+    gate();
+    addEventListener('resize', gate, { passive: true });
+
     const sentinel = document.createElement('div');
     sentinel.className = 'stick-sentinel';
     head.parentNode.insertBefore(sentinel, head);
     new IntersectionObserver(([entry]) => {
-      head.classList.toggle('stuck', !entry.isIntersecting && entry.boundingClientRect.top < navH);
+      head.classList.toggle('stuck', !head.classList.contains('no-pin') &&
+        !entry.isIntersecting && entry.boundingClientRect.top < navH);
     }, { rootMargin: `-${navH + 1}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
   });
 })();
