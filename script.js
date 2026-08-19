@@ -732,63 +732,19 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
 /* ---- STICKY SECTION HEADINGS ----
    A sticky element cannot report that it is stuck, so a 1px sentinel sits just
    above each heading and an observer watches it cross the line the nav sits on.
-   Cheaper and steadier than measuring positions on every scroll frame.
-
-   Pinning collapses the heading — subtitle gone, padding halved, type smaller —
-   which used to take about 74px out of the section and out of the page. On a long
-   section nobody noticed. On the shortest one it strobed: the lost height carried
-   the sentinel back across the toggle line, which unpinned the heading, which gave
-   the height back, which pinned it again.
-
-   Fixed at the source. The heading now hands that height back as margin, so the
-   section measures the same pinned or not and the page never shortens under the
-   reader. A wide dead zone was the first attempt and it worked, but you could feel
-   the heading waiting; 8px is all that is left, enough to absorb sub-pixel jitter
-   and too little to read as lag. */
+   Cheaper and steadier than measuring positions on every scroll frame. */
 (function () {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const heads = document.querySelectorAll('.sec-head');
   if (!heads.length) return;
   const navH = parseInt(getComputedStyle(document.documentElement)
                  .getPropertyValue('--nav-h')) || 73;
-  const GAP = 8;                     /* a hair of hysteresis, not a delay you can feel */
   heads.forEach(head => {
-    if (getComputedStyle(head).position !== 'sticky') return;   /* short screens keep it static */
-
-    /* Give back, as margin, exactly the height the collapse takes away. The section
-       then stays the same height whether the heading is pinned or not, the page
-       never gets shorter under the reader, and the sentinel above cannot be carried
-       back across the line by the very collapse it triggered. Measured rather than
-       hardcoded, because the number moves with breakpoint and webfont. */
-    const measure = () => {
-      const wasStuck = head.classList.contains('stuck');
-      head.style.transition = 'none';
-      head.classList.remove('stuck');
-      /* Read the base margin only while open. Reading it while pinned would return
-         the padded value and compound it on every resize. */
-      const base = parseFloat(getComputedStyle(head).marginBottom) || 0;
-      const open = head.offsetHeight;
-      head.classList.add('stuck');
-      const shut = head.offsetHeight;
-      head.classList.toggle('stuck', wasStuck);
-      void head.offsetHeight;                       /* flush before transitions return */
-      head.style.transition = '';
-      head.style.setProperty('--stuck-pad', (base + Math.max(open - shut, 0)) + 'px');
-    };
-    measure();
-    addEventListener('resize', measure, { passive: true });
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
-
     const sentinel = document.createElement('div');
     sentinel.className = 'stick-sentinel';
     head.parentNode.insertBefore(sentinel, head);
-    /* Pin once the sentinel is above the nav. */
     new IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) head.classList.add('stuck');
-    }, { rootMargin: `-${navH + GAP}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
-    /* Release once it is back below it. */
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) head.classList.remove('stuck');
-    }, { rootMargin: `-${Math.max(navH - GAP, 0)}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
+      head.classList.toggle('stuck', !entry.isIntersecting && entry.boundingClientRect.top < navH);
+    }, { rootMargin: `-${navH + 1}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
   });
 })();

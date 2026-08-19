@@ -414,7 +414,7 @@ section{padding:56px 0}
   -webkit-backdrop-filter:saturate(1.5) blur(12px);
           backdrop-filter:saturate(1.5) blur(12px);
   border-bottom:1px solid transparent;
-  transition:padding .3s cubic-bezier(.2,.7,.2,1),margin-bottom .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease,border-color .3s ease;
+  transition:padding .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease,border-color .3s ease;
   /* Same reason the nav carries it, twenty lines up. A frosted bar that stays put
      while the page moves under it has to re-read and re-blur everything behind it
      on every frame. Without its own layer that redraw lands on the main one, and
@@ -434,11 +434,7 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
 /* Pinned. At 375px the nav is 73px and a full heading another 74px — a quarter
    of a small phone screen before any content. Dropping the subtitle and the
    type size takes the heading to ~34px. */
-.sec-head.stuck{padding:9px 0 8px;box-shadow:0 10px 24px -20px rgba(33,30,36,.5);border-bottom-color:var(--hairline);
-  /* --stuck-pad is measured in script.js: the base margin plus exactly the height
-     the collapse removes. The section keeps one height in both states, so the page
-     never shortens under the reader and the pin cannot re-trigger itself. */
-  margin-bottom:var(--stuck-pad,20px)}
+.sec-head.stuck{padding:9px 0 8px;box-shadow:0 10px 24px -20px rgba(33,30,36,.5);border-bottom-color:var(--hairline)}
 .sec-head.stuck .concept{font-size:clamp(16px,2.1vw,20px)}
 .sec-head.stuck .sub{max-height:0;opacity:0;margin-top:0}
 .sec-head.stuck .concept-marks{transform:scale(.82)}
