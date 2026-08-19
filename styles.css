@@ -450,6 +450,51 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
 .sec-head.stuck .concept-marks{transform:scale(.82)}
 .stick-sentinel{height:1px;margin-bottom:-1px;pointer-events:none}
 
+/* ---- SCROLL-DRIVEN PIN ----------------------------------------------------
+   Everything above flips the heading between two sizes at one line. That reads
+   as a switch, not as scrolling. Here the browser drives the same change off
+   scroll position itself, so the heading is mid-size while you are mid-scroll,
+   and it runs on the compositor rather than on the main thread — the reason the
+   300ms transition felt like lag and this does not.
+
+   The sentinel becomes the ruler. It is 130px tall and pulled back by the same
+   130px, so it changes no layout, and its bottom edge still sits exactly on the
+   heading's top edge. `view-timeline-inset` moves the measuring line down to
+   where the nav ends. So `exit 0%` is 130px before the heading reaches the nav,
+   and `exit 100%` is the moment it arrives — the heading finishes shrinking
+   exactly as it lands.
+
+   Only Chrome and Edge support this today. Everything else falls through to the
+   class-based version above, which still works. -------------------------- */
+@supports (animation-timeline: view()) {
+  .stick-sentinel{
+    height:130px;margin-bottom:-130px;
+    view-timeline-name:--pin;
+    view-timeline-axis:block;
+    view-timeline-inset:var(--nav-h) auto;
+  }
+  .sec-head          {animation:pin-bar   linear both;animation-timeline:--pin;animation-range:exit 0% exit 100%}
+  .sec-head .concept {animation:pin-title linear both;animation-timeline:--pin;animation-range:exit 0% exit 100%;
+                      transform-origin:left center}
+  .sec-head .sub     {animation:pin-sub   linear both;animation-timeline:--pin;animation-range:exit 0% exit 76%}
+  .sec-head .concept-marks{animation:pin-marks linear both;animation-timeline:--pin;animation-range:exit 0% exit 100%}
+  /* The class no longer owns size — it would compound with the animation. It keeps
+     the shadow and the hairline, which are the parts that should still snap on. */
+  .sec-head.stuck .concept-marks{transform:none}
+}
+/* The bar gives back as margin exactly what it loses in padding and subtitle, all
+   the way through, so the section is one height at every point in the scroll and
+   the page can never shorten under the reader. */
+@keyframes pin-bar{
+  from{padding-top:18px;padding-bottom:14px;margin-bottom:20px}
+  to  {padding-top:9px; padding-bottom:8px; margin-bottom:82px}
+}
+/* Scale, not font-size. Scale is drawn, font-size is laid out. */
+@keyframes pin-title{from{scale:1}      to{scale:.64}}
+@keyframes pin-marks{from{scale:1}      to{scale:.82}}
+@keyframes pin-sub  {from{opacity:1;max-height:44px;margin-top:3px}
+                     to  {opacity:0;max-height:0;   margin-top:0}}
+
 [data-theme="dark"] .sec-head.stuck{box-shadow:0 10px 26px -20px rgba(0,0,0,.75)}
 
 @media(max-width:640px){.sec-head{padding:14px 0 11px}.sec-head.stuck{padding:8px 0 7px}}
