@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=20260819m">
+<link rel="stylesheet" href="../../styles.css?v=20260819n">
 <script>
 (function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 </script>
@@ -244,15 +244,15 @@
   <section id="decisions" class="wk-sec">
     <div class="art-wrap">
       <h2 class="wk-h2">Trade-offs</h2>
-      <p class="wk-lead">Seven calls, none of them about difficulty. Each gave something up, and each bought something worth more.</p>
+      <p class="wk-lead">Seven scope calls, none about difficulty. Each gave something up for something worth more.</p>
         <div class="pdeo spec">
-          <div class="row"><span class="k">Reach over depth</span><span class="v">The first version was a feature inside Myntra. I sketched it, then dropped it. You cannot ship inside Myntra&rsquo;s page without being Myntra &mdash; and the problem is not inside any one shop. It is that four shops disagree about what an M is.</span></div>
-          <div class="row"><span class="k">Trust over accuracy</span><span class="v">Both chase accuracy. Every page already publishes a size chart, so accuracy was never the missing piece. Trust was. Promise a perfect fit and you only get to be wrong once.</span></div>
-          <div class="row"><span class="k">Completion over precision</span><span class="v">Bust, waist and hip is the precise input, and it is where people quit the form, because most do not know those numbers. Everyone knows which shirt fits them, so it asks that instead.</span></div>
-          <div class="row"><span class="k">The rule over the retailer</span><span class="v">Its chart is published as a picture. I could have read the numbers off a server, but I had set a rule that the extension never calls out to the network. I kept the rule and dropped the retailer.</span></div>
-          <div class="row"><span class="k">Useful over anatomically right</span><span class="v">Real inseam scales with height, at about 0.45 of it. I use 0.3. Levi&rsquo;s lists a 32-inch inseam for every waist from 28 to 40, so the anatomically right answer would flag jeans as too short that are sold to tall women on purpose.</span></div>
-          <div class="row"><span class="k">Silence over a confident answer</span><span class="v">When the chart is short a number it says it cannot tell. That happened six times in twenty-one attempts. A confident answer with nothing behind it costs more trust than no answer.</span></div>
-          <div class="row"><span class="k">A surface I can reach over the one that reaches everyone</span><span class="v">It only runs on desktop, about 40% of fashion traffic here. It exists to test whether a fit verdict changes what people buy, on the one surface I can reach without permission. The version that reaches everyone runs on the retailer&rsquo;s own page.</span></div>
+          <div class="row"><span class="k">Reach over depth</span><span class="v">The first build was a feature inside <span class="co">Myntra</span>. You cannot ship inside their page without being them &mdash; and the problem is not inside one shop. Four shops disagree about what an M is.</span></div>
+          <div class="row"><span class="k">Trust over accuracy</span><span class="v">3D and try-on both chase accuracy. The chart is already exact, so accuracy was never the gap. Trust was. Promise a perfect fit and you get to be wrong once.</span></div>
+          <div class="row"><span class="k">Completion over precision</span><span class="v">Bust, waist and hip is the precise input, and the point where people abandon the form. Everyone knows which shirt fits them, so it asks that.</span></div>
+          <div class="row"><span class="k">The constraint over the retailer</span><span class="v"><span class="co">Westside</span> publishes its chart as an image. Reading it needed a network call, and the extension makes none. I kept the constraint and dropped the retailer.</span></div>
+          <div class="row"><span class="k">Useful over correct</span><span class="v">Real inseam is about 0.45 of height. I use 0.3, because <span class="co">Levi&rsquo;s</span> lists 32 inches for every waist from 28 to 40. The correct answer would flag jeans sold long on purpose.</span></div>
+          <div class="row"><span class="k">Silence over a confident answer</span><span class="v">Short a measurement, it says it cannot tell. Six times in twenty-one. A confident answer with nothing behind it costs more trust than no answer.</span></div>
+          <div class="row"><span class="k">Reach I have over reach I want</span><span class="v">Desktop only, about 40% of fashion traffic. It exists to validate one thing: whether a fit verdict changes what people buy, on the surface I can reach without permission.</span></div>
         </div>
     </div>
   </section>
@@ -284,13 +284,13 @@
       <h2 class="wk-h2">What is missing, and what closes it</h2>
       <div class="wk-split">
       <div>
-        <p class="wk-lead">A working engine, one real case where it would have saved a return, and nowhere near enough users to know whether it holds. Each gap below has a next move, and most of them the product writes itself.</p>
+        <p class="wk-lead">A working engine, one case where it would have saved a return, and nowhere near the users needed to know if it holds. Each gap below has the move that closes it.</p>
         <div class="pdeo spec">
-          <div class="row"><span class="k">Sample size</span><span class="v">Ten installs. Seven still using it a week later, nobody uninstalled. Recorded by hand in a spreadsheet, because there is no telemetry in this. Ten is a signal, not a study &mdash; and the fix is not more users first, it is a number that collects itself.</span></div>
-          <div class="row"><span class="k">The signal to instrument</span><span class="v">The override rate: how often someone is shown a size and picks a different one. It is the cleanest trust signal there is, most fit tools never instrument it, and the extension already sits on the page where it happens. That is the next thing I would build.</span></div>
-          <div class="row"><span class="k">Coverage, not accuracy</span><span class="v">Six refusals in twenty-one attempts, almost one in three. Not crashes: the engine read those pages fine and the chart was short a measurement. Each refusal records which measurement was missing, so the backlog is written by the product rather than guessed at.</span></div>
-          <div class="row"><span class="k">Who it does not fit</span><span class="v">Two body blocks, male and female, because retailers organise their charts that way. That underserves anyone those two blocks do not describe. A measurements-first model is what replaces it, and it is the one case where asking for numbers is worth the drop-off.</span></div>
-          <div class="row"><span class="k">The number I cannot get</span><span class="v">Verdict-to-purchase. Of the people shown a recommendation, how many buy that size. It is what a retailer would pay for, and it cannot be measured from outside their checkout. It is the argument for the version that runs on the retailer&rsquo;s own page.</span></div>
+          <div class="row"><span class="k">Sample size</span><span class="v">Ten installs, seven retained at a week, zero uninstalls. Logged by hand, because there is no instrumentation in this. Ten is a signal, not evidence.</span></div>
+          <div class="row"><span class="k">The metric to instrument</span><span class="v">Override rate &mdash; how often a shown size is rejected for another. The cleanest trust signal there is, and the extension already sits where it happens.</span></div>
+          <div class="row"><span class="k">Coverage, not accuracy</span><span class="v">Six refusals in twenty-one attempts. Not failures: the chart was short a measurement. Coverage is the constraint, and every refusal names the gap it hit.</span></div>
+          <div class="row"><span class="k">Who it does not serve</span><span class="v">Two body blocks, male and female, because retailers publish charts that way. A measurements-first model is the replacement, and the one case worth the drop-off.</span></div>
+          <div class="row"><span class="k">The north-star I cannot reach</span><span class="v">Verdict-to-purchase &mdash; of those shown a size, how many buy it. It sits inside the retailer&rsquo;s checkout. That is the case for shipping on their page.</span></div>
         </div>
       </div>
       <figure class="wk-side-fig fig-body">
