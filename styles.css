@@ -437,18 +437,19 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
 /* Pinned. At 375px the nav is 73px and a full heading another 74px — a quarter
    of a small phone screen before any content. Dropping the subtitle and the
    type size takes the heading to ~34px. */
-.sec-head.stuck{padding:9px 0 8px;box-shadow:0 10px 24px -20px rgba(33,30,36,.5);border-bottom-color:var(--hairline)}
+.sec-head.stuck{padding:9px 0 8px;box-shadow:0 10px 24px -20px rgba(33,30,36,.5);border-bottom-color:var(--hairline);
+  /* The heading gives back, as margin, exactly the height it loses to the collapse.
+     --stuck-pad is measured in script.js, because the number moves with breakpoint and
+     webfont. The section is then the same height pinned or not, so the page never gets
+     shorter under the reader — which is what let the last section pin, lose its own
+     scroll to the page bottom, and unpin itself. It does not animate; nothing here
+     animates layout any more. */
+  margin-bottom:var(--stuck-pad,20px)}
 .sec-head.stuck .concept{font-size:clamp(16px,2.1vw,20px)}
 .sec-head.stuck .sub{max-height:0;opacity:0;margin-top:0}
 .sec-head.stuck .concept-marks{transform:scale(.82)}
 .stick-sentinel{height:1px;margin-bottom:-1px;pointer-events:none}
-/* Set by script.js on any section too short to scroll a pinned heading through.
-   Work Experience is one heading and one card, and it sits at the foot of the page,
-   so it could never complete the cycle: it pinned, lost 74px to the collapse, and the
-   page bottom handed that scroll straight back. It reads as a plain heading instead. */
-.sec-head.no-pin{position:static;background:none;border-bottom:none;box-shadow:none;
-  backdrop-filter:none;-webkit-backdrop-filter:none;transform:none}
-.sec-head.no-pin .sub{max-height:none;opacity:1}
+
 [data-theme="dark"] .sec-head.stuck{box-shadow:0 10px 26px -20px rgba(0,0,0,.75)}
 
 @media(max-width:640px){.sec-head{padding:14px 0 11px}.sec-head.stuck{padding:8px 0 7px}}

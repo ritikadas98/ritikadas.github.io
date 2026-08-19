@@ -740,25 +740,34 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
   const navH = parseInt(getComputedStyle(document.documentElement)
                  .getPropertyValue('--nav-h')) || 73;
   heads.forEach(head => {
-    const section = head.closest('section');
+    if (getComputedStyle(head).position !== 'sticky') return;   /* short screens keep it static */
 
-    /* A heading can only pin if its own section is long enough to scroll one through.
-       Work Experience is a heading and a single card at the foot of the page: it pins,
-       the collapse takes 74px out of the page, and the page bottom gives that scroll
-       straight back — so it pins and unpins against itself. Short sections keep a
-       plain heading, which is also what they look like they want. */
-    const fits = () => !section ||
-      section.getBoundingClientRect().height > innerHeight - navH;
-    const gate = () => head.classList.toggle('no-pin', !fits());
-    gate();
-    addEventListener('resize', gate, { passive: true });
+    /* Measure what the collapse costs, and hand it straight back as margin. The section
+       then measures the same pinned or not, so the page never gets shorter under the
+       reader. That is what the last section could not survive: it pinned, the page lost
+       74px, the page bottom returned that scroll, and it unpinned itself. With the height
+       held steady every section pins the same way, however short it is. Measured rather
+       than hardcoded, because the number moves with breakpoint and webfont. */
+    const measure = () => {
+      const was = head.classList.contains('stuck');
+      head.classList.remove('stuck');
+      const base = parseFloat(getComputedStyle(head).marginBottom) || 0;
+      const open = head.offsetHeight;
+      head.classList.add('stuck');
+      const shut = head.offsetHeight;
+      head.classList.toggle('stuck', was);
+      head.style.setProperty('--stuck-pad', (base + Math.max(open - shut, 0)) + 'px');
+    };
+    measure();
+    addEventListener('resize', measure, { passive: true });
+    addEventListener('load', measure);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
 
     const sentinel = document.createElement('div');
     sentinel.className = 'stick-sentinel';
     head.parentNode.insertBefore(sentinel, head);
     new IntersectionObserver(([entry]) => {
-      head.classList.toggle('stuck', !head.classList.contains('no-pin') &&
-        !entry.isIntersecting && entry.boundingClientRect.top < navH);
+      head.classList.toggle('stuck', !entry.isIntersecting && entry.boundingClientRect.top < navH);
     }, { rootMargin: `-${navH + 1}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
   });
 })();
