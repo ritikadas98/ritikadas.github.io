@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=20260819n">
+<link rel="stylesheet" href="../../styles.css?v=20260819o">
 <script>
 /* Applied before first paint so a visitor who chose a theme manually never sees
    a flash of the other one. The full toggle logic still lives at the bottom. */
@@ -222,7 +222,13 @@
 <h2>Why a competitor cannot copy it</h2>
 <p>The reason is not the data.</p>
 <p>To send that airport message you need the flight number, the connection, and both terminals. Every large booking platform holds all of it, for far more travellers, and none of them has ever sent anyone a message about a gate.</p>
-<p>Three things have to be true at the same time. You need the trip. You need people who will stay with a customer through a day. And you need a relationship that makes spending an hour on one traveller reasonable. A booking platform has the first and cannot afford the second, because adding a service team breaks a business built on volume. A travel agent has the second without live data. A general-purpose assistant has neither the trip nor a reason to speak first.</p>
+<p>Three things have to be true at the same time.</p>
+<ol>
+<li>You need the trip.</li>
+<li>You need people who will stay with a customer through a day.</li>
+<li>You need a relationship that makes spending an hour on one traveller reasonable.</li>
+</ol>
+<p>A booking platform has the first and cannot afford the second, because adding a service team breaks a business built on volume. A travel agent has the second without live data. A general-purpose assistant has neither the trip nor a reason to speak first.</p>
 
 <figure class="fig-dgm">
 <svg viewBox="0 0 380 300" role="img" aria-labelledby="d1t d1d" xmlns="http://www.w3.org/2000/svg">
@@ -304,10 +310,12 @@
 <p>The launch raises that stake. CREW can now take all of it.</p>
 
 <h2>What to build, and in what order</h2>
-<p>The aim is to spend those people only where a person is genuinely needed.</p>
-<p>Most of the messages are not judgement calls. A gate change. A delay. A connection now too tight. Rain against an outdoor afternoon. Each is structured data checked against a plan the app now holds, and can go out without anyone touching it.</p>
-<p>Above those sit the ones that change a plan or spend money. The system finds the alternative and writes the message; an assistant reads it and approves. The person moves from producing the work to signing it off.</p>
-<p>Everything else goes to someone who decides.</p>
+<p>The aim is to spend those people only where a person is genuinely needed. The messages sort into three tiers.</p>
+<ol>
+<li>Most are not judgement calls. A gate change. A delay. A connection now too tight. Rain against an outdoor afternoon. Each is structured data checked against a plan the app now holds, and can go out without anyone touching it.</li>
+<li>Above those sit the ones that change a plan or spend money. The system finds the alternative and writes the message. An assistant reads it and approves. The person moves from producing the work to signing it off.</li>
+<li>Everything else goes to someone who decides.</li>
+</ol>
 
 <figure class="fig-dgm">
 <svg viewBox="0 0 360 190" role="img" aria-labelledby="d2t d2d" xmlns="http://www.w3.org/2000/svg">
@@ -370,9 +378,12 @@
 <p>Swiggy owns both halves already. The card is the gate, the membership is the invitation, and one accompanied trip is what a member feels before committing a whole holiday to it.</p>
 
 <h2>How you would know it worked</h2>
-<p>One number restates the whole argument: the share of trips where the customer never had to hold on. Never checked a confirmation, never chased a reply, never queried a bill that was supposed to be settled. Call it the <span class="k">let-go rate</span>.</p>
-<p>It needs a second beside it, because the first can be bought with headcount. <span class="k">Cost to serve</span> &mdash; the human minutes one trip consumes. If the let-go rate climbs while that number falls, the service is running at <span class="k">software margins</span>. If it climbs while the minutes stay flat, CREW has bought quality it cannot afford to keep.</p>
-<p>And the test that would prove me wrong. Compare the members who lean on the service against those who only book and handle the rest themselves. If both come back at the same rate, the accompaniment was never the advantage, and the honest move is to unbundle it.</p>
+<p>Two numbers to watch, and one test that would prove me wrong.</p>
+<ul>
+<li>The <span class="k">let-go rate</span>. The share of trips where the customer never had to hold on. Never checked a confirmation, never chased a reply, never queried a bill that was supposed to be settled. One number that restates the whole argument.</li>
+<li><span class="k">Cost to serve</span>. The human minutes one trip consumes. The first number can be bought with headcount, so it needs this one beside it. If the let-go rate climbs while the minutes fall, the service is running at <span class="k">software margins</span>. If it climbs while the minutes stay flat, CREW has bought quality it cannot afford to keep.</li>
+<li>The test that would prove me wrong. Compare the members who lean on the service against those who only book and handle the rest themselves. If both come back at the same rate, the accompaniment was never the advantage, and the honest move is to unbundle it.</li>
+</ul>
 
 
 
