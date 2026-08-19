@@ -489,6 +489,13 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
   .sec-head .concept-marks{animation:pin-marks linear both;animation-timeline:--pin;animation-range:exit 0% exit 100%}
   /* The class no longer owns size — it would compound with the animation. It keeps
      the shadow and the hairline, which are the parts that should still snap on. */
+  /* The class must not shrink anything the timeline is already shrinking. padding,
+     margin, max-height and opacity are all animated, so the animation outranks the
+     class on those. font-size and transform are NOT animated — scale is — so these
+     two leak through and snap the last 45% of the change in a single frame, which is
+     the jump you can still feel after everything else glides. Measured off a screen
+     recording: the title slid 456px to 350px and then went to 264px in one frame. */
+  .sec-head.stuck .concept{font-size:clamp(22px,3.2vw,32px)}
   .sec-head.stuck .concept-marks{transform:none}
 }
 /* The bar gives back as margin exactly what it loses in padding and subtitle, all
