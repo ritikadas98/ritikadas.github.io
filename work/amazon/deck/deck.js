@@ -71,10 +71,10 @@ const SLIDES = [
   name: 'PM on a consumer app',
   blurb: 'Owns one surface, such as Checkout or Search. Reports to a lead who asks why this and not that.',
   bits: [
-    ['Her week', 'A few hundred public complaints across App Store, Play Store and the product pages. One afternoon to make sense of them.'],
-    ['What she does today', 'Skims, sorts by star rating, picks the complaint that sounded angriest.'],
-    ['Where it breaks', 'The expensive problems are quiet. A customer charged twice writes a short, tired review and never gets picked.'],
-    ['What she needs', 'One problem, the first move on it, who owns it, and the evidence underneath, so she can defend the choice in a standup.']
+    ['Her week', 'A few hundred public complaints across App Store, Play Store and the product pages. One afternoon to make sense of them.', 'stack'],
+    ['What she does today', 'Skims, sorts by star rating, picks the complaint that sounded angriest.', 'skim'],
+    ['Where it breaks', 'The expensive problems are quiet. A customer charged twice writes a short, tired review and never gets picked.', 'quiet'],
+    ['What she needs', 'One problem, the first move on it, who owns it, and the evidence underneath, so she can defend the choice in a standup.', 'one']
   ] },
 
 /* ----------------------------------------------------------------- jtbd -- */
@@ -96,7 +96,7 @@ const SLIDES = [
     ['Group reviews better', 'The four existing products already do this well. Rebuilding it adds nothing.', 'Dropped'],
     ['Name the first move', 'The step every one of them stops before. Closes job one and job two together.', 'Built', true],
     ['Refuse to rank thin evidence', 'Closes job three. Nothing on the market does it, and it is what stops confident nonsense.', 'Built', true],
-    ['Chat over the review corpus', 'Useful, and it demos well. It answers questions; it does not make the decision.', 'Cut to v2'],
+    ['Chat over the review corpus', 'Answers questions about the week and cites the reviews behind each answer. Support for the decision, not the decision itself.', 'Built', true],
     ['Week-by-week history view', 'Nobody asks what happened in week 22. They ask what is going wrong in Checkout now.', 'Dropped']
   ] },
 
@@ -112,7 +112,8 @@ const SLIDES = [
     'RICE and MoSCoW ranking, plus a second score for what the problem cost',
     'A readiness gate that refuses to rank what it cannot back',
     'One first move, an owner and a rough cost on every problem',
-    'A weekly run, a Google Sheet, an email digest and a dashboard'
+    'A weekly run, a Google Sheet, an email digest and a dashboard',
+    'A chat over the week that cites the reviews behind every answer'
   ]],
   right: ['Out of scope, on purpose', [
     'Sign-in. Every endpoint is open today, and that is a known gap',
@@ -137,14 +138,11 @@ const SLIDES = [
     ['Deliver', 'A digest that leads with one first move, an owner and a price']
   ] },
 
-{ kind: 'cards', pill: 'The rule underneath', cols: 3,
+{ kind: 'figure', pill: 'The rule underneath',
   title: 'Never ask a model to grade what you have already counted',
-  lead: 'I learned this the expensive way. The readiness step was asked to judge how many people had raised a problem. Code had already counted it exactly. The model looked at 53 complaints and wrote “only one person reported this”, and the page rendered that sentence beside the number 53.',
-  cards: [
-    ['What the model does', 'Reads badly written text and works out that four hundred complaints are the same problem. Writes the finding in one sentence. Proposes the first move.'],
-    ['What code does', 'Every count and every score. Arithmetic has one right answer, and code gets it every time.'],
-    ['What the fix was', 'Not a better prompt. Taking the job away. The model does more work than before, just none of the counting.']
-  ] },
+  lead: 'The model is not the weak half. It reads a thousand badly written complaints and sees that four hundred are one problem, which is something I cannot do. Code does the arithmetic, which has exactly one right answer. Give each of them the job it is good at, and together they do more than either does alone.',
+  svg: 'modelcode',
+  src: 'I learned the rule the expensive way. I asked the model to grade a count code had already made exactly. It looked at 53 complaints and wrote “only one person reported this”, and the page rendered that beside the number 53.' },
 
 /* ----------------------------------------------------------------- proof -- */
 { kind: 'funnel', pill: 'One live week',
@@ -236,7 +234,7 @@ const SLIDES = [
     ['A paid reviews API', 'Apple blocks datacentre addresses, so a scheduled run can come back with nothing from iOS. Critical reviews are also behind a sign-in.', 'Volume', true],
     ['Sign-in', 'Every endpoint is publicly callable today. This has to close before anyone else uses it.', 'Real users'],
     ['Reddit as a fourth source', 'Platform complaints live there and never reach a store review.', 'Coverage'],
-    ['Vector search over the corpus', 'The chat answers questions about the week. It needs vector search once the corpus outgrows one prompt.', 'Depth'],
+    ['Vector search under the chat', 'The chat is built and it holds one week inside a single prompt. Vector search is what it needs once the corpus outgrows that.', 'Depth'],
     ['Track whether the move gets taken', 'The digest already carries a feedback link. This turns the decision rate from a plan into a number.', 'The proof']
   ] },
 
@@ -244,7 +242,8 @@ const SLIDES = [
 { kind: 'cover', dark: true,
   kicker: 'Live now',
   title: 'amazon.ritikadas.in',
-  lead: 'Runs every Monday at 09:00, scales to zero between runs, about ₹40 a month. The full build write-up is at ritikadas.in/work/amazon',
+  href: 'https://amazon.ritikadas.in',
+  leadHtml: 'Runs every Monday at 09:00, scales to zero between runs, about ₹40 a month. The full build write-up is at <a href="https://ritikadas.in/work/amazon/" target="_blank" rel="noopener">ritikadas.in/work/amazon</a>.',
   foot: 'Ritika Das · ritikadas.in' }
 
 ];
@@ -294,11 +293,67 @@ function dots() {
     </div>`;
 }
 
+
+/* Small line drawings for the persona blocks. Each one is the block's sentence
+   as a picture, so an empty card carries something before the reader starts. */
+const ICONS = {
+  stack: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+      <rect x="2.5" y="4" width="19" height="4" rx="2"/>
+      <rect x="2.5" y="10" width="14" height="4" rx="2"/>
+      <rect x="2.5" y="16" width="17" height="4" rx="2"/></svg>`,
+  skim: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+      <circle cx="10.2" cy="10.2" r="6.4"/><path d="M15 15l6 6"/>
+      <path d="M7.4 9.2h5.6M7.4 11.8h3.4"/></svg>`,
+  quiet: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linejoin="round" aria-hidden="true">
+      <path d="M2.6 4.6h12.2v7.6H7.2L4.2 15v-2.8H2.6z"/>
+      <path d="M17 13.2h4.4v4.4h-2.1L17.6 19v-1.4H17z" stroke-dasharray="2.4 2"/></svg>`,
+  one: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="16" rx="3"/>
+      <path d="M8.2 12.4l2.8 2.8 5-5.6"/></svg>`
+};
+
+/* The model-and-code diagram. Two lanes doing different jobs, joining into one
+   output, with the wiring I got wrong marked and struck through. */
+const FIGS = {
+  modelcode: `<svg viewBox="0 0 1000 372" role="img"
+      aria-label="The model reads and groups. Code counts. Both feed one decision. The wiring I got wrong, asking the model to grade a count, is struck through.">
+    <rect class="fbox" x="30" y="20" width="390" height="196" rx="16"/>
+    <text class="flab" x="58" y="54">MODEL</text>
+    <g class="ftext">
+      <path d="M58 84h300"/><path d="M58 106h242"/><path d="M58 128h324"/></g>
+    <text class="fcap" x="58" y="168">Reads a thousand messy complaints</text>
+    <text class="fcap" x="58" y="192">and sees that four hundred are one.</text>
+
+    <rect class="fbox" x="580" y="20" width="390" height="196" rx="16"/>
+    <text class="flab" x="608" y="54">CODE</text>
+    <text class="fnum" x="608" y="94">500 &#8594; 299 &#8594; 33 &#8594; 1</text>
+    <text class="fnum" x="608" y="126">105 69 61 22 19 16 7</text>
+    <text class="fcap" x="608" y="168">Counts every figure exactly,</text>
+    <text class="fcap" x="608" y="192">because arithmetic has one answer</text>
+
+    <path class="fdash" d="M420 88h160"/>
+    <g class="fx"><path d="M492 76l16 24"/><path d="M508 76l-16 24"/></g>
+    <text class="fwarn" x="500" y="128" text-anchor="middle">NOT THIS WAY</text>
+
+    <path class="fline" d="M225 216v48q0 16 16 16h234"/>
+    <path class="fline" d="M775 216v48q0 16-16 16H525"/>
+    <circle class="facc" cx="500" cy="280" r="6"/>
+    <rect class="fbrand" x="250" y="302" width="500" height="54" rx="15"/>
+    <text class="fout" x="500" y="336" text-anchor="middle">One problem. One first move. One owner.</text>
+  </svg>`
+};
+
 const RENDER = {
 
   cover: sl => (sl.kicker ? `<span class="pill r" ${d(0)}>${esc(sl.kicker)}</span>` : '')
-    + `<h1 class="r" ${d(1)}>${esc(sl.title)}</h1>
-       <p class="lead r" ${d(2)}>${esc(sl.lead)}</p>`
+    + `<h1 class="r" ${d(1)}>${sl.href
+         ? `<a href="${esc(sl.href)}" target="_blank" rel="noopener">${esc(sl.title)}</a>`
+         : esc(sl.title)}</h1>
+       <p class="lead r" ${d(2)}>${sl.leadHtml ? raw(sl.leadHtml) : esc(sl.lead)}</p>`
     + (sl.art ? dots() : '')
     + `<p class="src">${esc(sl.foot)}</p>`,
 
@@ -349,7 +404,8 @@ const RENDER = {
         <p>${esc(sl.blurb)}</p>
       </div>
       <div class="pgrid">` + sl.bits.map((b, i) =>
-      `<div class="pbit r" ${d(i + 4)}><span class="k">${esc(b[0])}</span><p>${mark(b[1])}</p></div>`)
+      `<div class="pbit r" ${d(i + 4)}>${ICONS[b[2]] || ''}
+         <span class="k">${esc(b[0])}</span><p>${mark(b[1])}</p></div>`)
       .join('') + `</div>
     </div>`) + foot(sl),
 
@@ -369,6 +425,8 @@ const RENDER = {
          <b>${esc(r[0])}</b><span class="td">${mark(r[1])}</span>
          <span class="tv">${mark(r[2])}</span>
        </div>`).join('') + `</div>`) + foot(sl),
+
+  figure: sl => head(sl) + body(`<div class="fig r" ${d(3)}>${FIGS[sl.svg]}</div>`) + foot(sl),
 
   journey: sl => head(sl) + body(`<div class="journey">` + sl.tracks.map(([name, steps], t) =>
       `<div class="track ${t === 0 ? 'was' : 'now'}">
