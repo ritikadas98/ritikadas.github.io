@@ -171,6 +171,134 @@ body.on-dark #hint{color:#7D8A96}
   .slide,.card,.row,.step,.panel,.bar .fill,#bar{transition:none!important;animation:none!important}
   .r{opacity:1}
 }
+
+/* ---- cover art: 500 squares, one week of reviews ----
+   201 faint are the ones the substance filter dropped, 299 solid are the ones
+   that placed in a problem, and the single accent square is the one problem with
+   enough evidence behind it to act on. The art is the funnel. */
+.dotwrap{margin-top:auto;margin-bottom:clamp(34px,6vh,70px)}
+.dots{display:grid;grid-template-columns:repeat(50,1fr);gap:clamp(2px,.32vw,5px)}
+.dot{aspect-ratio:1;border-radius:2px;background:rgba(255,255,255,.07);opacity:0;
+  animation:dotin .5s var(--ease) both;animation-delay:var(--d)}
+.dot.sorted{background:rgba(255,255,255,.58)}
+.dot.one{background:var(--accent);border-radius:3px;
+  box-shadow:0 0 0 2px rgba(255,153,0,.28),0 0 18px 5px rgba(255,153,0,.5);
+  animation:dotin .5s var(--ease) both,glow 2.4s var(--ease) 1.6s infinite}
+@keyframes dotin{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 2px rgba(255,153,0,.28),0 0 18px 5px rgba(255,153,0,.5)}
+  50%{box-shadow:0 0 0 3px rgba(255,153,0,.42),0 0 26px 9px rgba(255,153,0,.72)}}
+.dotkey{display:flex;gap:clamp(14px,1.8vw,30px);margin-top:clamp(11px,1.7vh,20px);flex-wrap:wrap}
+.dotkey span{font:500 10.5px/1.4 var(--mono);letter-spacing:.07em;color:#93A0AC;
+  display:flex;align-items:center;gap:8px}
+.dotkey i{width:9px;height:9px;border-radius:2px;background:rgba(255,255,255,.13);display:block}
+.dotkey span:nth-child(2) i{background:rgba(255,255,255,.58)}
+.dotkey span:nth-child(3) i{background:var(--accent)}
+
+/* ---- positioning matrix ---- */
+.quadwrap{display:grid;grid-template-columns:22px 1fr;grid-template-rows:1fr 22px;
+  gap:9px;max-height:min(100%,50vh);min-height:clamp(230px,38vh,380px)}
+.qy{grid-area:1/1;writing-mode:vertical-rl;transform:rotate(180deg);display:grid;place-items:center}
+.qx{grid-area:2/2;display:grid;place-items:center}
+.qy,.qx{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.quad{grid-area:1/2;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2px;
+  background:var(--line);border-radius:14px;overflow:hidden}
+.qc{background:var(--card);padding:clamp(13px,1.35vw,21px);display:flex;flex-direction:column;
+  justify-content:center;gap:9px;transition:background .26s var(--ease)}
+.qc .qk{font:500 10px/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.qc .qn{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.qc .qn b{font:600 clamp(11px,.92vw,13.2px)/1 var(--body);background:rgba(31,41,55,.07);
+  color:var(--ink2);padding:6px 10px;border-radius:99px}
+.qc.win{background:var(--brand)}
+.qc.win .qk{color:#93A0AC} .qc.win .qn b{background:var(--accent);color:var(--brand)}
+
+/* ---- in scope / out of scope ---- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.4vw,22px);max-height:100%;
+  align-items:stretch}
+.tcol{border-radius:14px;padding:clamp(17px,1.75vw,27px);background:var(--card)}
+.tcol.out{background:transparent;border:1px dashed var(--line)}
+.tcol h3{font:700 clamp(14px,1.2vw,17.5px)/1.25 var(--display);color:var(--brand);margin-bottom:13px}
+.tcol.out h3{color:var(--muted)}
+.tcol li{list-style:none;position:relative;padding-left:21px;margin-bottom:9px;
+  font-size:clamp(12px,1vw,14.5px);line-height:1.5;color:var(--ink2)}
+.tcol li::before{position:absolute;left:0;top:0;font:600 13px/1.5 var(--mono)}
+.tcol.in li::before{content:"+";color:var(--accent)}
+.tcol.out li::before{content:"\2013";color:var(--muted)}
+
+/* ---- persona ---- */
+.persona{display:grid;grid-template-columns:minmax(200px,.85fr) 1.9fr;gap:clamp(12px,1.4vw,22px);
+  max-height:100%;align-items:stretch}
+.pcard{background:var(--brand);color:#fff;border-radius:14px;padding:clamp(19px,1.9vw,29px);
+  display:flex;flex-direction:column;justify-content:flex-end}
+.pcard .prole{font:500 10px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.pcard .pname{font:800 clamp(21px,2.2vw,33px)/1.08 var(--display);letter-spacing:-.02em;margin:11px 0 9px}
+.pcard p{font-size:clamp(12px,1vw,14.5px);line-height:1.55;color:#C6CDD4}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(9px,1vw,15px)}
+.pbit{background:var(--card);border-radius:12px;padding:clamp(14px,1.4vw,21px);
+  transition:transform .26s var(--ease),border-color .26s var(--ease);border:1px solid transparent}
+.pbit:hover{transform:translateY(-4px);border-color:var(--brand)}
+.pbit .k{font:500 10px/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:8px}
+.pbit p{font-size:clamp(12px,1vw,14.2px);line-height:1.5;color:var(--ink2)}
+
+/* ---- job statements ---- */
+.quotes{display:flex;flex-direction:column;gap:clamp(9px,1.5vh,16px);justify-content:center;max-height:100%}
+.quote{background:var(--card);border-radius:14px;border-left:4px solid var(--accent);
+  padding:clamp(16px,1.7vw,26px);font:400 clamp(13.5px,1.24vw,18.5px)/1.5 var(--body);color:var(--ink);
+  transition:transform .26s var(--ease)}
+.quote:hover{transform:translateX(6px)}
+.quote b{font-weight:600;color:var(--brand)}
+
+/* ---- before and after, one Monday ---- */
+.journey{display:flex;flex-direction:column;gap:clamp(11px,2vh,22px);justify-content:center;max-height:100%}
+.track{display:grid;grid-template-columns:minmax(72px,104px) 1fr;gap:clamp(10px,1.2vw,18px);align-items:center}
+.tname{font:500 10px/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.tsteps{display:flex;gap:clamp(9px,1vw,16px)}
+.tstep{flex:1;border-radius:11px;padding:clamp(11px,1.15vw,17px);position:relative;
+  font-size:clamp(11px,.94vw,13.5px);line-height:1.45;
+  transition:transform .26s var(--ease)}
+.tstep:hover{transform:translateY(-4px)}
+.tstep::after{content:"";position:absolute;right:-9px;top:50%;
+  width:6px;height:6px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+  transform:translateY(-50%) rotate(-45deg)}
+.tstep:last-child::after{display:none}
+.track.was .tstep{background:#DFD9D1;color:var(--ink2)}
+.track.was .tstep.bad{background:#8C8A88;color:#fff}
+.track.now .tstep{background:var(--brand);color:#fff}
+.track.now .tstep.good{background:var(--accent);color:var(--brand);font-weight:600}
+
+/* ---- ranked table ---- */
+.tbl{display:flex;flex-direction:column;gap:clamp(6px,1vh,10px);justify-content:center;max-height:100%}
+.trow{display:grid;grid-template-columns:minmax(130px,1fr) 2fr minmax(70px,90px);
+  gap:clamp(11px,1.3vw,20px);align-items:center;background:var(--card);border-radius:12px;
+  padding:clamp(12px,1.25vw,19px) clamp(14px,1.3vw,22px);border:1px solid transparent;
+  transition:transform .26s var(--ease),border-color .26s var(--ease)}
+.trow:hover{transform:translateX(6px);border-color:var(--brand)}
+.trow b{font:700 clamp(12.5px,1.05vw,15px)/1.3 var(--display)}
+.trow .td{font-size:clamp(11.5px,.96vw,13.8px);line-height:1.45;color:var(--ink2)}
+.trow .tv{font:500 clamp(11px,.92vw,13px)/1 var(--mono);text-align:right;color:var(--muted)}
+.trow.win{background:var(--brand)}
+.trow.win b{color:#fff} .trow.win .td{color:#D6DEE4} .trow.win .tv{color:var(--accent)}
+.trow.head{background:transparent;border:0;padding-top:0;padding-bottom:0}
+.trow.head span{font:500 10px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.trow.head:hover{transform:none}
+
+@media(max-width:880px){
+  /* Fifteen scope lines never fit one phone screen. The body scrolls rather than
+     spilling off the slide; swipe is horizontal, so the two do not fight. */
+  .body{overflow-y:auto}
+  .two{align-items:start}
+  .tcol li{font-size:12.5px;margin-bottom:7px}
+  .dots{grid-template-columns:repeat(25,1fr)}
+  .quadwrap{min-height:clamp(280px,52vh,460px)}
+  .two,.persona,.pgrid{grid-template-columns:1fr}
+  .trow{grid-template-columns:1fr;gap:5px}
+  .trow .tv{text-align:left}
+  .tsteps{flex-wrap:wrap}
+  .tstep{flex:1 1 44%} .tstep::after{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .dot,.quote,.tstep,.pbit,.trow{animation:none!important;transition:none!important;opacity:1!important}
+}
 </style>
 </head>
 <body>
