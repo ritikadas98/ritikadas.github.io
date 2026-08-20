@@ -347,6 +347,29 @@ const FIGS = {
   </svg>`
 };
 
+
+/* A drawn portrait for the persona card. Faceless stock art says nothing; a
+   photograph of a real person would be a real person who never agreed to be
+   here. This is a drawing, in the deck's palette. */
+const FACE = `<svg class="pface" viewBox="0 0 200 210" role="img"
+    aria-label="Drawn portrait of the persona: a product manager wearing glasses.">
+  <circle class="halo" cx="100" cy="96" r="82"/>
+  <path class="shirt" d="M100 150c-26 0-48 16-54 38-1 4 2 7 6 7h96c4 0 7-3 6-7-6-22-28-38-54-38z"/>
+  <path class="collar" d="M84 154l16 18 16-18"/>
+  <rect class="sk" x="88" y="118" width="24" height="30" rx="12"/>
+  <ellipse class="sk" cx="68" cy="92" rx="7" ry="9"/>
+  <ellipse class="sk" cx="132" cy="92" rx="7" ry="9"/>
+  <ellipse class="sk" cx="100" cy="86" rx="32" ry="38"/>
+  <path class="hr" d="M63 124V86a37 37 0 0 1 74 0v38h-13V88a24 24 0 0 0-48 0v36z"/>
+  <circle cx="89" cy="90" r="2.6" fill="#1F2937"/><circle cx="111" cy="90" r="2.6" fill="#1F2937"/>
+  <path class="ft" d="M93 106c4 4 10 4 14 0"/>
+  <g class="gl">
+    <rect x="76" y="80" width="20" height="17" rx="7"/>
+    <rect x="104" y="80" width="20" height="17" rx="7"/>
+    <path d="M96 87h8M76 86l-8 3M124 86l8 3"/>
+  </g>
+</svg>`;
+
 const RENDER = {
 
   cover: sl => (sl.kicker ? `<span class="pill r" ${d(0)}>${esc(sl.kicker)}</span>` : '')
@@ -399,6 +422,7 @@ const RENDER = {
 
   persona: sl => head(sl) + body(`<div class="persona">
       <div class="pcard r" ${d(3)}>
+        ${FACE}
         <span class="prole">${esc(sl.role)}</span>
         <span class="pname">${esc(sl.name)}</span>
         <p>${esc(sl.blurb)}</p>
