@@ -36,3 +36,6 @@ Ritika_Das_Resume.pdf
 
 # Scratch output from local page-audit scripts. Not part of the site.
 result.txt
+
+# PowerPoint lock files, written while a deck is open
+~$*
