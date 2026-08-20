@@ -283,9 +283,11 @@ body.on-dark #hint{color:#7D8A96}
 .trow.head:hover{transform:none}
 
 @media(max-width:880px){
-  /* Fifteen scope lines never fit one phone screen. The body scrolls rather than
-     spilling off the slide; swipe is horizontal, so the two do not fight. */
-  .body{overflow-y:auto}
+  /* Long slides never fit one phone screen. The body scrolls rather than spilling
+     off the slide; swipe is horizontal, so the two do not fight. Centring must go
+     with it: centred flex content that overflows spills above the scroll box and
+     that part can never be reached. */
+  .body{overflow-y:auto;justify-content:flex-start}
   .two{align-items:start}
   .tcol li{font-size:12.5px;margin-bottom:7px}
   .dots{grid-template-columns:repeat(25,1fr)}
@@ -337,9 +339,13 @@ body.on-dark #hint{color:#7D8A96}
 @media(prefers-reduced-motion:reduce){.fig .fline{animation:none!important}}
 
 /* ---- persona portrait ----
-   Drawn, not photographed, and drawn in the deck's own colours so it reads as
-   part of the design rather than as stock art. The auto bottom margin pushes it
-   to the top of the card while the name and blurb stay pinned to the bottom. */
+   The photograph runs full bleed across the top of the card and takes whatever
+   height the text below does not need, so the card never overflows on a short
+   screen. The drawn version stays as the fallback if the file goes missing. */
+.pcard{padding:0;overflow:hidden}
+.pphoto{width:100%;height:auto;aspect-ratio:1;flex:1 1 auto;min-height:0;object-fit:cover;object-position:50% 26%;
+  display:block;background:var(--f1)}
+.pmeta{padding:clamp(17px,1.7vw,26px);display:flex;flex-direction:column}
 .pface{width:clamp(104px,11.5vw,168px);height:auto;margin:auto auto auto 0;display:block}
 .pface .sk{fill:#EDE8E1}
 .pface .hr{fill:#4A5A6B}
@@ -348,7 +354,12 @@ body.on-dark #hint{color:#7D8A96}
 .pface .halo{fill:none;stroke:rgba(255,255,255,.13);stroke-width:1.6}
 .pface .shirt{fill:#D8D2CA}
 .pface .collar{stroke:#1F2937;stroke-width:4;fill:none;stroke-linecap:round}
-@media(max-width:880px){.pface{width:74px;margin-bottom:14px}}
+@media(max-width:880px){.pface{width:74px;margin-bottom:14px}
+  .pphoto{aspect-ratio:3/2;flex:0 0 auto}
+  /* The body scrolls on a phone, so the card is free to be its natural height
+     instead of being squeezed until the photo collapses. */
+  .persona,.two,.tbl,.rows,.quotes,.journey,.grid{max-height:none}
+  .persona{align-items:start}}
 </style>
 </head>
 <body>

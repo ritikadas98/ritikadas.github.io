@@ -69,6 +69,7 @@ const SLIDES = [
   title: 'One user, and she is out of afternoons',
   role: 'Primary user',
   name: 'PM on a consumer app',
+  photoAlt: 'A product manager at her desk, laptop open, an Amazon mug and bottle beside her. Generated image, not a photograph of a real person.',
   blurb: 'Owns one surface, such as Checkout or Search. Reports to a lead who asks why this and not that.',
   bits: [
     ['Her week', 'A few hundred public complaints across App Store, Play Store and the product pages. One afternoon to make sense of them.', 'stack'],
@@ -422,10 +423,14 @@ const RENDER = {
 
   persona: sl => head(sl) + body(`<div class="persona">
       <div class="pcard r" ${d(3)}>
-        ${FACE}
-        <span class="prole">${esc(sl.role)}</span>
-        <span class="pname">${esc(sl.name)}</span>
-        <p>${esc(sl.blurb)}</p>
+        <img class="pphoto" src="images/persona.jpg" width="800" height="800"
+             alt="${esc(sl.photoAlt || sl.name)}"
+             onerror="this.outerHTML=FACE">
+        <div class="pmeta">
+          <span class="prole">${esc(sl.role)}</span>
+          <span class="pname">${esc(sl.name)}</span>
+          <p>${esc(sl.blurb)}</p>
+        </div>
       </div>
       <div class="pgrid">` + sl.bits.map((b, i) =>
       `<div class="pbit r" ${d(i + 4)}>${ICONS[b[2]] || ''}
