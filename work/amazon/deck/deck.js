@@ -22,39 +22,30 @@ const SLIDES = [
 /* -------------------------------------------------------------- problem -- */
 { kind: 'rows', pill: 'The problem',
   title: 'The reading is done. The deciding is not.',
-  lead: 'A product manager owns one surface and gets a few hundred complaints a week across three stores. They have one afternoon. So they skim, and skimming never tells you what you missed.',
+  lead: 'A product manager owns one surface and gets a few hundred complaints a week across three stores. She has one afternoon. So she skims, and skimming never tells you what you missed.',
   rows: [
     ['What happens now', 'Sort by star rating, read the loudest, pick one, build it.'],
     ['What that misses', 'The complaint that cost somebody money was short and calm. It never got picked.'],
     ['What is actually hard', 'Not reading the reviews. Choosing which single problem to start on Monday, and being able to defend that choice.']
   ] },
 
-/* ------------------------------------------------------ primary research -- */
-{ kind: 'rows', pill: 'Primary research', numbered: true,
-  title: 'I studied the products that already do this',
-  lead: 'Four products claim this job. I went through what each one takes in, what it hands back, and the exact point where it stops and gives the work to the user.',
+/* ------------------------------- primary research, and what it turned up -- */
+{ kind: 'table', pill: 'Primary research',
+  title: 'Four products already claim this job',
+  lead: 'I went through what each one takes in and what it hands back. Reading and grouping is solved. All four stop at the same line, one step before the decision.',
+  head: ['Product', 'What it does', 'Where it stops'],
   rows: [
-    ['Dovetail', 'A store for customer feedback. Reads raw text, groups it into themes. Sold to Canva, Meta and NTT DOCOMO.'],
-    ['Amplitude', 'Product analytics that added feedback clustering. Themes sit next to behaviour data.'],
-    ['Atlassian', 'An agent that reads the feedback queue for its own PMs. Atlassian publishes a saving of about 40 minutes a day per PM.'],
-    ['An n8n workflow', 'A no-code visual workflow that pulls reviews and summarises them. Free, quick to build, and hard to change once the logic gets real.']
+    ['Dovetail', 'A store for customer feedback. Reads raw text and groups it into themes. Sold to Canva, Meta and NTT DOCOMO.', 'A list'],
+    ['Amplitude', 'Product analytics that added feedback clustering, so themes sit beside behaviour data.', 'A list'],
+    ['Atlassian', 'An agent that reads the feedback queue for its own PMs. Atlassian publishes a saving of about 40 minutes a day per PM.', 'A list'],
+    ['An n8n workflow', 'A no-code visual workflow that pulls reviews and summarises them. Free and quick, and hard to change once the logic gets real.', 'A summary']
   ],
-  src: 'Product surfaces and published vendor material. The 40-minute figure is Atlassian’s own published claim, not a measurement of mine.' },
-
-{ kind: 'cards', pill: 'Findings', cols: 4,
-  title: 'All four stop at the same line',
-  lead: 'Reading and grouping is solved. Nobody crosses the line into the decision.',
-  cards: [
-    ['Grouping is a solved problem', 'Every one of the four reads messy text and groups it into themes. That part works, and it is the part a language model is genuinely good at.'],
-    ['They all hand back a list', 'The output is a ranked list of themes. The PM still has to open it, read it, and decide. The hour the tool saved is handed straight back.'],
-    ['None of them names a move', 'No first action, no owner, no rough cost. Those are the three things you need before a problem can go into a sprint.'],
-    ['None of them refuses', 'A theme with 3 complaints and a theme with 300 look the same on the list. Nothing tells you which one the evidence cannot carry.']
-  ] },
+  src: 'Product surfaces and published vendor material. None of the four names a first move, an owner or a cost, and none of them refuses to rank a theme it cannot back. The 40-minute figure is Atlassian’s own published claim, not a measurement of mine.' },
 
 /* -------------------------------------------------- competitive landscape -- */
 { kind: 'quad', pill: 'Competitive landscape',
   title: 'The gap is one step wide',
-  lead: 'Two questions separate the field. Does it read the raw feedback for you? And does it end with a decision, or with a list?',
+  lead: 'Two questions separate the field. Does the tool do the reading for you? And does it end with a decision, or with a list?',
   y: 'Ends with a decision  →',
   x: 'The tool does the reading  →',
   cells: [
@@ -64,24 +55,13 @@ const SLIDES = [
     { k: 'Reads everything, hands back a list', names: ['Dovetail', 'Amplitude', 'Atlassian', 'n8n workflows'] }
   ] },
 
-/* -------------------------------------------------------------- persona -- */
-{ kind: 'persona', pill: 'Persona',
-  title: 'One user, and she is out of afternoons',
+/* ------------------------------------------------------- persona and jtbd -- */
+{ kind: 'personajobs', pill: 'Persona and jobs to be done',
+  title: 'One user, and three jobs she cannot finish',
   role: 'Primary user',
   name: 'PM on a consumer app',
   photoAlt: 'A product manager at her desk, laptop open, an Amazon mug and bottle beside her. Generated image, not a photograph of a real person.',
-  blurb: 'Owns one surface, such as Checkout or Search. Reports to a lead who asks why this and not that.',
-  bits: [
-    ['Her week', 'A few hundred public complaints across App Store, Play Store and the product pages. One afternoon to make sense of them.', 'stack'],
-    ['What she does today', 'Skims, sorts by star rating, picks the complaint that sounded angriest.', 'skim'],
-    ['Where it breaks', 'The expensive problems are quiet. A customer charged twice writes a short, tired review and never gets picked.', 'quiet'],
-    ['What she needs', 'One problem, the first move on it, who owns it, and the evidence underneath, so she can defend the choice in a standup.', 'one']
-  ] },
-
-/* ----------------------------------------------------------------- jtbd -- */
-{ kind: 'quotes', pill: 'Jobs to be done',
-  title: 'Three jobs, in her words',
-  lead: 'Each one is a job the four existing products leave unfinished.',
+  blurb: 'Owns one surface, such as Checkout or Search. A few hundred public complaints a week across three stores, and one afternoon. Reports to a lead who asks why this and not that.',
   quotes: [
     'When a week of complaints lands, <b>I want to know which single problem to start on</b>, so I can spend the afternoon building instead of reading.',
     'When I pick a problem, <b>I want the evidence underneath it in one place</b>, so I can defend the choice to my lead without opening the reviews again.',
@@ -120,7 +100,7 @@ const SLIDES = [
     'Sign-in. Every endpoint is open today, and that is a known gap',
     'A paid reviews API, which would unblock iOS and critical reviews',
     'Reddit as a fourth source',
-    'Vector search over the corpus',
+    'Vector search under the chat',
     'A browsable archive of past weeks',
     'Writing the chosen move back into Jira',
     'More than one product at a time'
@@ -146,32 +126,22 @@ const SLIDES = [
   src: 'I learned the rule the expensive way. I asked the model to grade a count code had already made exactly. It looked at 53 complaints and wrote “only one person reported this”, and the page rendered that beside the number 53.' },
 
 /* ----------------------------------------------------------------- proof -- */
-{ kind: 'funnel', pill: 'One live week',
-  title: 'What a week produces',
-  lead: 'The last number is the whole product. The other four tools would have ranked all 33 and let the PM find out for herself which ones were thin.',
+{ kind: 'week', pill: 'One live week',
+  title: 'What a week produces, and where it lands',
+  lead: 'The last number in the funnel is the whole product. The other four tools would have ranked all 33 and let the PM find out for herself which ones were thin.',
   steps: [
-    ['Collected', '500', 'Reviews pulled from three sources'],
-    ['Sorted', '299', 'Enough substance to place in a problem'],
+    ['Collected', '500', 'From three sources'],
+    ['Sorted', '299', 'Enough substance to place'],
     ['Problems', '33', 'Across 7 parts of the app'],
-    ['Ready', '1', 'Enough evidence behind it to act on']
+    ['Ready', '1', 'Enough evidence to act on']
   ],
-  src: 'Live run, 18 August 2026. Figures move every week.' },
-
-{ kind: 'bars', pill: 'Findings, one week', max: 105,
-  title: 'Seven parts of the app',
-  lead: 'The 299 sorted complaints, by the part of the app they are about. Account and search carry more than half between them.',
+  max: 105,
   bars: [
     ['Account & performance', 105], ['Search & discovery', 69], ['Delivery & tracking', 61],
     ['Product detail', 22], ['Checkout & payment', 19], ['Returns & refunds', 16],
     ['Prime & subscriptions', 7]
   ],
-  src: 'Live run, 18 August 2026. Sums to 299.' },
-
-{ kind: 'bars', pill: 'Sources, one week', max: 291,
-  title: 'Three sources, very unevenly',
-  lead: 'Amazon’s own product pages contribute almost nothing. The public reviews there are mostly praise, and the substance filter drops them. Apple is the largest source, when it answers at all.',
-  bars: [['App Store', 291], ['Play Store', 196], ['Amazon product pages', 13]],
-  src: 'Live run, 18 August 2026. Apple blocks requests from datacentre addresses, so App Store volume depends on where the run happens. A paid reviews API removes that dependency — see v2.' },
+  src: 'Live run, 18 August 2026, and the figures move every week. The bars are the 299 sorted complaints and sum to 299. By source: App Store 291, Play Store 196, Amazon product pages 13. Apple blocks requests from datacentre addresses, so App Store volume depends on where the run happens — see v2.' },
 
 { kind: 'compare', pill: 'The finding that changed the product',
   title: 'Severity measures loudness, not cost',
@@ -196,17 +166,17 @@ const SLIDES = [
     ]]
   ] },
 
-/* -------------------------------------------------------------- business -- */
+/* ------------------------------------------- business case and how to tell -- */
 { kind: 'table', pill: 'Business case',
-  title: 'What it costs, and what it has to be worth',
-  lead: 'This is an internal tool, so the case is cost against time, not revenue.',
+  title: 'What it costs, what it saves, and how I would know',
+  lead: 'An internal tool, so the case is cost against time, not revenue. The last two lines are the ones an interviewer should press on.',
   head: ['Line', 'Detail', 'Figure'],
   rows: [
-    ['Cost to run', 'Cloud Run scales to zero between weekly runs. Model calls and a Google Sheet are the only recurring spend.', '*₹40*/mo', true],
+    ['Cost to run', 'Cloud Run scales to zero between weekly runs. It runs once a week whoever reads it, so adding readers costs nothing.', '*₹40*/mo', true],
     ['The alternative', 'A managed Postgres database to hold seven rows a week, which is what the first design used.', '*₹1,100*/mo'],
-    ['Cost per reader', 'The pipeline runs once a week whoever reads it. Adding readers costs nothing. Adding products multiplies only the model calls.', '₹0'],
     ['The value to beat', 'Atlassian’s published saving for its own PMs, from an agent that reads the queue and still hands back a list.', '40 min/day'],
-    ['What is not proven', 'No PM has run a live week through this one yet. The saving above is a comparable product’s published figure, not a result of mine.', '—']
+    ['How I would know', 'Decision rate: the share of surfaced problems a PM acts on or deliberately defers. Beside it, how often the product calls a problem ready when the evidence cannot carry it.', 'The metric'],
+    ['What is not proven', 'No PM has run a live week through this one yet, so the saving above is a comparable product’s published figure, not a result of mine.', '—']
   ] },
 
 { kind: 'cards', pill: 'Trade-offs', cols: 3,
@@ -215,15 +185,6 @@ const SLIDES = [
     ['A spreadsheet over a database', 'Gave up queries and schema control. Got a store PMs already sort, filter and share, and *₹1,100* a month became *₹40*.'],
     ['Their schema over mine', 'Gave up a clean schema of my own. Kept every filter and pivot a PM had already built on the sheet, misspelled column header and all.'],
     ['The question over the archive', 'Gave up the week-by-week history view. Nobody asks what happened in week 22. They ask what is going wrong in Checkout.']
-  ] },
-
-{ kind: 'rows', pill: 'Measurement',
-  title: 'How I would know it works',
-  lead: 'One number, and the number that stops the first one from lying.',
-  rows: [
-    ['Decision rate', 'The share of surfaced problems a PM either acts on or deliberately defers. It tests the only claim the product makes.'],
-    ['The guardrail', 'How often it calls a problem ready when the evidence cannot carry it. Watching the first number alone is how a team ships confident nonsense.'],
-    ['Already instrumented', 'Deferrals are logged with the week they happened in, so “why did we skip returns in August” has an answer in November.']
   ] },
 
 /* -------------------------------------------------------------------- v2 -- */
@@ -235,7 +196,7 @@ const SLIDES = [
     ['A paid reviews API', 'Apple blocks datacentre addresses, so a scheduled run can come back with nothing from iOS. Critical reviews are also behind a sign-in.', 'Volume', true],
     ['Sign-in', 'Every endpoint is publicly callable today. This has to close before anyone else uses it.', 'Real users'],
     ['Reddit as a fourth source', 'Platform complaints live there and never reach a store review.', 'Coverage'],
-    ['Vector search under the chat', 'The chat is built and it holds one week inside a single prompt. Vector search is what it needs once the corpus outgrows that.', 'Depth'],
+    ['Vector search under the chat', 'The chat is built and holds one week inside a single prompt. Vector search is what it needs once the corpus outgrows that.', 'Depth'],
     ['Track whether the move gets taken', 'The digest already carries a feedback link. This turns the decision rate from a plan into a number.', 'The proof']
   ] },
 
@@ -421,7 +382,7 @@ const RENDER = {
       <div class="qx">${esc(sl.x)}</div>
     </div>`) + foot(sl),
 
-  persona: sl => head(sl) + body(`<div class="persona">
+  personajobs: sl => head(sl) + body(`<div class="pj">
       <div class="pcard r" ${d(3)}>
         <img class="pphoto" src="images/persona.jpg" width="800" height="800"
              alt="${esc(sl.photoAlt || sl.name)}"
@@ -432,10 +393,8 @@ const RENDER = {
           <p>${esc(sl.blurb)}</p>
         </div>
       </div>
-      <div class="pgrid">` + sl.bits.map((b, i) =>
-      `<div class="pbit r" ${d(i + 4)}>${ICONS[b[2]] || ''}
-         <span class="k">${esc(b[0])}</span><p>${mark(b[1])}</p></div>`)
-      .join('') + `</div>
+      <div class="quotes">` + sl.quotes.map((q, i) =>
+      `<div class="quote r" ${d(i + 4)}>${raw(q)}</div>`).join('') + `</div>
     </div>`) + foot(sl),
 
   quotes: sl => head(sl) + body(`<div class="quotes">` + sl.quotes.map((q, i) =>
@@ -455,10 +414,20 @@ const RENDER = {
          <span class="tv">${mark(r[2])}</span>
        </div>`).join('') + `</div>`) + foot(sl),
 
+  week: sl => head(sl) + body(`<div class="wk">
+      <div class="funnel vert">` + sl.steps.map((t, i) =>
+      `<div class="step r" ${d(i + 3)}><span class="k">${esc(t[0])}</span>
+         <div class="big">${esc(t[1])}</div><p>${esc(t[2])}</p></div>`).join('') + `</div>
+      <div class="bars">` + sl.bars.map((b, i) =>
+      `<div class="bar r" ${d(i + 4)}><span>${esc(b[0])}</span>
+         <span class="track"><span class="fill" style="--w:${(b[1] / sl.max * 100).toFixed(1)}%"></span></span>
+         <span class="v">${esc(b[1])}</span></div>`).join('') + `</div>
+    </div>`) + foot(sl),
+
   figure: sl => head(sl) + body(`<div class="fig r" ${d(3)}>${FIGS[sl.svg]}</div>`) + foot(sl),
 
   journey: sl => head(sl) + body(`<div class="journey">` + sl.tracks.map(([name, steps], t) =>
-      `<div class="track ${t === 0 ? 'was' : 'now'}">
+      `<div class="jrow ${t === 0 ? 'was' : 'now'}">
          <span class="tname">${esc(name)}</span>
          <div class="tsteps">` + steps.map(([label, tone], i) =>
       `<div class="tstep r ${tone === 1 ? 'bad' : ''}${tone === 2 ? 'good' : ''}" ${d(i + 3 + t * 2)}>${esc(label)}</div>`)
