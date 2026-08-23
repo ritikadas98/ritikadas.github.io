@@ -118,9 +118,10 @@ const RENDER = {
 
   personajobs: sl => head(sl) + body(`<div class="pj">
       <div class="pcard r" ${d(3)}>
-        <img class="pphoto" src="images/persona.jpg" width="800" height="800"
-             alt="${esc(sl.photoAlt || sl.name)}"
-             onerror="this.outerHTML=FACE">
+        ${sl.photo
+          ? `<img class="pphoto" src="${esc(sl.photo)}" width="800" height="800"
+                  alt="${esc(sl.photoAlt || sl.name)}" onerror="this.outerHTML=FACE">`
+          : FACE}
         <div class="pmeta">
           <span class="prole">${esc(sl.role)}</span>
           <span class="pname">${esc(sl.name)}</span>

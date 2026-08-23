@@ -60,6 +60,7 @@ const SLIDES = [
   title: 'One user, and three jobs she cannot finish',
   role: 'Primary user',
   name: 'PM on a consumer app',
+  photo: 'images/persona.jpg',
   photoAlt: 'A product manager at her desk, laptop open, an Amazon mug and bottle beside her. Generated image, not a photograph of a real person.',
   blurb: 'Owns one surface, such as Checkout or Search. A few hundred public complaints a week across three stores, and one afternoon. Reports to a lead who asks why this and not that.',
   quotes: [

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Savio &mdash; deck</title>
+<meta name="description" content="Case study deck: an AI companion for the one question budget apps never answer — can I afford this, right now?">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../../favicon.ico" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_deck/deck.css?v=1">
+<style>
+/* Savio's palette, lifted from tools/og-card.py so the deck matches the card a
+   reader already saw on the homepage. The sage green is Savio's; the accent is
+   the coral that opens its own icon gradient, deepened until it is legible on
+   paper. This block is the only thing that makes this deck look like this deck. */
+:root{
+  --brand:#2F5D50; --f0:#4E8C77; --f1:#2F5D50; --f2:#1E3F36; --f3:#0F221D;
+  --accent:#E2685E; --paper:#EDE8E1; --card:#FFF; --ink:#211E24; --ink2:#4A4550;
+  --muted:#8A8188; --line:rgba(33,30,36,.12);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Inter",system-ui,sans-serif; --mono:"IBM Plex Mono",monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+/* ---- cover art: one month, thirty days ----
+   Twenty-seven of them Savio says nothing. It speaks on payday, when a windfall
+   lands, and a few days after a purchase. The gap in the middle is the checkout,
+   which every other budgeting app aims at and this one skips on purpose. */
+.month{margin-top:auto;padding-top:clamp(12px,2.4vh,26px);margin-bottom:clamp(34px,6vh,70px)}
+.days{display:grid;grid-template-columns:repeat(30,1fr);gap:clamp(4px,.5vw,8px)}
+.day{aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.17);opacity:0;
+  animation:dotin .5s var(--ease) both;animation-delay:var(--d)}
+.day.speak{background:var(--accent);
+  box-shadow:0 0 0 2px rgba(226,104,94,.28),0 0 20px 6px rgba(226,104,94,.42);
+  animation:dotin .5s var(--ease) both,glow 2.4s var(--ease) 1.6s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 2px rgba(226,104,94,.28),0 0 20px 6px rgba(226,104,94,.42)}
+  50%{box-shadow:0 0 0 3px rgba(226,104,94,.42),0 0 28px 10px rgba(226,104,94,.62)}}
+.daykey{display:flex;gap:clamp(14px,1.8vw,30px);margin-top:clamp(11px,1.7vh,20px);flex-wrap:wrap}
+.daykey span{font:500 10.5px/1.4 var(--mono);letter-spacing:.07em;color:#9DBBB0;
+  display:flex;align-items:center;gap:8px}
+.daykey i{width:9px;height:9px;border-radius:2px;background:rgba(255,255,255,.17);display:block}
+.daykey span:nth-child(2) i{background:var(--accent)}
+.daykey span:nth-child(3){color:#7E9A90}
+/* On a phone the strip becomes three rows of ten, because thirty cells across a
+   358px frame are 18px wide and a quiet day at that size disappears. */
+@media(max-width:880px){.days{grid-template-columns:repeat(10,1fr)}
+  .day{background:rgba(255,255,255,.24)}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="stage"></div>
+<div id="hint">&larr; &rarr; to move</div>
+<nav id="nav">
+  <button id="prev" type="button" aria-label="Previous slide">&larr;</button>
+  <span id="count">1 / 1</span>
+  <button id="next" type="button" aria-label="Next slide">&rarr;</button>
+</nav>
+<script src="slides.js?v=1"></script>
+<script src="../../_deck/engine.js?v=1"></script>
+</body>
+</html>
