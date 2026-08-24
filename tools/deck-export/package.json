@@ -1,0 +1,9 @@
+{
+  "name": "deck-export",
+  "private": true,
+  "type": "module",
+  "description": "Shoot an HTML deck slide by slide, for packing into a .pptx. See README.md.",
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}
