@@ -8,12 +8,35 @@ out as a file, in order of how much you have to install.
 Open the deck in Chrome, press **Ctrl+P**, and choose **Save as PDF**.
 
 - **Layout: Landscape.**
+- **Margins: None.** Otherwise every slide gets a white border and the
+  full-bleed cover stops being full bleed.
 - **More settings → tick Background graphics.** Without it the dark slides print
   white and the cover disappears.
 
 `work/_deck/deck.css` has a print block that unstacks the slides, one per page,
 with the animations already finished. This is the fastest route and the right
 one for emailing somebody a deck.
+
+**The one limitation:** Chrome's paper list is A4, Letter, Legal, Tabloid. None
+of them is 16:9. A slide printed to A4 landscape is squarer than the web deck,
+so the content reflows to fit — readable, and correct, but not the same shape as
+a projector. For a true 16:9 PDF, use the script below.
+
+## 1b. A PDF at a true 16:9
+
+```bash
+python -m http.server 8899 --bind 127.0.0.1   # from the repo root, in another shell
+
+cd tools/deck-export
+node topdf.mjs "http://localhost:8899/work/reddit/deck/" ../../assets/decks/reddit.pdf
+```
+
+Needs `npm install` and `npx playwright install chromium` once, the same as the
+.pptx route below.
+
+The text stays real text: selectable, searchable, and about a tenth the weight
+of the .pptx, which is fourteen photographs. Prefer this for anything a person
+will read. Use the .pptx only when the file has to open in PowerPoint.
 
 ## 2. A .pptx
 

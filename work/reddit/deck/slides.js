@@ -174,10 +174,15 @@ const FIGS = {
     /* the columns */
     stages.forEach((s, i) => {
       const x = i * (colW + gapW);
+      /* A label is set from the left edge of its column, which runs the last one
+         off the end of the frame. That one is set from the right edge instead. */
+      const last = i === stages.length - 1;
+      const tx = last ? x + colW : x;
+      const anc = last ? ' text-anchor="end"' : '';
       out += `<rect class="fcol ${s.dim ? 'dim' : ''}" x="${x}" y="${y(s.h)}" width="${colW}" height="${band * s.h}" rx="3"/>`;
-      out += `<text class="fk" x="${x}" y="${TOP - 44}">${s.k}</text>`;
-      out += `<text class="fv ${s.dim ? 'dim' : ''}" x="${x}" y="${TOP - 8}">${s.v}</text>`;
-      out += `<text class="fnote" x="${x}" y="${H - BOT + 34}">${s.note}</text>`;
+      out += `<text class="fk" x="${tx}" y="${TOP - 44}"${anc}>${s.k}</text>`;
+      out += `<text class="fv ${s.dim ? 'dim' : ''}" x="${tx}" y="${TOP - 8}"${anc}>${s.v}</text>`;
+      out += `<text class="fnote" x="${tx}" y="${H - BOT + 34}"${anc}>${s.note}</text>`;
     });
     return `<svg viewBox="0 0 ${W} ${H}" role="img"
       aria-label="A funnel from 130.3M daily actives to a final stage nobody measures: 77.7M logged out, 52.6M with an account, about 10% who post anything, about 80% of first posts surviving removal, and an unmeasured reply rate.">${out}</svg>`;
@@ -210,21 +215,21 @@ const SLIDES = [
 { kind: 'compare', pill: 'The problem', wide: true,
   title: 'Reddit earns from one cohort and is increasingly made of the other',
   lead: 'Both numbers are Reddit’s own, reported for the same quarter.',
-  left: ['Logged out', '77.7M', 'DAU, up *27%*. This cohort lands from search, reads one thread and churns. No account means no repeat-visit signal, no retention curve, and no lifetime value to price an ad against.'],
-  right: ['Logged in', '52.6M', 'DAU, up *7%*. This cohort returns, retains and can be sold to. It is the base every advertising dollar is priced against, and it is growing four times slower than the one that cannot be billed.'],
+  left: ['Logged out', '77.7M', 'DAU, up *27%*. Lands from search, reads one thread, leaves. No account, so no repeat-visit signal, no retention curve, and no lifetime value to price an ad against.', 'leaves'],
+  right: ['Logged in', '52.6M', 'DAU, up *7%*. Returns, retains, and can be sold to. Every advertising dollar is priced against this cohort. It grows four times slower than the one Reddit cannot bill.', 'returns'],
   src: 'Reddit Q2 2026, of 130.3M DAU in total, up 18%. Q2 2026 is the last quarter Reddit reports this split. From Q3 it stops publishing logged-in and logged-out figures.' },
 
 /* ---------------------------------------------------------------- 04 -- */
 { kind: 'bars', pill: 'The wedge', max: 100, unit: '%', wide: true,
-  title: 'Two of every three Google searches now end without a click',
-  lead: '*68.01%* of US Google searches ended without a click in the first four months of 2026, up from *60.45%* in 2024. That is the steepest two-year move since the measurement began. Only *276* of every 1,000 searches now reach the open web at all.',
+  title: 'Reddit’s arrival channel is squeezed at both ends',
+  lead: 'About *60%* of Reddit’s daily actives arrive logged out, and search is how most of them get there. Two different things are now squeezing that channel. *Google answers inside the results page, so the click never happens. AI assistants read the thread and answer without citing it, so the visit never happens either.* Huffman called Reddit’s search referrals *“choppy”* on the Q2 call.',
   barlab: 'Share of US Google searches ending with no click to any website',
   bars: [
     ['2016', 45],
     ['2024', 60.45],
     ['Jan–Apr 2026', 68.01]
   ],
-  src: 'SparkToro with Similarweb clickstream data, Jun 2026. AI Overviews now appear on over 20% of searches. Not Reddit-specific: over the year to Jun 2026 USA Today lost nearly half its organic Google traffic and Politico lost 23% (Semrush).' },
+  src: 'The zero-click figures are Google-wide, not Reddit’s own: SparkToro with Similarweb clickstream data, Jun 2026. They are on this slide because this is the channel Reddit’s logged-out majority arrives through. AI Overviews now appear on over 20% of searches. Every publisher on this channel is exposed: over the year to Jun 2026 USA Today lost nearly half its organic Google traffic and Politico lost 23% (Semrush). Huffman quotes: Reddit Q2 2026 earnings call, 30 Jul 2026.' },
 
 /* ---------------------------------------------------------------- 05 -- */
 { kind: 'statement', pill: 'What replaced the visit',
@@ -262,7 +267,7 @@ const SLIDES = [
   lead: 'Promoted to primary because it acts on *supply*, not on arrivals. Arrivals are shrinking for reasons Reddit does not control. The corpus is what survives the channel.',
   panels: [
     ['What it is', 'A real-time check inside the composer for new accounts, under seven days old or low karma. It flags flair, length, formatting and tone *before* submit rather than after deletion.'],
-    ['Why it leads now', 'Two reasons. Logged-in DAU grows at *7%* against *27%*, so a surviving first post moves the slow number. And the corpus is the asset being licensed: *Reddit renegotiates that licence in H1 2027, and corpus health is the negotiating position.*', true],
+    ['Why it leads now', 'Logged-in DAU grows at *7%*. Logged-out grows at *27%*. A first post that survives is how the slow number moves. The posts are also the asset Reddit licenses, and *that licence is renegotiated in H1 2027.*', true],
     ['What it costs', 'The rules linter is effectively free. An LLM check costs about *$0.001*. Ship the linter first and add a model only for fuzzy tone. The week-one posting rate should come from internal data, and this deck does not assert it.'],
     ['The dependency, stated up front', 'Automod rules are per-subreddit and often private. Many key on account age, karma floor or verified email, and *a composer cannot fix any of those.* Coach covers the machine-checkable subset. Full coverage needs a platform-level rule surface, out of scope here.']
   ],
@@ -272,12 +277,12 @@ const SLIDES = [
 { kind: 'mock', pill: 'Solution 3 → stage 3', mock: 'mega', wide: true,
   cap: 'Bottom sheet over the live thread',
   title: 'Then give the post somewhere to land',
-  lead: 'When Coach flags a likely removal it offers a soft pivot to the subreddit’s megathread, over the thread rather than instead of it. A likely failure becomes a guaranteed first publish.',
+  lead: 'When Coach flags a likely removal, it offers the subreddit’s megathread instead. The sheet opens over the thread and does not block the post. A likely failure becomes a first post that publishes.',
   panels: [
-    ['Positioning', 'A fallback inside the Coach flow, not a standalone feature. Standing alone it would be a “kids table” for new accounts, which is a worse product than the one it replaces.'],
-    ['If there is no megathread', 'Most subreddits do not run one. The branch defaults to Coach’s fix guidance plus a Reddit-wide new-contributor thread.'],
-    ['The metric risk I would flag myself', 'A megathread comment can satisfy the north star metric and still deliver nothing, because most get no reply. *Counter-metric: reply-received rate on a first post within 48 hours.* Without it the feature looks like a win while failing the user.'],
-    ['The relationship risk', 'A tool that routes around moderator gates can read as undermining moderation. Mod trust is Reddit’s most fragile asset. Ship to opt-in subreddits first and hold the mod-sentiment guardrail.']
+    ['Positioning', 'This sits inside the Coach flow. On its own it becomes a “kids table” for new accounts, which is worse than what it replaces.'],
+    ['If there is no megathread', 'Most subreddits do not run one. Those fall back to Coach’s fix guidance and a Reddit-wide new-contributor thread.'],
+    ['The metric risk', 'Most megathread comments get no reply. The north star metric would still count them, so the number goes up and the user gets nothing. *So I would also track the reply-received rate on a first post within 48 hours.*'],
+    ['The relationship risk', 'Moderators may read this as routing around their rules. Their trust is Reddit’s most fragile asset. Ship to opt-in subreddits first and watch the mod-sentiment guardrail.']
   ],
   src: 'Framing from the 1-9-90 rule (NN/g, 2006): the hard part is moving a user from lurking to participating at all. The source is twenty years old and community-general, so treat it as directional.' },
 
@@ -336,7 +341,8 @@ const SLIDES = [
     ['The lever', 'The only surface a non-visitor touches is what the crawler sees. Any genuine fix has to change what Reddit exposes to be summarised, not what it shows on a page the user never opens.'],
     ['Why it is out of scope', 'This is a licensing and distribution decision before it is a product one. The Google contract expires H1 2027, Reddit is reported to want usage-based terms, and the OpenAI renewal is unresolved. *That negotiation sets the terms, not a feature.* A PM answering a contract problem with a content-structure change is bringing the wrong instrument.'],
     ['What would change my mind', 'Whether *retrieval* fell or only *citation* fell. Reddit’s share of ChatGPT citations dropped from 3.83% to 0.52% in four days in August, an 86.4% relative fall. But Ahrefs measured the same platform over the same window at 16.7%, Promptwatch calls its own figure provisional, and a near-identical collapse in June recovered within two months.'],
-    ['Why the deck is not built on that number', 'ChatGPT sends under 0.1% of Reddit’s inbound. Google AI Overviews and AI Mode declined about 11% and 30% over the same window, a slope rather than a cliff. *The loud number is the small one.* The 68% zero-click figure is what moves the business.']
+    ['Why the deck is not built on that number', 'ChatGPT sends under 0.1% of Reddit’s inbound. Google AI Overviews and AI Mode declined about 11% and 30% over the same window, a slope rather than a cliff. *The loud number is the small one.* The 68% zero-click figure is what moves the business.'],
+    ['Why product work is still the work', 'Licensing is not the escape hatch. It earned *$39M* last quarter against *$762M* from advertising. Double it and it still would not cover a falling ad line. *The visit is what pays.*']
   ],
   src: 'If retrieval fell rather than citation, this deck’s thesis inverts: read without being paid becomes no longer read, a different and worse problem that none of these solutions address. Sources: Promptwatch citation tracking, Aug 2026; Ahrefs, Apr and Aug 2026.' },
 

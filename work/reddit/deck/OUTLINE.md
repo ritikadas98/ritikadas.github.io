@@ -69,11 +69,11 @@
 
 **LEFT PANEL** — label `Logged out`, headline number `77.7M`
 
-DAU, up *27%*. This cohort lands from search, reads one thread and churns. No account means no repeat-visit signal, no retention curve, and no lifetime value to price an ad against.
+DAU, up *27%*. Lands from search, reads one thread, leaves. No account, so no repeat-visit signal, no retention curve, and no lifetime value to price an ad against.
 
 **RIGHT PANEL** — label `Logged in`, headline number `52.6M`
 
-DAU, up *7%*. This cohort returns, retains and can be sold to. It is the base every advertising dollar is priced against, and it is growing four times slower than the one that cannot be billed.
+DAU, up *7%*. Returns, retains, and can be sold to. Every advertising dollar is priced against this cohort. It grows four times slower than the one Reddit cannot bill.
 
 **SOURCE:** Reddit Q2 2026, of 130.3M DAU in total, up 18%. Q2 2026 is the last quarter Reddit reports this split. From Q3 it stops publishing logged-in and logged-out figures.
 
@@ -87,9 +87,9 @@ DAU, up *7%*. This cohort returns, retains and can be sold to. It is the base ev
 
 **PILL:** The wedge
 
-**TITLE:** Two of every three Google searches now end without a click
+**TITLE:** Reddit’s arrival channel is squeezed at both ends
 
-**LEAD:** *68.01%* of US Google searches ended without a click in the first four months of 2026, up from *60.45%* in 2024. That is the steepest two-year move since the measurement began. Only *276* of every 1,000 searches now reach the open web at all.
+**LEAD:** About *60%* of Reddit’s daily actives arrive logged out, and search is how most of them get there. Two different things are now squeezing that channel. *Google answers inside the results page, so the click never happens. AI assistants read the thread and answer without citing it, so the visit never happens either.* Huffman called Reddit’s search referrals *“choppy”* on the Q2 call.
 
 **BARS:**
 
@@ -98,7 +98,7 @@ DAU, up *7%*. This cohort returns, retains and can be sold to. It is the base ev
 - Jan–Apr 2026 — 68.01
 - *scale maximum:* 100
 
-**SOURCE:** SparkToro with Similarweb clickstream data, Jun 2026. AI Overviews now appear on over 20% of searches. Not Reddit-specific: over the year to Jun 2026 USA Today lost nearly half its organic Google traffic and Politico lost 23% (Semrush).
+**SOURCE:** The zero-click figures are Google-wide, not Reddit’s own: SparkToro with Similarweb clickstream data, Jun 2026. They are on this slide because this is the channel Reddit’s logged-out majority arrives through. AI Overviews now appear on over 20% of searches. Every publisher on this channel is exposed: over the year to Jun 2026 USA Today lost nearly half its organic Google traffic and Politico lost 23% (Semrush). Huffman quotes: Reddit Q2 2026 earnings call, 30 Jul 2026.
 
 **NOTES:**
 
@@ -150,17 +150,17 @@ DAU, up *7%*. This cohort returns, retains and can be sold to. It is the base ev
 
 ---
 
-## Slide 07 — The funnel, and where it leaks
+## Slide 07 — The funnel
 
-*Layout `funnel`: left-to-right steps with arrows.*
+*Layout `figure`: one diagram.*
 
-**PILL:** The funnel, and where it leaks
+**PILL:** The funnel
 
-**TITLE:** Three stages, each an order of magnitude smaller than the last
+**TITLE:** Every stage is smaller than the last, and the last one is not measured
 
-**LEAD:** Onboarding investment sits *downstream* of every one of these, on a homepage and an app the search-arrived user never reaches.
+**LEAD:** Reddit reports the first three. The next two come from published research. Nobody reports the last, which is where Solution 3 can look like a win and not be one.
 
-**SOURCE:** Why this is not already solved: Reddit Answers, its own AI answer engine, has been in beta since late 2024. It is a real attempt at this problem, but it serves users already on Reddit and mostly logged in. The searcher who lands on one thread from Google never opens it.
+**SOURCE:** Band widths are not to scale: each stage is roughly an order of magnitude smaller than the one before, and a true taper would draw the tail as a hairline. Stages 1–3: Reddit Q2 2026. “Posts anything”: the 1-9-90 rule (NN/g, 2006), twenty years old and community-general, so directional only. “First post survives”: about a fifth of Reddit posts are removed, and 37% of the users whose post was removed did not understand why (Jhaver et al., ACM CSCW 2019, n=907). Reddit removed a little over 3% of all new content in H1 2024, of which 66.5% was spam.
 
 **NOTES:**
 
@@ -184,7 +184,7 @@ DAU, up *7%*. This cohort returns, retains and can be sold to. It is the base ev
 **PANELS:**
 
 1. **What it is** — A real-time check inside the composer for new accounts, under seven days old or low karma. It flags flair, length, formatting and tone *before* submit rather than after deletion.
-2. **Why it leads now** *(highlighted panel)* — Two reasons. Logged-in DAU grows at *7%* against *27%*, so a surviving first post moves the slow number. And the corpus is the asset being licensed: *Reddit renegotiates that licence in H1 2027, and corpus health is the negotiating position.*
+2. **Why it leads now** *(highlighted panel)* — Logged-in DAU grows at *7%*. Logged-out grows at *27%*. A first post that survives is how the slow number moves. The posts are also the asset Reddit licenses, and *that licence is renegotiated in H1 2027.*
 3. **What it costs** — The rules linter is effectively free. An LLM check costs about *$0.001*. Ship the linter first and add a model only for fuzzy tone. The week-one posting rate should come from internal data, and this deck does not assert it.
 4. **The dependency, stated up front** — Automod rules are per-subreddit and often private. Many key on account age, karma floor or verified email, and *a composer cannot fix any of those.* Coach covers the machine-checkable subset. Full coverage needs a platform-level rule surface, out of scope here.
 
@@ -202,7 +202,7 @@ DAU, up *7%*. This cohort returns, retains and can be sold to. It is the base ev
 
 **TITLE:** Then give the post somewhere to land
 
-**LEAD:** When Coach flags a likely removal it offers a soft pivot to the subreddit’s megathread, over the thread rather than instead of it. A likely failure becomes a guaranteed first publish.
+**LEAD:** When Coach flags a likely removal, it offers the subreddit’s megathread instead. The sheet opens over the thread and does not block the post. A likely failure becomes a first post that publishes.
 
 **PHONE MOCK `mega`**
 
@@ -211,10 +211,10 @@ DAU, up *7%*. This cohort returns, retains and can be sold to. It is the base ev
 
 **PANELS:**
 
-1. **Positioning** — A fallback inside the Coach flow, not a standalone feature. Standing alone it would be a “kids table” for new accounts, which is a worse product than the one it replaces.
-2. **If there is no megathread** — Most subreddits do not run one. The branch defaults to Coach’s fix guidance plus a Reddit-wide new-contributor thread.
-3. **The metric risk I would flag myself** — A megathread comment can satisfy the north star metric and still deliver nothing, because most get no reply. *Counter-metric: reply-received rate on a first post within 48 hours.* Without it the feature looks like a win while failing the user.
-4. **The relationship risk** — A tool that routes around moderator gates can read as undermining moderation. Mod trust is Reddit’s most fragile asset. Ship to opt-in subreddits first and hold the mod-sentiment guardrail.
+1. **Positioning** — This sits inside the Coach flow. On its own it becomes a “kids table” for new accounts, which is worse than what it replaces.
+2. **If there is no megathread** — Most subreddits do not run one. Those fall back to Coach’s fix guidance and a Reddit-wide new-contributor thread.
+3. **The metric risk** — Most megathread comments get no reply. The north star metric would still count them, so the number goes up and the user gets nothing. *So I would also track the reply-received rate on a first post within 48 hours.*
+4. **The relationship risk** — Moderators may read this as routing around their rules. Their trust is Reddit’s most fragile asset. Ship to opt-in subreddits first and watch the mod-sentiment guardrail.
 
 **SOURCE:** Framing from the 1-9-90 rule (NN/g, 2006): the hard part is moving a user from lurking to participating at all. The source is twenty years old and community-general, so treat it as directional.
 
@@ -325,6 +325,7 @@ DAU, up *7%*. This cohort returns, retains and can be sold to. It is the base ev
 2. **Why it is out of scope** — This is a licensing and distribution decision before it is a product one. The Google contract expires H1 2027, Reddit is reported to want usage-based terms, and the OpenAI renewal is unresolved. *That negotiation sets the terms, not a feature.* A PM answering a contract problem with a content-structure change is bringing the wrong instrument.
 3. **What would change my mind** — Whether *retrieval* fell or only *citation* fell. Reddit’s share of ChatGPT citations dropped from 3.83% to 0.52% in four days in August, an 86.4% relative fall. But Ahrefs measured the same platform over the same window at 16.7%, Promptwatch calls its own figure provisional, and a near-identical collapse in June recovered within two months.
 4. **Why the deck is not built on that number** — ChatGPT sends under 0.1% of Reddit’s inbound. Google AI Overviews and AI Mode declined about 11% and 30% over the same window, a slope rather than a cliff. *The loud number is the small one.* The 68% zero-click figure is what moves the business.
+5. **Why product work is still the work** — Licensing is not the escape hatch. It earned *$39M* last quarter against *$762M* from advertising. Double it and it still would not cover a falling ad line. *The visit is what pays.*
 
 **SOURCE:** If retrieval fell rather than citation, this deck’s thesis inverts: read without being paid becomes no longer read, a different and worse problem that none of these solutions address. Sources: Promptwatch citation tracking, Aug 2026; Ahrefs, Apr and Aug 2026.
 

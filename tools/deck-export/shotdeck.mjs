@@ -1,0 +1,13 @@
+import { chromium } from 'playwright';
+const [url, out] = process.argv.slice(2);
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1400, height: 900 } });
+const bad = [];
+p.on('pageerror', e => bad.push('pageerror: ' + e.message));
+p.on('response', r => { if (r.status() >= 400) bad.push(r.status() + ' ' + r.url()); });
+await p.goto(url, { waitUntil: 'networkidle' });
+await p.evaluate(() => document.querySelector('.deck').scrollIntoView({ block: 'center' }));
+await p.waitForTimeout(2500);
+await p.screenshot({ path: out });
+console.log(JSON.stringify({ problems: bad }, null, 1));
+await b.close();

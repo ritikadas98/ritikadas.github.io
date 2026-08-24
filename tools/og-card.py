@@ -164,9 +164,9 @@ ARTICLES = {
         # browser window rather than a phone. Quote dropped for the same reason as
         # the other two: with a real screenshot the field is a product plate.
         "kicker": "Product case study",
-        "title": "Reddit Is a Waypoint, Not a Destination",
-        "hook": "Around 62% of Reddit’s visitors arrive from Google, land on one "
-                "thread, get their answer and leave.",
+        "title": "Reddit Is Read Without Being Visited",
+        "hook": "Reddit’s logged-out audience grew 27% last quarter and the audience "
+                "it can bill grew 7%.",
         "byline": "Reddit · Consumer social",
         "brand": "#FF4500", "rgb": "255,69,0",
         "field": ("#FF7A45", "#F04A00", "#A83204", "#4A1602"),

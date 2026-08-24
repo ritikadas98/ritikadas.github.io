@@ -75,12 +75,21 @@
 .panel.was .k{opacity:.9}
 
 @media(max-width:880px){
-  /* Absolute placement has nothing to sit beside on a phone, so the thread
-     returns to the flow, under the text it belongs to. */
+  /* Absolute placement has nothing to sit beside on a narrow frame, so the thread
+     returns to the flow, under the text it belongs to. Both pieces of art then
+     have to share one column: the field goes to fifty across, which is four short
+     rows instead of eight tall ones, and the thread takes what is left. This is
+     also the width the deck renders at inside the article's embed. */
   .slide.grad .pill,.slide.grad h1,.slide.grad .lead,.slide.grad .clicks{max-width:none}
-  .threadshot{position:static;transform:none;width:auto;margin-top:clamp(18px,3vh,30px)}
-  .clkgrid{grid-template-columns:repeat(20,1fr)}
+  .slide.grad{overflow-y:auto}
+  .clicks{margin:clamp(10px,2vh,20px) 0 0;padding-top:0}
+  .clkgrid{grid-template-columns:repeat(50,1fr);gap:2px}
   .clk{background:rgba(255,255,255,.22)}
+  .clkkey{gap:10px;margin-top:8px}
+  .clkkey span{font-size:9px}
+  .threadshot{position:static;transform:none;width:auto;max-width:min(100%,520px);
+    margin:clamp(12px,2.2vh,22px) auto 0}
+  .tscap{font-size:10.5px}
 }
 /* ---- filling a 16:9 slide, without overflowing a real one ----
    The shared shell sizes every piece of type from viewport WIDTH. A deck opened
@@ -160,7 +169,11 @@ h2.wide{max-width:58ch}
 .fig .fv.dim{fill:var(--muted)}
 .fig .fstep{font:500 14px var(--mono);fill:var(--ink2);text-anchor:middle;letter-spacing:.03em}
 .fig .fnote{font:400 14px var(--body);fill:var(--muted)}
-.fig svg{max-height:100%}
+.fig{min-height:0}
+/* The shared rule sets the diagram from width and lets height follow, which on
+   a wide short window makes it taller than the slide. Whichever axis runs out
+   first wins instead. */
+.fig svg{width:auto;height:auto;max-width:100%;max-height:100%}
 
 @media(max-height:820px){
   .mkpanel{padding:clamp(8px,1vw,14px) clamp(10px,1.15vw,16px)}
