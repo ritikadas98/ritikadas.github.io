@@ -46,6 +46,10 @@
 .daykey span:nth-child(3){color:#7E9A90}
 /* On a phone the strip becomes three rows of ten, because thirty cells across a
    358px frame are 18px wide and a quiet day at that size disappears. */
+/* Two faces side by side do not survive a landscape crop on a narrow card, and
+   the card is full width on a phone anyway, so the photo stays square and shows
+   the whole frame. */
+@media(max-width:880px){.pphoto{aspect-ratio:1}}
 @media(max-width:880px){.days{grid-template-columns:repeat(10,1fr)}
   .day{background:rgba(255,255,255,.24)}}
 </style>

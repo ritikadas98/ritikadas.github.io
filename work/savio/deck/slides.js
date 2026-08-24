@@ -66,9 +66,11 @@ const SLIDES = [
 
 /* ------------------------------------------------------- persona and jtbd -- */
 { kind: 'personajobs', pill: 'Persona and jobs to be done',
-  title: 'One user, and three jobs no app was doing',
+  title: 'One kind of user, and three jobs no app was doing',
   role: 'Primary user',
   name: 'Salaried, planning something',
+  photo: 'images/persona.jpg',
+  photoAlt: 'Two colleagues in an office, a woman holding a folder and a man with a backpack. Each would use Savio on their own account. Generated image, not a photograph of real people.',
   blurb: 'Earns monthly, has commitments already promised, and a goal being saved towards. Not in debt trouble. Not wealthy enough to stop thinking about it.',
   quotes: [
     'When I am about to spend something significant, <b>I want to know what it does to the rest of my month</b>, so I am not guessing at the worst possible moment.',

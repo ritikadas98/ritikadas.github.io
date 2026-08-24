@@ -272,6 +272,11 @@ body.on-dark #hint{color:#7D8A96}
      with it: centred flex content that overflows spills above the scroll box and
      that part can never be reached. */
   .body{overflow-y:auto;justify-content:flex-start}
+  /* Let the content be its natural height and let the body scroll. Shrinking a
+     child instead makes a card shorter than the photo inside it, and a card that
+     aligns its contents to the bottom then pushes the photo off the top edge. */
+  .body>*{flex:0 0 auto}
+  .pcard{justify-content:flex-start}
   .two{align-items:start}
   .tcol li{font-size:12.5px;margin-bottom:7px}
   .dots{grid-template-columns:repeat(25,1fr)}
@@ -379,6 +384,18 @@ body.on-dark #hint{color:#7D8A96}
    The web deck stacks its slides and shows one. On paper every slide has to
    exist, one per page, landscape, with the animations already finished. Tick
    "Background graphics" in the print dialog or the dark slides come out white. */
+/* ---- narrow screens, last word ----
+   The layouts that came later in this file (.pj, .wk) redeclare max-height after
+   the media block above, and a media query adds no specificity, so source order
+   was quietly winning. These re-assert the phone rules from the bottom, where
+   nothing can come after them. */
+@media(max-width:880px){
+  .persona,.two,.tbl,.rows,.quotes,.journey,.grid,
+  .bars,.funnel,.wk,.pj,.split2,.quadwrap{max-height:none}
+  .body>*{flex:0 0 auto}
+  .pcard{justify-content:flex-start}
+}
+
 @media print{
   @page{size:landscape;margin:0}
   html,body{height:auto;overflow:visible}
