@@ -1241,21 +1241,28 @@ figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
 .art-hero-wide{max-width:860px;margin:28px auto 0}
 
 /* ---- EMBEDDED DECK ----
-   A Google Slides deck published to the web, shown in place so the reader never
-   leaves the page. Padding-bottom rather than a height: it holds a 16:9 box at any
-   width, which is what keeps the slides from being letterboxed on a phone.
+   A slide deck shown in place so the reader never leaves the page. Padding-bottom
+   rather than a height: it holds the box's shape at any width.
 
-   The frame is served by Google, so it can fail in ways this page cannot detect —
-   unpublish the deck and the box goes blank with no error. Hence the plain link
-   underneath, which always works. Never remove it. */
+   A frame can fail in ways this page cannot detect — move the deck and the box
+   goes blank with no error. Hence the plain link underneath, which always works.
+   Never remove it. */
 .deck{margin:34px 0 0;border-radius:12px;overflow:hidden;border:1px solid var(--hairline-strong);
   background:var(--surface);position:relative;padding-bottom:61.8%;height:0}
 .deck iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
-/* A slide deck of my own adapts to the box it is given, so on a phone it should be
+/* A deck of my own adapts to the box it is given, so on a phone it should be
    given a portrait one. At 16:10 a 390px screen leaves the deck 240px of height,
-   which is not enough for a title. Scoped to .deck-app: the Reddit embed is Google
-   Slides, which is fixed 16:9 and would letterbox inside a tall frame. */
+   which is not enough for a title. */
 @media(max-width:640px){ .deck.deck-app{padding-bottom:168%} }
+/* Above the phone break the box is landscape but only ~430px tall, and the deck
+   lays itself out for the phone inside it: covers clip, sources land under the
+   arrows, bar values lose their last digit. So the frame is rendered at 160% of
+   the box — a laptop-sized viewport, which gets the laptop layout — and scaled
+   back by 1/1.6. The embed becomes a true miniature of the deck the link under
+   it opens full screen. */
+@media(min-width:641px){
+  .deck.deck-app iframe{width:160%;height:160%;transform:scale(.625);transform-origin:0 0}
+}
 .deck-note{margin:14px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   text-transform:uppercase;color:var(--muted)}
 .deck-note a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line)}
