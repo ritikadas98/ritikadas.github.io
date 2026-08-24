@@ -307,6 +307,15 @@ header.elevator{
    all of it into one 350px hole under the buttons, which reads as a bug. Split
    evenly it is ~120px top and bottom, which reads as breathing room. */
 .hero-body{flex:1 1 auto;display:flex;align-items:center;min-height:0;padding:12px 0}
+/* Below this there is no amount of shrinking that fits the fold — a phone held
+   sideways gives the hero about 300px of height for a stack that needs ~420px,
+   and the overflow landed on top of the marquee and the two buttons with it.
+   The fold is a luxury, not a requirement: give up the fixed height, let the
+   hero be as tall as it is, and the marquee sits after it instead of under it. */
+@media (max-height:520px){
+  header.elevator{height:auto;padding-bottom:0}
+  .hero-body{padding:26px 0}
+}
 /* On a short window, shrink the type rather than let the marquee fall out. */
 @media (max-height:700px){
   h1.hero{font-size:clamp(27px,3.4vw,40px)}
@@ -372,6 +381,16 @@ h1.hero em{font-style:normal;color:var(--accent)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hairline-strong)}
 .btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px)}
 .btn .arr{transition:transform .2s}.btn:hover .arr{transform:translate(2px,-2px)}
+
+/* ---- THE ↗ ----
+   Neither Bricolage Grotesque nor the Google build of Inter contains U+2197, so
+   a heading arrow fell through the whole stack to the emoji font: on an iPhone
+   it painted as the blue rounded emoji arrow, next to type that is neither blue
+   nor rounded. IBM Plex Mono does carry the glyph, which is why the arrows on
+   buttons and the mono links always looked right. Every arrow now asks for the
+   mono face first and inherits the size and colour of whatever it sits in.
+   The variation selector keeps a system fallback from re-emojifying it. */
+.arr{font-family:var(--mono),"Segoe UI Symbol","Apple Symbols",sans-serif}
 
 /* sections */
 /* 34, not 56. At 56 the gap from the last card of one section to the next heading
@@ -1280,6 +1299,18 @@ figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
 .art-body tr:last-child td{border-bottom:none}
 @media(max-width:900px){
   .fig-wide,.table-scroll{width:auto;margin-left:0;transform:none}
+}
+/* A three-column table on a phone is wider than the phone, and it does scroll —
+   but a table that is cut off at the edge reads as broken rather than as
+   scrollable, and the third column is where the argument lands. The hint says so
+   in words. It only appears where the table actually overflows: on a screen wide
+   enough to hold all three columns there is nothing to scroll and nothing to say.
+   Table cells hold their own width so the columns stay readable while it does. */
+.table-scroll table{min-width:620px}
+.table-hint{display:none}
+@media(max-width:680px){
+  .table-hint{display:block;margin:10px 0 0;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 }
 @media(max-width:640px){
   .art-wrap{padding:0 16px}

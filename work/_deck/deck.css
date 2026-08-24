@@ -13,7 +13,11 @@ body{background:var(--paper);color:var(--ink);font-family:var(--body);overflow:h
 
 /* Slides are stacked and swapped, never scrolled. A deck that scrolls is a page,
    and the difference is whether one idea is ever alone on the screen. */
-#stage{position:relative;width:100vw;height:100vh;overflow:hidden}
+/* dvh, not vh: on iOS Safari 100vh is the height with the toolbars hidden, so
+   the bottom of every slide — the credit line and the move hint — sat behind
+   the address bar until the reader scrolled. dvh is the height actually visible.
+   vh stays first as the fallback for anything that does not know dvh. */
+#stage{position:relative;width:100vw;height:100vh;height:100dvh;overflow:hidden}
 .slide{position:absolute;inset:0;padding:clamp(28px,4.4vw,76px);display:flex;flex-direction:column;
   opacity:0;visibility:hidden;transform:translateY(22px);
   transition:opacity .5s var(--ease),transform .5s var(--ease),visibility 0s .5s}
@@ -39,8 +43,12 @@ h2.wide{max-width:28ch}
 .lead{font-size:clamp(13.5px,1.22vw,17.5px);line-height:1.55;color:var(--ink2);max-width:64ch;
   margin-top:clamp(9px,1.5vh,17px)}
 .dark .lead,.grad .lead{color:#C6CDD4}
+/* The nav sits bottom-right and the move hint bottom-centre, both fixed, so the
+   source line has to stop before them rather than run underneath. Room for the
+   nav is taken out of the width; the hint is cleared by the right margin too,
+   since it is centred in what is left. */
 .src{position:absolute;left:clamp(28px,4.4vw,76px);bottom:clamp(18px,2.6vh,30px);
-  font-size:11.5px;color:var(--muted);max-width:min(96ch,calc(100% - 200px));line-height:1.5}
+  font-size:11.5px;color:var(--muted);max-width:min(96ch,calc(100% - 290px));line-height:1.5}
 .dark .src,.grad .src{color:#8899A6}
 .src a{color:inherit}
 
@@ -140,6 +148,9 @@ body.on-dark #nav button{background:rgba(255,255,255,.12);color:#fff;border-colo
 body.on-dark #count{color:#93A0AC}
 #hint{position:fixed;left:50%;transform:translateX(-50%);bottom:clamp(14px,2vh,26px);
   font:500 10.5px/1 var(--mono);letter-spacing:.08em;color:var(--muted);z-index:40;transition:opacity .4s}
+/* It names two keys a phone does not have, and it sits over the slide's own last
+   line to say it. Swipe and the arrow buttons already carry the same message. */
+@media(max-width:880px){ #hint{display:none} }
 body.moved #hint{opacity:0}
 body.on-dark #hint{color:#7D8A96}
 
@@ -378,7 +389,11 @@ body.on-dark #hint{color:#7D8A96}
   /* An absolutely placed source line lands on top of a slide that scrolls, so on
      a phone it flows after the content instead. */
   .src{position:static;margin-top:16px;max-width:none}
-  .body{padding-bottom:clamp(40px,7vh,64px)}}
+  /* The nav stays fixed over the bottom-right corner even while the slide
+     scrolls, so the scroll has to be able to run past it: enough room for the
+     38px buttons, their offset, and the move hint under them. Without this the
+     last line of every long slide stops underneath the arrows. */
+  .body{padding-bottom:clamp(86px,14vh,116px)}}
 
 /* ---- a device mock beside its argument ----
    Used by the `mock` kind. The phone frame and the panels live here; the screen

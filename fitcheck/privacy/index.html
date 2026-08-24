@@ -11,12 +11,18 @@
 <meta property="og:url" content="https://ritikadas.in/fitcheck/privacy/">
 <meta property="og:title" content="FitCheck privacy policy">
 <meta property="og:description" content="FitCheck makes no network requests. Your measurements stay in your browser, and nothing is sent anywhere unless you choose to send it.">
+<meta property="og:image" content="https://ritikadas.in/assets/og/fitcheck-og.jpg">
+<meta property="og:image:alt" content="FitCheck: a browser extension that reads the size chart already on the page.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="FitCheck privacy policy">
+<meta name="twitter:description" content="FitCheck makes no network requests. Your measurements stay in your browser, and nothing is sent anywhere unless you choose to send it.">
+<meta name="twitter:image" content="https://ritikadas.in/assets/og/fitcheck-og.jpg">
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css?v=20260825a">
+<link rel="stylesheet" href="/styles.css?v=20260825b">
 <script>
 /* Same pre-paint theme read as every other page. */
 (function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
@@ -35,9 +41,14 @@
   margin:38px 0 0;color:var(--ink)}
 .pp p{margin:12px 0 0;font-size:15.5px;line-height:1.7;color:var(--ink-2)}
 .pp ul{margin:12px 0 0;padding:0;list-style:none}
-.pp li{display:grid;grid-template-columns:15px minmax(0,1fr);margin:0 0 8px;
+/* A hanging bullet, done with padding rather than a grid. The grid version put
+   every run of text after the first child into the 15px bullet column, so a
+   line like "<strong>storage</strong> — to keep your profile" broke to one word
+   per line. Indent plus an absolutely placed bullet has no columns to fall into,
+   so the whole item stays one flowing paragraph however it is marked up. */
+.pp li{position:relative;padding-left:15px;margin:0 0 8px;
   font-size:15.5px;line-height:1.7;color:var(--ink-2)}
-.pp li::before{content:"\2022";color:var(--muted)}
+.pp li::before{content:"\2022";color:var(--muted);position:absolute;left:0;top:0}
 .pp a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .pp-home{margin-top:44px;padding-top:22px;border-top:1px solid var(--hairline)}
 </style>

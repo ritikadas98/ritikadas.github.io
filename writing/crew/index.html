@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=20260825a">
+<link rel="stylesheet" href="../../styles.css?v=20260825b">
 <script>
 /* Applied before first paint so a visitor who chose a theme manually never sees
    a flash of the other one. The full toggle logic still lives at the bottom. */
@@ -99,6 +99,14 @@
 }
 .fig-dgm{max-width:460px;margin:42px auto}
 .fig-dgm svg{width:100%;height:auto;display:block;overflow:visible}
+/* A diagram set in 9px labels scales with its box, so on a 320px phone the
+   labels land near 5px and stop being readable. Below this width the drawing
+   stops shrinking and the figure scrolls instead — a little of it off the edge
+   is a better trade than all of it too small to read. */
+@media(max-width:380px){
+  .fig-dgm{overflow-x:auto}
+  .fig-dgm svg{min-width:340px}
+}
 .fig-dgm figcaption{font-size:13px;margin-top:14px;text-align:center;color:var(--faint)}
 
 /* CSS vars do not resolve inside SVG presentation attributes in every engine,

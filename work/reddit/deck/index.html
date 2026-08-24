@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../_deck/deck.css?v=2">
+<link rel="stylesheet" href="../../_deck/deck.css?v=3">
 <style>
 /* Reddit's palette, lifted from tools/og-card.py so the deck matches the card a
    reader already saw on the homepage. Reddit's own orange is #FF4500 and it is
@@ -113,8 +113,15 @@ h2.wide{max-width:58ch}
 
 /* Nothing may spill out of the frame it was given. The source line is placed
    against the bottom edge, so the body has to reserve room for three lines of
-   it or the last card runs underneath. */
+   it or the last card runs underneath.
+
+   `hidden` is right for a presentation frame, where a slide that scrolls is a
+   slide that has too much on it. It is wrong on a phone: the shared shell lets
+   a long slide scroll there, and this rule was overriding that, so anything
+   past the first screenful could not be reached at all. Below the shell's own
+   phone break the scroll comes back. */
 .body{min-height:0;overflow:hidden;padding-bottom:clamp(44px,9.5vh,96px)}
+@media(max-width:880px){ .body{overflow-y:auto} }
 .tbl,.rows,.two,.grid,.pj,.mock,.funnel,.bars,.split2{min-height:0}
 
 /* Stretching a white card only moves the empty space inside it, which looks
@@ -175,7 +182,12 @@ h2.wide{max-width:58ch}
    first wins instead. */
 .fig svg{width:auto;height:auto;max-width:100%;max-height:100%}
 
-@media(max-height:820px){
+/* 900, not 820. The measurement slide's six rows plus a header fit inside 820px
+   and inside 1080, and missed in between: at ~860px the table was a few pixels
+   too tall, and a column of centred rows that overflows loses the top of itself,
+   which here is the header row that names the columns. The tightening now starts
+   before the table runs out of room. */
+@media(max-height:900px){
   .mkpanel{padding:clamp(8px,1vw,14px) clamp(10px,1.15vw,16px)}
   .mkpanel p{line-height:1.42}
   .mkside{gap:clamp(5px,.85vh,9px)}
@@ -194,6 +206,6 @@ h2.wide{max-width:58ch}
   <button id="next" type="button" aria-label="Next slide">&rarr;</button>
 </nav>
 <script src="slides.js?v=1"></script>
-<script src="../../_deck/engine.js?v=2"></script>
+<script src="../../_deck/engine.js?v=3"></script>
 </body>
 </html>
