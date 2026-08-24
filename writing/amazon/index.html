@@ -3,14 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>What to work on Monday &mdash; Ritika Das</title>
+<title>Moved &mdash; Amazon Discovery Intelligence</title>
+<!-- Same call as Savio and FitCheck. This write-up made the case the project page
+     already makes, so a reader who followed the link started over instead of going
+     deeper. Deleting it would break links already sitting in feeds and inboxes, and
+     GitHub Pages cannot issue a 301 — so this is the substitute: a canonical tag for
+     search engines, a meta refresh for browsers, and a real link for anyone whose
+     browser ignores both. -->
 <meta name="description" content="A week of customer complaints turned into one decision a product manager can act on. What it decides, what it costs, and the week it got badly wrong.">
-<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
-<meta property="og:type" content="article">
+<!-- A scraper reads the tags on the page it fetched, not the one the canonical points
+     at, so this carries the destination's preview: an old link unfurls as the project
+     page it now is. -->
+<meta property="og:type" content="website">
 <meta property="og:site_name" content="Ritika Das">
-<meta property="og:url" content="https://ritikadas.in/writing/amazon/">
-<meta property="og:title" content="What to work on Monday">
+<meta property="og:url" content="https://ritikadas.in/work/amazon/">
+<meta property="og:title" content="Amazon Discovery Intelligence">
 <meta property="og:description" content="A week of customer complaints turned into one decision a product manager can act on. What it decides, what it costs, and the week it got badly wrong.">
 <meta property="og:image" content="https://ritikadas.in/assets/og/amazon-og.jpg?v=5">
 <meta property="og:image:type" content="image/jpeg">
@@ -18,194 +25,21 @@
 <meta property="og:image:height" content="1260">
 <meta property="og:image:alt" content="Amazon Discovery Intelligence, on ritikadas.in.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="What to work on Monday">
+<meta name="twitter:title" content="Amazon Discovery Intelligence">
 <meta name="twitter:description" content="A week of customer complaints turned into one decision a product manager can act on. What it decides, what it costs, and the week it got badly wrong.">
 <meta name="twitter:image" content="https://ritikadas.in/assets/og/amazon-og.jpg?v=5">
-<link rel="canonical" href="https://ritikadas.in/writing/amazon/">
+<link rel="canonical" href="https://ritikadas.in/work/amazon/">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url=/work/amazon/">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
-<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
-<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../styles.css?v=20260824a">
-<script>
-(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
-</script>
+<script>location.replace('/work/amazon/');</script>
 </head>
 <body>
-<a class="skip-link" href="#article">Skip to content</a>
-
-<nav id="nav">
-  <div class="nav-in">
-    <a href="../../" class="brand" aria-label="Ritika Das &mdash; home"><span class="brand-mark" aria-hidden="true"></span></a>
-    <div class="nav-links">
-      <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
-        <span id="theme-icon">&#127769;</span> <span id="theme-text">Dark</span>
-      </button>
-      <a href="../../#about">About</a>
-      <a href="../../#work">Shipped Products</a>
-      <a href="../../#cases">Product Thinking</a>
-      <a href="../../#experience">Experience</a>
-      <a href="../../#contact" class="nav-cta">Contact</a>
-      <button type="button" class="nav-toggle" id="nav-toggle"
-              aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
-        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
-      </button>
-    </div>
-  </div>
-
-  <!-- Same menu as the homepage. Below 640px every nav link but Contact is hidden,
-       so without this an article page left a phone reader with no way back into the
-       site except the signature. -->
-  <div class="nav-menu" id="nav-menu">
-    <div class="nm-in">
-      <a href="../../#about">About</a>
-      <a href="../../#work">Shipped Products</a>
-      <a href="../../#cases">Product Thinking</a>
-      <a href="../../#experience">Experience</a>
-      <a href="../../#contact">Contact</a>
-    </div>
-  </div>
-</nav>
-
-<article id="article">
-  <header class="art-head">
-    <div class="art-wrap">
-      <a href="../" class="art-back">&larr; All writing</a>
-      <h1 class="art-title">What to Work on Monday</h1>
-      <p class="art-sub">A week of customer complaints, sorted into problems, with the first move on each one. Here is what it decides, and the week it got badly wrong.</p>
-      <figure class="art-hero-wide">
-        <img src="images/hero-week.jpg?v=2" width="2200" height="1191" decoding="async"
-             alt="A week in one screen: 500 complaints read, 33 problems found across 7 parts of the app, 32 not yet safe to act on, and 23 that cost people money. Below, the one problem with enough behind it to act on." />
-        <figcaption>One week of Amazon app reviews, sorted. The number that matters is 1 of 33.</figcaption>
-      </figure>
-      <div class="art-meta">
-        <div class="am-cell"><div class="am-k">Type</div><div class="am-v">Product project</div></div>
-        <div class="am-cell"><div class="am-k">Timeframe</div><div class="am-v">August 2026</div></div>
-        <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Public store reviews</div></div>
-      </div>
-    </div>
-  </header>
-
-  <div class="art-wrap">
-    <div class="art-body">
-
-      <h2>The Only Question It Has to Answer</h2>
-
-      <p>A product manager gets a few hundred customer complaints a week and one
-      afternoon. So they skim. Skimming feels fine, because you never find out what you
-      missed. The complaint that mattered was in there and nobody counted it.</p>
-
-      <p>I built something that reads them instead. It reads reviews people posted
-      publicly about an app I do not work on.</p>
-
-      <p>The first version handed back a ranked list. That is not an answer. A ranked
-      list is a sorted queue. The deciding is still sitting inside it, untouched.</p>
-
-      <p>So I demoted the score to small print. Each problem now opens with a finding.
-      Under it sits one first move, the person who owns it, and roughly what it costs.
-      The page got longer and slower to scan. That is the trade I made.</p>
-
-      <h2>Severity Measures Loudness, Not Cost</h2>
-
-      <p>Every complaint gets an upset score. I ranked by it for weeks before noticing
-      what it actually measures.</p>
-
-      <p>Upset is tone. It is how angry someone sounded while typing. It is not what the
-      problem cost them. A customer who cannot find a product writes a furious review. A
-      customer charged twice for one order often writes a short, tired one.</p>
-
-      <p>So ranking by upset buries the money. In the week above, 23 complaints cost
-      somebody money. They sit across 7 different problems. Ranked on tone alone, most of
-      them fall below problems that only irritated people.</p>
-
-      <p>The problem that came top last week shows the split. 44 people raised it. 13
-      described a package that was lost or delivered to the wrong address. 2 were charged
-      for something that never arrived. Its upset score is 3.2, which is unremarkable.
-      What it cost is not.</p>
-
-      <p>Every problem now carries what it cost as well as how it sounded. Four kinds:
-      lost money, order never came, could not finish, just annoyed. That is two numbers
-      to read instead of one. They disagree often enough to earn the second glance.</p>
-
-      <h2>Then It Told Me 53 People Were One Person</h2>
-
-      <p>One step grades how strong the evidence behind a problem is. I asked it to
-      judge four things. Two of those I had already counted exactly. How many people
-      raised the problem. How many app stores they came from.</p>
-
-      <p>It got both wrong. It described a problem raised by 53 customers as &ldquo;only
-      one person reported this issue&rdquo;. That sentence rendered on the page, beside
-      the number 53.</p>
-
-      <p>It was copying me. My instructions offered <em>say &ldquo;only one person
-      reported this&rdquo;</em> as an example of plain language. It returned my example
-      as its answer. Across that run, 41 of the gap descriptions were that sentence or
-      its twin. 27 of them were contradicted by the counts printed next to them.</p>
-
-      <p>The cost was not cosmetic. Believing every problem was thin, it marked all 28 as
-      weak evidence. Nothing came out ready to act on. The biggest problem of the week
-      wore a badge reading &ldquo;not enough to act on&rdquo;. The product was
-      confidently telling a PM to do nothing, and it shipped that way.</p>
-
-      <figure class="fig-wide">
-        <img src="images/one-problem.jpg?v=2" width="2200" height="610" loading="lazy" decoding="async"
-             alt="The one problem worth opening, from a live week: 44 complaints about packages lost or delivered to the wrong address. Badges say enough evidence, 2 of 44 lost money, how upset 3.2, ranked first of 33, worsening, four more than last week. Three panels below show what people reported, what we think is going on, and what we still do not know." />
-        <figcaption>What the panel says now. The middle one is inference, not a finding, and the third says plainly what is still missing.</figcaption>
-      </figure>
-
-      <h2>The Fix Gave the Model More to Do</h2>
-
-      <p>I had asked it for the wrong thing. Counting is arithmetic, and I already had
-      the number. So counting moved into code, where it cannot drift.</p>
-
-      <p>That freed the model up. It now reads a thousand badly written complaints and
-      works out that four hundred are the same complaint. It writes the finding in a
-      sentence a PM can repeat in a standup. It proposes the first move, names the team
-      that owns it, and says roughly what it will take.</p>
-
-      <p>None of that existed before. The model does more of the work now, not less. It
-      just does the part it is better at than I am, which is reading.</p>
-
-      <h2>What It Cannot Do, and How I Would Know It Works</h2>
-
-      <p>60 of the 299 complaints it sorted last week did not fit any named problem. That
-      is a fifth of them, sitting in a bucket called unclassified. The page says so rather
-      than hiding it. It is the weakest part of the product and the honest number to lead
-      with.</p>
-
-      <p>The metric I would judge it on is the decision rate. That is the share of
-      surfaced problems a PM either acts on or deliberately defers. It tests the only
-      claim the product makes. Someone who reads a problem and does neither was not given
-      anything usable.</p>
-
-      <p>Deferring is recorded too, with the week it happened in. Every tool logs what
-      got built. Almost none logs what was turned down and why. So &ldquo;why did we skip
-      returns in August&rdquo; has an answer in November, instead of a shrug.</p>
-
-      <p>One number has to sit beside the decision rate. How often does the product call
-      a problem ready when the evidence cannot carry it? The mistake above pinned that to
-      the opposite extreme and everything looked unready. Watching one number without its
-      opposite is how a team ships confident nonsense.</p>
-
-      <p>You can <a href="https://amazon.ritikadas.in" target="_blank" rel="noopener noreferrer">read this week yourself</a>,
-      or see <a href="../../work/amazon/">how it is built</a>.</p>
-
-    </div>
-  </div>
-</article>
-
-<footer>
-  <div class="wrap foot-in">
-    <span>Ritika Das &mdash; 2026</span>
-    <span>ritikadas.in</span>
-  </div>
-</footer>
-
-<script src="../../script.js?v=20260819f" defer></script>
-<!-- GoatCounter: privacy-first counts, no cookies, so no consent banner. -->
-<script data-goatcounter="https://ritikadas.goatcounter.com/count"
-        async src="https://gc.zgo.at/count.js"></script>
+<main class="art-wrap" style="padding-top:80px">
+  <h1 class="art-title">Amazon Discovery Intelligence</h1>
+  <p class="art-sub">This write-up now lives on the project page.
+    <a href="../../work/amazon/">Continue to Amazon Discovery Intelligence &rarr;</a></p>
+</main>
 </body>
 </html>

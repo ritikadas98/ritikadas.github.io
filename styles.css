@@ -1298,6 +1298,13 @@ a.wr-in:hover .wr-title{color:var(--accent)}
 .wr-meta{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:11px}
 .wr-kicker{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label)}
 .wr-date{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+/* The product a piece is about, coloured like the matching pill on the home
+   page so the two lists label the same thing the same way. */
+.wr-brand{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--b);
+  border:1px solid color-mix(in srgb,var(--b) 38%,transparent);
+  background:color-mix(in srgb,var(--b) 8%,transparent);
+  border-radius:20px;padding:3px 10px}
 .wr-flag{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);border:1px solid var(--pill-line);border-radius:20px;padding:3px 10px}
 .wr-title{font-family:var(--display);font-weight:500;font-size:clamp(20px,2.4vw,28px);line-height:1.18;letter-spacing:-.02em;color:var(--ink);margin:0 0 9px;transition:color .2s}
 .wr-dek{font-size:15.5px;line-height:1.62;color:var(--ink-2);margin:0;max-width:62ch}
