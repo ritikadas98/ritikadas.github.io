@@ -44,7 +44,33 @@ const ICONS = {
   one: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <rect x="3" y="4" width="18" height="16" rx="3"/>
-      <path d="M8.2 12.4l2.8 2.8 5-5.6"/></svg>`
+      <path d="M8.2 12.4l2.8 2.8 5-5.6"/></svg>`,
+  network: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="5" r="2.6"/><circle cx="5" cy="18" r="2.6"/><circle cx="19" cy="18" r="2.6"/>
+      <path d="M10.6 7.2L6.4 15.6M13.4 7.2l4.2 8.4M7.6 18h8.8"/></svg>`,
+  money: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 17.5l5.4-5.6 3.6 3.2 4.2-5.4 4.8 4"/><path d="M15.6 4.9H21v5.3"/></svg>`,
+  warn: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 3.6l9 15.8H3z"/><path d="M12 9.6v4.2M12 16.8v.1"/></svg>`,
+  target: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r=".9"/></svg>`,
+  clock: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="8.6"/><path d="M12 6.8V12l3.4 2.2"/></svg>`,
+  leaves: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="9.2" cy="7" r="3.3"/>
+      <path d="M3.4 20c0-3.4 2.6-5.8 5.8-5.8 1 0 2 .24 2.8.66"/>
+      <path d="M15.4 16.6h5.6M18.6 13.8l2.8 2.8-2.8 2.8"/></svg>`,
+  returns: `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="9.2" cy="7" r="3.3"/>
+      <path d="M3.4 20c0-3.4 2.6-5.8 5.8-5.8 1 0 2 .24 2.8.66"/>
+      <path d="M21 16.6h-5.6M17.8 13.8L15 16.6l2.8 2.8"/></svg>`
 };
 
 const FACE = `<svg class="pface" viewBox="0 0 200 210" role="img"
@@ -78,7 +104,7 @@ const RENDER = {
 
   statement: sl => (sl.pill ? `<span class="pill r" ${d(0)}>${esc(sl.pill)}</span>` : '')
     + `<h2 class="big-say r" ${d(1)}>${mark(sl.title)}</h2>
-       <p class="lead r" ${d(3)}>${mark(sl.lead)}</p>`,
+       <p class="lead r" ${d(3)}>${mark(sl.lead)}</p>` + foot(sl),
 
   rows: sl => head(sl) + body(`<div class="rows">` + sl.rows.map((r, i) =>
       `<div class="row r ${sl.numbered ? '' : 'plain'} ${sl.hot === i ? 'hot' : ''}" ${d(i + 3)}>
@@ -87,7 +113,8 @@ const RENDER = {
        </div>`).join('') + `</div>`) + foot(sl),
 
   cards: sl => head(sl) + body(`<div class="grid g${sl.cols || 2}">` + sl.cards.map((c, i) =>
-      `<div class="card r" ${d(i + 3)}><h3>${esc(c[0])}</h3><p>${mark(c[1])}</p></div>`).join('')
+      `<div class="card r" ${d(i + 3)}>${c[2] && ICONS[c[2]] ? ICONS[c[2]] : ''}
+         <h3>${mark(c[0])}</h3><p>${mark(c[1])}</p></div>`).join('')
       + `</div>`) + foot(sl),
 
   funnel: sl => head(sl) + body(`<div class="funnel">` + sl.steps.map((s, i) =>
@@ -95,14 +122,19 @@ const RENDER = {
          <div class="big">${esc(s[1])}</div><p>${esc(s[2])}</p></div>`).join('')
       + `</div>`) + foot(sl),
 
-  bars: sl => head(sl) + body(`<div class="bars">` + sl.bars.map((b, i) =>
+  bars: sl => head(sl) + body(
+      (sl.barlab ? `<p class="barlab r" ${d(2)}>${mark(sl.barlab)}</p>` : '')
+      + `<div class="bars">` + sl.bars.map((b, i) =>
       `<div class="bar r" ${d(i + 3)}><span>${esc(b[0])}</span>
          <span class="track"><span class="fill" style="--w:${(b[1] / sl.max * 100).toFixed(1)}%"></span></span>
-         <span class="v">${esc(b[1])}</span></div>`).join('') + `</div>`) + foot(sl),
+         <span class="v">${esc(b[1])}${esc(sl.unit || '')}</span></div>`).join('') + `</div>`) + foot(sl),
 
+  /* A fourth item on a panel names an icon from ICONS. */
   compare: sl => head(sl) + body(`<div class="split2">` +
       [['was', sl.left], ['now', sl.right]].map(([cls, p], i) =>
-      `<div class="panel ${cls} r" ${d(i + 3)}><span class="k">${esc(p[0])}</span>
+      `<div class="panel ${cls} r" ${d(i + 3)}>
+         ${p[3] && ICONS[p[3]] ? ICONS[p[3]] : ''}
+         <span class="k">${esc(p[0])}</span>
          <div class="big">${esc(p[1])}</div><p>${mark(p[2])}</p></div>`).join('')
       + `</div>`) + foot(sl),
 
@@ -157,6 +189,23 @@ const RENDER = {
       `<div class="bar r" ${d(i + 4)}><span>${esc(b[0])}</span>
          <span class="track"><span class="fill" style="--w:${(b[1] / sl.max * 100).toFixed(1)}%"></span></span>
          <span class="v">${esc(b[1])}</span></div>`).join('') + `</div>
+    </div>`) + foot(sl),
+
+  /* A device mock beside the panels that explain it. `mock` names one screen from
+     MOCKS; `mocks` names two, for a before-and-after. A solution slide has to show
+     the thing, and no other kind puts a picture and its argument on one page. */
+  mock: sl => head(sl) + body(`<div class="mock">
+      <div class="mkstage${sl.mocks ? ' duo' : ''}">` +
+      (sl.mocks || [[sl.mock, sl.cap, sl.mkk]]).map(([m, cap, k], i) =>
+      `<figure class="mkphone r" ${d(i + 3)}>
+         ${k ? `<span class="mkk">${esc(k)}</span>` : ''}
+         <div class="mkscreen">${(typeof MOCKS !== 'undefined' && MOCKS[m]) || ''}</div>
+         ${cap ? `<figcaption>${esc(cap)}</figcaption>` : ''}
+       </figure>`).join('') + `</div>
+      <div class="mkside">` + sl.panels.map((p, i) =>
+      `<div class="mkpanel r ${p[2] ? 'hot' : ''}" ${d(i + 4)}>
+         <h3>${esc(p[0])}</h3><p>${mark(p[1])}</p>
+       </div>`).join('') + `</div>
     </div>`) + foot(sl),
 
   figure: sl => head(sl) + body(`<div class="fig r" ${d(3)}>${(typeof FIGS !== 'undefined' && FIGS[sl.svg]) || ''}</div>`) + foot(sl),

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reddit &mdash; deck</title>
+<meta name="description" content="Case study deck: Reddit is read without being visited, and the visit is what Reddit sells.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../../favicon.ico" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_deck/deck.css?v=2">
+<style>
+/* Reddit's palette, lifted from tools/og-card.py so the deck matches the card a
+   reader already saw on the homepage. Reddit's own orange is #FF4500 and it is
+   too bright to set body headings in, so it becomes the accent and the deeper
+   burnt red of the same field becomes the brand. This block is the only thing
+   that makes this deck look like this deck. */
+:root{
+  --brand:#A83204; --f0:#E85D2A; --f1:#E8430A; --f2:#5C1A02; --f3:#2E0C01;
+  --accent:#FF4500; --paper:#EDE8E1; --card:#FFF; --ink:#211E24; --ink2:#4A4550;
+  --muted:#8A8188; --line:rgba(33,30,36,.12);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Inter",system-ui,sans-serif; --mono:"IBM Plex Mono",monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+/* ---- the cover: text and the field on the left, the thread on the right ----
+   The engine lays a cover out as one column. Reddit's evidence is a screenshot
+   of a desktop thread, and a screenshot under a headline is a footnote, so the
+   text is held to the left half and the thread is placed beside it. */
+.slide.grad .pill,.slide.grad h1,.slide.grad .lead,.slide.grad .clicks{max-width:53%}
+.threadshot{position:absolute;right:clamp(28px,4.4vw,76px);top:50%;
+  transform:translateY(-50%);width:min(40%,660px)}
+.tsframe{border-radius:10px;overflow:hidden;background:#fff;
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.12)}
+.tschrome{display:block;height:clamp(14px,1.5vw,22px);background:#E8E3DC;
+  border-bottom:1px solid rgba(0,0,0,.09)}
+.tsframe img{display:block;width:100%;height:auto}
+.tscap{font:400 11.5px/1.5 var(--body);color:#D3B6A8;margin-top:11px}
+
+/* ---- cover art: two hundred Google searches ----
+   Fifty-six of them reach a website. The rest are answered inside the results
+   page and never leave it. That is the 68.01% zero-click figure drawn as a
+   field, and it is the whole case study: the answer still gets delivered, the
+   visit does not. Twenty-five across, because the field now shares the cover
+   with the thread and has half the width it had. */
+.clicks{margin-top:auto;padding-top:clamp(12px,2.4vh,26px);margin-bottom:clamp(20px,3.5vh,44px)}
+.clkgrid{display:grid;grid-template-columns:repeat(40,1fr);gap:clamp(2px,.24vw,5px)}
+.clk{aspect-ratio:1;border-radius:2px;background:rgba(255,255,255,.15);opacity:0;
+  animation:dotin .5s var(--ease) both;animation-delay:var(--d)}
+.clk.out{background:var(--accent);
+  box-shadow:0 0 0 1.5px rgba(255,69,0,.3),0 0 14px 4px rgba(255,69,0,.42);
+  animation:dotin .5s var(--ease) both,glow 2.4s var(--ease) 1.6s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 1.5px rgba(255,69,0,.3),0 0 14px 4px rgba(255,69,0,.42)}
+  50%{box-shadow:0 0 0 2.5px rgba(255,69,0,.44),0 0 22px 7px rgba(255,69,0,.64)}}
+.clkkey{display:flex;gap:clamp(12px,1.4vw,24px);margin-top:clamp(10px,1.5vh,17px);flex-wrap:wrap}
+.clkkey span{font:500 10px/1.4 var(--mono);letter-spacing:.06em;color:#D3B6A8;
+  display:flex;align-items:center;gap:7px}
+.clkkey i{width:8px;height:8px;border-radius:2px;background:rgba(255,255,255,.15);display:block}
+.clkkey span:nth-child(2) i{background:var(--accent)}
+.clkkey span:nth-child(3){color:#B08E7E}
+
+/* ---- accent that survives a coloured background ----
+   #FF4500 is Reddit's orange and it is legible on white. On the grey panel it
+   is the same lightness as the panel, so a figure painted in it disappears; on
+   the brand red it is close enough to vanish too. Every surface that is not
+   paper gets a lifted accent, and the grey panel is darkened until white text
+   and a lifted orange can both sit on it. */
+:root{--lift:#FF9A6B}
+.dark .hi,.grad .hi,.panel .hi,.row.hot .hi,.trow.win .hi,
+.mkpanel.hot .hi,.qc.win .hi,.jrow.now .hi{color:var(--lift)}
+.panel.was{background:#514B55}
+.panel.was .k{opacity:.9}
+
+@media(max-width:880px){
+  /* Absolute placement has nothing to sit beside on a phone, so the thread
+     returns to the flow, under the text it belongs to. */
+  .slide.grad .pill,.slide.grad h1,.slide.grad .lead,.slide.grad .clicks{max-width:none}
+  .threadshot{position:static;transform:none;width:auto;margin-top:clamp(18px,3vh,30px)}
+  .clkgrid{grid-template-columns:repeat(20,1fr)}
+  .clk{background:rgba(255,255,255,.22)}
+}
+/* ---- filling a 16:9 slide, without overflowing a real one ----
+   The shared shell sizes every piece of type from viewport WIDTH. A deck opened
+   in a browser is short far more often than it is narrow — toolbars and a
+   taskbar take the height, not the width — so width-sized type overruns the
+   bottom of the frame and lands on whatever is under it. Everything below sizes
+   from whichever axis is scarcer, so a short window shrinks the type instead of
+   spilling it.
+   Kept deliberately: the space to the right of a short title. That is margin,
+   not a gap, and a headline pushed to the full width reads as a paragraph. */
+
+.slide{padding:clamp(22px,min(4.4vw,5.4vh),76px)}
+h2{font-size:clamp(21px,min(3.1vw,5.4vh),41px)}
+h2.wide{max-width:58ch}
+.lead{font-size:clamp(12.5px,min(1.16vw,2.05vh),17px)}
+.card p,.row span,.step p,.panel p,.tcol li,.mkpanel p,.trow .td,.pbit p,.pcard p{
+  font-size:clamp(11.5px,min(1.06vw,1.86vh),15.5px)}
+.card h3,.row b,.tcol h3,.mkpanel h3,.trow b{
+  font-size:clamp(12px,min(1.1vw,1.94vh),16.5px)}
+.quote{font-size:clamp(12.5px,min(1.2vw,2.1vh),18px)}
+
+/* Nothing may spill out of the frame it was given. The source line is placed
+   against the bottom edge, so the body has to reserve room for three lines of
+   it or the last card runs underneath. */
+.body{min-height:0;overflow:hidden;padding-bottom:clamp(44px,9.5vh,96px)}
+.tbl,.rows,.two,.grid,.pj,.mock,.funnel,.bars,.split2{min-height:0}
+
+/* Stretching a white card only moves the empty space inside it, which looks
+   worse than the gap it was meant to close. What fills a 16:9 frame is a second
+   row, so the four context cards run 2x2. Solid-colour blocks do take a stretch,
+   because a tall coloured block reads as a shape. */
+.split2{align-items:stretch}
+.panel{display:flex;flex-direction:column;justify-content:center}
+
+/* ---- the funnel ----
+   Three enormous numerals reading 01 02 03 is a school poster, not analysis.
+   The stage name carries the step and the index shrinks to a label. */
+.funnel .step .k{font-size:clamp(8.5px,min(.62vw,1.1vh),10.5px)}
+.funnel .step .big{font:700 clamp(15px,min(1.55vw,2.7vh),23px)/1.2 var(--display);
+  color:var(--brand);letter-spacing:-.012em;margin:clamp(6px,1vh,10px) 0 clamp(7px,1.2vh,12px)}
+.funnel .step:last-child .big{color:var(--brand)}
+.funnel .step{display:flex;flex-direction:column;justify-content:flex-start;
+  border-top:3px solid var(--accent)}
+
+/* Three bars across a 1080px frame at 32px tall is a lot of paper for very
+   little ink. The pair stays together: the body centres each of its children
+   separately, so a caption and its bars otherwise drift apart. */
+.bar .track{height:clamp(20px,min(4.4vh,42px),46px)}
+.bars{gap:clamp(12px,2.8vh,34px);flex:0 0 auto;margin-bottom:auto;justify-content:flex-start}
+.barlab{flex:0 0 auto;margin-top:auto;margin-bottom:0}
+
+/* Layouts that arrived without a top margin sit flush against the lead above
+   them, and on the persona slide the lead landed on the photograph. */
+.pj,.two,.tbl,.quotes,.journey{margin-top:clamp(10px,1.8vh,26px)}
+
+/* A square portrait in a tall card pushes the name and the blurb off the
+   bottom. Landscape, capped, so the card stays balanced at any height. */
+.pphoto{aspect-ratio:5/4;flex:0 1 auto;max-height:52%;object-position:48% 16%}
+.pmeta{padding:clamp(13px,1.5vw,24px)}
+
+.mkpanel{padding:clamp(11px,1.3vw,19px) clamp(13px,1.4vw,21px)}
+
+/* A caption is free to be wider than the phone it labels, and then it hangs off
+   both sides of it. Held to roughly the width of the device. */
+.mkphone figcaption,.mkphone .mkk{max-width:26ch;margin-left:auto;margin-right:auto}
+
+/* A laptop browser is often under 820px tall once the chrome and the taskbar
+   have taken their share. Four explanation panels fit that only if the padding
+   and the leading come down with it. */
+/* ---- the funnel figure ---- */
+.fig .fband{fill:var(--f0);opacity:.28}
+.fig .fband.dim{fill:var(--muted);opacity:.16}
+.fig .fcol{fill:var(--brand)}
+.fig .fcol.dim{fill:none;stroke:var(--muted);stroke-width:2;stroke-dasharray:6 5}
+.fig .fk{font:500 15px var(--mono);letter-spacing:.08em;text-transform:uppercase;fill:var(--muted)}
+.fig .fv{font:800 40px var(--display);fill:var(--brand);letter-spacing:-.02em}
+.fig .fv.dim{fill:var(--muted)}
+.fig .fstep{font:500 14px var(--mono);fill:var(--ink2);text-anchor:middle;letter-spacing:.03em}
+.fig .fnote{font:400 14px var(--body);fill:var(--muted)}
+.fig svg{max-height:100%}
+
+@media(max-height:820px){
+  .mkpanel{padding:clamp(8px,1vw,14px) clamp(10px,1.15vw,16px)}
+  .mkpanel p{line-height:1.42}
+  .mkside{gap:clamp(5px,.85vh,9px)}
+  .tbl{gap:clamp(4px,.7vh,8px)}
+  .trow{padding:clamp(9px,1vw,14px) clamp(12px,1.15vw,18px)}
+}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="stage"></div>
+<div id="hint">&larr; &rarr; to move</div>
+<nav id="nav">
+  <button id="prev" type="button" aria-label="Previous slide">&larr;</button>
+  <span id="count">1 / 1</span>
+  <button id="next" type="button" aria-label="Next slide">&rarr;</button>
+</nav>
+<script src="slides.js?v=1"></script>
+<script src="../../_deck/engine.js?v=2"></script>
+</body>
+</html>

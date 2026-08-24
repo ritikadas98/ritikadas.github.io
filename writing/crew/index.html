@@ -136,6 +136,10 @@
 .d-note-h{font-family:var(--body);font-size:12px;fill:var(--dg-human);text-anchor:middle;font-weight:500}
 .d-note-k{font-family:var(--body);font-size:12px;fill:var(--dg-known);text-anchor:middle;font-weight:500}
 .d-cap{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;fill:var(--muted);text-transform:uppercase;text-anchor:middle}
+.d-rt{font-family:var(--body);font-size:12.5px;font-weight:500;text-anchor:middle;fill:var(--dg-quiet)}
+.d-rt-k{fill:var(--dg-known-ink)} .d-rt-h{fill:var(--dg-human-ink)}
+.d-box-k{fill:var(--dg-known-fill);stroke:var(--dg-known);stroke-width:1.5}
+.d-box-h{fill:var(--dg-human-fill);stroke:var(--dg-human);stroke-width:1.5}
 </style>
 </head>
 <body>
@@ -382,10 +386,59 @@
 
 <p>Some of this stays human for good. A masseuse at a villa in Goa is not an API, and an assistant sitting on hold for a supplier who will not pick up is an expensive message-relayer. Nobody has automated being the person who is answerable once something has gone wrong.</p>
 
+<h2>Why every concierge before this one ended up inside something else</h2>
+<p>A concierge service standing on its own has three economic problems at the same time. The ones that came before died of the first two, long before the third became their limit.</p>
+<p><strong>Winning the customer.</strong> <span class="k">Customer acquisition cost</span> is what it takes to win one customer &mdash; the advertising, the search, the brand-building. For a concierge that means finding people who travel expensively and will hand a holiday over, then persuading them one at a time. The purchase is seasonal and rare, so the <span class="k">payback period</span>, which is how long that customer takes to earn the cost back, runs long.</p>
+<p><strong>Keeping them.</strong> Somebody travels a few times a year. A relationship that goes quiet for five months has to be rebuilt every time it comes back, and rebuilding is another cost.</p>
+<p>It ends the same way every time. Ten Lifestyle ended up inside private banks. Velocity Black was bought by Capital One. American Express never sold its concierge separately at all. None of them lasted as a subscription somebody bought on its own.</p>
+<p>CREW does not have to solve either one, and not because it is cleverer. Swiggy paid to acquire these customers years ago, over food and groceries, and it already knows from its own order history who spends. The relationship never goes quiet, because Instamart and Dineout keep it warm between trips. The acquisition cost of a CREW member is close to nothing, and the retention was bought by a different product entirely.</p>
+
+<figure class="fig-dgm">
+<svg viewBox="0 0 460 236" role="img" aria-labelledby="d3t d3d" xmlns="http://www.w3.org/2000/svg">
+  <title id="d3t">Three costs, and which of them CREW inherits an answer to</title>
+  <desc id="d3d">Three rows. Winning a customer, and keeping them, are both already paid for by Swiggy's existing business, shown in green. The third, the cost of serving a trip in concierge time, still rises with every trip and is shown in amber as the one still open.</desc>
+  <defs>
+    <marker id="ak" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" class="mk-known"/>
+    </marker>
+    <marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" class="mk-human"/>
+    </marker>
+  </defs>
+
+  <text class="d-cap" x="92" y="12">standing on its own</text>
+  <text class="d-cap" x="350" y="12">inside swiggy</text>
+
+  <rect class="d-tile" x="0" y="24" width="184" height="50" rx="10"/>
+  <text class="d-rt" x="92" y="54">Winning a customer</text>
+  <path class="d-flow-known" d="M192 49 H236" stroke-width="1.6" marker-end="url(#ak)"/>
+  <rect class="d-box-k" x="246" y="24" width="214" height="50" rx="10"/>
+  <text class="d-rt d-rt-k" x="353" y="54">Paid for years ago</text>
+
+  <rect class="d-tile" x="0" y="93" width="184" height="50" rx="10"/>
+  <text class="d-rt" x="92" y="123">Keeping them</text>
+  <path class="d-flow-known" d="M192 118 H236" stroke-width="1.6" marker-end="url(#ak)"/>
+  <rect class="d-box-k" x="246" y="93" width="214" height="50" rx="10"/>
+  <text class="d-rt d-rt-k" x="353" y="123">Never goes quiet</text>
+
+  <rect class="d-tile" x="0" y="162" width="184" height="50" rx="10"/>
+  <text class="d-rt" x="92" y="192">Serving one trip</text>
+  <path class="d-flow-human" d="M192 187 H236" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect class="d-box-h" x="246" y="162" width="214" height="50" rx="10"/>
+  <text class="d-rt d-rt-h" x="353" y="192">Still rises with every trip</text>
+
+  <text class="d-note-h" x="353" y="230">the only one still open</text>
+</svg>
+<figcaption>Two of the three were answered before CREW existed. The third is the work.</figcaption>
+</figure>
+
+<p><strong>Serving them.</strong> The third cost is <span class="k">cost to serve</span>: the human minutes one trip consumes. Nothing about sitting inside Swiggy inverts that one, because it does not scale with the size of the company. It scales with the number of trips.</p>
+<p>Which is why it is the one the rest of this piece is about. A plan that watches itself, the three tiers, the answer written down once &mdash; every one of them is an attack on the only cost CREW did not inherit an answer to.</p>
+
 <h2>How it reaches people without going mass</h2>
 <p>CREW is hard to find on purpose. It is not a tile inside the Swiggy app the way Instamart and Dineout are, because it was never meant to be for everyone.</p>
 <p>But Swiggy already has an invitation, and since March it has two. One BLCK is invite-only and carries a travel benefit. The co-branded HDFC card now splits into variants, the BLCK version at the top: a one lakh a month income floor, and extra cashback on travel.</p>
-<p>That is the shape every concierge that survived eventually took. Ten Lifestyle ended up inside private banks, Velocity Black inside Capital One. American Express never sold its concierge separately at all. None of them lasted as a standalone subscription.</p>
+<p>That is the shape every concierge that survived eventually took, for the reason above: a gate somebody else already paid to build.</p>
 <p>Swiggy owns both halves already. The card is the gate, the membership is the invitation, and one accompanied trip is what a member feels before committing a whole holiday to it.</p>
 
 <h2>How you would know it worked</h2>
