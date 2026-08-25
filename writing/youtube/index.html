@@ -121,18 +121,30 @@
   </header>
   <div class="art-wrap">
     <div class="art-body">
-<h2>The Trouble People Go To</h2>
-<p>A product can only measure what it lets you do. Every dashboard, every funnel, every retention curve is a record of behaviour the product permitted. The wants it blocks leave no trace. A feature you can't reach is a click that never happens, and a click that never happens shows up nowhere in the data.</p>
-<p>So the clearest signal of what to build next is often the one thing analytics can't show: the trouble people go to, on their own, to get around the product. When someone sideloads a modified app, installs a browser extension, or runs a script to bend YouTube to their will, they aren't just breaking the rules. They're paying, in effort and sometimes in real security risk, to do a thing the product decided they couldn't. That price is the signal. Nobody works that hard to solve a problem they don't have.</p>
-<p>YouTube sits on the richest version of this signal anywhere. Its power users have spent a decade building the features it wouldn't. Read those workarounds as a list and you get an unusually honest picture of the product's own gaps.</p>
-<blockquote class="pull">The workarounds are a list of everything the product won't let you do, written by the people who wanted it most.</blockquote>
-<h2>A Note on Method</h2>
-<p>This is an outside-in analysis. It's built on YouTube's public feature history and Help pages, on press coverage through 2026, on the power-user tools anyone can find in an afternoon, and on my own use of the product. The argument runs entirely on moves YouTube has already made in public.</p>
-<p>The people who mod their apps are a sliver of the user base, and a self-selected one: more technical, more demanding, more willing to fight the product than the average viewer who takes it as it comes. That makes their behaviour a skewed sample. It's directional evidence: a signal of where friction lives, and never a vote on what to build.</p>
-<h2>The Three Sides YouTube Has to Keep Happy</h2>
-<p>Before any of this makes sense, you have to see who YouTube actually serves. It looks like a product for viewers. It's really a marketplace balancing three groups whose interests don't line up.</p>
-<p>Viewers want convenience: less friction, more control, fewer interruptions. Creators want reach and income: an audience, and a way to get paid for it. Advertisers want return: attention they can buy, next to content they're safe beside. YouTube only works while all three stay. Push too hard for one and the others walk. Creators leave for a platform that pays better, advertisers for cheaper attention elsewhere, and without either the viewer's free lunch ends.</p>
-<p>Now the catch. The people building workarounds optimise for exactly one of those three sides, the viewer, with no stake in the other two. A sponsor-skipping tool is a pure gift to viewers and a straight tax on creators. That asymmetry is why a &ldquo;win&rdquo; for power users is so often a loss for the platform, and why YouTube can't just build what they ask for. It has to ask a harder question first.</p>
+<h2>The Signal a Dashboard Cannot Carry</h2>
+<p>A product can only measure what it lets you do. Every funnel and every retention curve is a record of permitted behaviour. The wants it blocks leave no trace. A feature you cannot reach is a click that never happens, and a click that never happens shows up nowhere.</p>
+<p>So the sharpest signal of what to build next is the one analytics cannot show. It is the trouble people go to, on their own, to get around the product.</p>
+<p>Two numbers open this study. <a href="https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone" target="_blank" rel="noopener noreferrer">SponsorBlock</a>, which auto-jumps the paid promos inside videos, has <strong>2,000,000 users on Chrome alone</strong>. <a href="https://chromewebstore.google.com/detail/return-youtube-dislike/gebbhagfogifgggkldgodflihgfeippi" target="_blank" rel="noopener noreferrer">Return YouTube Dislike</a>, which estimates the counts YouTube deleted, has <strong>5,000,000</strong>. Every one of those people installed software, trusted a stranger's code, and kept it updated. That is a real price, paid in effort and in security risk.</p>
+<p>Nobody pays that price to solve a problem they do not have. The workarounds are a list of everything the product will not let you do, written by the people who wanted it most.</p>
+<p>This case study does three things. It sizes that demand. It reconstructs the filter YouTube runs the demand through. Then it makes one prediction you can use to prove the reading wrong.</p>
+<h2>Method, Briefly</h2>
+<ul>
+<li><strong>Alphabet's earnings</strong> for the revenue figures.</li>
+<li><strong>YouTube's blog and Help pages</strong> for the feature decisions.</li>
+<li><strong>Trade press through August 2026</strong> for the dates and confirmations.</li>
+<li><strong>Chrome Web Store listings</strong> for install counts, read on 25 August 2026.</li>
+<li><strong>My own use of the product</strong> for everything else.</li>
+</ul>
+<p>The people who mod their apps are a sliver of the user base, and a self-selected one. They are more technical, more demanding, and more willing to fight the product than the viewer who takes it as it comes. That makes the sample skewed.</p>
+<h2>The Three Sides, With the Money Attached</h2>
+<p>YouTube looks like a product for viewers. It is really a marketplace holding apart three groups whose interests do not line up. In 2025 Alphabet broke out its size for the first time. The split shows why the balance is not optional.</p>
+<ul>
+<li><strong>Advertisers paid $40.4 billion</strong> in 2025, up about 12% on 2024's $36.1 billion. They buy attention next to content they are safe beside.</li>
+<li><strong>Viewers paid roughly $20 billion</strong> in subscriptions. Together that took YouTube past <strong>$60 billion</strong> for the year. Music and Premium passed <strong>125 million subscribers</strong> in March 2025, trials included.</li>
+<li><strong>Creators took out over $100 billion</strong> across the four years to 2025, on YouTube's own figure. That payout is what keeps the supply side in place.</li>
+</ul>
+<p>Viewers want convenience. Creators want reach and income. Advertisers want return. YouTube works only while all three stay. Push too hard for one and the others leave. Without the paying two, the viewer's free lunch ends.</p>
+<p>Now the catch. Every workaround optimises for exactly one of the three, the viewer, with no stake in the other two. A sponsor-skipper is a pure gift to viewers and a straight tax on creators. That asymmetry is why a win for power users is so often a loss for the platform.</p>
 <figure class="fig-diagram">
         <svg viewBox="0 0 720 430" xmlns="http://www.w3.org/2000/svg" role="img"
              aria-label="YouTube sits at the centre of three groups it has to keep balanced — viewers, creators and advertisers. Power-user tools pull on the viewer side only.">
@@ -189,12 +201,21 @@
         </svg>
   <figcaption>The three sides YouTube must keep balanced, and the one side every workaround optimises for.</figcaption>
 </figure>
-<h2>What Decides Which Workarounds Get Built</h2>
-<p>YouTube runs every one of these signals through the same rough filter, and you can reconstruct it from its choices.</p>
-<p>First question: is the want safe for the business? If a workaround makes viewers happier without costing creators or advertisers anything, it's easy. YouTube either builds it in or, more often, puts it behind a paid tier and charges for it. Convenience it can sell is convenience it's glad to provide.</p>
-<p>Second question, if the want is <em>not</em> safe: can it be redesigned into something that is? Sometimes the desire underneath is legitimate but the hack's method is poison. Then the move is to solve the desire a different way, one that leaves the other two sides intact.</p>
-<p>And if it can't be redesigned safely, if the want can only be delivered by hurting creators or advertisers, YouTube blocks it, and keeps blocking it, no matter how loudly the workaround proves the demand.</p>
-<p>Adopt and charge. Redesign. Or refuse. Every example below is one of those three.</p>
+<h2>Sizing the Demand No Dashboard Shows</h2>
+<p>Take the four biggest workarounds in turn. Each one carries a measured demand, a want underneath it, and a bill somebody has to pay.</p>
+<ul>
+<li><strong>Sponsor-segment skippers &mdash; 2,000,000 Chrome users.</strong> The want is to reach the content without the filler. Granting it costs creators their sponsorship income. YouTube <em>re-architects</em>.</li>
+<li><strong>Background-play workarounds &mdash; no public count.</strong> They were common enough that Google closed them by hand. The want is to listen with the screen off. Granting it costs nobody. YouTube <em>adopts and charges</em>.</li>
+<li><strong>Shorts and feed removers &mdash; extensions and scripts, no single count.</strong> The want is to watch on purpose, not by pull. Granting it costs the platform 200 billion daily views. YouTube <em>refuses, then concedes halfway</em>.</li>
+<li><strong>Dislike-count restorers &mdash; 5,000,000 Chrome users.</strong> The want is a quality signal before watching. Granting it costs creators, in pile-ons. YouTube <em>refuses</em>.</li>
+</ul>
+<p>About <strong>29.5% of internet users run an ad blocker</strong> at least sometimes, roughly 1.77 billion people, on GWI's Q2 2025 survey. That is a cross-industry figure, not a YouTube one. It still marks the outer edge of the same demand curve. Removing advertising is the largest want YouTube has. It is also the one it can never grant. That want sits directly on the $40.4 billion line.</p>
+<h2>The Filter Every Signal Runs Through</h2>
+<p>YouTube puts each of these through the same rough test. You can reconstruct it from the outcomes.</p>
+<p><strong>First question: is the want safe for the business?</strong> If it makes viewers happier at no cost to creators or advertisers, it is easy. YouTube builds it in, or more often puts it behind a paid tier. Convenience it can sell is convenience it is glad to provide.</p>
+<p><strong>Second question, if the want is <em>not</em> safe: can it be redesigned into something that is?</strong> Sometimes the desire underneath is legitimate but the hack's method is poison. Then the job is to serve the desire another way.</p>
+<p>If neither holds, YouTube refuses, and keeps refusing, however loudly the workaround proves the demand.</p>
+<p>Adopt and charge. Re-architect. Or refuse. Every move below is one of those three.</p>
 <figure class="fig-diagram">
         <svg viewBox="0 0 720 530" xmlns="http://www.w3.org/2000/svg" role="img"
              aria-label="The filter a power-user workaround runs through: if it is safe for creators and advertisers it is adopted or paywalled; if not, it is redesigned to be safe where possible; if neither, it is refused.">
@@ -265,49 +286,48 @@
         </svg>
   <figcaption>The filter every signal runs through before it becomes a feature, or stays blocked.</figcaption>
 </figure>
-<div class="table-scroll"><table>
-<thead><tr><th>What power users hack</th><th>The real want underneath</th><th>YouTube's move</th></tr></thead>
-<tbody>
-<tr><td>Sponsor-segment skippers</td><td>Reach the content without the filler</td><td><strong>Redesign</strong>: Most Replayed graph + Premium &ldquo;Jump ahead&rdquo;</td></tr>
-<tr><td>Background-play workarounds</td><td>Listen with the screen off</td><td><strong>Adopt &amp; charge</strong>: Premium feature; free loopholes closed</td></tr>
-<tr><td>Shorts / feed removers</td><td>Watch on purpose, not by pull</td><td><strong>Refuse, then concede halfway</strong>: a dismissible limit</td></tr>
-<tr><td>Dislike-count restorers</td><td>An honest quality signal before watching</td><td><strong>Refuse</strong>: protects creators from pile-ons</td></tr>
-</tbody>
-</table>
-<p class="table-hint" aria-hidden="true">Scroll the table sideways &rarr;</p></div>
-<h2>The Moves That Prove the Reading</h2>
-<p>Watch YouTube's real decisions through 2026 and the filter is unmistakable. Four moves, one per branch.</p>
-<h3>Sponsor-Skipping: Redesign</h3>
-<p>For years a crowd-sourced browser extension has let viewers auto-jump the paid promos inside videos, using timestamps other users submit. The want is obvious: get to the content, skip the ad-read. But adopting it directly would strip creators of the sponsorship money many of them live on. So YouTube didn't. It read the desire underneath, that people want to reach the good part, and built something else to serve it: a &ldquo;Most Replayed&rdquo; graph on the seekbar showing where viewers keep returning, and, for Premium subscribers, a machine-learning &ldquo;Jump ahead&rdquo; that skips to the next moment worth watching. The pacing problem gets solved. The creator's ad-read stays in the video. The desire honoured, the hack refused.</p>
+<h2>The Four Moves That Prove the Reading</h2>
+<p>Four decisions, one per branch, all of them public.</p>
+<h3>Sponsor-Skipping: Re-Architect</h3>
+<p>SponsorBlock lets viewers auto-jump the paid promos inside videos. It uses timestamps other users submit. Two million Chrome installs say the want is real. Granting it directly would strip creators of sponsorship money many of them live on.</p>
+<p>So YouTube did not. It read the desire underneath, which is that people want to reach the good part. Then it built something else to serve it. A &ldquo;Most Replayed&rdquo; graph on the seekbar shows where viewers keep returning. For Premium subscribers, a machine-learning &ldquo;Jump ahead&rdquo; skips to the next moment worth watching.</p>
+<p>The pacing problem gets solved. The ad-read stays in the video. The desire honoured, the hack refused.</p>
 <figure class="fig-phone">
   <div class="device"><img src="images/yt-most-replayed.jpg" alt="A YouTube video with a Jump ahead control on the player, and a viewer comment underneath asking to skip the sponsor read." width="1206" height="2622" loading="lazy" decoding="async" /></div>
   <figcaption>The workaround, re-architected: the pacing problem solved without letting anyone strip the sponsor segment.</figcaption>
 </figure>
 <h3>Background Play: Adopt and Charge</h3>
-<p>Listening with the screen off. Workarounds have existed for years, from third-party browsers to patched apps, proof enough that the demand is real and intense. Here the want is safe for the business, so YouTube charges for it. Background play is a Premium feature, and in January 2026 Google confirmed it had deliberately closed the free browser loopholes that let people get it without paying, telling the press the feature is meant to stay exclusive to Premium. A month later it extended background play down to the cheaper Premium Lite tier. When a proven want doesn't threaten creators or advertisers, the workaround becomes a price.</p>
-<p>One precision, because it's easy to get wrong: background play and the faster playback speeds are Premium, but the swipe gestures power users also asked for, double-tap to seek and swipe for volume, shipped free, because they cost the business nothing. Same filter, opposite answer, and the difference is entirely the money.</p>
+<p>Listening with the screen off. Workarounds ran for years, from third-party browsers to patched apps. In late January 2026 Google confirmed it had closed the browser loopholes. Background playback, it told the press, is &ldquo;intended to be exclusive for YouTube Premium members.&rdquo; A month later it extended the feature down to the cheaper Premium Lite tier.</p>
+<p>Here the want costs creators nothing and advertisers nothing. So YouTube charges for it. This is the branch where a workaround becomes a price. The closure is the clearest evidence the filter is running, because the loophole was patched deliberately, by hand.</p>
+<p>One precision, because it is easy to get wrong. Background play and the faster playback speeds sit behind Premium. The swipe gestures power users also asked for, double-tap to seek and swipe for volume, shipped free. Same filter, opposite answer, and the difference is entirely the money.</p>
 <h3>Turning Shorts Off: Refuse, Then Concede Halfway</h3>
-<p>For a long time there was no real way to do it, and the workarounds, extensions and scripts that strip Shorts out of the interface, signalled a clear and steady demand from people who wanted YouTube as a search-and-watch tool instead of an endless feed. YouTube resisted. Shorts is its defence against TikTok; by its own CEO's 2026 numbers it now draws over two hundred billion views a day, up from seventy billion two years earlier. A clean off-switch erodes the exact surface keeping younger viewers from leaving. A real want, unsafe to grant.</p>
-<p>Then in 2026 it changed, halfway. YouTube shipped a &ldquo;Shorts feed limit&rdquo; you can set to zero minutes, which silences the feed and, by early reports, pulls Shorts off the Home screen too.</p>
+<p>For a long time there was no real way to do it. Extensions and scripts that strip Shorts out of the interface signalled steady demand. These are people who want YouTube as a search-and-watch tool, not an endless feed.</p>
+<p>YouTube resisted, and one number says why. Shorts averages <strong>over 200 billion views a day</strong>, announced at Cannes Lions in June 2025. The figure reported in March 2024 was 70 billion. That is close to a threefold rise in fifteen months. Shorts is the defence against TikTok, and a clean off-switch erodes the exact surface holding younger viewers in place.</p>
+<p>Then in 2026 it changed, halfway. From March, YouTube let a daily &ldquo;Shorts feed limit&rdquo; be set as low as zero minutes. At zero the feed is silenced, and by early reports Shorts leaves the Home screen too.</p>
 <figure class="fig-phone">
   <div class="device"><img src="images/yt-shorts-zero.jpg" alt="YouTube's Time management settings with the Shorts feed limit options open, the lowest of which is zero minutes." width="1206" height="2622" loading="lazy" decoding="async" /></div>
   <figcaption>The concession: a zero-minute Shorts limit. But read the fine print on who it actually locks for.</figcaption>
 </figure>
-<p>Read the fine print and the filter is still running. For supervised teen accounts, set through Family Link, the limit <em>locks</em>, and YouTube called it an industry-first. For everyone else it's <em>dismissible</em>: hit your zero-minute limit and a reminder appears, which you can wave away and keep scrolling. YouTube gave viewers the control they'd been hacking for, and kept the moat, by making the general-user version a nudge instead of a wall. A concession measured to the millimetre.</p>
+<p>The fine print is the whole decision. On supervised teen accounts, set through Family Link, the limit <em>locks</em>. For everyone else it is <em>dismissible</em>. You hit zero minutes, a reminder appears, you wave it away and keep scrolling.</p>
+<p>So viewers got the control they had been hacking for. YouTube kept the moat by making the adult version a nudge, not a wall.</p>
 <h3>Restoring Dislikes: Refuse</h3>
-<p>Public dislike counts were removed to shield smaller creators from coordinated &ldquo;dislike attacks.&rdquo; An extension promptly appeared to estimate and restore them, and it's popular, which tells YouTube exactly how many people miss the signal. YouTube has not brought the counts back. The demand is legible; the answer is still no, because granting it would reopen the harassment that hurts the creator side. Proof, in a single move, that reading a signal is not the same as obeying it.</p>
-<h2>The Tension Underneath All of It</h2>
-<p>The objection: you're building a theory of product strategy on the behaviour of a rounding error, the tiny technical minority who sideload apps. Most viewers will never install a thing. Why should their workarounds set any agenda?</p>
-<p>Because effort is information. The average viewer tolerates friction in silence; you never learn what they'd fix, because they never do anything about it. The person who takes on real cost, in time and risk and a patched app, to solve a problem is telling you loudly that the problem is worth solving, in a way passive users never will. High-effort minorities are lead indicators. The mainstream frustration is usually the same one; it's just quiet.</p>
-<p>But here is the distinction the method note promised. The same population that reveals real problems also over-indexes on the wants that would burn the platform down. The heaviest power users are precisely the ones who want to strip sponsors, block ads, kill Shorts, restore dislikes: the wants most likely to gut a creator's income or an advertiser's reach. Read their workarounds as a to-do list and you'd dismantle the two sides of the market that pay for the free one.</p>
-<p>So the signal has to be split in two. The workaround tells you what's <em>broken</em>. It does not tell you what to <em>build</em>.</p>
-<blockquote class="pull">Power users show you the problem. They don't get to choose the solution.</blockquote>
-<p>Every good move above obeys that split. Sponsor-skipping revealed a pacing problem; YouTube fixed the pacing, not the skipping. Shorts-blockers revealed a control problem; YouTube gave control, dismissibly. The hack is the diagnosis. The redesign is the job.</p>
-<h2>What This Predicts</h2>
-<p>If the reading is right, it should tell us what YouTube does next, and give you a way to prove me wrong.</p>
-<p>Here's the call. YouTube will not ship a true off-switch for Shorts to its general users. It will keep refining the soft version, with finer limits, better Home-feed suppression, maybe a setting that lasts longer. But it will keep that version dismissible, a nudge you can always override, for any account that isn't a supervised child's. The hard, persistent, account-level &ldquo;never show me Shorts again&rdquo; will stay locked to Family Link, where the person setting it isn't the person watching. The reason is the same two hundred billion views a day: a real off-switch for adults doesn't manage the TikTok threat, it cedes ground to it.</p>
-<p>If YouTube ships a persistent, non-dismissible &ldquo;turn Shorts off for good&rdquo; toggle for ordinary adult accounts, one the viewer sets for themselves and the platform doesn't quietly reset, then the moat mattered less than I think and this whole reading of the filter is wrong.</p>
-<p>Until then, the workarounds keep coming, and they keep doing the same unpaid work: showing YouTube, for free, exactly what its users wish it were: one problem the product won't let them solve, at a time.</p>
+<p>Public dislike counts were removed to shield smaller creators from coordinated dislike attacks. An extension appeared within weeks to estimate and restore them. Five million Chrome installs later, YouTube knows exactly how many people miss the signal.</p>
+<p>The counts have not come back. The demand is legible and the answer is still no, because granting it reopens the harassment that hurts the creator side. This is the cleanest proof in the set that reading a signal is not the same as obeying it.</p>
+<h2>Why a Rounding Error Is Worth Reading</h2>
+<p>The objection is fair. Seven million Chrome installs against billions of viewers is a rounding error. Most viewers will never install anything. Why should their workarounds set any agenda?</p>
+<p>Because effort is information. The average viewer tolerates friction in silence. You never learn what they would fix. The person who pays a real price to solve a problem is telling you the problem is worth solving. The mainstream frustration is usually the same one. It is only quieter.</p>
+<p>But the same people over-index on the wants that would burn the platform down. They are the ones who want to strip sponsors, block ads, kill Shorts and restore dislikes. Treat that as a to-do list and you dismantle the two sides that pay for the free one.</p>
+<p>So the signal splits in two. The workaround tells you what is <em>broken</em>. It does not tell you what to <em>build</em>. Sponsor-skipping revealed a pacing problem, and YouTube fixed the pacing, not the skipping. The hack is the diagnosis. The redesign is the job.</p>
+<h2>How You Would Know the Reading Is Right</h2>
+<p>A filter reconstructed from four decisions is a story until it predicts a fifth. So here is the call, with the test attached.</p>
+<p><strong>The prediction.</strong> YouTube will not ship a true off-switch for Shorts to its general users. It will keep refining the soft version, with finer limits, better Home-feed suppression, and settings that last longer. That version stays dismissible for any account that is not a supervised child's.</p>
+<p><strong>The leading indicators.</strong> Watch three things. Whether the zero-minute limit ever becomes non-dismissible for adults. Whether Shorts suppression persists across sessions rather than resetting. Whether YouTube reports Shorts daily views again, and whether the number is still climbing. The 200 billion figure is the moat, and a platform defending a moat does not hand out doors.</p>
+<p><strong>What proves me wrong.</strong> A persistent, non-dismissible &ldquo;turn Shorts off for good&rdquo; toggle for ordinary adult accounts, set by the viewer and not quietly reset. If that ships, the moat mattered less than I think, and this reading of the filter is wrong.</p>
+<h2>What This Does Not Answer</h2>
+<p>The filter explains the decisions. It does not price them. I can say a sponsor-skipper taxes creators. I cannot say by how much. YouTube does not publish sponsorship revenue and never will. It sits outside the platform, between the creator and the brand.</p>
+<p>Nor do install counts measure intensity. Two million people installed SponsorBlock. I cannot tell you how many still run it, or how many would pay to keep it. A dashboard inside YouTube would answer both in an afternoon, and that is the version of this analysis I do not have.</p>
+<p>What I do have is the shape of the demand, and the shape is enough to read the decisions.</p>
+<p>Until the prediction resolves, the workarounds keep coming. They keep doing the same unpaid work. They show YouTube, for free, what its users wish it were. One problem the product will not let them solve, at a time.</p>
     </div>
   </div>
 </article>
