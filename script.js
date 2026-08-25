@@ -13,12 +13,26 @@
      unguarded throw here would take out every script below it. */
   if (!themeBtn || !themeIcon || !themeText) return;
   
-  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const savedTheme = localStorage.getItem('theme') || (systemPrefersDark ? 'dark' : 'light');
-  
+  /* Light for everybody on a first visit, whatever the device is set to. The
+     site was written light and the dark palette is the alternative, so a
+     phone on system-dark used to open on the version nobody designed first.
+     A visitor who picks dark is remembered and keeps it; that choice is the
+     only thing that turns the site dark. The stylesheet matches this — dark
+     lives entirely under [data-theme="dark"] and no media query. */
+  const savedTheme = localStorage.getItem('theme') || 'light';
+
+  /* The browser paints its own chrome — the address bar on a phone — from this,
+     and it cannot follow an attribute, so it is set alongside the theme.
+     Values are --paper from each palette. */
+  function paintBrowserChrome(theme) {
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme === 'dark' ? '#1A171C' : '#EDE8E1');
+  }
+
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
+    paintBrowserChrome(theme);
     if (theme === 'dark') {
       themeIcon.textContent = '☀️';
       themeText.textContent = 'Light';

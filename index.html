@@ -22,8 +22,9 @@
 <meta name="twitter:title" content="Ritika Das &mdash; Product Manager &amp; Builder">
 <meta name="twitter:description" content="I decide what&#39;s worth building, then build it. Three products shipped solo and the calls behind each, plus long-form case studies on social, luxury and platforms.">
 <meta name="twitter:image" content="https://ritikadas.in/assets/og/home-og.jpg?v=2">
-<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<!-- One value, not a pair keyed to the system: the site opens light for everyone
+     and script.js repaints this when a visitor chooses dark. -->
+<meta name="theme-color" content="#EDE8E1">
 
 <!-- FAVICON — generated from assets/monogram-source.svg (the "rd" disc).
      favicon.ico is now a genuine multi-size ICO (16/32/48). The previous one was
@@ -42,7 +43,7 @@
    a flash of the other one. The full toggle logic still lives at the bottom. */
 (function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 </script>
-<link rel="stylesheet" href="styles.css?v=20260825b">
+<link rel="stylesheet" href="styles.css?v=20260825c">
 <!-- Without JS the curtain can never be lifted, so hide it outright. -->
 <noscript><style>.preloader{display:none!important}</style></noscript>
 <!-- Tells a search engine this is a person and a portfolio rather than
@@ -130,7 +131,7 @@
     </div>
   </div>
 
-  <!-- Section list for small screens: below 640px every nav link was hidden and
+  <!-- Section list for small screens: below 700px every nav link was hidden and
        the side dots vanish below 900px, leaving no way to jump between sections. -->
   <div class="nav-menu" id="nav-menu">
     <div class="nm-in">
@@ -430,7 +431,7 @@
   </div>
 </footer>
 
-<script src="script.js?v=20260819f" defer></script>
+<script src="script.js?v=20260825c" defer></script>
 <!-- GoatCounter: privacy-first counts, no cookies, so no consent banner.
      ~3KB and async, to keep the page budget the site was tuned to. -->
 <script data-goatcounter="https://ritikadas.goatcounter.com/count"

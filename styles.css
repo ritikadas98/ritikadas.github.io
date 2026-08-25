@@ -31,16 +31,6 @@
   --shadow:0 2px 8px rgba(0,0,0,.4);
   --shadow-lift:0 4px 14px rgba(0,0,0,.5),0 18px 48px rgba(0,0,0,.72);
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper:#1A171C; --paper-alt:#221E24; --surface:#25202B; --surface-2:#2B2533; --soft-band:#1C1821;
-    --ink:#EDE8E1; --ink-2:#DDD6E3; --muted:#A29ABC; --faint:#948B9E; --faint-deco:#776F7E;
-    --accent:#878DC9; --accent-soft:#A3A7D8; --accent-wash:rgba(130,136,196,0.18);
-    --hairline:#393242; --hairline-strong:#4B4257;
-    --shadow:0 2px 8px rgba(0,0,0,.4);
-    --shadow-lift:0 4px 14px rgba(0,0,0,.5),0 18px 48px rgba(0,0,0,.72);
-  }
-}
 
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
@@ -122,13 +112,6 @@ body{
 [data-theme="dark"] .preloader-tag { color: rgba(33, 30, 36, 0.85) !important; }
 [data-theme="dark"] .preloader-subtext { color: rgba(33, 30, 36, 0.55) !important; }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .preloader-panel { background: #EDE8E1 !important; }
-  :root:not([data-theme="light"]) .preloader-brand { color: #4B4F91 !important; }
-  :root:not([data-theme="light"]) .preloader-num { color: #211E24 !important; }
-  :root:not([data-theme="light"]) .preloader-tag { color: rgba(33, 30, 36, 0.85) !important; }
-  :root:not([data-theme="light"]) .preloader-subtext { color: rgba(33, 30, 36, 0.55) !important; }
-}
 
 @media (prefers-reduced-motion:reduce){.preloader{display:none!important}}
 
@@ -188,10 +171,6 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
        --study-reddit:#CE3700; --study-youtube:#E00000; --crew-brand:#A62B22; --crew-line:rgba(166,43,34,.38); --crew-tint:rgba(166,43,34,.07); }
 [data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73;
        --study-reddit:#FF7A47; --study-youtube:#FF6B6B; --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73;
-       --study-reddit:#FF7A47; --study-youtube:#FF6B6B; --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
-}
 /* aspect-ratio replaces width:auto — a masked <span> is an empty box and has no
    intrinsic size to derive a width from. 1610/507 is the source viewBox. */
 .brand-mark{
@@ -245,8 +224,16 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
 .nav-cta{color:var(--accent)!important;font-weight:600}
 
 /* ---- MOBILE MENU ----
-   Below 640px the nav links are hidden and the side dots disappear below 900px,
-   so without this there is no way to move between sections on a phone. */
+   Below 700px the nav links are hidden and the side dots disappear below 900px,
+   so without this there is no way to move between sections on a phone.
+
+   700, not the 640 it was: the full link row needs about 680px on the article
+   pages, whose labels are the longest ("Shipped Products", "Product Thinking").
+   Un-collapsing at 641 handed it 41px less than it needs, so every width from
+   641 to 679 pushed the page sideways — 37px of horizontal scroll at the worst,
+   on exactly the widths a small tablet or a half-screen browser window uses.
+   The menu takes that band now, and the breakpoints below move together: the
+   row appears only where it fits, and the menu exists everywhere it does not. */
 .nav-toggle{display:none;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border:1px solid var(--hairline-strong);border-radius:9px;background:var(--surface);cursor:pointer;flex:none}
 .nav-toggle:hover{border-color:var(--accent)}
 .nav-toggle-bars{display:block;position:relative;width:16px;height:10px}
@@ -264,15 +251,17 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
 .nav-menu a:last-child{border-bottom:none}
 .nav-menu a:active{color:var(--accent)}
 /* the menu is a small-screen affordance only */
-@media(min-width:641px){.nav-menu{display:none!important}}
+@media(min-width:701px){.nav-menu{display:none!important}}
 
-@media(max-width:640px){
+@media(max-width:700px){
   .nav-toggle{display:inline-flex}
   .nav-links a:not(.nav-cta){display:none}
-  #theme-text{display:none}                 /* icon-only toggle to make room */
   .theme-btn{padding:6px 9px}
   .nav-links{gap:10px}
 }
+/* The word beside the moon only costs room on a real phone; between 640 and 700
+   there is space for it next to the menu button. */
+@media(max-width:640px){ #theme-text{display:none} }
 
 /* hero */
 /* ---- ELEVATOR PITCH ----
@@ -657,9 +646,6 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
    the worst contrast on the site. Split by theme: no single green clears both. */
 :root{ --v-good:#007400; --v-warn:#A74500; --v-bad:#C61010; }
 [data-theme="dark"]{ --v-good:#27C93F; --v-warn:#F0A429; --v-bad:#FF6B6B; }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){ --v-good:#27C93F; --v-warn:#F0A429; --v-bad:#FF6B6B; }
-}
 .widget-result .verdict-good{color:var(--v-good);font-weight:600}
 .widget-result .verdict-warn{color:var(--v-warn);font-weight:600}
 .widget-result .verdict-bad{color:var(--v-bad);font-weight:600}
@@ -1490,13 +1476,6 @@ dialog.lightbox::backdrop{background:rgba(18,16,20,.96);backdrop-filter:blur(4px
   cursor:url("/assets/cursor/ring-dark.png") 12 12, pointer;
   cursor:image-set(url("/assets/cursor/ring-dark.png") 1x,
                    url("/assets/cursor/ring-dark@2x.png") 2x) 12 12, pointer;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) :is(a[href], button, [role="button"], .card-link){
-    cursor:url("/assets/cursor/ring-dark.png") 12 12, pointer;
-    cursor:image-set(url("/assets/cursor/ring-dark.png") 1x,
-                     url("/assets/cursor/ring-dark@2x.png") 2x) 12 12, pointer;
-  }
 }
 /* Touch and pen have no cursor to style, and a coarse pointer means the ring would
    only ever be paid for and never seen. */

@@ -22,15 +22,16 @@
 <meta name="twitter:title" content="One Trip at a Time">
 <meta name="twitter:description" content="CREW&#x27;s best work is a person travelling with you &mdash; and those people are the hardest thing it has to hire.">
 <meta name="twitter:image" content="https://ritikadas.in/assets/og/crew-og.jpg?v=3">
-<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<!-- One value, not a pair keyed to the system: the site opens light for everyone
+     and script.js repaints this when a visitor chooses dark. -->
+<meta name="theme-color" content="#EDE8E1">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=20260825b">
+<link rel="stylesheet" href="../../styles.css?v=20260825c">
 <script>
 /* Applied before first paint so a visitor who chose a theme manually never sees
    a flash of the other one. The full toggle logic still lives at the bottom. */
@@ -80,15 +81,6 @@
   --dg-crew:#A62B22; --dg-crew-2:#D14A32; --dg-on-crew:#FFF4F1;
   --dg-line:#B9B0A4;
   --mark-bg:#DDD9F0; --mark-ink:#2C2966;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --dg-known:#4FC7A6; --dg-known-fill:#12332C; --dg-known-ink:#8FE6CC;
-    --dg-human:#E8A94F; --dg-human-fill:#33240F; --dg-human-ink:#F5CE93;
-    --dg-quiet:#A3A0BC; --dg-quiet-fill:#272334;
-    --dg-crew:#E8776A; --dg-crew-2:#F0968A; --dg-on-crew:#2A1512;
-    --dg-line:#5F5570; --mark-bg:rgba(163,167,216,.22); --mark-ink:#C8CBEE;
-  }
 }
 [data-theme="dark"]{
   --dg-known:#4FC7A6; --dg-known-fill:#12332C; --dg-known-ink:#8FE6CC;
@@ -573,7 +565,7 @@
   </div>
 </footer>
 
-<script src="../../script.js?v=20260819f" defer></script>
+<script src="../../script.js?v=20260825c" defer></script>
 <!-- GoatCounter: privacy-first counts, no cookies, so no consent banner. -->
 <script data-goatcounter="https://ritikadas.goatcounter.com/count"
         async src="https://gc.zgo.at/count.js"></script>

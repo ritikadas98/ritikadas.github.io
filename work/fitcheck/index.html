@@ -20,15 +20,16 @@
 <meta name="twitter:title" content="FitCheck">
 <meta name="twitter:description" content="A calculator, not a guess. It reads the size chart already on the page and works out whether the size will actually fit.">
 <meta name="twitter:image" content="https://ritikadas.in/assets/og/fitcheck-og.jpg?v=2">
-<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<!-- One value, not a pair keyed to the system: the site opens light for everyone
+     and script.js repaints this when a visitor chooses dark. -->
+<meta name="theme-color" content="#EDE8E1">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=20260825b">
+<link rel="stylesheet" href="../../styles.css?v=20260825c">
 <script>
 (function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 </script>
@@ -55,7 +56,7 @@
     </div>
   </div>
 
-  <!-- Same menu as the homepage. Below 640px every nav link but Contact is hidden,
+  <!-- Same menu as the homepage. Below 700px every nav link but Contact is hidden,
        so without this a phone reader has no way back into the site. -->
   <div class="nav-menu" id="nav-menu">
     <div class="nm-in">
@@ -310,7 +311,7 @@
   </div>
 </footer>
 
-<script src="../../script.js?v=20260819f" defer></script>
+<script src="../../script.js?v=20260825c" defer></script>
 <!-- GoatCounter: privacy-first counts, no cookies, so no consent banner.
      ~3KB and async, to keep the page budget the site was tuned to. -->
 <script data-goatcounter="https://ritikadas.goatcounter.com/count"

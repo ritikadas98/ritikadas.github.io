@@ -22,15 +22,16 @@
 <meta name="twitter:title" content="Reddit Is Read Without Being Visited">
 <meta name="twitter:description" content="Reddit&#x27;s logged-out audience grew 27% last quarter and its logged-in audience grew 7%. It earns from the second and is increasingly made of the first.">
 <meta name="twitter:image" content="https://ritikadas.in/assets/og/reddit-og.jpg?v=3">
-<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<!-- One value, not a pair keyed to the system: the site opens light for everyone
+     and script.js repaints this when a visitor chooses dark. -->
+<meta name="theme-color" content="#EDE8E1">
 <link rel="icon" href="../../favicon.ico" sizes="32x32">
 <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=20260825b">
+<link rel="stylesheet" href="../../styles.css?v=20260825c">
 <script>
 /* Applied before first paint so a visitor who chose a theme manually never sees
    a flash of the other one. The full toggle logic still lives at the bottom. */
@@ -81,7 +82,7 @@
     </div>
   </div>
 
-  <!-- Same menu as the homepage. Below 640px every nav link but Contact is hidden,
+  <!-- Same menu as the homepage. Below 700px every nav link but Contact is hidden,
        so without this an article page left a phone reader with no way back into the
        site except the signature. -->
   <div class="nav-menu" id="nav-menu">
@@ -190,7 +191,7 @@
   </div>
 </footer>
 
-<script src="../../script.js?v=20260819f" defer></script>
+<script src="../../script.js?v=20260825c" defer></script>
 <!-- GoatCounter: privacy-first counts, no cookies, so no consent banner.
      ~3KB and async, to keep the page budget the site was tuned to. -->
 <script data-goatcounter="https://ritikadas.goatcounter.com/count"
