@@ -1191,7 +1191,34 @@ h1.art-title{font-family:var(--display);font-weight:500;font-size:clamp(28px,3.9
 .art-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:24px 44px;border-bottom:1px solid var(--hairline);padding:24px 0 28px}
 .as-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--pdeo-label);margin-bottom:6px}
 .as-v{font-size:14.5px;line-height:1.6;color:var(--ink-2)}
+/* Three cells instead of four sit on one line, so the row reads left to right. */
+.art-summary-3{grid-template-columns:repeat(3,1fr)}
 @media(max-width:760px){.art-summary{grid-template-columns:1fr;gap:20px;padding:20px 0 24px}}
+@media(max-width:760px){.art-summary-3{grid-template-columns:1fr}}
+
+/* The funnel diagram on the Reddit piece, drawn exactly as it is on slide 06 of
+   the deck so the page and the deck cannot disagree. Colour is named here rather
+   than taken from the reading palette, because the drawing needs Reddit's orange
+   and the reading palette deliberately carries no saturation. Both themes. */
+:root{--fn-brand:#C33000; --fn-band:#FF4500; --fn-quiet:#8B8387; --fn-step:#38333B}
+[data-theme="dark"]{--fn-brand:#FF6B3D; --fn-band:#FF6B3D; --fn-quiet:#948B9E; --fn-step:#DDD6E3}
+/* Wider than the 80ch reading measure: six labelled stages will not fit in it. */
+.fig-funnel{max-width:min(100%,920px);margin:40px auto}
+.fig-funnel svg{width:100%;height:auto;display:block}
+/* The stage labels are set at 15px in a 1500-wide drawing, so on a narrow phone
+   they scale down past readable. Below this width the drawing holds its size and
+   the figure scrolls sideways instead. */
+@media(max-width:700px){.fig-funnel{overflow-x:auto}.fig-funnel svg{min-width:680px}}
+.fig-funnel figcaption{font-size:13px;line-height:1.6;margin-top:14px;text-align:center;color:var(--faint)}
+.fig-funnel .fband{fill:var(--fn-band);opacity:.22}
+.fig-funnel .fband.dim{fill:var(--fn-quiet);opacity:.14}
+.fig-funnel .fcol{fill:var(--fn-brand)}
+.fig-funnel .fcol.dim{fill:none;stroke:var(--fn-quiet);stroke-width:2;stroke-dasharray:6 5}
+.fig-funnel .fk{font:500 15px var(--mono);letter-spacing:.08em;text-transform:uppercase;fill:var(--fn-quiet)}
+.fig-funnel .fv{font:800 40px var(--display);fill:var(--fn-brand);letter-spacing:-.02em}
+.fig-funnel .fv.dim{fill:var(--fn-quiet)}
+.fig-funnel .fstep{font:500 14px var(--mono);fill:var(--fn-step);text-anchor:middle;letter-spacing:.03em}
+.fig-funnel .fnote{font:400 14px var(--body);fill:var(--fn-quiet)}
 
 .art-body{max-width:80ch;margin:0 auto;padding:26px 0 72px}
 .art-body h2{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.3vw,29px);line-height:1.2;letter-spacing:-.02em;color:var(--ink);margin:52px 0 18px}

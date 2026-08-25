@@ -24,7 +24,12 @@ function head(sl) {
   if (sl.lead) h += `<p class="lead r" ${d(2)}>${mark(sl.lead)}</p>`;
   return h;
 }
-const foot = sl => sl.src ? `<p class="src">${esc(sl.src)}</p>` : '';
+/* A source line may name where a figure came from. `[text](url)` in a src or a
+   foot becomes a link to it, after escaping, so the source line stays plain text
+   everywhere else. deck.css already carries `.src a{color:inherit}`. */
+const linky = s => esc(s).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,
+  '<a href="$2" target="_blank" rel="noopener">$1</a>');
+const foot = sl => sl.src ? `<p class="src">${linky(sl.src)}</p>` : '';
 const body = inner => `<div class="body">${inner}</div>`;
 
 const ICONS = {
@@ -100,7 +105,7 @@ const RENDER = {
          : esc(sl.title)}</h1>
        <p class="lead r" ${d(2)}>${sl.leadHtml ? raw(sl.leadHtml) : esc(sl.lead)}</p>`
     + (sl.art && typeof ART !== 'undefined' && ART[sl.art] ? ART[sl.art]() : '')
-    + `<p class="src">${esc(sl.foot)}</p>`,
+    + `<p class="src">${linky(sl.foot)}</p>`,
 
   /* A statement slide is title and lead on a coloured field, and nothing else.
      `shots` is optional: pass evidence and the text moves to the left half and

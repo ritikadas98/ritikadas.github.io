@@ -209,7 +209,7 @@ const SLIDES = [
     ['The tension', 'Advertising is priced against logged-in, returning users. The dominant entry is a one-off search landing. *Reddit earns nothing from a satisfied lurker and less than nothing from a satisfied non-visitor.*', 'warn'],
     ['The leverage', 'The Google licence, about *$60M a year*, expires in *H1 2027*. Reddit is reported to be weighing whether to renew at all, and to want usage-based fees. The OpenAI renewal is also unresolved.', 'target']
   ],
-  src: 'Reddit Q2 2026 shareholder letter and earnings call, 30 Jul 2026. Shares fell 11–12% on the quarter despite beating revenue, DAU and guidance. Licensing renewal reporting: The Wall Street Journal, Aug 2026.' },
+  src: '[Reddit Q2 2026 shareholder letter](https://investor.redditinc.com/) and earnings call, 30 Jul 2026. Shares fell 11–12% on the quarter despite beating revenue, DAU and guidance. Licensing renewal reporting: The Wall Street Journal, Aug 2026.' },
 
 /* ---------------------------------------------------------------- 03 -- */
 { kind: 'compare', pill: 'The problem', wide: true,
@@ -217,7 +217,7 @@ const SLIDES = [
   lead: 'Both numbers are Reddit’s own, reported for the same quarter.',
   left: ['Logged out', '77.7M', 'DAU, up *27%*. Lands from search, reads one thread, leaves. No account, so no repeat-visit signal, no retention curve, and no lifetime value to price an ad against.', 'leaves'],
   right: ['Logged in', '52.6M', 'DAU, up *7%*. Returns, retains, and can be sold to. Every advertising dollar is priced against this cohort. It grows four times slower than the one Reddit cannot bill.', 'returns'],
-  src: 'Reddit Q2 2026, of 130.3M DAU in total, up 18%. Q2 2026 is the last quarter Reddit reports this split. From Q3 it stops publishing logged-in and logged-out figures.' },
+  src: '[Reddit Q2 2026](https://investor.redditinc.com/), of 130.3M DAU in total, up 18%. Q2 2026 is the last quarter Reddit reports this split. From Q3 it stops publishing logged-in and logged-out figures.' },
 
 /* ---------------------------------------------------------------- 04 -- */
 { kind: 'bars', pill: 'The wedge', max: 100, unit: '%', wide: true,
@@ -229,7 +229,7 @@ const SLIDES = [
     ['2024', 60.45],
     ['Jan–Apr 2026', 68.01]
   ],
-  src: 'The zero-click figures are Google-wide, not Reddit’s own: SparkToro with Similarweb clickstream data, Jun 2026. They are on this slide because this is the channel Reddit’s logged-out majority arrives through. AI Overviews now appear on over 20% of searches. Every publisher on this channel is exposed: over the year to Jun 2026 USA Today lost nearly half its organic Google traffic and Politico lost 23% (Semrush). Huffman quotes: Reddit Q2 2026 earnings call, 30 Jul 2026.' },
+  src: 'The zero-click figures are Google-wide, not Reddit’s own: [SparkToro with Similarweb clickstream data](https://sparktoro.com/blog/in-2026-less-than-one-third-of-google-searches-still-send-a-click/), Jun 2026. They are on this slide because this is the channel Reddit’s logged-out majority arrives through. AI Overviews now appear on over 20% of searches. Every publisher on this channel is exposed: over the year to Jun 2026 USA Today lost nearly half its organic Google traffic and Politico lost 23% (Semrush). Huffman quotes: Reddit Q2 2026 earnings call, 30 Jul 2026.' },
 
 /* ---------------------------------------------------------------- 05 -- */
 { kind: 'statement', pill: 'What replaced the visit',
@@ -257,7 +257,7 @@ const SLIDES = [
 { kind: 'figure', pill: 'The funnel', svg: 'funnel', wide: true,
   title: 'Every stage is smaller than the last, and the last one is not measured',
   lead: 'Reddit reports the first three. The next two come from published research. Nobody reports the last, which is where Solution 3 can look like a win and not be one.',
-  src: 'Band widths are not to scale: each stage is roughly an order of magnitude smaller than the one before, and a true taper would draw the tail as a hairline. Stages 1–3: Reddit Q2 2026. “Posts anything”: the 1-9-90 rule (NN/g, 2006), twenty years old and community-general, so directional only. “First post survives”: about a fifth of Reddit posts are removed, and 37% of the users whose post was removed did not understand why (Jhaver et al., ACM CSCW 2019, n=907). Reddit removed a little over 3% of all new content in H1 2024, of which 66.5% was spam.'
+  src: 'Band widths are not to scale: each stage is roughly an order of magnitude smaller than the one before, and a true taper would draw the tail as a hairline. Stages 1–3: [Reddit Q2 2026](https://investor.redditinc.com/). “Posts anything”: the 1-9-90 rule (NN/g, 2006), twenty years old and community-general, so directional only. “First post survives”: about a fifth of Reddit posts are removed, and 37% of the users whose post was removed did not understand why (Jhaver et al., ACM CSCW 2019, n=907). Reddit removed a little over 3% of all new content in H1 2024, of which 66.5% was spam.'
 },
 
 /* ---------------------------------------------------------------- 08 -- */
