@@ -25,6 +25,14 @@ import sys
 
 from PIL import Image
 
+# Pillow registers file-format plugins lazily. Image.open only triggers the
+# short preinit list, and on Pillow 12 that leaves Image.SAVE without a "JPEG"
+# entry — which is the encoder the PDF writer reaches for. The save then dies
+# with KeyError: 'JPEG' AFTER truncating the output file, so a failed run also
+# destroys the previous good PDF. Registering every plugin up front costs a few
+# milliseconds and makes the failure impossible.
+Image.init()
+
 PAGE_W_IN = 13.333          # 16:9 at 7.5in tall
 RASTER_W = 2560             # retina-sharp on a laptop, sane as a download
 JPEG_QUALITY = 88

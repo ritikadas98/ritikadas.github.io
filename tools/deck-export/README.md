@@ -63,6 +63,12 @@ node topdf.mjs "http://localhost:8899/work/reddit/deck/" ../../assets/decks/redd
 Needs `npm install` and `npx playwright install chromium` once, the same as the
 .pptx route below.
 
+`topdf.mjs` injects its own `@page` rule before printing. Without that, deck.css
+says `size:landscape` (right for Ctrl+P, where you pick the paper) while the
+script asks for a 16:9 sheet, and Chrome lays the slides out for one size while
+paginating onto the other. Anything sitting against a slide edge then prints
+across the page break onto the next slide.
+
 The text stays real text: selectable, searchable, and about a tenth the weight
 of a PDF of photographs.
 

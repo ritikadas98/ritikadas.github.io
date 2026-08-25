@@ -10,80 +10,155 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../_deck/deck.css?v=3">
+<link rel="stylesheet" href="../../_deck/deck.css?v=4">
 <style>
-/* CREW's palette, lifted from tools/og-card.py so the deck matches the card a
-   reader already saw on the homepage. CREW's red is the brand; the accent is a
-   burnt orange, chosen because it clears 4.2:1 on paper where a second red does
-   not. This block is the only thing that makes this deck look like this deck. */
+/* CREW's palette, measured off CREW's own screens rather than off this site.
+   The earlier version was lifted from tools/og-card.py, which paints the CREW
+   card on the homepage — so the deck came out red while CREW is brown. These
+   values are sampled from writing/crew/images: the beige ground #ECE3DA, the
+   warm near-black #201A1C, the terracotta #C0402C that CREW puts on every
+   action, and the navy #181D44 it sets prices in.
+
+   Note this deck leaves the shared house paper (#EDE8E1) that Reddit, Savio and
+   Amazon use. That is deliberate: CREW's beige is warmer and sandier, and the
+   brownishness does not read against the cooler grey-beige.
+
+   This block is the only thing that makes this deck look like this deck. */
 :root{
-  --brand:#A62B22; --f0:#C4392C; --f1:#A62B22; --f2:#7A1E18; --f3:#45120F;
-  --accent:#C2410C; --paper:#EDE8E1; --card:#FFF; --ink:#211E24; --ink2:#4A4550;
-  --muted:#8A8188; --line:rgba(33,30,36,.12);
+  --brand:#6F3B2B; --f0:#A8563C; --f1:#6F3B2B; --f2:#4A2419; --f3:#2A1410;
+  --accent:#B03A22; --paper:#ECE3DA; --card:#FBF9F6; --ink:#241C1A; --ink2:#5A4A44;
+  --muted:#726259; --line:rgba(36,28,26,.14);
   --display:"Bricolage Grotesque",system-ui,sans-serif;
   --body:"Inter",system-ui,sans-serif; --mono:"IBM Plex Mono",monospace;
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 
 /* ---- accent that survives a coloured background ----
-   The burnt orange is chosen for paper, where it clears 4.2:1. On CREW's red it
-   is the same darkness as the field and a figure painted in it disappears, so
-   every surface that is not paper gets a lifted version instead: 4.6:1 on the
-   brand, 6.7:1 on the deep field. */
-:root{--lift:#FFC49B}
+   The terracotta is chosen for paper, where it clears 4.8:1. On the brown field
+   it is the same darkness as the ground and a figure painted in it disappears,
+   so every surface that is not paper gets a lifted version instead: a warm
+   peach that clears 4.8:1 on the brand and 9.4:1 on the deep field. */
+:root{--lift:#F0B08C}
 .dark .hi,.grad .hi,.panel .hi,.row.hot .hi,.trow.win .hi,
-.mkpanel.hot .hi,.qc.win .hi,.jrow.now .hi{color:var(--lift)}
-.panel.was{background:#514B55}
-.panel.was .k{opacity:.9}
+.mkpanel.hot .hi,.qc.win .hi,.pcard .hi{color:var(--lift)}
 /* Every place the shared shell paints the accent onto a filled surface. On a
-   navy or a sage those pairings work; on CREW's red the accent is the same
+   navy or a sage those pairings work; on CREW's brown the accent is the same
    darkness as the ground and the text disappears — the winning quadrant chip,
    the verdict on a highlighted table row, the badge on a highlighted step, the
-   good step in a journey, the persona's role. Each gets the lift instead, on a
-   near-black red so the pairing reads as deliberate rather than inverted. */
-.qc.win .qn b{background:var(--lift);color:#45120F}
-.qc.win .qk{color:#EEC9BA}
+   persona's role and any accent phrase inside a persona card. Each gets the
+   lift instead, on a near-black brown, so the pairing reads as deliberate. */
+.qc.win .qn b{background:var(--lift);color:#2A1410}
+.qc.win .qk{color:#E9C3AC}
 .trow.win .tv{color:var(--lift)}
-.trow.win .td{color:#F0DAD2}
-.row.hot .n{background:var(--lift);color:#45120F}
-.row.hot span{color:#F0DAD2}
-.jrow.now .tstep.good{background:var(--lift);color:#45120F}
+.trow.win .td{color:#EFD8C8}
+.row.hot .n{background:var(--lift);color:#2A1410}
+.row.hot span{color:#EFD8C8}
 .pcard .prole{color:var(--lift)}
 .dark .card h3,.grad .card h3,.dark .card .big,.grad .card .big{color:var(--lift)}
 /* A link on the closing slide sits on the deep field, where the accent fails the
    same way. */
-.dark .lead a,.grad .lead a{color:var(--lift);border-bottom-color:rgba(255,196,155,.45)}
+.dark .lead a,.grad .lead a{color:var(--lift);border-bottom-color:rgba(240,176,140,.45)}
 .dark .lead a:hover,.grad .lead a:hover{border-bottom-color:var(--lift)}
 .dark h1 a,.grad h1 a{border-bottom-color:var(--lift)}
 .dark h1 a:hover,.grad h1 a:hover{color:var(--lift)}
 
-/* No photograph exists for this persona and inventing one would be a claim, so
-   the drawn fallback carries the card — and at the shared size it floats in a
-   card built for a photograph. */
-.pface{width:clamp(120px,15vw,232px);margin:auto auto auto 0}
-.pcard{padding:clamp(19px,1.9vw,30px) 0 0 clamp(19px,1.9vw,30px)}
+/* ---- personas ----
+   The portraits are illustrations, not photographs. This is a teardown with no
+   interviews behind it, and a photograph of a named person would imply research
+   that was never done. An illustration reads as composed, which is what these
+   are. The source line on the slide says so too.
+
+   The shared drawn fallback takes over if a file goes missing, so its colours
+   are brought into CREW's range here — the shell draws it in Amazon's navy. */
+.pcard p{color:#EFD8C8}
+.pcard .prole{color:var(--lift)}
+.pcard2:not(.win){background:#4E443F}
+.pcard2.win{box-shadow:inset 0 0 0 2px var(--lift)}
+.pface .sk{fill:#ECE3DA}
+.pface .hr{fill:#3A2A22}
+.pface .ft{stroke:#241C1A}
+.pface .shirt{fill:#D8CABF}
+.pface .collar{stroke:#241C1A}
+
+/* ---- the constraint slide, with its evidence ----
+   The statement slide was title and lead on a brown field and half of it empty.
+   The evidence for "the moat is the ceiling" already exists in public: the same
+   service reviewed at five stars and at one, a few weeks apart. The distance
+   between those two reviews is not a feature gap. It is whether one of the rare
+   people was on that trip, which is the argument the slide is making.
+
+   Held to the right half, centred with top/bottom/margin rather than a
+   transform: Chrome rasterises a transformed subtree separately when printing
+   and the Reddit deck lost a screenshot off the page that way. */
+.stshots{position:absolute;right:clamp(28px,4.4vw,76px);top:0;bottom:0;
+  height:fit-content;margin-top:auto;margin-bottom:auto;
+  width:min(44%,620px);display:flex;flex-direction:column;
+  gap:clamp(11px,1.7vh,20px)}
+.stshot{margin:0}
+.stshot img{display:block;width:100%;height:auto;border-radius:10px;
+  box-shadow:0 24px 56px -28px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.13)}
+.stshot figcaption{font:400 clamp(10.5px,.86vw,12.5px)/1.5 var(--body);
+  color:#C9AC9C;margin-top:7px}
+.stshot figcaption .hi{color:var(--lift);font-weight:600}
+/* Only the slide that actually carries evidence gives up its right half. The
+   closing slide is the same dark shell and must keep the full width. */
+.slide:has(.stshots) .pill,
+.slide:has(.stshots) .big-say,
+.slide:has(.stshots) .lead,
+.slide:has(.stshots) .src{max-width:51%}
+@media(max-width:880px){
+  .stshots{position:static;width:auto;margin:clamp(14px,2.4vh,22px) 0 0}
+  .slide:has(.stshots) .pill,
+  .slide:has(.stshots) .big-say,
+  .slide:has(.stshots) .lead,
+  .slide:has(.stshots) .src{max-width:none}
+}
+
+/* ---- the cover's right half: CREW's own first screen ----
+   Sized from HEIGHT, not width. A 760x1119 portrait set to a share of the width
+   of a 16:9 slide comes out taller than the slide — invisible on screen, where
+   #stage clips it, and very visible on paper, where nothing does. That is the
+   trap the Reddit cover fell into.
+
+   Centred with top/bottom/margin rather than translateY(-50%), for the same
+   reason: Chrome rasterises a transformed subtree separately when printing and
+   the Reddit screenshot came out at the wrong scale inside a correct frame. */
+.heroshot{position:absolute;right:clamp(28px,5vw,96px);top:0;bottom:0;
+  height:fit-content;margin-top:auto;margin-bottom:auto;pointer-events:none}
+.hsframe{border-radius:18px;overflow:hidden;background:#201A1C;
+  box-shadow:0 40px 90px -34px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.14)}
+.hsframe img{display:block;height:min(70vh,600px);width:auto;max-width:100%}
+/* The text and the bubble field keep the left half, so nothing runs under the
+   screenshot. */
+.slide.grad .pill,.slide.grad h1,.slide.grad .lead,.slide.grad .firsts{max-width:56%}
+@media(max-width:880px){
+  /* No room for both on a phone. The words win. */
+  .heroshot{display:none}
+  .slide.grad .pill,.slide.grad h1,.slide.grad .lead,.slide.grad .firsts{max-width:none}
+}
 
 /* ---- cover art: who speaks first ----
-   Twelve exchanges, and in half of them CREW speaks before the customer does.
-   That is the product: not a better booking engine, but the message you did not
-   ask for. Every other deck's cover counts the thing its argument turns on, and
-   this is CREW's. Filled is CREW opening the exchange. */
+   A field of message bubbles, most of them filled, under one line of claim. The
+   filled ones are CREW opening the exchange. They are decoration and carry no
+   count — see the note on ART.firsts in slides.js for why the count went. */
 .firsts{margin-top:auto;padding-top:clamp(12px,2.4vh,26px);margin-bottom:clamp(26px,4.5vh,56px)}
-.fgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(6px,.85vw,16px);
-  max-width:100%}
+/* Capped, because twelve bubbles stretched across a 1600px cover come out the
+   size of playing cards and take the slide over. They are the backdrop to the
+   line under them, not the subject. */
+.fgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(6px,.7vw,13px);
+  max-width:min(100%,780px)}
 .fb{aspect-ratio:1/.72;border-radius:10px 10px 10px 3px;background:rgba(255,255,255,.16);
   opacity:0;animation:dotin .5s var(--ease) both;animation-delay:var(--d)}
 .fb.first{background:var(--lift);
-  box-shadow:0 0 0 1.5px rgba(255,196,155,.3),0 0 16px 5px rgba(255,196,155,.34);
+  box-shadow:0 0 0 1.5px rgba(240,176,140,.3),0 0 16px 5px rgba(240,176,140,.34);
   animation:dotin .5s var(--ease) both,glow 2.6s var(--ease) 1.6s infinite}
-@keyframes glow{0%,100%{box-shadow:0 0 0 1.5px rgba(255,196,155,.3),0 0 16px 5px rgba(255,196,155,.34)}
-  50%{box-shadow:0 0 0 2.5px rgba(255,196,155,.44),0 0 24px 8px rgba(255,196,155,.54)}}
-.fkey{display:flex;gap:clamp(12px,1.4vw,26px);margin-top:clamp(10px,1.6vh,18px);flex-wrap:wrap}
-.fkey span{font:500 10px/1.4 var(--mono);letter-spacing:.06em;color:#EEC9BA;
-  display:flex;align-items:center;gap:7px}
-.fkey i{width:9px;height:7px;border-radius:2px 2px 2px 1px;background:rgba(255,255,255,.16);display:block}
-.fkey span:nth-child(2) i{background:var(--lift)}
-.fkey span:nth-child(3){color:#C9A092}
+@keyframes glow{0%,100%{box-shadow:0 0 0 1.5px rgba(240,176,140,.3),0 0 16px 5px rgba(240,176,140,.34)}
+  50%{box-shadow:0 0 0 2.5px rgba(240,176,140,.44),0 0 24px 8px rgba(240,176,140,.54)}}
+.fkey{display:flex;gap:clamp(12px,1.4vw,26px);margin-top:clamp(14px,2.2vh,24px);flex-wrap:wrap}
+.fkey span{font:500 clamp(10px,.78vw,12px)/1.45 var(--mono);letter-spacing:.05em;color:#E9C3AC;
+  display:flex;align-items:center;gap:9px}
+.fkey i{width:9px;height:7px;border-radius:2px 2px 2px 1px;background:var(--lift);
+  display:block;flex:0 0 auto}
 
 /* ---- filling a 16:9 slide, without overflowing a real one ----
    The shared shell sizes every piece of type from viewport WIDTH. A deck opened
@@ -93,7 +168,11 @@
    so a short window shrinks the type instead of spilling it. Proven on the
    Reddit deck first. */
 .slide{padding:clamp(22px,min(4.4vw,5.4vh),76px)}
-h2{font-size:clamp(21px,min(3.1vw,5.4vh),41px)}
+/* The shared shell caps every h2 at 20ch, which was drawn for two-word titles.
+   CREW's titles are sentences — "Every standalone concierge died of the first
+   two problems" — and at 20ch that broke over three lines with half the slide
+   empty beside it. A heading is allowed to use the room it has. */
+h2{font-size:clamp(21px,min(3.1vw,5.4vh),41px);max-width:34ch}
 h2.wide{max-width:58ch}
 .lead{font-size:clamp(12.5px,min(1.16vw,2.05vh),17px)}
 .card p,.row span,.step p,.panel p,.tcol li,.mkpanel p,.trow .td,.pbit p,.pcard p{
@@ -107,27 +186,25 @@ h2.wide{max-width:58ch}
    the shared shell lets a long slide scroll, and this must not cancel that. */
 .body{min-height:0;overflow:hidden;padding-bottom:clamp(44px,9.5vh,96px)}
 @media(max-width:880px){ .body{overflow-y:auto} }
-.tbl,.rows,.two,.grid,.pj,.mock,.funnel,.bars,.split2{min-height:0}
+.tbl,.rows,.two,.grid,.pj,.mock,.bars,.split2{min-height:0}
 
 /* Solid-colour blocks take a stretch, because a tall coloured block reads as a
    shape. A stretched white card only moves the empty space around inside it. */
 .split2{align-items:stretch}
 .panel{display:flex;flex-direction:column;justify-content:center}
 
-/* Three enormous numerals reading 01 02 03 is a school poster, not analysis. The
-   stage name carries the step and the index shrinks to a label. */
-.funnel .step .k{font-size:clamp(8.5px,min(.62vw,1.1vh),10.5px)}
-.funnel .step .big{font:700 clamp(15px,min(1.55vw,2.7vh),23px)/1.2 var(--display);
-  color:var(--brand);letter-spacing:-.012em;margin:clamp(6px,1vh,10px) 0 clamp(7px,1.2vh,12px)}
-.funnel .step{display:flex;flex-direction:column;justify-content:flex-start;
-  border-top:3px solid var(--accent)}
-
 /* Layouts that arrive without a top margin sit flush against the lead above them,
    and on the persona slide the lead lands on the photograph. */
-.pj,.two,.tbl,.quotes,.journey{margin-top:clamp(10px,1.8vh,26px)}
+.pj,.two,.tbl,.quotes{margin-top:clamp(10px,1.8vh,26px)}
 
 /* A square portrait in a tall card pushes the name and the blurb off the bottom.
    Landscape, capped, so the card stays balanced at any height. */
+/* The shared card bottom-aligns its contents (justify-content:flex-end), which
+   was right when the card was all text. With a portrait capped at 52% of the
+   height, the leftover space collects ABOVE the photo instead — a bare brown
+   strip across the top of the card. Top-align so the portrait sits flush to the
+   edge and any slack falls below the text, where the card colour belongs. */
+.pcard{justify-content:flex-start}
 .pphoto{aspect-ratio:5/4;flex:0 1 auto;max-height:52%;object-position:50% 22%}
 .pmeta{padding:clamp(13px,1.5vw,24px)}
 @media(max-width:880px){.pphoto{aspect-ratio:3/2}}
@@ -149,12 +226,12 @@ h2.wide{max-width:58ch}
   margin-top:clamp(12px,2vh,24px);justify-content:center}
 .shotframe{border-radius:12px;overflow:hidden;background:#fff;min-width:0;flex:0 0 auto;
   height:clamp(190px,52vh,560px);display:flex;
-  box-shadow:0 26px 60px -30px rgba(69,18,15,.55),0 0 0 1px rgba(33,30,36,.10)}
+  box-shadow:0 26px 60px -30px rgba(42,20,16,.55),0 0 0 1px rgba(33,30,36,.10)}
 .shotframe img{display:block;height:100%;width:auto;max-width:100%;object-fit:contain}
 .grad .shotframe,.dark .shotframe{box-shadow:0 30px 70px -30px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.12)}
 .shotside{display:flex;flex-direction:column;gap:clamp(7px,1.2vh,13px);justify-content:center;min-width:0}
 .shotcap{font:400 clamp(10.5px,min(.92vw,1.6vh),12.5px)/1.5 var(--body);color:var(--muted)}
-.grad .shotcap,.dark .shotcap{color:#C9A092}
+.grad .shotcap,.dark .shotcap{color:#B79482}
 @media(max-width:880px){.shot{grid-template-columns:1fr;max-height:none;justify-items:center}
   .shotframe{height:auto;max-height:46vh;max-width:100%}
   .shotframe img{height:auto;width:100%;max-height:46vh;object-fit:contain}}
@@ -163,15 +240,50 @@ h2.wide{max-width:58ch}
 .fig .fbox{fill:var(--card);stroke:var(--line);stroke-width:1.5}
 .fig .fbrand{fill:var(--brand)}
 .fig .flab{font:500 13px var(--mono);letter-spacing:.14em;fill:var(--muted)}
-.fig .fname{font:700 22px var(--display);fill:var(--brand)}
 .fig .fcap{font:400 15px var(--body);fill:var(--ink2)}
+.fig .fnote{font:400 15px var(--body);fill:var(--muted);text-anchor:middle}
 .fig .fout{font:700 19px var(--display);fill:#fff}
 .fig .fnum{font:500 17px var(--mono);fill:var(--brand)}
 .fig .fwarn{font:500 12px var(--mono);letter-spacing:.08em;fill:var(--muted)}
+/* ---- one gate change, on a shared time axis ----
+   The band is the window in which the traveller does not know. It is the same
+   colour on both tracks on purpose: the meaning does not change between them,
+   only the length does, and the length is the whole argument. */
+.fig .gband{fill:url(#ghatch)}
+.fig .ghbg{fill:var(--muted);opacity:.13}
+.fig .ghln{stroke:var(--muted);stroke-width:3.4;opacity:.30}
+.fig .gin{font:500 14px var(--mono);fill:var(--ink2);text-anchor:middle;letter-spacing:.04em}
+.fig .gname{font:500 13px var(--mono);fill:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.fig .gdot{fill:var(--brand)}
+.fig .gtop{font:700 16px var(--display);fill:var(--ink)}
+.fig .gbelow{font:400 15px var(--body);fill:var(--ink2);text-anchor:middle}
+.fig .gsub{font:400 13px var(--body);fill:var(--muted);text-anchor:middle}
+.fig .gafter{font:400 15px var(--body);fill:var(--ink2)}
+/* The one phrase on the slide worth painting: who told her. */
+.fig .gafterhi{font:700 17px var(--display);fill:var(--accent);letter-spacing:-.01em}
+/* The measure between the two closing points. */
+.fig .gguide{stroke:var(--muted);stroke-width:1.6;stroke-dasharray:5 6;opacity:.5;fill:none}
+.fig .gspan{stroke:var(--accent);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fig .gspanlab{font:500 13px var(--mono);fill:var(--accent);text-anchor:middle;letter-spacing:.06em}
+.fig .gaxis{stroke:var(--line);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fig .gaxlab{font:500 12px var(--mono);fill:var(--muted);letter-spacing:.12em}
+.fig .gkey{font:400 13px var(--body);fill:var(--muted)}
+
+/* ---- the distribution funnel ----
+   Same visual family as the Reddit deck's funnel so the two read as one system:
+   translucent bands tapering between solid columns, a label in each gap. The
+   difference is what the type carries. Reddit sets a figure at every stage;
+   CREW has no public figure at any stage, so the stage NAME takes that slot and
+   the gap says what does the narrowing. */
+.fig .fband{fill:var(--f0);opacity:.26}
+.fig .fcol{fill:var(--brand)}
+.fig .fnm{font:700 26px var(--display);fill:var(--ink);text-anchor:middle;letter-spacing:-.012em}
+.fig .fgate{font:500 13px var(--mono);fill:var(--ink2);text-anchor:middle;letter-spacing:.03em}
+.fig .fspine{font:500 14px var(--mono);fill:var(--muted);text-anchor:middle;letter-spacing:.1em;
+  text-transform:uppercase}
 .fig .fline{stroke:var(--f0);stroke-width:2.4;fill:none;stroke-linecap:round}
 .fig .fdash{stroke:var(--muted);stroke-width:2;stroke-dasharray:7 7;fill:none;opacity:.55}
 .fig .facc{fill:var(--accent)}
-.fig .fx{stroke:var(--muted);stroke-width:2.4;stroke-linecap:round}
 .fig{min-height:0}
 /* The shared rule sets the diagram from width and lets height follow, which on a
    wide short window makes it taller than the slide. Whichever axis runs out
@@ -191,6 +303,15 @@ h2.wide{max-width:58ch}
 /* Twelve bubbles across a 358px frame are 24px wide, which is enough; below that
    they lose the shape that makes them read as messages. */
 @media(max-width:520px){.fgrid{grid-template-columns:repeat(6,1fr)}}
+
+/* ---- paper ----
+   On screen #stage hides anything that leaves a slide. In print that clipping is
+   gone, so a stray element does not just look wrong, it prints across the page
+   break onto the next slide. This puts the clipping back. Same fix as the Reddit
+   deck. */
+@media print{
+  .slide{overflow:hidden}
+}
 </style>
 </head>
 <body>
@@ -202,7 +323,7 @@ h2.wide{max-width:58ch}
   <span id="count">1 / 1</span>
   <button id="next" type="button" aria-label="Next slide">&rarr;</button>
 </nav>
-<script src="slides.js?v=1"></script>
-<script src="../../_deck/engine.js?v=4"></script>
+<script src="slides.js?v=2"></script>
+<script src="../../_deck/engine.js?v=5"></script>
 </body>
 </html>

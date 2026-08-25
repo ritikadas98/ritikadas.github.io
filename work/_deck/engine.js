@@ -102,9 +102,19 @@ const RENDER = {
     + (sl.art && typeof ART !== 'undefined' && ART[sl.art] ? ART[sl.art]() : '')
     + `<p class="src">${esc(sl.foot)}</p>`,
 
+  /* A statement slide is title and lead on a coloured field, and nothing else.
+     `shots` is optional: pass evidence and the text moves to the left half and
+     the pictures stack down the right. Without it the slide renders exactly as
+     it always did, so the other decks are untouched. */
   statement: sl => (sl.pill ? `<span class="pill r" ${d(0)}>${esc(sl.pill)}</span>` : '')
     + `<h2 class="big-say r" ${d(1)}>${mark(sl.title)}</h2>
-       <p class="lead r" ${d(3)}>${mark(sl.lead)}</p>` + foot(sl),
+       <p class="lead r" ${d(3)}>${mark(sl.lead)}</p>`
+    + (sl.shots ? `<div class="stshots">` + sl.shots.map((s, i) =>
+        `<figure class="stshot r" ${d(i + 4)}>
+           <img src="${esc(s[0])}" alt="${esc(s[1])}" loading="lazy">
+           ${s[2] ? `<figcaption>${mark(s[2])}</figcaption>` : ''}
+         </figure>`).join('') + `</div>` : '')
+    + foot(sl),
 
   rows: sl => head(sl) + body(`<div class="rows">` + sl.rows.map((r, i) =>
       `<div class="row r ${sl.numbered ? '' : 'plain'} ${sl.hot === i ? 'hot' : ''}" ${d(i + 3)}>
@@ -163,6 +173,25 @@ const RENDER = {
       <div class="quotes">` + sl.quotes.map((q, i) =>
       `<div class="quote r" ${d(i + 4)}>${raw(q)}</div>`).join('') + `</div>
     </div>`) + foot(sl),
+
+  /* Two personas side by side, as a contrast. `personajobs` carries one persona
+     and its jobs; this carries two and no jobs, for the slide whose argument is
+     who the product is worth paying for and who it is not. Each takes the same
+     shape as a personajobs card, including the drawn FACE fallback when no
+     portrait is supplied or the file fails to load. */
+  personas: sl => head(sl) + body(`<div class="ptwo">` + sl.people.map((p, i) =>
+      `<div class="pcard pcard2 r ${p.win ? 'win' : ''}" ${d(i + 3)}>
+         ${p.photo
+           ? `<img class="pphoto" src="${esc(p.photo)}" width="800" height="640"
+                   alt="${esc(p.photoAlt || p.name)}" onerror="this.outerHTML=FACE">`
+           : FACE}
+         <div class="pmeta">
+           <span class="prole">${esc(p.role)}</span>
+           <span class="pname">${esc(p.name)}</span>
+           <p>${mark(p.blurb)}</p>
+           ${p.bits ? `<ul class="pbits">` + p.bits.map(b => `<li>${esc(b)}</li>`).join('') + `</ul>` : ''}
+         </div>
+       </div>`).join('') + `</div>`) + foot(sl),
 
   quotes: sl => head(sl) + body(`<div class="quotes">` + sl.quotes.map((q, i) =>
       `<div class="quote r" ${d(i + 3)}>${raw(q)}</div>`).join('') + `</div>`) + foot(sl),

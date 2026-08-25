@@ -9,17 +9,36 @@
  * this one speaks CDP to the system Chrome, so it needs no Playwright download.
  */
 import { spawn } from 'node:child_process';
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 const url = process.argv[2];
 const out = process.argv[3];
 if (!url || !out) { console.error('usage: node shoot-cdp.mjs <deck-url> <out-dir>'); process.exit(1); }
 mkdirSync(out, { recursive: true });
 
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+/* Chrome lives somewhere different on every platform, and this was pinned to the
+   macOS path — so the route the README recommends first died with ENOENT on
+   Windows. First existing candidate wins; CHROME_PATH overrides the lot. */
+const CHROME = process.env.CHROME_PATH || [
+  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  'C:/Program Files/Google/Chrome/Application/chrome.exe',
+  'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe',
+  process.env.LOCALAPPDATA + '/Google/Chrome/Application/chrome.exe',
+  '/usr/bin/google-chrome',
+  '/usr/bin/chromium',
+].find(p => p && existsSync(p));
+
+if (!CHROME) {
+  console.error('no Chrome found. Set CHROME_PATH, or use shoot.mjs (Playwright) instead.');
+  process.exit(1);
+}
 const PORT = 9300 + Math.floor(process.pid % 400);
 const chrome = spawn(CHROME, ['--headless=new', '--disable-gpu', '--no-first-run', '--hide-scrollbars',
-  `--remote-debugging-port=${PORT}`, `--user-data-dir=${out}/.prof`, 'about:blank'], { stdio: 'ignore' });
+  /* Absolute. Chrome on Windows silently refuses a relative --user-data-dir and
+     then never opens the debugging port, which surfaces here as the unhelpful
+     "chrome never came up" a few lines down. */
+  `--remote-debugging-port=${PORT}`, `--user-data-dir=${resolve(out, '.prof')}`, 'about:blank'], { stdio: 'ignore' });
 process.on('exit', () => chrome.kill());
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 

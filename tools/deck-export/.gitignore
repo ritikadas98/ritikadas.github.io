@@ -1,9 +1,8 @@
 node_modules/
+# Screenshot intermediates, one directory per deck or per width. These are
+# rebuilt by shoot.mjs whenever a deck changes, so none of them belongs in git.
+# Globbed rather than listed: the list missed out-crew/ the first time a new
+# deck was exported.
 out/
-out-reddit/
-out-savio/
-out-1512/
-out-1680/
-out-1366/
-out-1920/
+out-*/
 *.pdf

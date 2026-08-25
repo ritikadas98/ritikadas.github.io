@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../_deck/deck.css?v=3">
+<link rel="stylesheet" href="../../_deck/deck.css?v=4">
 <style>
 /* Reddit's palette, lifted from tools/og-card.py so the deck matches the card a
    reader already saw on the homepage. Reddit's own orange is #FF4500 and it is
@@ -31,8 +31,18 @@
    of a desktop thread, and a screenshot under a headline is a footnote, so the
    text is held to the left half and the thread is placed beside it. */
 .slide.grad .pill,.slide.grad h1,.slide.grad .lead,.slide.grad .clicks{max-width:53%}
-.threadshot{position:absolute;right:clamp(28px,4.4vw,76px);top:50%;
-  transform:translateY(-50%);width:min(40%,660px)}
+/* Sized from HEIGHT, the same rule the phone mocks follow. Sized from width, a
+   1672x1400 screenshot at 40% of a 16:9 slide comes out taller than the slide,
+   which is invisible on screen because the stage clips it and very visible on
+   paper, where nothing does. */
+/* Centred with top/bottom/margin rather than translateY(-50%). Chrome rasterises
+   a transformed subtree separately when printing, and the screenshot came out at
+   the wrong scale inside a correctly sized frame — white above it, thread running
+   off the page below. The shared print block already forces transform:none on
+   .slide for the same reason. This centres with no transform at all. */
+.threadshot{position:absolute;right:clamp(28px,4.4vw,76px);top:0;bottom:0;
+  height:fit-content;margin-top:auto;margin-bottom:auto;width:min(41%,660px)}
+.tsframe img{display:block;width:100%;height:auto}
 .tsframe{border-radius:10px;overflow:hidden;background:#fff;
   box-shadow:0 30px 70px -30px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.12)}
 .tschrome{display:block;height:clamp(14px,1.5vw,22px);background:#E8E3DC;
@@ -194,6 +204,14 @@ h2.wide{max-width:58ch}
   .tbl{gap:clamp(4px,.7vh,8px)}
   .trow{padding:clamp(9px,1vw,14px) clamp(12px,1.15vw,18px)}
 }
+
+/* ---- paper ----
+   On screen #stage hides anything that leaves a slide. In print that clipping
+   is gone, so a stray element does not just look wrong, it prints across the
+   page break onto the next slide. This puts the clipping back. */
+@media print{
+  .slide{overflow:hidden}
+}
 </style>
 </head>
 <body>
@@ -206,6 +224,6 @@ h2.wide{max-width:58ch}
   <button id="next" type="button" aria-label="Next slide">&rarr;</button>
 </nav>
 <script src="slides.js?v=1"></script>
-<script src="../../_deck/engine.js?v=4"></script>
+<script src="../../_deck/engine.js?v=5"></script>
 </body>
 </html>

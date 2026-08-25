@@ -39,3 +39,8 @@ result.txt
 
 # PowerPoint lock files, written while a deck is open
 ~$*
+
+# Source PNGs for the CREW deck portraits. The .jpg beside each is what the deck
+# loads and what ships inside crew.pdf / crew.pptx; these originals are ~1.9 MB
+# apiece and nothing references them. Kept on disk, out of the repo.
+work/crew/deck/images/*.png

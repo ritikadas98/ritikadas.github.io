@@ -235,6 +235,21 @@ body.on-dark #hint{color:#7D8A96}
   color:var(--muted);display:block;margin-bottom:8px}
 .pbit p{font-size:clamp(12px,1vw,14.2px);line-height:1.5;color:var(--ink2)}
 
+/* ---- two personas, as a contrast ----
+   Same card as .pcard, laid two-up. The slide it serves argues who the product
+   is worth paying for and who it is not, so the two cards are deliberately not
+   equal: .win takes the brand field, the other takes whatever muted field the
+   deck sets. A deck that uses this kind is expected to set that. */
+.ptwo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.5vw,26px);
+  max-height:100%;align-items:stretch;margin-top:clamp(10px,1.8vh,26px)}
+.pcard2{justify-content:flex-start}
+.pcard2 .pmeta{flex:1 1 auto;min-height:0}
+.pbits{list-style:none;margin:clamp(9px,1.3vh,15px) 0 0;padding:0;
+  display:flex;flex-wrap:wrap;gap:6px}
+.pbits li{font:500 10.5px/1.3 var(--mono);letter-spacing:.05em;text-transform:uppercase;
+  background:rgba(255,255,255,.14);border-radius:999px;padding:5px 10px}
+@media(max-width:880px){.ptwo{grid-template-columns:1fr}}
+
 /* ---- job statements ---- */
 .quotes{display:flex;flex-direction:column;gap:clamp(9px,1.5vh,16px);justify-content:center;max-height:100%}
 .quote{background:var(--card);border-radius:14px;border-left:4px solid var(--accent);
