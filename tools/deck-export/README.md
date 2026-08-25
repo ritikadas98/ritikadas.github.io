@@ -3,6 +3,27 @@
 The decks under `work/<project>/deck/` are HTML. There are three ways to get one
 out as a file, in order of how much you have to install.
 
+## The short version
+
+Both files in `assets/decks/` are made from the same photographs, so they cannot
+disagree with each other or with the web deck:
+
+```bash
+python -m http.server 8899 --bind 127.0.0.1   # from the repo root, another shell
+
+cd tools/deck-export
+node shoot-cdp.mjs "http://127.0.0.1:8899/work/reddit/deck/" ./out
+python build.py     ./out ../../assets/decks/reddit.pptx "Reddit — case study — Ritika Das"
+python build_pdf.py ./out ../../assets/decks/reddit.pdf
+```
+
+`shoot-cdp.mjs` is `shoot.mjs` driven through CDP against the system Chrome, so
+it needs no Playwright install; `build_pdf.py` needs Pillow, `build.py` needs
+Pillow and python-pptx. The .pptx is the one to upload to Google Drive: opened
+with Google Slides it becomes a deck that swipes properly on a phone.
+
+**Do not use browser printing for the shipped PDFs.** See the warning under §1.
+
 ## 1. A PDF, with nothing installed
 
 Open the deck in Chrome, press **Ctrl+P**, and choose **Save as PDF**.
@@ -22,6 +43,14 @@ of them is 16:9. A slide printed to A4 landscape is squarer than the web deck,
 so the content reflows to fit — readable, and correct, but not the same shape as
 a projector. For a true 16:9 PDF, use the script below.
 
+**The real limitation, found 25 Aug 2026:** printing does not just reflow, it can
+break. On the Reddit cover the thread screenshot is placed absolutely, and the
+print path drops it a third of a page, rasterises its shadow as a black block
+across the headline, and runs the image off the bottom edge. Both shipped PDFs
+had that cover for a day before anyone opened page one. Chrome print is fine for
+emailing a deck to one person — look at page one first — and wrong for anything
+the site links to. Those come from `build_pdf.py`.
+
 ## 1b. A PDF at a true 16:9
 
 ```bash
@@ -35,8 +64,11 @@ Needs `npm install` and `npx playwright install chromium` once, the same as the
 .pptx route below.
 
 The text stays real text: selectable, searchable, and about a tenth the weight
-of the .pptx, which is fourteen photographs. Prefer this for anything a person
-will read. Use the .pptx only when the file has to open in PowerPoint.
+of a PDF of photographs.
+
+**It shares the print path, so it shares the broken cover above.** That is the
+whole reason the shipped PDFs are built from the photographs instead. Use this
+one only after checking page one, and only when the text has to be selectable.
 
 ## 2. A .pptx
 
