@@ -208,6 +208,22 @@ const RENDER = {
        </div>`).join('') + `</div>
     </div>`) + foot(sl),
 
+  /* A real screenshot beside the panels that read it. `mock` draws a screen this
+     repo built; this one shows a screen somebody else shipped, which is what a
+     teardown has as evidence. `img` is a path, `alt` describes it, `cap` is the
+     line under the frame that says where it came from. */
+  shot: sl => head(sl) + body(`<div class="shot">
+      <figure class="shotframe r" ${d(3)}>
+        <img src="${esc(sl.img)}" alt="${esc(sl.alt || '')}" loading="lazy" decoding="async">
+      </figure>
+      <div class="shotside">` + sl.panels.map((p, i) =>
+      `<div class="mkpanel r ${p[2] ? 'hot' : ''}" ${d(i + 4)}>
+         <h3>${esc(p[0])}</h3><p>${mark(p[1])}</p>
+       </div>`).join('')
+      + (sl.cap ? `<p class="shotcap r" ${d(sl.panels.length + 4)}>${mark(sl.cap)}</p>` : '')
+      + `</div>
+    </div>`) + foot(sl),
+
   figure: sl => head(sl) + body(`<div class="fig r" ${d(3)}>${(typeof FIGS !== 'undefined' && FIGS[sl.svg]) || ''}</div>`) + foot(sl),
 
   journey: sl => head(sl) + body(`<div class="journey">` + sl.tracks.map(([name, steps], t) =>

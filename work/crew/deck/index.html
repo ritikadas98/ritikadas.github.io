@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CREW &mdash; deck</title>
+<meta name="description" content="Case study deck: CREW sells attention, and the only cost it did not inherit an answer to is the human minutes one trip consumes.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../../favicon.ico" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../_deck/deck.css?v=3">
+<style>
+/* CREW's palette, lifted from tools/og-card.py so the deck matches the card a
+   reader already saw on the homepage. CREW's red is the brand; the accent is a
+   burnt orange, chosen because it clears 4.2:1 on paper where a second red does
+   not. This block is the only thing that makes this deck look like this deck. */
+:root{
+  --brand:#A62B22; --f0:#C4392C; --f1:#A62B22; --f2:#7A1E18; --f3:#45120F;
+  --accent:#C2410C; --paper:#EDE8E1; --card:#FFF; --ink:#211E24; --ink2:#4A4550;
+  --muted:#8A8188; --line:rgba(33,30,36,.12);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Inter",system-ui,sans-serif; --mono:"IBM Plex Mono",monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+/* ---- accent that survives a coloured background ----
+   The burnt orange is chosen for paper, where it clears 4.2:1. On CREW's red it
+   is the same darkness as the field and a figure painted in it disappears, so
+   every surface that is not paper gets a lifted version instead: 4.6:1 on the
+   brand, 6.7:1 on the deep field. */
+:root{--lift:#FFC49B}
+.dark .hi,.grad .hi,.panel .hi,.row.hot .hi,.trow.win .hi,
+.mkpanel.hot .hi,.qc.win .hi,.jrow.now .hi{color:var(--lift)}
+.panel.was{background:#514B55}
+.panel.was .k{opacity:.9}
+/* Every place the shared shell paints the accent onto a filled surface. On a
+   navy or a sage those pairings work; on CREW's red the accent is the same
+   darkness as the ground and the text disappears — the winning quadrant chip,
+   the verdict on a highlighted table row, the badge on a highlighted step, the
+   good step in a journey, the persona's role. Each gets the lift instead, on a
+   near-black red so the pairing reads as deliberate rather than inverted. */
+.qc.win .qn b{background:var(--lift);color:#45120F}
+.qc.win .qk{color:#EEC9BA}
+.trow.win .tv{color:var(--lift)}
+.trow.win .td{color:#F0DAD2}
+.row.hot .n{background:var(--lift);color:#45120F}
+.row.hot span{color:#F0DAD2}
+.jrow.now .tstep.good{background:var(--lift);color:#45120F}
+.pcard .prole{color:var(--lift)}
+.dark .card h3,.grad .card h3,.dark .card .big,.grad .card .big{color:var(--lift)}
+/* A link on the closing slide sits on the deep field, where the accent fails the
+   same way. */
+.dark .lead a,.grad .lead a{color:var(--lift);border-bottom-color:rgba(255,196,155,.45)}
+.dark .lead a:hover,.grad .lead a:hover{border-bottom-color:var(--lift)}
+.dark h1 a,.grad h1 a{border-bottom-color:var(--lift)}
+.dark h1 a:hover,.grad h1 a:hover{color:var(--lift)}
+
+/* No photograph exists for this persona and inventing one would be a claim, so
+   the drawn fallback carries the card — and at the shared size it floats in a
+   card built for a photograph. */
+.pface{width:clamp(120px,15vw,232px);margin:auto auto auto 0}
+.pcard{padding:clamp(19px,1.9vw,30px) 0 0 clamp(19px,1.9vw,30px)}
+
+/* ---- cover art: who speaks first ----
+   Twelve exchanges, and in half of them CREW speaks before the customer does.
+   That is the product: not a better booking engine, but the message you did not
+   ask for. Every other deck's cover counts the thing its argument turns on, and
+   this is CREW's. Filled is CREW opening the exchange. */
+.firsts{margin-top:auto;padding-top:clamp(12px,2.4vh,26px);margin-bottom:clamp(26px,4.5vh,56px)}
+.fgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(6px,.85vw,16px);
+  max-width:100%}
+.fb{aspect-ratio:1/.72;border-radius:10px 10px 10px 3px;background:rgba(255,255,255,.16);
+  opacity:0;animation:dotin .5s var(--ease) both;animation-delay:var(--d)}
+.fb.first{background:var(--lift);
+  box-shadow:0 0 0 1.5px rgba(255,196,155,.3),0 0 16px 5px rgba(255,196,155,.34);
+  animation:dotin .5s var(--ease) both,glow 2.6s var(--ease) 1.6s infinite}
+@keyframes glow{0%,100%{box-shadow:0 0 0 1.5px rgba(255,196,155,.3),0 0 16px 5px rgba(255,196,155,.34)}
+  50%{box-shadow:0 0 0 2.5px rgba(255,196,155,.44),0 0 24px 8px rgba(255,196,155,.54)}}
+.fkey{display:flex;gap:clamp(12px,1.4vw,26px);margin-top:clamp(10px,1.6vh,18px);flex-wrap:wrap}
+.fkey span{font:500 10px/1.4 var(--mono);letter-spacing:.06em;color:#EEC9BA;
+  display:flex;align-items:center;gap:7px}
+.fkey i{width:9px;height:7px;border-radius:2px 2px 2px 1px;background:rgba(255,255,255,.16);display:block}
+.fkey span:nth-child(2) i{background:var(--lift)}
+.fkey span:nth-child(3){color:#C9A092}
+
+/* ---- filling a 16:9 slide, without overflowing a real one ----
+   The shared shell sizes every piece of type from viewport WIDTH. A deck opened
+   in a browser is short far more often than it is narrow — toolbars and a
+   taskbar take the height, not the width — so width-sized type overruns the
+   bottom of the frame. Everything below sizes from whichever axis is scarcer,
+   so a short window shrinks the type instead of spilling it. Proven on the
+   Reddit deck first. */
+.slide{padding:clamp(22px,min(4.4vw,5.4vh),76px)}
+h2{font-size:clamp(21px,min(3.1vw,5.4vh),41px)}
+h2.wide{max-width:58ch}
+.lead{font-size:clamp(12.5px,min(1.16vw,2.05vh),17px)}
+.card p,.row span,.step p,.panel p,.tcol li,.mkpanel p,.trow .td,.pbit p,.pcard p{
+  font-size:clamp(11.5px,min(1.06vw,1.86vh),15.5px)}
+.card h3,.row b,.tcol h3,.mkpanel h3,.trow b{
+  font-size:clamp(12px,min(1.1vw,1.94vh),16.5px)}
+.quote{font-size:clamp(12.5px,min(1.2vw,2.1vh),18px)}
+
+/* Nothing may spill out of the frame it was given. The source line sits against
+   the bottom edge, so the body reserves room for three lines of it. On a phone
+   the shared shell lets a long slide scroll, and this must not cancel that. */
+.body{min-height:0;overflow:hidden;padding-bottom:clamp(44px,9.5vh,96px)}
+@media(max-width:880px){ .body{overflow-y:auto} }
+.tbl,.rows,.two,.grid,.pj,.mock,.funnel,.bars,.split2{min-height:0}
+
+/* Solid-colour blocks take a stretch, because a tall coloured block reads as a
+   shape. A stretched white card only moves the empty space around inside it. */
+.split2{align-items:stretch}
+.panel{display:flex;flex-direction:column;justify-content:center}
+
+/* Three enormous numerals reading 01 02 03 is a school poster, not analysis. The
+   stage name carries the step and the index shrinks to a label. */
+.funnel .step .k{font-size:clamp(8.5px,min(.62vw,1.1vh),10.5px)}
+.funnel .step .big{font:700 clamp(15px,min(1.55vw,2.7vh),23px)/1.2 var(--display);
+  color:var(--brand);letter-spacing:-.012em;margin:clamp(6px,1vh,10px) 0 clamp(7px,1.2vh,12px)}
+.funnel .step{display:flex;flex-direction:column;justify-content:flex-start;
+  border-top:3px solid var(--accent)}
+
+/* Layouts that arrive without a top margin sit flush against the lead above them,
+   and on the persona slide the lead lands on the photograph. */
+.pj,.two,.tbl,.quotes,.journey{margin-top:clamp(10px,1.8vh,26px)}
+
+/* A square portrait in a tall card pushes the name and the blurb off the bottom.
+   Landscape, capped, so the card stays balanced at any height. */
+.pphoto{aspect-ratio:5/4;flex:0 1 auto;max-height:52%;object-position:50% 22%}
+.pmeta{padding:clamp(13px,1.5vw,24px)}
+@media(max-width:880px){.pphoto{aspect-ratio:3/2}}
+
+/* A caption is free to be wider than the phone it labels, and then it hangs off
+   both sides of it. Held to roughly the width of the device. */
+.mkphone figcaption,.mkphone .mkk{max-width:26ch;margin-left:auto;margin-right:auto}
+.mkpanel{padding:clamp(11px,1.3vw,19px) clamp(13px,1.4vw,21px)}
+
+/* ---- the screenshot beside its argument ----
+   CREW's own product cards are the evidence in this deck, and a screenshot under
+   a headline is a footnote. Held in a frame, at the size of the thing it proves. */
+/* The card is portrait and the slide is not, so the frame is sized from the
+   slide's HEIGHT and its width follows. Sizing from the column instead makes a
+   tall card grow to twice the room there is, which is the same trap the phone
+   mocks fell into. */
+.shot{display:grid;grid-template-columns:auto minmax(0,1.5fr);
+  gap:clamp(14px,1.8vw,34px);max-height:100%;min-height:0;align-items:center;
+  margin-top:clamp(12px,2vh,24px);justify-content:center}
+.shotframe{border-radius:12px;overflow:hidden;background:#fff;min-width:0;flex:0 0 auto;
+  height:clamp(190px,52vh,560px);display:flex;
+  box-shadow:0 26px 60px -30px rgba(69,18,15,.55),0 0 0 1px rgba(33,30,36,.10)}
+.shotframe img{display:block;height:100%;width:auto;max-width:100%;object-fit:contain}
+.grad .shotframe,.dark .shotframe{box-shadow:0 30px 70px -30px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.12)}
+.shotside{display:flex;flex-direction:column;gap:clamp(7px,1.2vh,13px);justify-content:center;min-width:0}
+.shotcap{font:400 clamp(10.5px,min(.92vw,1.6vh),12.5px)/1.5 var(--body);color:var(--muted)}
+.grad .shotcap,.dark .shotcap{color:#C9A092}
+@media(max-width:880px){.shot{grid-template-columns:1fr;max-height:none;justify-items:center}
+  .shotframe{height:auto;max-height:46vh;max-width:100%}
+  .shotframe img{height:auto;width:100%;max-height:46vh;object-fit:contain}}
+
+/* ---- diagram figure ---- */
+.fig .fbox{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+.fig .fbrand{fill:var(--brand)}
+.fig .flab{font:500 13px var(--mono);letter-spacing:.14em;fill:var(--muted)}
+.fig .fname{font:700 22px var(--display);fill:var(--brand)}
+.fig .fcap{font:400 15px var(--body);fill:var(--ink2)}
+.fig .fout{font:700 19px var(--display);fill:#fff}
+.fig .fnum{font:500 17px var(--mono);fill:var(--brand)}
+.fig .fwarn{font:500 12px var(--mono);letter-spacing:.08em;fill:var(--muted)}
+.fig .fline{stroke:var(--f0);stroke-width:2.4;fill:none;stroke-linecap:round}
+.fig .fdash{stroke:var(--muted);stroke-width:2;stroke-dasharray:7 7;fill:none;opacity:.55}
+.fig .facc{fill:var(--accent)}
+.fig .fx{stroke:var(--muted);stroke-width:2.4;stroke-linecap:round}
+.fig{min-height:0}
+/* The shared rule sets the diagram from width and lets height follow, which on a
+   wide short window makes it taller than the slide. Whichever axis runs out
+   first wins instead. */
+.fig svg{width:auto;height:auto;max-width:100%;max-height:100%}
+
+/* A laptop browser is often under 900px tall once the chrome and the taskbar have
+   taken their share. Tables and panel stacks fit that only if the padding and the
+   leading come down with them. */
+@media(max-height:900px){
+  .mkpanel,.shotside .mkpanel{padding:clamp(8px,1vw,14px) clamp(10px,1.15vw,16px)}
+  .mkpanel p{line-height:1.42}
+  .mkside,.shotside{gap:clamp(5px,.85vh,9px)}
+  .tbl{gap:clamp(4px,.7vh,8px)}
+  .trow{padding:clamp(9px,1vw,14px) clamp(12px,1.15vw,18px)}
+}
+/* Twelve bubbles across a 358px frame are 24px wide, which is enough; below that
+   they lose the shape that makes them read as messages. */
+@media(max-width:520px){.fgrid{grid-template-columns:repeat(6,1fr)}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="stage"></div>
+<div id="hint">&larr; &rarr; to move</div>
+<nav id="nav">
+  <button id="prev" type="button" aria-label="Previous slide">&larr;</button>
+  <span id="count">1 / 1</span>
+  <button id="next" type="button" aria-label="Next slide">&rarr;</button>
+</nav>
+<script src="slides.js?v=1"></script>
+<script src="../../_deck/engine.js?v=4"></script>
+</body>
+</html>
