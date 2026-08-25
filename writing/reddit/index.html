@@ -59,6 +59,11 @@
   "image": "https://ritikadas.in/assets/og/reddit-og.jpg?v=3"
 }
 </script>
+<style>
+/* Three summary cells, as on the CREW piece. The shared rule is two columns. */
+.art-summary-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:760px){.art-summary-3{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <a class="skip-link" href="#article">Skip to content</a>
@@ -113,17 +118,13 @@
         <div class="browser"><img src="images/reddit-hero.jpg" alt="The r/NoStupidQuestions thread asking whether people append the word reddit to Google searches, showing 48,000 upvotes and 2,400 comments, with replies describing the habit." width="1672" height="1400" decoding="async" /></div>
         <figcaption>48,000 upvotes, unprompted: people describing the habit of reaching Reddit through Google because its own search is worse. The habit still works. The click it depends on is what is going away.</figcaption>
       </figure>
-      <div class="art-meta">
-        <div class="am-cell"><div class="am-k">Type</div><div class="am-v">Product improvement</div></div>
-        <div class="am-cell"><div class="am-k">Method</div><div class="am-v">Public filings, published research, live threads</div></div>
-      </div>
-      <!-- The four-part summary the Product Thinking card used to carry. It replaces
-           the draft's separate TL;DR, which said the same thing in a looser shape. -->
-      <div class="art-summary">
-        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">Reddit&rsquo;s logged-out audience grew 27% last quarter, to 77.7 million a day. Its logged-in audience grew 7%, to 52.6 million. Reddit earns from the second and is increasingly made of the first.</div></div>
-        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Promote the composer fix ahead of the arrival fix. Arrivals are shrinking for reasons Reddit does not control. The posts are the asset that survives the channel, and the one Reddit licenses.</div></div>
-        <div class="as-cell"><div class="as-k">Evidence</div><div class="as-v">Reddit&rsquo;s own Q2 2026 filings and earnings call. Zero-click search data from SparkToro and Similarweb. An Ahrefs study of 1.4 million ChatGPT prompts. A Georgia Tech study of post removals. Five interviews and a fifteen-person survey.</div></div>
-        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">Three fixes, sequenced cheapest first, measured against holdout subreddits rather than a year-on-year baseline. And one problem named and deliberately left unsolved.</div></div>
+      <!-- Three cells, one sentence each, matching the CREW piece. Type and Method
+           came out: the badge already says it is a case study, and "Method, Briefly"
+           below carries the sourcing properly. Evidence came out for the same reason. -->
+      <div class="art-summary art-summary-3">
+        <div class="as-cell"><div class="as-k">Problem</div><div class="as-v">Reddit&rsquo;s logged-out audience is growing four times faster than the logged-in one it earns from.</div></div>
+        <div class="as-cell"><div class="as-k">Decision</div><div class="as-v">Fix the post before the arrival, because posts survive a channel Reddit does not control.</div></div>
+        <div class="as-cell"><div class="as-k">Outcome</div><div class="as-v">Three fixes, cheapest first, and one problem named and deliberately left unsolved.</div></div>
       </div>
     </div>
   </header>
