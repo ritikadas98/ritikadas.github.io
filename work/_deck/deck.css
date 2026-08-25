@@ -162,6 +162,25 @@ body.on-dark #hint{color:#7D8A96}
   .bar{grid-template-columns:minmax(84px,116px) 1fr 42px}
   h2{max-width:none}
 }
+/* A phone gives a slide about 650px of height. A slide with four cards needs
+   more than that. Every layout below sets max-height:100% so it fits the box,
+   and inside a box that small the result is a card cut off mid-sentence, with
+   the next one printed over it. So below the phone break a slide scrolls
+   instead of clipping. Content starts at the top rather than centred, because
+   a centred block that overflows loses its first line as well as its last, and
+   the bottom padding clears the fixed arrows. Nothing is dropped and no type
+   shrinks. The swipe still works: it fires on horizontal movement only. */
+@media(max-width:880px){
+  .slide{overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;
+    -webkit-overflow-scrolling:touch;padding-bottom:88px}
+  .slide.mid{justify-content:flex-start}
+  .body{flex:0 0 auto;justify-content:flex-start;min-height:0;padding-bottom:0}
+  .grid{align-content:start}
+  .rows,.bars,.two,.quotes,.journey,.tbl,.fig,.fig svg,.funnel.vert,.mkside{max-height:none}
+  .rows .row{max-height:none}
+  .dotwrap{margin-bottom:clamp(16px,3vh,28px)}
+}
+
 @media(prefers-reduced-motion:reduce){
   .slide,.card,.row,.step,.panel,.bar .fill,#bar{transition:none!important;animation:none!important}
   .r{opacity:1}

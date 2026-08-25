@@ -321,13 +321,20 @@ stage.addEventListener('click', e => {
   if (x > 0.66) go(at + 1); else if (x < 0.34) go(at - 1);
 });
 
-let x0 = null;
-stage.addEventListener('touchstart', e => { x0 = e.changedTouches[0].clientX; }, { passive: true });
+/* A slide scrolls on a phone now, so a drag can mean either thing. Compare the
+   two distances: the move counts as a swipe only if it travelled further across
+   than down. Otherwise the reader was scrolling and the slide should stay. */
+let x0 = null, y0 = null;
+stage.addEventListener('touchstart', e => {
+  x0 = e.changedTouches[0].clientX;
+  y0 = e.changedTouches[0].clientY;
+}, { passive: true });
 stage.addEventListener('touchend', e => {
   if (x0 === null) return;
   const dx = e.changedTouches[0].clientX - x0;
-  if (Math.abs(dx) > 48) go(at + (dx < 0 ? 1 : -1));
-  x0 = null;
+  const dy = e.changedTouches[0].clientY - y0;
+  if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy)) go(at + (dx < 0 ? 1 : -1));
+  x0 = y0 = null;
 }, { passive: true });
 
 show(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1), false);
