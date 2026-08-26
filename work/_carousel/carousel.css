@@ -1,0 +1,177 @@
+/* The LinkedIn carousel, shared by every case study under
+   /work/<project>/carousel/.
+
+   This file is an override layer. A carousel page links ../../_deck/deck.css
+   first and then this, so every layout the deck engine can draw already works
+   and only the page shape and the type scale change here. Nothing below knows
+   which project it is drawing; the palette still comes from the page's own
+   :root block, copied from its deck.
+
+   ---- why this exists ----
+
+   LinkedIn resamples every document it is given to a fixed 1080px width. A 16:9
+   slide therefore arrives as 1080x608 and occupies about a quarter of a phone
+   screen, so the reader has to pinch to read it. A 4:5 page arrives as
+   1080x1350 — 2.2x the pixel area — and fills the screen.
+
+   The deck sizes its type from viewport width and caps it for a 1600px frame.
+   Served at 1080px those caps shrink: body text set at 14.5px arrives at 9.8px
+   and the source line at 7.8px. This page is designed at 1080 and served at
+   1080, so there is no downscale at all and 28px stays 28px.
+
+   The deck is not the enemy here. 16:9 is right for the article embed and for
+   full-screen reading. This is a second shape for a second place. */
+
+/* ---- the page ----
+   Fixed pixels, not viewport units. The whole point is that one slide is
+   exactly one 1080x1350 page, on screen and on paper, so what is checked in a
+   browser is what LinkedIn is handed. */
+:root{--cw:1080px;--ch:1350px;--pad:68px}
+html,body{height:auto;background:#57534E}
+#stage{width:var(--cw);height:var(--ch);margin:0 auto;overflow:hidden}
+.slide{padding:var(--pad) var(--pad) 104px}
+
+/* ---- type ----
+   Flat pixel values, because the frame never changes size. Roughly double the
+   deck, which is what it takes to read a slide at arm's length on a phone. */
+.pill{font-size:17px;letter-spacing:.1em;padding:13px 24px;margin-bottom:30px}
+h1{font-size:80px;line-height:1.04}
+h2{font-size:58px;line-height:1.1;max-width:17ch}
+h2.wide{max-width:20ch}
+.big-say{font-size:64px;line-height:1.08;max-width:16ch}
+.lead{font-size:32px;line-height:1.45;max-width:34ch;margin-top:22px}
+
+/* The source line carries the evidence, and the portfolio goes to named hiring
+   managers, so it may shrink but it may never stop being readable. The deck's
+   right margin was reserved for the arrow buttons, which do not print. */
+.src{left:var(--pad);bottom:44px;font-size:18px;line-height:1.42;
+  max-width:calc(100% - var(--pad) * 2)}
+
+/* ---- one column ----
+   Every multi-column layout collapses. The deck already does this below 880px,
+   but the carousel is 1080 wide and would otherwise keep the desktop columns.
+   Two columns of 470px at 28px type is about sixteen characters a line, which
+   is not reading, it is hyphenation. */
+.g2,.g3,.g4,.split2,.two,.pj,.persona,.wk,.ptwo,.pgrid,.quadwrap{
+  grid-template-columns:1fr}
+.row .t{grid-template-columns:1fr;gap:6px}
+.funnel{flex-wrap:wrap} .funnel .step{flex:1 1 100%}
+.step::after{display:none}
+.bar{grid-template-columns:minmax(150px,230px) 1fr 116px}
+
+/* ---- the ceilings come off ----
+   Each layout caps itself at the height of the body so a landscape slide never
+   overflows. In a tall frame that cap squeezes everything into the top half and
+   leaves the bottom empty, which is exactly how the first portrait test failed.
+   The page is tall enough to hold the content at its natural size. */
+.rows,.bars,.two,.quotes,.journey,.tbl,.fig,.fig svg,.funnel,.funnel.vert,
+.mkside,.grid,.pj,.wk,.persona,.split2,.quadwrap{max-height:none}
+.rows .row{max-height:none}
+.grid{align-content:stretch}
+
+/* ---- the pieces inside a layout ---- */
+.row{padding:26px 30px;gap:20px;border-radius:16px}
+.row b{font-size:30px;line-height:1.24}
+.row span{font-size:28px;line-height:1.42}
+.row .n{width:46px;height:46px;font-size:16px}
+.rows{gap:18px}
+
+.card{padding:34px;border-radius:18px}
+.card h3{font-size:32px;margin-bottom:16px;padding-top:18px;border-top-width:4px}
+.card p{font-size:28px;line-height:1.46}
+.card .k{font-size:16px;margin-bottom:14px}
+.card .big{font-size:66px;margin-bottom:12px}
+.grid{gap:18px;margin-top:26px}
+
+/* The value column was 46px, sized for "45%". At 24px type "68.01%" needs more
+   than twice that and was losing its last character off the right edge. */
+/* The label names what the bars measure, so it belongs against them. Left to
+   flex like everything else in the body it took an equal share of the height
+   and floated halfway up the page on its own. */
+.barlab{font-size:19px;letter-spacing:.07em;margin-bottom:0}
+/* The label names what the bars measure, so the two travel together. Left to
+   grow, the bar block took the whole remaining height and centred its bars
+   inside it, which stranded the label alone at the top of the page. Both are
+   pinned to their own height and the pair is centred as one thing. */
+.body>.barlab,.body>.bars{flex:0 0 auto}
+.body:has(.barlab){justify-content:center}
+.bars{gap:34px;margin-top:20px}
+.bar{font-size:26px;gap:22px}
+.bar .track{height:44px;border-radius:10px}
+.bar .v{font-size:24px}
+
+.step{padding:32px;border-radius:18px}
+.step p{font-size:28px;line-height:1.42}
+
+/* ---- filling the page ----
+   A layout that is shorter than the frame sat centred with a band of empty
+   paper above and below it. In a feed that reads as a slide that ran out of
+   things to say. The content block grows into the space instead. */
+.body{justify-content:flex-start;padding-bottom:0}
+.rows,.grid,.split2,.two,.quotes,.tbl,.funnel{justify-content:space-evenly}
+
+/* The small uppercase labels are 10px in the deck. They are a hair under
+   legible at that size even on a laptop, and on a phone feed they are a grey
+   smudge, so every one of them roughly doubles. */
+.card .k,.step .k,.panel .k,.pbit .k,.funnel.vert .k{font-size:18px;letter-spacing:.09em}
+.panel{padding:34px;border-radius:18px}
+.panel .big{font-size:68px;margin:16px 0 14px}
+.panel p{font-size:28px;line-height:1.44}
+.panel .ico{width:38px;height:38px}
+.step .big{font-size:76px}
+.funnel.vert .big{font-size:58px}
+
+.tcol{padding:32px;border-radius:18px}
+.tcol li{font-size:28px;line-height:1.4;padding-left:36px;margin-bottom:16px}
+.tcol li::before{font-size:24px}
+
+.quotes{gap:20px}
+.quotes blockquote,.quote{font-size:32px;line-height:1.4;padding:32px}
+
+/* ---- the persona card, cropped so the photograph is never stretched ----
+   The deck stands the card up: photograph across the top, name and blurb under
+   it. In one 944px-wide column that makes the photo 944px wide, and every
+   persona file on disk is 800x800 — an 18% upscale on the one slide whose whole
+   job is to show a face. So the card lies down instead. The photo takes a
+   340px square and the text sits beside it, which is a downscale from 800 and
+   therefore sharp. The card is cropped, not the picture.
+
+   `aspect-ratio:1` and `object-fit:cover` already handle the crop; only the
+   column width changes. */
+.pcard,.pcard2{border-radius:18px;display:grid;grid-template-columns:340px 1fr;
+  align-items:stretch;overflow:hidden}
+.pphoto{width:340px;height:100%;aspect-ratio:auto;flex:0 0 auto;align-self:stretch}
+.pface{width:200px;margin:auto}
+.pmeta{padding:34px;justify-content:center}
+/* The source line is absolutely positioned against the slide, so the content
+   above it has to stop short or the two touch. */
+.body{padding-bottom:42px}
+/* The role sits in var(--accent), which is chosen to clear on paper. The card
+   behind it is the brand, where the accent is the same lightness as the ground
+   and the label all but vanished. Every deck already defines --lift for exactly
+   this, a version of the accent raised until it reads on a coloured field. */
+.pcard .prole{font-size:18px;letter-spacing:.09em;color:var(--lift,#fff);
+  margin-bottom:10px;display:block}
+.pname{font-size:40px;line-height:1.12}
+.pmeta p{font-size:26px;line-height:1.4}
+.quote{font-size:28px;line-height:1.42;padding:28px}
+.qc{padding:28px}
+
+/* ---- paper ----
+   Chrome is told the page size twice, here and by the print script, because
+   `size:landscape` in deck.css is the wrong instruction for a portrait sheet
+   and Chrome will otherwise lay out for one size and paginate onto another.
+
+   The clipping matters as much. A page break is a hard edge and nothing may
+   cross it: with overflow visible, a layout a shade too tall prints its tail
+   across the top of the next slide. */
+@media print{
+  @page{size:1080px 1350px;margin:0}
+  html,body{background:var(--paper)}
+  /* On screen the stage is one 1350px window with the slides stacked inside it.
+     On paper they unstack, one per page, so the stage has to give up both its
+     height and its clipping or everything after slide one is cut away. */
+  #stage{width:1080px;height:auto;overflow:visible;margin:0}
+  .slide{width:1080px;height:1350px;overflow:hidden!important}
+  .body{overflow:hidden!important;min-height:0}
+}

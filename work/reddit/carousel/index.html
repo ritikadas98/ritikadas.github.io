@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Reddit &mdash; carousel (16:9)</title>
+<meta name="description" content="LinkedIn carousel: Reddit is read without being visited, and the visit is what Reddit sells.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../../favicon.ico" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=Inter:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<!-- deck.css carries every layout the engine can draw. carousel.css changes the
+     page shape and the type scale and nothing else, so it must load second. -->
+<link rel="stylesheet" href="../../_deck/deck.css?v=5">
+<link rel="stylesheet" href="../../_carousel/carousel-wide.css?v=1">
+<style>
+/* Reddit's palette, copied verbatim from ../deck/index.html so the carousel and
+   the deck cannot drift apart in colour. Reddit's own orange is #FF4500 and it
+   is too bright to set body headings in, so it becomes the accent and the
+   deeper burnt red of the same field becomes the brand. */
+:root{
+  --brand:#A83204; --f0:#E85D2A; --f1:#E8430A; --f2:#5C1A02; --f3:#2E0C01;
+  --accent:#FF4500; --paper:#EDE8E1; --card:#FFF; --ink:#211E24; --ink2:#4A4550;
+  --muted:#8A8188; --line:rgba(33,30,36,.12);
+  --display:"Bricolage Grotesque",system-ui,sans-serif;
+  --body:"Inter",system-ui,sans-serif; --mono:"IBM Plex Mono",monospace;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+/* The accent is chosen for paper. On the burnt-red field it is the same
+   lightness as the ground and a figure painted in it disappears, so every
+   surface that is not paper gets a lifted version instead. */
+:root{--lift:#FF9A6B}
+.dark .hi,.grad .hi,.panel .hi,.row.hot .hi{color:var(--lift)}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<div id="stage"></div>
+<div id="hint">&larr; &rarr; to move</div>
+<nav id="nav">
+  <button id="prev" type="button" aria-label="Previous slide">&larr;</button>
+  <span id="count">1 / 1</span>
+  <button id="next" type="button" aria-label="Next slide">&rarr;</button>
+</nav>
+<script src="slides.js?v=1"></script>
+<script src="../../_deck/engine.js?v=6"></script>
+</body>
+</html>

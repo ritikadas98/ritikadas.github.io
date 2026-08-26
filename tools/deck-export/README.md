@@ -104,6 +104,54 @@ doc = pdfium.PdfDocument('../../assets/decks/reddit.pdf')
 doc[0].render(scale=1.2).to_pil().save('p1.png')
 ```
 
+## 1c. A LinkedIn carousel
+
+A deck and a carousel are not the same artefact. LinkedIn rasterises every
+document it is given at **1080 pixels wide**. A 16:9 slide therefore arrives as
+1080x608, which is a strip about a quarter of a phone screen tall, and its body
+text — set at 14.5px for a 1600px frame — arrives at 9.8px. A 4:5 page arrives
+as 1080x1350, which is 2.2x the area and fills the screen.
+
+So each project gets a second, portrait shell under `work/<project>/carousel/`.
+It links `_deck/deck.css` first and `_carousel/carousel.css` second, which means
+every layout the deck engine can already draw works unchanged and only the page
+shape and the type scale differ. The palette is copied from the deck's own
+`:root` block so the two cannot drift apart in colour.
+
+```bash
+python -m http.server 8899 --bind 127.0.0.1   # from the repo root, another shell
+
+cd tools/deck-export
+node tocarousel.mjs "http://127.0.0.1:8899/work/reddit/carousel/" ../../assets/carousels/reddit.pdf
+```
+
+That writes **two** files: `reddit.pdf` at 1080x1350 and `reddit@2x.pdf` at
+2160x2700. Pass `1x` or `2x` as a third argument for only one.
+
+**Upload the 1x.** It matches what LinkedIn serves exactly, 1:1, so nothing is
+resampled at any point. The 2x has to be halved to reach 1080, which softens it
+slightly. Keep the 2x for printing, or for any tool that rasterises a PDF at its
+nominal page size.
+
+**2x does not make the text sharper, and cannot.** The text is vector — outlines
+have no resolution — which is why the two files come out within 0.01 MB of each
+other. It does not improve the photographs either: Chrome embeds an image at its
+**natural** resolution, not at the size the layout draws it. The Reddit thread
+screenshot is 1672x1400 on disk and 1672x1400 inside a 1080-wide PDF. The only
+lever on picture quality is the source file.
+
+**Which is why the persona card lies down in a carousel.** Every persona file is
+800x800. Standing up in a single 944px-wide column the photo would be stretched
+18%, on the one slide whose whole job is to show a face. `carousel.css` puts it
+in a 340px band with the text beside it, which is a downscale. Crop the card,
+never the picture.
+
+**`scale` in `page.pdf()` is the wrong tool for the 2x.** It leaves the layout at
+1080 and paints it onto the larger sheet, so the slide sits at 1x in the middle
+of a 2x page with its right edge cut off. `tocarousel.mjs` uses CSS `zoom`
+instead, which multiplies every length before layout: the same design, computed
+at 2160, nothing reflowed.
+
 ## 2. A .pptx
 
 Two steps: photograph every slide, then pack the images into a PowerPoint file.
