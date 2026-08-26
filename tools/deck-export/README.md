@@ -5,22 +5,37 @@ out as a file, in order of how much you have to install.
 
 ## The short version
 
-Both files in `assets/decks/` are made from the same photographs, so they cannot
-disagree with each other or with the web deck:
+The two files in `assets/decks/` are made two different ways, because they are
+for two different things.
+
+**The PDF is printed, not photographed.** Its text is real text — selectable,
+searchable, and sharp at any size. This is the one to attach to a LinkedIn post
+or send to anybody who will read it.
 
 ```bash
 python -m http.server 8899 --bind 127.0.0.1   # from the repo root, another shell
 
 cd tools/deck-export
+node topdf.mjs "http://127.0.0.1:8899/work/reddit/deck/" ../../assets/decks/reddit.pdf
+```
+
+**The .pptx is photographed**, because PowerPoint cannot draw these slides. It
+is the one to upload to Google Drive: opened with Google Slides it becomes a
+deck that swipes properly on a phone.
+
+```bash
 node shoot-cdp.mjs "http://127.0.0.1:8899/work/reddit/deck/" ./out
-python build.py     ./out ../../assets/decks/reddit.pptx "Reddit — case study — Ritika Das"
-python build_pdf.py ./out ../../assets/decks/reddit.pdf
+python build.py ./out ../../assets/decks/reddit.pptx "Reddit — case study — Ritika Das"
 ```
 
 `shoot-cdp.mjs` is `shoot.mjs` driven through CDP against the system Chrome, so
-it needs no Playwright install; `build_pdf.py` needs Pillow, `build.py` needs
-Pillow and python-pptx. The .pptx is the one to upload to Google Drive: opened
-with Google Slides it becomes a deck that swipes properly on a phone.
+it needs no Playwright install; `build.py` needs Pillow and python-pptx.
+`topdf.mjs` needs Playwright.
+
+**`build_pdf.py` is kept but no longer ships anything.** It packs the same
+photographs into a PDF. Every page is one JPEG, so the file carries no fonts and
+not one real letter — text compressed as if it were a photograph, which puts a
+grey haze on every edge. That is what shipped until 26 Aug 2026. Use `topdf.mjs`.
 
 **Do not use browser printing for the shipped PDFs.** See the warning under §1.
 
@@ -72,9 +87,22 @@ across the page break onto the next slide.
 The text stays real text: selectable, searchable, and about a tenth the weight
 of a PDF of photographs.
 
-**It shares the print path, so it shares the broken cover above.** That is the
-whole reason the shipped PDFs are built from the photographs instead. Use this
-one only after checking page one, and only when the text has to be selectable.
+**The print path used to break the Reddit cover, and it no longer does.** Two
+fixes, both in `work/_deck/deck.css`: the cover screenshot is centred with
+margins rather than a transform, because Chrome rasterises a transformed subtree
+separately when printing; and the print block clips each slide, because
+`overflow:visible` let a layout a shade too tall spill its tail onto the next
+slide. The Amazon persona card printed its last two lines across the top of the
+slide after it until 26 Aug 2026.
+
+**Still look at the pages after a rebuild.** `pypdfium2` renders them without
+opening a viewer:
+
+```python
+import pypdfium2 as pdfium
+doc = pdfium.PdfDocument('../../assets/decks/reddit.pdf')
+doc[0].render(scale=1.2).to_pil().save('p1.png')
+```
 
 ## 2. A .pptx
 

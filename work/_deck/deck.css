@@ -555,6 +555,11 @@ body.on-dark #hint{color:#7D8A96}
   .r{opacity:1!important;animation:none!important}
   .dot,.day{opacity:1!important;animation:none!important}
   .bar .fill{width:var(--w)!important;transition:none!important}
-  .body{overflow:visible!important}
+  /* A page break is a hard edge, and nothing may cross it. `overflow:visible`
+     here let a layout that is a shade too tall spill its tail onto the next
+     slide — the Amazon persona card printed its last two lines across the top
+     of the slide after it. The slide clips on screen, so it clips on paper. */
+  .slide{overflow:hidden!important;max-height:100vh}
+  .body{overflow:hidden!important;min-height:0}
   .fig .fline{animation:none!important}
 }
