@@ -1279,21 +1279,43 @@ figcaption{font-size:13px;line-height:1.55;color:var(--muted);margin-top:11px}
    A frame can fail in ways this page cannot detect — move the deck and the box
    goes blank with no error. Hence the plain link underneath, which always works.
    Never remove it. */
+/* aspect-ratio, not the padding-bottom trick. A percentage padding resolves
+   against the CONTAINING BLOCK's width, not the element's own, so once the deck
+   inside an article stepped out to 1124px its height was still being computed
+   from the 858px reading column and the box came out 160px too short. */
 .deck{margin:34px 0 0;border-radius:12px;overflow:hidden;border:1px solid var(--hairline-strong);
-  background:var(--surface);position:relative;padding-bottom:61.8%;height:0}
+  background:var(--surface);position:relative;aspect-ratio:1000/618}
 .deck iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 /* A deck of my own adapts to the box it is given, so on a phone it should be
    given a portrait one. At 16:10 a 390px screen leaves the deck 240px of height,
    which is not enough for a title. */
-@media(max-width:640px){ .deck.deck-app{padding-bottom:168%} }
+@media(max-width:640px){ .deck.deck-app{aspect-ratio:100/168} }
+/* An embedded deck sat in whichever column its page happened to give it. On a
+   project page that is .art-wrap, 1124px of content. Inside an article it is
+   .art-body, a 80ch reading column, which is 858px — so the same deck came out
+   a quarter smaller on the two article pages than on the two project pages,
+   for no reason a reader could see. The deck is a figure, not a paragraph, so
+   it steps out of the reading column and takes the page width both places.
+   Centred by margin rather than a transform, because the frame inside it is
+   already using one. */
+.art-body .deck{width:min(1124px,calc(100vw - 56px));
+  margin-left:calc(50% - min(1124px,calc(100vw - 56px)) / 2)}
+
 /* Above the phone break the box is landscape but only ~430px tall, and the deck
    lays itself out for the phone inside it: covers clip, sources land under the
-   arrows, bar values lose their last digit. So the frame is rendered at 160% of
+   arrows, bar values lose their last digit. So the frame is rendered wider than
    the box — a laptop-sized viewport, which gets the laptop layout — and scaled
-   back by 1/1.6. The embed becomes a true miniature of the deck the link under
-   it opens full screen. */
+   back down. The embed becomes a true miniature of the deck the link under it
+   opens full screen.
+
+   The ratio was 160%, chosen against the narrow article column. In the wider
+   box that rendered the deck at ~1800px, where every type size in deck.css has
+   already hit the top of its clamp — 42px headings, 17.5px body — so the type
+   could not grow with the panel and the slide read as small print in a large
+   frame. 114% renders at about 1280px instead, just under those ceilings, and
+   the headings come out around a third larger on screen. */
 @media(min-width:641px){
-  .deck.deck-app iframe{width:160%;height:160%;transform:scale(.625);transform-origin:0 0}
+  .deck.deck-app iframe{width:114%;height:114%;transform:scale(.877);transform-origin:0 0}
 }
 .deck-note{margin:14px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
   text-transform:uppercase;color:var(--muted)}

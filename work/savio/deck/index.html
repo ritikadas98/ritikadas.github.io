@@ -29,8 +29,51 @@
    Twenty-seven of them Savio says nothing. It speaks on payday, when a windfall
    lands, and a few days after a purchase. The gap in the middle is the checkout,
    which every other budgeting app aims at and this one skips on purpose. */
-.month{margin-top:auto;padding-top:clamp(12px,2.4vh,26px);margin-bottom:clamp(34px,6vh,70px)}
-.days{display:grid;grid-template-columns:repeat(30,1fr);gap:clamp(4px,.5vw,8px)}
+/* ---- the cover: text on the left, the month beside it ----
+   Stacked, the cover put its text at the top and its art at the bottom with a
+   dead band between them and the whole right half empty. The other covers in
+   the set are two-column — Reddit sets its thread screenshot beside the title
+   — so this one is too.
+
+   Centred with top/bottom/margin rather than translateY(-50%). Chrome
+   rasterises a transformed subtree separately when printing, which puts the
+   art at the wrong scale inside a correctly sized frame. The shared print
+   block already forces transform:none on .slide for the same reason. */
+.slide.grad .pill,.slide.grad h1,.slide.grad .lead,.verdict{max-width:min(52%,470px)}
+
+/* ---- the verdict card ----
+   The sentence the product exists to produce, with the rupee figure it turns
+   on. Directly under the lead, so the left column is one block — title, claim,
+   the number — against the month on the right. Pushed to the foot instead it
+   left a dead band across the middle of the slide. */
+.verdict{margin-top:clamp(20px,3.4vh,38px);
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
+  border-radius:14px;padding:clamp(15px,1.5vw,22px) clamp(17px,1.7vw,26px)}
+.verdict .vk{font:500 10px/1 var(--mono);letter-spacing:.11em;text-transform:uppercase;
+  color:#9DBBB0;display:block;margin-bottom:clamp(9px,1.3vh,14px)}
+.vline{font:700 clamp(19px,2vw,30px)/1.2 var(--display);letter-spacing:-.018em;color:#fff}
+/* Tabular figures so the amount does not wobble against the rest of the type. */
+.vline b{color:var(--accent);font-weight:800;font-variant-numeric:tabular-nums}
+.vsub{font:400 clamp(11px,.95vw,13.5px)/1.45 var(--body);color:#9DBBB0;
+  margin-top:clamp(6px,.9vh,10px)}
+.vsub span{color:#C9D9D2;font-variant-numeric:tabular-nums}
+/* Centred in the right column, opposite the text column, so the cover reads as
+   two columns rather than as blocks scattered around an empty middle.
+   Centred with top/bottom/margin rather than translateY(-50%): Chrome
+   rasterises a transformed subtree separately when printing, which puts the
+   art at the wrong scale inside a correctly sized frame. */
+.month{position:absolute;right:clamp(28px,4.4vw,76px);top:0;bottom:0;
+  height:fit-content;margin-top:auto;margin-bottom:auto;width:min(36%,400px)}
+/* Thirty days laid out as one row of thirty made each square about a fortieth
+   of the slide, so the art was a hairline across the bottom and the cover was
+   mostly empty field. Ten across is a calendar rather than a timeline — still
+   one month, still thirty days, and it reads as a month faster. The width is
+   capped so the squares stay squares and do not become panels. */
+/* Six across, five down. Ten across made a wide, shallow band that left the
+   right-hand column mostly empty field; six makes a block roughly as tall as
+   the text column beside it, which is what closes the hole in the middle of
+   the cover. Still thirty days, still one month. */
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(5px,.6vw,10px)}
 .day{aspect-ratio:1;border-radius:4px;background:rgba(255,255,255,.17);opacity:0;
   animation:dotin .5s var(--ease) both;animation-delay:var(--d)}
 .day.speak{background:var(--accent);
@@ -50,7 +93,13 @@
    the card is full width on a phone anyway, so the photo stays square and shows
    the whole frame. */
 @media(max-width:880px){.pphoto{aspect-ratio:1}}
-@media(max-width:880px){.days{grid-template-columns:repeat(10,1fr)}
+@media(max-width:880px){
+  /* Absolute placement has nothing to sit beside on a narrow frame, so the
+     month returns to the flow under the text it belongs to. */
+  .slide.grad .pill,.slide.grad h1,.slide.grad .lead,.verdict{max-width:none}
+  .month{position:static;width:auto;margin:clamp(14px,2.4vh,24px) 0 0}
+  .verdict{margin:clamp(14px,2.4vh,22px) 0 0}
+  .days{grid-template-columns:repeat(10,1fr);max-width:100%}
   .day{background:rgba(255,255,255,.24)}}
 </style>
 </head>

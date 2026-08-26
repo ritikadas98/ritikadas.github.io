@@ -13,7 +13,7 @@
 const SLIDES = [
 
 /* ---------------------------------------------------------------- cover -- */
-{ kind: 'cover', art: 'month',
+{ kind: 'cover', art: 'cover',
   kicker: 'Product case study',
   title: 'Savio',
   lead: 'An AI money companion for the one question budget apps never answer. Can I afford this, right now? It reasons over your real income, commitments and goals.',
@@ -213,7 +213,23 @@ const ART = {
         <span>and never at the checkout</span>
       </div>
     </div>`;
-  }
+  },
+
+  /* The one sentence the product exists to produce. Every other budgeting app
+     reports a month that is already spent; this is a number you can act on
+     before you spend. The figures are the same pair the deck works through on
+     "The model writes the sentence" — code does the arithmetic, the model only
+     writes it up — so the cover is not asserting anything the deck does not
+     then show its working for. */
+  verdict: () => `<div class="verdict r" style="animation-delay:300ms">
+      <span class="vk">The one sentence</span>
+      <p class="vline">Safe to spend <b>&#8377;26,532</b></p>
+      <p class="vsub">after this <span>&#8377;23,032</span> &middot; and it says so before you pay, not after</p>
+    </div>`,
+
+  /* A slide takes one art function, so this is the one, and it composes the
+     two: the verdict under the title on the left, the month beside it. */
+  cover: () => ART.verdict() + ART.month()
 };
 
 /* --------------------------------------------------------------- diagrams -- */
