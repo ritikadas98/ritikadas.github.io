@@ -250,10 +250,19 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
 .nav-menu a{font-family:var(--mono);font-size:14px;letter-spacing:.02em;color:var(--ink-2);text-decoration:none;padding:13px 2px;border-bottom:1px solid var(--hairline);min-height:46px;display:flex;align-items:center}
 .nav-menu a:last-child{border-bottom:none}
 .nav-menu a:active{color:var(--accent)}
-/* the menu is a small-screen affordance only */
-@media(min-width:701px){.nav-menu{display:none!important}}
+/* A two-word label must break as a whole or not at all. Squeezed, "Shipped
+   Products" and "Case Studies" each folded onto two lines and the bar turned
+   into a paragraph. */
+.nav-links a{white-space:nowrap}
 
-@media(max-width:700px){
+/* the menu is a small-screen affordance only */
+@media(min-width:861px){.nav-menu{display:none!important}}
+
+/* 860, not 700. The links were named "Products" and "Case studies" when that
+   breakpoint was set, and the longer names need about 160px more before they
+   stop fitting beside the brand. Below this the row hands over to the menu
+   button rather than cramming. */
+@media(max-width:860px){
   .nav-toggle{display:inline-flex}
   .nav-links a:not(.nav-cta){display:none}
   .theme-btn{padding:6px 9px}
