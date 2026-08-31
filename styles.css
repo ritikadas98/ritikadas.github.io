@@ -290,7 +290,14 @@ header.elevator{
      copied convention on the internet. Sized to its content instead, which
      puts the top of the first section just above the fold — a visitor can see
      there is somewhere to go without being told to scroll. */
-  padding:clamp(30px,6vh,66px) 0 clamp(46px,9vh,104px);
+  /* The fold carries the whole pitch, so it is given room to breathe rather
+     than being sized tight to its content. min-height reserves most of the
+     viewport; the padding keeps the content off the nav and leaves the top of
+     the next section just visible, so there is somewhere to go without a
+     scroll cue saying so. */
+  min-height:calc(82svh - var(--nav-h));
+  justify-content:center;
+  padding:clamp(48px,9vh,104px) 0 clamp(64px,11vh,128px);
 }
 /* The cue and the marquee are the last two flex children, so they sit at the
    bottom of the fold in normal flow. They were absolutely positioned before,
@@ -369,8 +376,11 @@ h1.hero{animation-delay:.17s}
 .hero-eyebrow{margin-bottom:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 h1.hero{font-family:var(--display);font-weight:500;font-size:clamp(31px,4.3vw,56px);line-height:1.06;letter-spacing:-.028em;max-width:none}
 h1.hero em{font-style:normal;color:var(--accent)}
-.hero-sub{margin-top:26px;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--ink-2);max-width:90ch}
-.hero-actions{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
+.hero-sub{margin-top:30px;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--ink-2);max-width:90ch}
+/* The two buttons are a separate decision from the sentence above them, so the
+   gap is wider than the one between the headline and its subline. At 34px they
+   read as part of the same paragraph. */
+.hero-actions{margin-top:52px;display:flex;gap:14px;flex-wrap:wrap}
 .btn{font-family:var(--mono);font-size:13px;letter-spacing:.02em;padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:transform .15s,box-shadow .2s,border-color .2s,background .2s;cursor:pointer;border:none;min-height:44px}
 .btn-primary{background:var(--ink);color:var(--paper)}
 .hero-actions .btn{padding:15px 26px;font-size:14px}
@@ -1099,12 +1109,17 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
      the fold — with a fixed height it overflowed and the marquee landed on top
      of the Resume button. Now the header grows instead; the marquee slipping
      below the fold on a small phone is the right trade against overlap. */
-  header.elevator { height:auto; min-height:calc(100svh - var(--nav-h)); padding: 0 0 clamp(14px,3vh,30px); }
-  h1.hero { font-size: 28px; line-height: 1.09; max-width:none; }
-  .hero-eyebrow { margin-bottom: 18px; gap: 8px; }
+  /* Top padding was 0, which put the eyebrow hard against the nav and made the
+     whole fold read as cramped. The stack now opens up: air above the eyebrow,
+     and a wider gap before the buttons so they read as a separate decision
+     rather than the end of the paragraph. */
+  header.elevator { height:auto; min-height:calc(94svh - var(--nav-h));
+    justify-content:center; padding: clamp(26px,5vh,44px) 0 clamp(30px,6vh,52px); }
+  h1.hero { font-size: 28px; line-height: 1.12; max-width:none; }
+  .hero-eyebrow { margin-bottom: 22px; gap: 8px; }
   .eyebrow { font-size: 11.5px; letter-spacing: .1em; }
-  .hero-sub { font-size: 16px; margin-top: 18px; max-width:none; }
-  .hero-actions { margin-top: 24px; gap: 10px; }
+  .hero-sub { font-size: 16px; margin-top: 22px; max-width:none; }
+  .hero-actions { margin-top: 38px; gap: 12px; }
   .hero-actions .btn { padding: 13px 20px; }
   .hero-actions { flex-direction: column; width: 100%; }
   .hero-actions .btn { width: 100%; justify-content: center; }
