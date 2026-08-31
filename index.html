@@ -37,13 +37,13 @@
 <!-- FONT PRECONNECT & SWAP RENDERING -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <script>
 /* Applied before first paint so a visitor who chose a theme manually never sees
    a flash of the other one. The full toggle logic still lives at the bottom. */
 (function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 </script>
-<link rel="stylesheet" href="styles.css?v=20260825d">
+<link rel="stylesheet" href="styles.css?v=20260901a">
 <!-- Without JS the curtain can never be lifted, so hide it outright. -->
 <noscript><style>.preloader{display:none!important}</style></noscript>
 <!-- Tells a search engine this is a person and a portfolio rather than
@@ -102,8 +102,8 @@
   <a href="#work" class="side-dot" aria-label="Shipped Products"><span class="tooltip">Shipped Products</span></a>
   <a href="#cases" class="side-dot" aria-label="Case Studies"><span class="tooltip">Case Studies</span></a>
   <a href="#about" class="side-dot" aria-label="About"><span class="tooltip">About</span></a>
-  <a href="#toolbox" class="side-dot" aria-label="How I work"><span class="tooltip">How I work</span></a>
   <a href="#experience" class="side-dot" aria-label="Work Experience"><span class="tooltip">Experience</span></a>
+  <a href="#call" class="side-dot" aria-label="Argue With Me"><span class="tooltip">Argue With Me</span></a>
   <a href="#contact" class="side-dot" aria-label="Contact"><span class="tooltip">Contact</span></a>
 </div>
 
@@ -122,7 +122,7 @@
       <a href="#work">Shipped Products</a>
       <a href="#cases">Case Studies</a>
       <a href="#about">About</a>
-      <a href="#experience">Experience</a>
+      <a href="#call">Argue With Me</a>
       <a href="#contact" class="nav-cta">Contact</a>
       <button type="button" class="nav-toggle" id="nav-toggle"
               aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
@@ -138,7 +138,7 @@
       <a href="#work">Shipped Products</a>
       <a href="#cases">Case Studies</a>
       <a href="#about">About</a>
-      <a href="#experience">Experience</a>
+      <a href="#call">Argue With Me</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -149,20 +149,66 @@
 <header id="top" class="elevator">
   <div class="hero-body"><div class="wrap">
     <div class="hero-eyebrow hero-enter">
-      <span class="eyebrow">Product Manager · Builder</span>
-      <span class="eyebrow muted">— Bengaluru, India</span>
+      <span class="eyebrow muted">Bengaluru, India</span>
     </div>
+    <!-- The whole transition, in one line, told by the typography rather than by
+         a paragraph explaining it. Struck-through steps are real jobs, not a
+         joke at her own expense — each one is on the CV. What survives the
+         strikes is the positioning BUILD_SPEC settled on: a PM who builds. -->
+    <p class="hero-arc hero-enter"><s>Tech consultant.</s> <s>Product manager.</s> <b>Product manager who builds.</b></p>
     <h1 class="hero hero-enter">I decide what&rsquo;s worth building, then build it. Through research, experiments, design, plain judgment, and yes, AI.</h1>
-    <p class="hero-sub hero-enter">Three products I built and shipped on my own. Three case studies on products already built.</p>
+    <p class="hero-sub hero-enter">Three products I built alone. Three I took apart.</p>
     <div class="hero-actions hero-enter">
       <a href="#work" class="btn btn-primary">See the work <span class="arr">↗</span></a>
       <a href="https://drive.google.com/file/d/1bKiZKj9pz8WEL2UV_duT23LAaNwhcxqS/view?usp=sharing" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Résumé <span class="arr">↗</span></a>
     </div>
   </div></div>
-  <div class="hero-marquee" aria-hidden="true">
-    <div class="hm-track"><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Can&rsquo;t drive, can&rsquo;t read a map either<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">Metrics that can be wrong<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Love football, missed the whole World Cup<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Cook great biryani<span class="hm-dot">&#9670;</span></span><span class="hm-item">Agentic AI<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extensions<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Read English Literature. Now I read reviews the same way<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Big on history, hazy on the present<span class="hm-dot">&#9670;</span></span><span class="hm-item">Product Discovery<span class="hm-dot">&#9670;</span></span><span class="hm-item">User Interviews<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Can&rsquo;t drive, can&rsquo;t read a map either<span class="hm-dot">&#9670;</span></span><span class="hm-item">Journey Mapping<span class="hm-dot">&#9670;</span></span><span class="hm-item">Metrics that can be wrong<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Love football, missed the whole World Cup<span class="hm-dot">&#9670;</span></span><span class="hm-item">North Star + Guardrails<span class="hm-dot">&#9670;</span></span><span class="hm-item">React + Supabase<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Cook great biryani<span class="hm-dot">&#9670;</span></span><span class="hm-item">Agentic AI<span class="hm-dot">&#9670;</span></span><span class="hm-item">Chrome Extensions<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Read English Literature. Now I read reviews the same way<span class="hm-dot">&#9670;</span></span><span class="hm-item">TypeScript on Cloud Run<span class="hm-dot">&#9670;</span></span><span class="hm-item">SAP Delivery<span class="hm-dot">&#9670;</span></span><span class="hm-item hm-me">Big on history, hazy on the present<span class="hm-dot">&#9670;</span></span></div>
-  </div>
+  <!-- The capability marquee that closed this fold is gone. Its personal
+       lines — the biryani, the map, the World Cup — now live in About at a
+       size you can read, and what was left was a scrolling list of skills,
+       which is the most replaceable thing a portfolio can own. The fold ends
+       on the pitch and the first section shows above it instead. -->
 </header>
+
+<!-- WHO'S ASKING
+     The first thing after the pitch, and the site's only job here is to get a
+     visitor to the right page in one decision rather than three. It replaces
+     the audience switcher that used to sit in About: that asked a visitor to
+     re-read the same three facts in four different registers, which is more
+     work, not less. This answers the question they actually arrived holding
+     and then sends them somewhere. -->
+<section id="start" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><h2 class="concept">Three Ways In</h2>
+      <div class="sub">Pick the one you actually came for. I&rsquo;d rather send you to the right page than make you hunt for it.</div></div>
+    </div>
+    <div class="routes reveal">
+
+      <div class="route">
+        <div class="route-k"><span>Watch me ship</span><b>6 min</b></div>
+        <h3>Want to see something I built?</h3>
+        <p>Three products, live, built alone. Start with FitCheck. It&rsquo;s the one where I had to decide what <em>not</em> to build seven separate times, and wrote down every one.</p>
+        <a href="work/fitcheck/" class="route-go">Open FitCheck <span class="arr">&#8599;</span></a>
+      </div>
+
+      <div class="route">
+        <div class="route-k"><span>Watch me think</span><b>9 min</b></div>
+        <h3>Want to see how I decide?</h3>
+        <p>Three case studies on products built by others. Reddit&rsquo;s logged-out audience grew 27% last quarter. It earns from the logged-in one. That gap is the whole problem.</p>
+        <a href="writing/reddit/" class="route-go">Read the Reddit study <span class="arr">&#8599;</span></a>
+      </div>
+
+      <div class="route">
+        <div class="route-k"><span>Watch me be wrong</span><b>90 sec</b></div>
+        <h3>Want to see me get it wrong?</h3>
+        <p>Six forks I actually hit while building. Pick a side and I&rsquo;ll tell you what I did, including the calls I later had to reverse.</p>
+        <a href="#call" class="route-go">Argue with me <span class="arr">&darr;</span></a>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <section id="work">
   <div class="wrap">
@@ -174,7 +220,7 @@
             <img src="assets/savio-icon.svg" alt="Savio" width="20" height="20" loading="lazy" decoding="async" />
             <img src="assets/amazon-icon.svg?v=2" alt="Amazon Discovery Intelligence" width="20" height="20" loading="lazy" decoding="async" />
           </span>
-        </h2><div class="sub">Three products, built and shipped solo. Open one for the reasoning, the evidence and a demo you can use.</div></div>
+        </h2><div class="sub">Built and shipped solo. Open one for the reasoning, the evidence, and a demo you can use. <span class="sub-wry">All three still work. I checked this morning.</span></div></div>
     </div>
     <div class="work-grid">
 
@@ -184,7 +230,11 @@
         </figure>
         <div class="card-tags"><span class="tag-type">Product</span><span class="tag live">&#9679; In use</span><span class="tag">Chrome extension</span></div>
         <h3><a class="card-link" href="work/fitcheck/">Turning the Size Chart Already on the Page into an <span class="nb">Answer <span class="arr">&#8599;</span></span></a></h3>
-        <p class="card-dek">How I researched, designed and shipped FitCheck &mdash; a browser extension that compares the fit a garment was <b>designed for</b> with the fit you&rsquo;d actually get.</p>
+        <p class="card-dek">How I researched, designed and shipped FitCheck, a browser extension that compares the fit a garment was <b>designed for</b> with the fit you&rsquo;d actually get.</p>
+        <p class="card-note-wry">Built it because I ordered a 30 and needed a 28.</p>
+        <div class="card-foot">
+          <span class="card-facts">0-to-1 discovery &middot; Browser extension surfaces &middot; Competitor benchmarking</span>
+        </div>
       </div>
 
       <div class="card work-card reveal" data-project="savio">
@@ -192,8 +242,12 @@
           <img src="assets/og/savio-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="card-tags"><span class="tag-type">Product</span><span class="tag live">&#9679; Deployed</span><span class="tag">Consumer AI</span></div>
-        <h3><a class="card-link" href="work/savio/">Answering the Question Budget Apps Never Do &mdash; Can I Afford This, Right <span class="nb">Now <span class="arr">&#8599;</span></span></a></h3>
-        <p class="card-dek">How I built Savio &mdash; an AI companion that reasons over your real income, commitments and goals, and checks every figure it writes against your own data first.</p>
+        <h3><a class="card-link" href="work/savio/">Answering the Question Budget Apps Never Do: Can I Afford This, Right <span class="nb">Now <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">How I built Savio, an AI companion that reasons over your real income, commitments and goals, and checks every figure it writes against your own data first.</p>
+        <p class="card-note-wry">Built for people who are bad at budgeting and weirdly happy to tell an AI about it.</p>
+        <div class="card-foot">
+          <span class="card-facts">User interviews &middot; Deterministic AI &amp; grounding &middot; Trust gating</span>
+        </div>
       </div>
 
       <div class="card work-card reveal" data-project="amazon">
@@ -202,7 +256,11 @@
         </figure>
         <div class="card-tags"><span class="tag-type">Product</span><span class="tag live">&#9679; Deployed</span><span class="tag">Multi-agent pipeline</span></div>
         <h3><a class="card-link" href="work/amazon/">Solo Building a Pipeline That Turns a Week of Amazon Reviews into One <span class="nb">Decision <span class="arr">&#8599;</span></span></a></h3>
-        <p class="card-dek">How I built Amazon Discovery Intelligence &mdash; a pipeline that reads public reviews, counts what each problem cost people, and names the one worth starting.</p>
+        <p class="card-dek">How I built Amazon Discovery Intelligence, a pipeline that reads public reviews, counts what each problem cost people, and names the one worth starting.</p>
+        <p class="card-note-wry">For PMs with dark circles from a feedback queue they still had to skim.</p>
+        <div class="card-foot">
+          <span class="card-facts">LLM orchestration &middot; Multi-agent pipeline &middot; Success metrics</span>
+        </div>
       </div>
 
     </div>
@@ -221,7 +279,7 @@
             <img src="assets/youtube.svg" class="wide" alt="YouTube" width="22" height="22" loading="lazy" decoding="async" />
           </span>
         </h2>
-        <div class="sub">Product decisions on products already built. Across social, luxury, and platforms. <a href="writing/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px;white-space:nowrap">All writing &rarr;</a></div>
+        <div class="sub">Product decisions on products already built, across social, luxury and platforms. <span class="sub-wry">Nobody asked me to write these.</span> <a href="writing/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px;white-space:nowrap">All writing &rarr;</a></div>
       </div>
     </div>
     <div class="work-grid">
@@ -235,10 +293,10 @@
         </figure>
         <div class="card-tags">
           <span class="tag-type">Case study</span>
-          <span class="tag solid" style="color:var(--crew-brand);border-color:var(--crew-line);background:var(--crew-tint);font-weight:600">&#9679; CREW</span>
+          <span class="tag solid" style="color:var(--crew-brand);border-color:var(--crew-line);background:var(--crew-tint);font-weight:600">CREW</span>
         </div>
         <h3><a class="card-link" href="writing/crew/">One Trip at a <span class="nb">Time <span class="arr">&#8599;</span></span></a></h3>
-        <p class="card-dek">CREW tells you which terminal your connecting flight leaves from, before you land. No competitor does that &mdash; and every message like it is made by hand.</p>
+        <p class="card-dek">CREW tells you which terminal your connecting flight leaves from, before you land. No competitor does that. And every message like it is made by hand.</p>
         <div class="card-foot">
           <span class="card-facts">Luxury travel &middot; Scale &amp; unit economics &middot; Summary + deck</span>
         </div>
@@ -250,7 +308,7 @@
         </figure>
         <div class="card-tags">
           <span class="tag-type">Case study</span>
-          <span class="tag solid" style="color:var(--study-reddit);border-color:color-mix(in srgb,var(--study-reddit) 38%,transparent);background:color-mix(in srgb,var(--study-reddit) 8%,transparent);font-weight:600">&#9679; Reddit</span>
+          <span class="tag solid" style="color:var(--study-reddit);border-color:color-mix(in srgb,var(--study-reddit) 38%,transparent);background:color-mix(in srgb,var(--study-reddit) 8%,transparent);font-weight:600">Reddit</span>
         </div>
         <h3><a class="card-link" href="writing/reddit/">Reddit Is Read Without Being <span class="nb">Visited <span class="arr">&#8599;</span></span></a></h3>
         <p class="card-dek">Reddit&rsquo;s logged-out audience grew 27% last quarter and its logged-in audience grew 7%. It earns from the second and is increasingly made of the first.</p>
@@ -265,7 +323,7 @@
         </figure>
         <div class="card-tags">
           <span class="tag-type">Case study</span>
-          <span class="tag solid" style="color:var(--study-youtube);border-color:color-mix(in srgb,var(--study-youtube) 38%,transparent);background:color-mix(in srgb,var(--study-youtube) 8%,transparent);font-weight:600">&#9679; YouTube</span>
+          <span class="tag solid" style="color:var(--study-youtube);border-color:color-mix(in srgb,var(--study-youtube) 38%,transparent);background:color-mix(in srgb,var(--study-youtube) 8%,transparent);font-weight:600">YouTube</span>
         </div>
         <h3><a class="card-link" href="writing/youtube/">The Demand You Can&rsquo;t <span class="nb">See <span class="arr">&#8599;</span></span></a></h3>
         <p class="card-dek">A product can only measure what it lets you do. The wants it blocks leave no trace. So look at the trouble people go to on their own to get around it.</p>
@@ -282,43 +340,37 @@
     <div class="sec-head reveal">
       <div>
         <h2 class="concept">About</h2>
-        <div class="sub">Where I came from, what I've built, how I decide.</div>
+        <div class="sub">The short version. <span class="sub-wry">The long version is the rest of the page.</span></div>
       </div>
     </div>
 
-    <div class="audience-wrapper reveal">
-      <div class="audience-tabs" id="audience-tabs">
-        <button type="button" class="aud-tab active" data-aud="all">● General Overview</button>
-        <button type="button" class="aud-tab" data-aud="recruiter">● For Recruiters</button>
-        <button type="button" class="aud-tab" data-aud="founder">● For Founders</button>
-        <button type="button" class="aud-tab" data-aud="pm-lead">● For PM Directors</button>
-      </div>
+    <!-- Three cards became one paragraph. Two of them were repeating the page:
+         "three products, built and shipped solo" is the section directly above
+         this one, and "I know what to check, when to stop and what not to
+         build" is a claim that Argue With Me now demonstrates instead of
+         asserting. What was left is the only thing About can say that nothing
+         else on the page says — how someone in enterprise delivery ended up
+         shipping three products alone. -->
+    <div class="about-story reveal">
+      <p>I became a PM inside enterprise SaaS. Long cycles, big rooms, every client twenty years my senior.</p>
+      <p>It taught me to own the gap between what gets promised and what ships. But nobody in enterprise picks the software. Someone buys it and everyone else complies. Nothing I shipped was ever anyone&rsquo;s choice.</p>
+      <p>Consumer is the opposite, and it is the part I actually want. Millions of people who can leave. A test that answers you in a week instead of a quarter. Design and psychology doing the real work. Why someone abandons a form, why they trust one number and not another, why they&rsquo;d rather guess than ask.</p>
+      <p>So I started building it myself. Three products in, I&rsquo;m not going back.</p>
     </div>
 
-    <div class="about-grid">
-      <div class="about-col reveal">
-        <div class="q">
-          <!-- waypoint route — the stages that got her here -->
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="18" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="6" r="2"/><path d="M7.5 16.5 10.5 13.5"/><path d="M13.5 10.5 16.5 7.5"/></svg>
-          Background
-        </div>
-        <p id="about-bg-text"><span class="ln">I came to product from technical delivery. SAP consulting first. Then a project of my own, when the lead seat opened up mid-project.</span><span class="ln">It taught me to own the gap between what's promised and what ships.</span></p>
-      </div>
-      <div class="about-col reveal">
-        <div class="q">
-          <!-- three stacked cards — three shipped products -->
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="10" width="12" height="10" rx="2"/><path d="M7 7h8a2 2 0 0 1 2 2v8"/><path d="M11 4h6a2 2 0 0 1 2 2v6"/></svg>
-          Products
-        </div>
-        <p id="about-prod-text"><span class="ln">Three products, designed, built and shipped solo.</span><span class="ln">Commerce, personal finance, and PM tooling. Plus case studies on products already built.</span></p>
-      </div>
-      <div class="about-col reveal">
-        <div class="q">
-          <!-- balance scales — weighing tradeoffs -->
-          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v15"/><path d="M8.5 20h7"/><path d="M4 9h16"/><path d="M4 9l-2 5h4z"/><path d="M20 9l-2 5h4z"/></svg>
-          Principles
-        </div>
-        <p id="about-prin-text"><span class="ln">I know what to check, when to stop, and what not to build.</span><span class="ln">I write down the reasoning before I start. Including the calls I later reversed.</span></p>
+    <!-- ALSO TRUE
+         These five lines already existed on this site — inside the marquee, at
+         12px, in capitals, moving past at speed. Which is where you put
+         something you are slightly embarrassed by. They are the most human
+         thing on the page and About is where they belong, so here they are at
+         a size somebody can actually read. -->
+    <div class="also reveal">
+      <div class="also-k">Also true</div>
+      <div class="also-row">
+        <span class="also-chip">Cooks a <b>very</b> good biryani.</span>
+        <span class="also-chip">Read English <b>Literature</b>. Now reads reviews the same way.</span>
+        <span class="also-chip"><b>Big</b> on history, hazy on the present.</span>
+        <span class="also-chip">Can&rsquo;t drive. Can&rsquo;t read a <b>map</b> either.</span>
       </div>
     </div>
   </div>
@@ -335,73 +387,103 @@
 
 
 
-<section id="toolbox" class="band">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div><h2 class="concept">How I Work</h2><div class="sub">The methods behind the work above.</div></div>
-    </div>
-    <div class="toolbox-grid reveal">
-      <div class="toolbox-card">
-        <div class="toolbox-title">Product Strategy & Research</div>
-        <ul class="tool-list">
-          <li>0-to-1 Discovery</li>
-          <li>User Interviews</li>
-          <li>Success Metrics &amp; Counter-Tests</li>
-          <li>Competitor Benchmarking</li>
-        </ul>
-      </div>
-      <div class="toolbox-card">
-        <div class="toolbox-title">Growth & Platform Economics</div>
-        <ul class="tool-list">
-          <li>Activation Funnels</li>
-          <li>Retention Cohorts</li>
-          <li>Multi-Sided Markets</li>
-          <li>Trust Gating</li>
-        </ul>
-      </div>
-      <div class="toolbox-card">
-        <div class="toolbox-title">AI & Technical Prototyping</div>
-        <ul class="tool-list">
-          <li>LLM Integration & Orchestration</li>
-          <li>Rapid Full-Stack Prototyping</li>
-          <li>Deterministic AI & Grounding</li>
-          <li>Browser Extension Surfaces</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <!-- WORK EXPERIENCE -->
 <section id="experience">
   <div class="wrap">
     <div class="sec-head reveal">
-      <div><h2 class="concept">Work Experience</h2><div class="sub">Delivery experience that carries straight into product work.</div></div>
+      <div><h2 class="concept">Work Experience</h2><div class="sub">Three years in enterprise delivery. <span class="sub-wry">The last one is the one that counts.</span></div></div>
     </div>
     <!-- A label rail and a body, not a stack. The card runs the full 1080px while its
          text is capped at a reading measure, so ~380px of it was unreachable — worst
          at the top right, where the date sat alone in the corner. The date, role and
          org are the card's paperwork, so they go in the rail the way .art-meta and
          .pdeo already do it, and the four bullets take the width they freed up. -->
-    <div class="exp reveal">
-      <div class="exp-meta">
-        <div class="exp-when">2022 – 2025</div>
-        <div class="exp-role">Technical Project Manager</div>
-        <div class="exp-org">Enterprise SAP delivery · stakeholder-facing</div>
+    <!-- One employer, one box. The two roles sit on a single branch the way
+         LinkedIn draws a promotion, and the six points sit underneath them at
+         the same left edge — not in a column that starts halfway across the
+         card. Each role carries its own points, the way LinkedIn nests them
+         under a title — four for the product year, two for the years before
+         it. -->
+    <div class="expg reveal">
+      <div class="expg-head">
+        <div class="expg-name">Enterprise SaaS</div>
+        <div class="expg-span">2022 &ndash; 2025 &middot; 3 yrs</div>
       </div>
-      <div class="exp-body">
-        <!-- Plain lines, no bolded lead-ins. The bold-header-then-explanation bullet
-             is one of the formatting tells the Wikipedia piece names outright, and
-             the first draft also ended every line on a flourish: a symmetry, a
-             pairing, an aphorism about trust. Those are the writing performing
-             rather than reporting. What is left is what the role actually was. -->
-        <p class="exp-lead">Delivered enterprise technical work, then stepped into project management when a leadership gap opened mid-project.</p>
-        <ul class="exp-list">
-          <li>Turned ambiguous requirements into scoped deliverables.</li>
-          <li>Managed demanding stakeholders across time zones.</li>
-          <li>Coordinated cross-functional technical teams through delivery.</li>
-          <li>Owned the distance between what was promised and what shipped.</li>
-        </ul>
+
+      <div class="expg-track">
+        <div class="expn">
+          <div class="expn-line">
+            <span class="expn-when">2024 &ndash; 2025</span>
+            <span class="expn-role">Associate Product Manager</span>
+          </div>
+          <ul class="exp-list expn-points">
+            <li>I decided what shipped and what waited.</li>
+            <li>The date was fixed. So we cut scope, not quality.</li>
+            <li>Stakeholders in three time zones. One call to agree, so nothing got reopened.</li>
+            <li>I owned the gap between what we promised and what we shipped.</li>
+          </ul>
+        </div>
+
+        <div class="expn">
+          <div class="expn-line">
+            <span class="expn-when">2022 &ndash; 2024</span>
+            <span class="expn-role">Technical Consultant</span>
+          </div>
+          <ul class="exp-list expn-points">
+            <li>I turned vague asks into work someone could actually build.</li>
+            <li>I worked across business and technical teams to get changes live.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARGUE WITH ME
+     The one thing on this site a visitor does rather than reads. Every fork is
+     real, lifted from the trade-off sections of the three project pages. It
+     sits here, at the end, because someone who has just spent ninety seconds
+     inside the reasoning is the right person to be handed an email address. -->
+<section id="call">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><h2 class="concept">Argue With Me</h2>
+      <div class="sub">Six forks I actually hit while building. Pick a side, I&rsquo;ll tell you what I did. Then you can tell me I was wrong. <span class="sub-wry">Every one of these split my own head for a while.</span></div></div>
+    </div>
+
+    <div class="game reveal">
+      <div class="game-bar">
+        <span id="gm-prog">Fork 1 of 6</span>
+        <span class="gm-pips" id="gm-pips"></span>
+        <span id="gm-tally">&mdash;</span>
+      </div>
+      <div class="game-in">
+        <div id="gm-play">
+          <div class="gm-src"><span id="gm-src"></span> <span class="gm-src-note">&middot; <span id="gm-srcnote"></span></span></div>
+          <h3 class="gm-q" id="gm-q">&nbsp;</h3>
+          <p class="gm-note" id="gm-qnote">&nbsp;</p>
+          <div class="gm-opts">
+            <button class="gm-opt" id="gm-a" type="button"><span class="gm-kk">Option A</span><span class="gm-txt"></span></button>
+            <button class="gm-opt" id="gm-b" type="button"><span class="gm-kk">Option B</span><span class="gm-txt"></span></button>
+          </div>
+          <div class="gm-reveal" id="gm-reveal">
+            <div class="gm-vd" id="gm-verdict"></div>
+            <p class="gm-why" id="gm-why"></p>
+            <button class="btn btn-primary" id="gm-next" type="button">Next <span class="arr">&rarr;</span></button>
+          </div>
+        </div>
+
+        <div class="gm-score" id="gm-score">
+          <div class="gm-score-n"><span id="gm-scoreN">0</span><small>/6</small></div>
+          <div class="gm-score-line" id="gm-scoreLine"></div>
+          <p class="gm-score-sub" id="gm-scoreSub"></p>
+          <div class="gm-score-row">
+            <a href="mailto:ritikadas98@gmail.com" class="btn btn-primary">Tell me where I got it wrong <span class="arr">&#8599;</span></a>
+            <button class="btn btn-ghost" id="gm-again" type="button">Play again</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -413,6 +495,10 @@
     <span class="eyebrow">Open to product roles</span>
     <h2>Let's build something worth owning.</h2>
     <p>Early-stage, India-based or remote. If you're hiring, I'd like to hear about it.</p>
+    <!-- Was the fourth line of the hero, where it was one thing too many. It is
+         a better joke here anyway: it lands on someone who has just decided to
+         write to her, not on someone still deciding whether to scroll. -->
+    <p class="contact-aside">Fair warning: I will ask you a lot of questions. That part is the job.</p>
     <div class="contact-links">
       <a href="mailto:ritikadas98@gmail.com" class="btn btn-primary">Email me <span class="arr">↗</span></a>
       <!-- wa.me wants country code, no + and no spaces: 91 + 8839331633 -->
@@ -431,7 +517,7 @@
   </div>
 </footer>
 
-<script src="script.js?v=20260825c" defer></script>
+<script src="script.js?v=20260901a" defer></script>
 <!-- GoatCounter: privacy-first counts, no cookies, so no consent banner.
      ~3KB and async, to keep the page budget the site was tuned to. -->
 <script data-goatcounter="https://ritikadas.goatcounter.com/count"

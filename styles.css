@@ -20,6 +20,7 @@
   --r-sm:9px; --r:14px; --r-lg:18px;
   --display:'Bricolage Grotesque',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
   --wrap:1080px; --measure:58ch;
+  --hand:'Caveat',cursive;
 }
 
 /* ---- DARK THEME OVERRIDES (BUILD SPEC §3) ---- */
@@ -281,16 +282,15 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    100vh hero sits partly under the browser chrome on first paint. */
 header.elevator{
   position:relative;
-  /* The nav is sticky, so it OCCUPIES flow: the header starts at y=nav-height,
-     not y=0. A plain 100svh therefore overshot the fold by exactly the nav's
-     height and pushed the marquee just out of view — and the old padding-top
-     was clearing a nav that was never overlapping in the first place.
-     --nav-h is re-measured in JS so this holds at every breakpoint. */
-  height:calc(100vh - var(--nav-h));
-  height:calc(100svh - var(--nav-h));
   display:flex;
   flex-direction:column;
-  padding:0 0 clamp(28px,8vh,82px);
+  /* No longer a forced 100svh. That height existed to hold the marquee against
+     the bottom of the fold; with the marquee gone it would have left ~300px of
+     dead paper under the buttons, and a full-viewport hero is itself the most
+     copied convention on the internet. Sized to its content instead, which
+     puts the top of the first section just above the fold — a visitor can see
+     there is somewhere to go without being told to scroll. */
+  padding:clamp(30px,6vh,66px) 0 clamp(46px,9vh,104px);
 }
 /* The cue and the marquee are the last two flex children, so they sit at the
    bottom of the fold in normal flow. They were absolutely positioned before,
@@ -304,15 +304,14 @@ header.elevator{
    and the content ~450px, so ~300px is unavoidably empty; top-aligning dumped
    all of it into one 350px hole under the buttons, which reads as a bug. Split
    evenly it is ~120px top and bottom, which reads as breathing room. */
-.hero-body{flex:1 1 auto;display:flex;align-items:center;min-height:0;padding:12px 0}
+.hero-body{display:flex;align-items:center;min-height:0}
 /* Below this there is no amount of shrinking that fits the fold — a phone held
    sideways gives the hero about 300px of height for a stack that needs ~420px,
    and the overflow landed on top of the marquee and the two buttons with it.
    The fold is a luxury, not a requirement: give up the fixed height, let the
    hero be as tall as it is, and the marquee sits after it instead of under it. */
 @media (max-height:520px){
-  header.elevator{height:auto;padding-bottom:0}
-  .hero-body{padding:26px 0}
+  header.elevator{padding:22px 0 34px}
 }
 /* On a short window, shrink the type rather than let the marquee fall out. */
 @media (max-height:700px){
@@ -370,7 +369,7 @@ h1.hero{animation-delay:.17s}
 .hero-eyebrow{margin-bottom:26px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 h1.hero{font-family:var(--display);font-weight:500;font-size:clamp(31px,4.3vw,56px);line-height:1.06;letter-spacing:-.028em;max-width:none}
 h1.hero em{font-style:normal;color:var(--accent)}
-.hero-sub{margin-top:26px;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--ink-2);max-width:66ch}
+.hero-sub{margin-top:26px;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--ink-2);max-width:90ch}
 .hero-actions{margin-top:34px;display:flex;gap:14px;flex-wrap:wrap}
 .btn{font-family:var(--mono);font-size:13px;letter-spacing:.02em;padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:transform .15s,box-shadow .2s,border-color .2s,background .2s;cursor:pointer;border:none;min-height:44px}
 .btn-primary{background:var(--ink);color:var(--paper)}
@@ -544,12 +543,6 @@ section.band .sec-head{background:color-mix(in srgb, var(--soft-band) 78%, trans
 }
 
 /* about & audience switcher */
-.audience-wrapper{margin-bottom:34px}
-.audience-title{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
-.audience-tabs{display:flex;gap:10px;flex-wrap:wrap}
-.aud-tab{font-family:var(--mono);font-size:12px;padding:8px 15px;border-radius:20px;border:1px solid var(--pill-line);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;user-select:none;min-height:36px}
-.aud-tab:hover{border-color:var(--accent);color:var(--ink)}
-.aud-tab.active{background:var(--accent);color:var(--paper);border-color:var(--accent)}
 
 .about-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:8px}
 .about-col{background:var(--surface-2);border:1px solid var(--hairline);border-radius:var(--r);padding:24px 26px;transition:transform .2s,box-shadow .2s}
@@ -1116,17 +1109,6 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   .hero-actions { flex-direction: column; width: 100%; }
   .hero-actions .btn { width: 100%; justify-content: center; }
   
-  .audience-wrapper { margin-bottom: 24px; }
-  .audience-tabs {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 4px;
-    scrollbar-width: none;
-  }
-  .audience-tabs::-webkit-scrollbar { display: none; }
-  .aud-tab { flex-shrink: 0; white-space: nowrap; font-size: 11px; padding: 6px 12px; }
   
   .card { padding: 20px 16px; border-radius: 12px; }
   .card-main-grid { gap: 18px; }
@@ -1606,4 +1588,261 @@ html.lit .hm-track{animation-play-state:running}
   .brand-mark,html.lit .brand-mark{clip-path:none;animation:none}
   .hm-track{animation-play-state:running}
 }
+
+
+/* ============================================================================
+   WHO'S ASKING — the routing block under the hero
+   ============================================================================
+   Same construction as .toolbox-grid: a hairline over each column, a mono
+   label, then readable text. It reads as part of the site rather than as a
+   panel bolted onto it, which is the whole point of not inventing a new
+   card style for it. */
+.routes{display:grid;grid-template-columns:repeat(3,1fr);gap:30px 40px;margin-top:26px}
+.route{padding:16px 0 0;border-top:1px solid var(--hairline-strong)}
+/* Label on the left, price on the right. Every route says what it will cost
+   you before you click it — which is the one thing a person deciding whether
+   to read something actually wants to know, and almost nothing on the web
+   tells them. */
+.route-k{display:flex;align-items:baseline;justify-content:space-between;gap:12px;
+  font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--accent);margin-bottom:11px;font-weight:500}
+.route-k b{font-weight:400;color:var(--faint);letter-spacing:.08em;flex:none}
+.route h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.015em;
+  line-height:1.25;margin-bottom:9px}
+.route p{font-size:15px;line-height:1.58;color:var(--ink-2);max-width:38ch}
+.route p em{font-style:italic;color:var(--ink)}
+/* The link is the point of the column, so it gets the accent and an underline
+   that only fills in on hover — the same behaviour as the "All writing" link. */
+.route-go{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:12.5px;
+  color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:2px;
+  transition:border-color .2s}
+.route-go:hover{border-bottom-color:var(--accent)}
+.route-go .arr{transition:transform .2s;display:inline-block}
+.route-go:hover .arr{transform:translate(2px,-2px)}
+@media(max-width:880px){.routes{grid-template-columns:1fr;gap:26px}.route p{max-width:56ch}}
+
+/* ============================================================================
+   YOUR CALL — the seven-fork game
+   ============================================================================
+   The only thing on the site a visitor does rather than reads. Built out of
+   the same tokens as every card here: surface-2 on a hairline, mono for the
+   machinery, the display face for the question. */
+.game{margin-top:26px;background:var(--surface-2);border:1px solid var(--hairline-strong);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
+.game-bar{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:11px 20px;
+  border-bottom:1px solid var(--hairline);background:var(--surface);font-family:var(--mono);
+  font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint)}
+.gm-pips{display:flex;gap:5px}
+.gm-pips i{width:17px;height:4px;border-radius:3px;background:var(--hairline-strong);
+  transition:background .3s;display:block}
+.gm-pips i.on{background:var(--accent)}
+@media(max-width:620px){.gm-pips{display:none}}
+.game-in{padding:clamp(22px,4vw,36px);min-height:330px;display:flex;flex-direction:column}
+#gm-play{display:flex;flex-direction:column;flex:1}
+.gm-src{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.gm-src-note{color:var(--faint)}
+.gm-q{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.16;
+  font-size:clamp(21px,2.9vw,30px);margin:13px 0 0;max-width:25ch}
+.gm-note{color:var(--muted);font-size:15px;margin-top:11px;max-width:58ch}
+/* The options sit on the floor of the card, so the question always occupies the
+   same place no matter how long it runs. */
+.gm-opts{margin-top:auto;padding-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.gm-opts{grid-template-columns:1fr}}
+.gm-opt{text-align:left;font-family:var(--body);font-size:16px;font-weight:450;line-height:1.4;
+  color:var(--ink);background:var(--paper);border:1px solid var(--hairline-strong);border-radius:var(--r);
+  padding:16px 16px 15px;cursor:pointer;position:relative;
+  transition:border-color .18s,transform .18s,background .18s}
+.gm-opt:hover:not([disabled]){border-color:var(--ink);transform:translateY(-2px)}
+.gm-kk{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--faint);
+  text-transform:uppercase;margin-bottom:8px}
+.gm-opt[disabled]{cursor:default}
+/* Two marks, never the same one: accent is what she did, ink is what you did.
+   Land on the same card and it wears both, which is the moment worth having. */
+.gm-opt.hers{border-color:var(--accent);background:var(--accent-wash)}
+.gm-opt.hers .gm-kk{color:var(--accent)}
+.gm-opt.hers::after{content:'What I did';position:absolute;right:12px;bottom:-9px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:#fff;
+  padding:2px 9px;border-radius:20px}
+.gm-opt.yours::before{content:'You';position:absolute;left:12px;bottom:-9px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--paper);
+  padding:2px 9px;border-radius:20px}
+.gm-reveal{margin-top:28px;padding-top:20px;border-top:1px solid var(--hairline);display:none}
+.gm-reveal.on{display:block;animation:gm-rise .35s cubic-bezier(.2,.7,.2,1)}
+@keyframes gm-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.gm-vd{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.gm-why{margin-top:11px;font-size:16.5px;line-height:1.55;color:var(--ink-2);max-width:64ch}
+.gm-why b{color:var(--ink);font-weight:600}
+/* The trade-off in her own shorthand — "reach over depth" — as the last word
+   on the fork. It is the phrase the project page files that decision under. */
+.gm-why i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--accent);display:block;
+  margin-top:11px;letter-spacing:.05em}
+#gm-next{margin-top:20px}
+.gm-score{display:none;margin:auto 0;text-align:center;padding:18px 0}
+.gm-score.on{display:block;animation:gm-rise .4s cubic-bezier(.2,.7,.2,1)}
+.gm-score-n{font-family:var(--display);font-weight:600;letter-spacing:-.04em;line-height:.95;
+  font-size:clamp(54px,10vw,96px);color:var(--ink)}
+.gm-score-n small{font-size:.38em;color:var(--faint)}
+.gm-score-line{font-family:var(--display);font-weight:600;font-size:clamp(19px,2.6vw,26px);
+  letter-spacing:-.02em;margin:12px auto 0;max-width:26ch;line-height:1.2}
+.gm-score-sub{margin:12px auto 0;color:var(--muted);max-width:48ch;font-size:15.5px}
+.gm-score-row{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){.gm-reveal.on,.gm-score.on{animation:none}}
+
+
+/* ============================================================================
+   THE HUMAN LAYER
+   ============================================================================
+   Everything below is one idea: the site has a spoken voice (the display face,
+   making claims) and it needed a second, quieter one (asides, admissions, the
+   things that are simply true). The second voice is what stops a portfolio
+   reading like every other portfolio, and it costs no colour and no layout. */
+
+
+/* The muttered line under the pitch. Mono and small on purpose: it is an aside,
+   and an aside that competes with the claim above it is not an aside. */
+/* Same muttered register the card notes use, now in the contact block. Centred
+   with the rest of that section rather than left-aligned like the hero was. */
+.contact-aside{margin-top:14px;font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--faint)}
+.contact-aside::before{content:'// ';color:var(--accent-soft)}
+@media(max-width:700px){.contact-aside{font-size:11.5px}}
+
+/* The second half of a section subtitle: the part that has an opinion. Italic
+   rather than a new colour, so it reads as a change of tone and not a change
+   of information. */
+.sub-wry{font-style:italic;color:var(--faint)}
+
+/* ---- ALSO TRUE ----
+   Five facts promoted out of the marquee. At rest they are as quiet as
+   everything else on the page; the play is in the hover, where each one lifts
+   and tilts a degree. Restrained standing still, and it winks when touched —
+   which is the whole register this site is going for. */
+.also{margin-top:36px;padding-top:22px;border-top:1px solid var(--hairline)}
+.also-k{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;
+  color:var(--faint);margin-bottom:14px}
+.also-row{display:flex;flex-wrap:wrap;gap:8px}
+/* Hand-written, because these four are the most personal lines on the page and
+   they used to scroll past in a 12px uppercase marquee. The size is taken from
+   the font's own metrics rather than by eye: at 16.5px with 11px side padding
+   all four measure 1005px against the wrap's 1024px, so the row holds a single
+   line with 19px to spare. 17.5px measured 71px over, which is exactly the
+   fourth chip dropping to a second row. */
+.also-chip{font-family:var(--hand);font-weight:600;font-size:16.5px;line-height:1.15;
+  color:var(--ink);white-space:nowrap;
+  background:var(--surface-2);border:1.5px solid var(--ink);border-radius:100px;
+  padding:4px 11px 3px;box-shadow:2px 2px 0 var(--ink);
+  transition:transform .22s cubic-bezier(.2,.7,.2,1),border-color .22s,color .22s}
+.also-chip b{color:var(--accent);font-weight:700}
+/* Nothing sits square, and the tilt alternates so the row reads as notes pinned
+   up rather than a control group. Hover lifts each chip at its OWN angle — one
+   hard-coded rotation made the even-numbered chips jump as the cursor arrived. */
+.also-chip:nth-child(odd){transform:rotate(-.8deg)}
+.also-chip:nth-child(even){transform:rotate(.7deg)}
+.also-chip:hover{transform:translateY(-3px) rotate(-.8deg);border-color:var(--accent)}
+.also-chip:nth-child(even):hover{transform:translateY(-3px) rotate(.7deg)}
+@media(prefers-reduced-motion:reduce){.also-chip:hover,.also-chip:nth-child(even):hover{transform:none}}
+/* Below the wrap the row breaks into several rows, which is right — four pills
+   never fit a phone. The offset shadow and the tilt both go: neither is in the
+   box model, so a tilted pill with a 2px shadow juts past the screen edge. */
+@media(max-width:700px){
+  .also-chip{white-space:normal;transform:none;box-shadow:1px 1px 0 var(--ink);
+    font-size:16px;max-width:100%}
+  .also-chip:hover,.also-chip:nth-child(even):hover{transform:none}
+  .also-row{gap:7px}
+}
+/* A 375pt screen leaves 318px of text width and the longest chip measures
+   319px, so it would wrap on the narrowest phone still in use. Two pixels of
+   padding either side is the whole fix. */
+@media(max-width:400px){.also-chip{padding-inline:9px}.also-row{gap:6px}}
+/* No hover on touch, so a sticky :hover must not reintroduce the tilt. */
+@media(hover:none){.also-chip:hover,.also-chip:nth-child(even):hover{transform:none}}
+
+/* The one line on a card that is not selling anything: why it exists, or what
+   it refuses to do. Set in mono under the dek so it reads as a note in the
+   margin rather than another sentence of pitch. */
+.card-note-wry{margin-top:9px;font-family:var(--mono);font-size:12px;line-height:1.55;color:var(--faint)}
+.card-note-wry::before{content:'// ';color:var(--accent-soft)}
+@media(max-width:640px){.card-note-wry{font-size:11px}}
+
+
+/* ---- THE ARC ----
+   Three job titles, two of them struck out. The strikes are what make it read
+   as a path rather than a list, and they do in one line what the About column
+   was spending three sentences on. Set below the display size of the claim so
+   it reads as a caption to the headline, not a competing headline. */
+.hero-arc{margin-bottom:16px;font-family:var(--display);font-weight:500;
+  font-size:clamp(16px,1.7vw,21px);letter-spacing:-.01em;line-height:1.35;color:var(--faint)}
+/* Each step keeps its own strike. Without the extra gap the two rules met
+   across the space between them and read as one long deletion rather than
+   two jobs done and left behind. */
+.hero-arc s{text-decoration:line-through;text-decoration-thickness:1.5px;
+  text-decoration-color:var(--faint-deco);color:var(--faint);margin-right:.3em}
+.hero-arc b{font-weight:600;color:var(--ink)}
+@media(max-width:640px){.hero-arc{font-size:15.5px;margin-bottom:13px}}
+
+
+/* ---- EMPLOYER, THEN ROLES ----
+   The LinkedIn promotion shape. One card for the company, a vertical track
+   inside it, and a node per role. The connector is the whole point: two
+   separate cards would read as two jobs, and the line between them is what
+   turns it into one job that changed. */
+/* An ink edge rather than a soft panel, so the card reads as drawn on the page
+   like the chips above it. The shadow goes with the hairline: under a 1.5px ink
+   border it reads as a double edge. */
+.expg{background:var(--surface);border:1.5px solid var(--ink);border-radius:12px;
+  padding:26px 30px 28px;margin-top:26px}
+.expg-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding-bottom:16px;border-bottom:1px solid var(--hairline)}
+.expg-name{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:-.015em;color:var(--ink)}
+.expg-span{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--faint)}
+
+.expg-track{padding-top:20px}
+/* Each role is one line: dot, dates, title. No body column — the points below
+   belong to the whole stint, not to one of the two titles. */
+.expn{position:relative;padding-left:28px}
+.expn-line{display:flex;align-items:baseline;gap:8px 18px;flex-wrap:wrap}
+.expn + .expn{margin-top:22px}
+/* Filled for the role held last, hollow for the one before it — same read as
+   any timeline: solid is where you ended up. */
+.expn::before{content:'';position:absolute;left:0;top:5px;width:11px;height:11px;border-radius:50%;
+  border:2px solid var(--accent);background:var(--accent);box-sizing:border-box}
+.expn:not(:first-child)::before{background:var(--surface-2)}
+/* Drawn per node so the connector stops at the last dot instead of running on
+   into empty card. */
+.expn:not(:last-child)::after{content:'';position:absolute;left:4.5px;top:19px;bottom:-18px;
+  width:1.5px;background:var(--hairline-strong)}
+.expn-when{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--faint);min-width:104px}
+.expn-role{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.015em;
+  line-height:1.25;color:var(--ink)}
+/* The points start on the card's own left edge, level with the company name,
+   rather than in a column that begins a third of the way across. */
+/* The points hang directly off the role they belong to, indented to the date
+   column so they read as that job's list rather than the card's. */
+/* The shared .exp-list is a two-column grid whose items are themselves grids.
+   Inside the narrower branch that breaks a bullet to one word per line, so the
+   nested list resets to a plain single column with its own marker. */
+.expn-points{display:block;margin-top:11px;padding-left:0;
+  grid-template-columns:none;gap:0}
+.expn-points li{display:block;position:relative;padding-left:17px;margin:0 0 6px;
+  color:var(--ink-2);font-size:15px;line-height:1.55;grid-template-columns:none}
+.expn-points li::before{content:'';position:absolute;left:0;top:11px;width:8px;height:1.5px;
+  background:var(--accent)}
+.expn:not(:last-child)::after{bottom:-26px}
+@media(max-width:760px){
+  .expg{padding:22px 18px 24px}
+  .expn{padding-left:24px;gap:3px 14px}
+  .expn-when{min-width:0;width:100%}
+  .expn:not(:last-child)::after{bottom:-24px}
+}
+
+
+/* ---- ABOUT, AS ONE PARAGRAPH ----
+   Set larger than body copy and capped at a reading measure. Four short lines
+   with air between them read as somebody talking; the same words in a 15px
+   card read as a bio. */
+.about-story{margin-top:6px;max-width:58ch}
+.about-story p{font-size:clamp(17px,1.5vw,19.5px);line-height:1.5;color:var(--ink-2)}
+.about-story p + p{margin-top:16px}
+.about-story em{font-style:italic;color:var(--ink)}
+@media(max-width:640px){.about-story p + p{margin-top:13px}}
+
 

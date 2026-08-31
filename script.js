@@ -300,67 +300,150 @@ window.addEventListener('DOMContentLoaded', () => {
    on its hotspot. If you want to change how the cursor looks, change it there and
    rerun tools/cursor-art.py — do not bring the pointer back under JS control. */
 
-/* ---- AUDIENCE SWITCHER ---- */
+
+/* ---- YOUR CALL ----
+   Seven real forks, each one lifted from the trade-off section of the project
+   page it belongs to. The reasoning is the wording those pages already use, so
+   there is one source of truth for what she decided and why.
+
+   Guarded on the deck element like every other block in this file: /writing/
+   shares this script and has no game on it. */
 (function(){
-  /* This file is shared with the article pages under /writing/, which have no
-     audience switcher. Dereferencing a missing element throws, and the throw
-     would take out every script below it in this file. */
-  const tabsWrap = document.getElementById('audience-tabs');
-  if (!tabsWrap) return;
-  const tabs = tabsWrap.querySelectorAll('.aud-tab');
-  const bgText = document.getElementById('about-bg-text');
-  const prodText = document.getElementById('about-prod-text');
-  const prinText = document.getElementById('about-prin-text');
-  /* All four perspectives rewritten for one-pass reading: short declarative
-     lines, no bullets, ~9 words per sentence or fewer, jargon stripped, every
-     number and specific kept. `ln` spans render as separate line-groups. */
-  const L = (...lines) => lines.map(t => `<span class="ln">${t}</span>`).join('');
-  const COPIES = {
-    all: {
-      bg:   L("I came to product from technical delivery. SAP consulting first. Then a project of my own, when the lead seat opened up mid-project.",
-              "It taught me to own the gap between what's promised and what ships."),
-      prod: L("Three products, built and shipped solo. Eight months, start to finish.",
-              "Commerce, personal finance, and PM tooling. Plus case studies on products already built."),
-      prin: L("I know what to check, when to stop, and what not to build.",
-              "I write down the reasoning before I start. Including the calls I later reversed.")
-    },
-    recruiter: {
-      bg:   L("Three years running enterprise SAP delivery.",
-              "I stepped into the lead seat when it opened."),
-      prod: L("A Chrome extension, a personal finance app, and an agentic AI pipeline.",
-              "All three shipped solo in eight months.",
-              "FitCheck: 70% came back in week one, zero uninstalls."),
-      prin: L("Every number here comes with its sample size.",
-              "Ten users is ten users. I won't inflate it.")
-    },
-    founder: {
-      bg:   L("I write the spec, then I build it.",
-              "Prototypes, database schemas, AI integration. Then I test it with real users."),
-      prod: L("Three products, live, built alone.",
-              "A Chrome extension. A web app. An agentic AI pipeline.",
-              "From first spec to live deployment."),
-      prin: L("Ship early. Then protect what could break trust.",
-              "I use AI where it's strongest: language, synthesis, and speed.",
-              "Code handles the maths. That pairing is why the numbers hold.")
-    },
-    'pm-lead': {
-      bg:   L("I moved from delivery to product under pressure.",
-              "The lead seat opened mid-project. I took it."),
-      prod: L("Each product has one hard call in it.",
-              "Matching the tool to the job. AI for language, arithmetic where the answer is already exact.",
-              "And a finance app that stays quiet rather than guess."),
-      prin: L("I write down what I expect before I build.",
-              "I record why I abstained. And which calls I reversed.")
-    }
-  };
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active')); tab.classList.add('active');
-      const copy = COPIES[tab.dataset.aud] || COPIES.all;
-      [bgText, prodText, prinText].forEach(el => el.style.opacity = 0);
-      setTimeout(() => { bgText.innerHTML = copy.bg; prodText.innerHTML = copy.prod; prinText.innerHTML = copy.prin; [bgText, prodText, prinText].forEach(el => el.style.opacity = 1); }, 200);
-    });
+  const deckHost = document.getElementById('gm-q');
+  if (!deckHost) return;
+
+  const CARDS = [
+    /* Two forks per product, and the answer sides deliberately do not
+       alternate in a pattern — an earlier draft had the correct answer on the
+       right every single time, which anyone who noticed would read as rigged. */
+
+    { src:'FitCheck', note:'Chrome extension',
+      q:'Ask for bust, waist and hip &mdash; or ask which shirt already fits?',
+      qnote:'One input is precise. The other is the one people actually finish.',
+      a:'A shirt you already own &mdash; vaguer, but nobody bails',
+      b:'Measurements &mdash; precise, and the honest way to do it',
+      hers:'a',
+      why:'<b>The shirt.</b> Bust, waist and hip is the precise input, and the exact point where people abandon the form. Everyone knows which shirt fits them, so it asks that.<i>completion over precision</i>' },
+
+    { src:'Savio', note:'Consumer AI',
+      q:'Let the AI do the maths, or make code do it?',
+      qnote:'It&rsquo;s a money app. The numbers have to be right every single time.',
+      a:'The model does both the maths and the writing',
+      b:'Code does every number, the model only writes the sentence',
+      hers:'b',
+      why:'<b>Code.</b> In testing the model called 8 of 9 purchases regrets when the real answer was 7 of 8. Rather than add a checker on top, I took the AI out of that job.' },
+
+    { src:'Amazon Discovery', note:'Multi-agent pipeline',
+      q:'Postgres, or a Google Sheet?',
+      qnote:'Seven rows a week, and a room full of PMs who have to read them.',
+      a:'Postgres &mdash; real queries, real schema control',
+      b:'A Google Sheet',
+      hers:'b',
+      why:'<b>The sheet.</b> I gave up queries and schema control, and got a store PMs already sort, filter, comment on and share. Postgres was about &#8377;1,100 a month to hold seven rows a week. Cloud Run does it for &#8377;40.<i>their tools over mine</i>' },
+
+    { src:'FitCheck', note:'Chrome extension',
+      q:'The size chart is missing a measurement. Guess, or say nothing?',
+      qnote:'This happened six times in twenty-one attempts.',
+      a:'Refuse, and name the measurement that&rsquo;s missing',
+      b:'Give a best guess with a confidence note',
+      hers:'a',
+      why:'<b>Say nothing.</b> A confident answer with nothing behind it costs more trust than no answer. Promise a perfect fit and you get to be wrong exactly once.<i>silence over a confident answer</i>' },
+
+    { src:'Savio', note:'Consumer AI',
+      q:'&ldquo;You&rsquo;re near a Myntra. You&rsquo;ve regretted four of four purchases there.&rdquo;',
+      qnote:'Accurate. Technically easy. Ship it, or cut it?',
+      a:'Ship it &mdash; it&rsquo;s true, and it&rsquo;s exactly when they need it',
+      b:'Cut it',
+      hers:'b',
+      why:'<b>Cut.</b> Accurate, and it turns a companion into something that watches you.<i>voice over vigilance</i>' },
+
+    { src:'Amazon Discovery', note:'Multi-agent pipeline',
+      q:'The shared sheet has a misspelled column header. Fix it, or leave it?',
+      qnote:'Your code is clean. Their spelling is not.',
+      a:'Leave it, and change the code to match',
+      b:'Fix the typo &mdash; it&rsquo;s one character and it&rsquo;s wrong',
+      hers:'a',
+      why:'<b>Leave it.</b> The sheet was built before the code, and a PM may already be filtering and pivoting on that exact header. I changed the code rather than the sheet.<i>their schema over mine</i>' }
+  ];
+
+  const LINES = [
+    { min:6, line:'Six out of six. Either you&rsquo;re a PM or you&rsquo;re me.',
+      sub:'That is the whole job &mdash; knowing what to give up. If you&rsquo;re hiring, this conversation is already going quite well.' },
+    { min:4, line:'We&rsquo;d get on.',
+      sub:'You went the other way once or twice, which is the interesting part. Those are the ones I&rsquo;d want to hear your reasoning on.' },
+    { min:2, line:'Half of these split a room, too.',
+      sub:'Every one was a real argument I had with myself. Where you disagreed, I would genuinely like to know why.' },
+    { min:0, line:'You&rsquo;d have built a different product.',
+      sub:'Which is a real answer, not a wrong one. Tell me which fork you&rsquo;d take again and I&rsquo;ll tell you what it would have cost me.' }
+  ];
+
+  const $ = id => document.getElementById(id);
+  let i = 0, agreed = 0, answered = false;
+
+  $('gm-pips').innerHTML = CARDS.map(() => '<i></i>').join('');
+
+  function render(){
+    const c = CARDS[i];
+    answered = false;
+    $('gm-src').innerHTML = c.src;
+    $('gm-srcnote').innerHTML = c.note;
+    $('gm-q').innerHTML = c.q;
+    $('gm-qnote').innerHTML = c.qnote;
+    $('gm-a').querySelector('.gm-txt').innerHTML = c.a;
+    $('gm-b').querySelector('.gm-txt').innerHTML = c.b;
+    ['gm-a','gm-b'].forEach(k => { $(k).className = 'gm-opt'; $(k).disabled = false; });
+    $('gm-reveal').className = 'gm-reveal';
+    $('gm-prog').innerHTML = 'Fork ' + (i+1) + ' of ' + CARDS.length;
+    $('gm-next').innerHTML = (i === CARDS.length - 1)
+      ? 'See the score <span class="arr">&rarr;</span>'
+      : 'Next <span class="arr">&rarr;</span>';
+  }
+
+  function pick(choice){
+    if (answered) return;
+    answered = true;
+    const c = CARDS[i], right = (choice === c.hers);
+    if (right) agreed++;
+    const mine = choice === 'a' ? $('gm-a') : $('gm-b');
+    const hers = c.hers === 'a' ? $('gm-a') : $('gm-b');
+    hers.classList.add('hers');
+    mine.classList.add('yours');
+    $('gm-a').disabled = true; $('gm-b').disabled = true;
+    $('gm-verdict').innerHTML = right ? 'Same call' : 'We differ here';
+    $('gm-why').innerHTML = c.why;
+    $('gm-reveal').className = 'gm-reveal on';
+    $('gm-pips').children[i].className = 'on';
+    $('gm-tally').innerHTML = agreed + ' of ' + (i+1) + ' the same';
+  }
+
+  function finish(){
+    $('gm-play').style.display = 'none';
+    $('gm-score').className = 'gm-score on';
+    $('gm-scoreN').innerHTML = agreed;
+    const l = LINES.filter(x => agreed >= x.min)[0];
+    $('gm-scoreLine').innerHTML = l.line;
+    $('gm-scoreSub').innerHTML = l.sub;
+    $('gm-prog').innerHTML = 'Done';
+    $('gm-tally').innerHTML = agreed + ' of ' + CARDS.length + ' the same';
+  }
+
+  $('gm-a').addEventListener('click', () => pick('a'));
+  $('gm-b').addEventListener('click', () => pick('b'));
+  $('gm-next').addEventListener('click', () => {
+    if (!answered) return;
+    if (i === CARDS.length - 1) { finish(); return; }
+    i++; render();
   });
+  $('gm-again').addEventListener('click', () => {
+    i = 0; agreed = 0;
+    $('gm-score').className = 'gm-score';
+    $('gm-play').style.display = 'flex';
+    $('gm-tally').innerHTML = '&mdash;';
+    Array.prototype.forEach.call($('gm-pips').children, p => p.className = '');
+    render();
+  });
+
+  render();
 })();
 
 /* ---- WIDGET FLIP ----
