@@ -2184,10 +2184,6 @@ html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
 /* The answer and the next button belong to the whole card, not to one column. */
 #gm-play > .gm-reveal, #gm-play > #gm-next{grid-column:1 / -1}
 
-/* 330px was sized for the stacked layout. Beside each other, the two halves are
-   shorter than that, and the leftover reopened at the bottom instead. */
-.game-in{min-height:250px}
-
 /* Below this the two columns would leave the question four words wide, and the
    options would be too narrow to read. Back to the original stack. */
 @media(max-width:860px){
