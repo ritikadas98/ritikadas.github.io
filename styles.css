@@ -2208,3 +2208,24 @@ html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
   .cascade-on .cascade .work-card:nth-of-type(2){top:calc(var(--nav-h, 73px) + 62px)}
   .cascade-on .cascade .work-card:nth-of-type(3){top:calc(var(--nav-h, 73px) + 72px)}
 }
+
+/* ---- 10. KEEP THE TAG ROW ON ONE LINE ------------------------------------
+   Measured on a 390px screen: every card's tag row is 53px tall except the
+   Amazon card's, which is 88px because "Multi-agent pipeline" is long enough to
+   push the third chip onto a second line. That made it the tallest card on the
+   page at 549px, against 412-514 for the rest, and a taller card takes longer to
+   pass — which is why the two stacks scrolled at visibly different rhythms.
+
+   The chips tighten rather than the words shortening: this is Ritika's copy and
+   the label is the point. Only inside a stacked card, and only on a phone, where
+   the space actually runs out. */
+@media(max-width:640px){
+  .cascade-on .cascade .work-card .card-tags{gap:6px; flex-wrap:nowrap}
+  .cascade-on .cascade .work-card .card-tags > *{flex:0 0 auto}
+  .cascade-on .cascade .work-card .tag{
+    font-size:10px;
+    letter-spacing:.03em;
+    padding:4px 8px;
+  }
+  .cascade-on .cascade .work-card .tag-type{font-size:9px; letter-spacing:.08em; padding:4px 8px}
+}
