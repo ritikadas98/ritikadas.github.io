@@ -1,136 +1,713 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cascade test &mdash; Ritika Das</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cascade preview &mdash; Ritika Das</title>
+<!-- Generated from index.html by scratchpad/build_preview.py. Do not hand-edit:
+     re-run the generator instead, or the preview drifts from the real page.
+     canonical, og:, twitter:, JSON-LD and GoatCounter are stripped on purpose —
+     a preview must not claim to be the homepage or land in the live counts. -->
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#EDE8E1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A171C" media="(prefers-color-scheme: dark)">
+<meta name="description" content="Ritika Das — product manager and builder in Bengaluru. Three products shipped solo and the calls behind each, plus case studies across social, luxury and platforms.">
+<!-- One value, not a pair keyed to the system: the site opens light for everyone
+     and script.js repaints this when a visitor chooses dark. -->
+<meta name="theme-color" content="#EDE8E1">
+
+<!-- FAVICON — generated from assets/monogram-source.svg (the "rd" disc).
+     favicon.ico is now a genuine multi-size ICO (16/32/48). The previous one was
+     a PNG with the extension renamed, which is why the earlier Firefox fix never
+     actually worked: renaming a file does not convert it. -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+
+<!-- FONT PRECONNECT & SWAP RENDERING -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../styles.css?v=20260819t">
-<script>(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;450;500;600&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<script>
+/* Applied before first paint so a visitor who chose a theme manually never sees
+   a flash of the other one. The full toggle logic still lives at the bottom. */
+(function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
+<link rel="stylesheet" href="../../styles.css?v=20260901b">
+<!-- Without JS the curtain can never be lifted, so hide it outright. -->
+<noscript><style>.preloader{display:none!important}</style></noscript>
+
+<!-- Scripting off. index.html:48 already hides the preloader this way; without
+     this second rule the page behind it would be blank, because .reveal starts
+     at opacity 0 and the observer that clears it never runs. -->
+<noscript><style>.reveal{opacity:1 !important; translate:none !important}</style></noscript>
+
+<script>
+/* ── PRELOADER, TWO CHANGES ─────────────────────────────────────────────────
+   The curtain in script.js:231 is worth keeping: the display faces are large,
+   and without it the first paint is unstyled type that reflows when the fonts
+   land. Two things about it are not worth keeping.
+
+   1. REPEAT VISITS. A recruiter who comes back to re-read a study, or to show a
+      colleague, paid for the brand moment the first time. Paying again buys
+      nothing. Skipped for a day after the first visit.
+
+   2. THE CEILING. script.js sets MAX_WAIT to 2000ms. That is a stall guard, not
+      a target, and it applied to everyone. Brought down to 1200ms, which still
+      covers the font swap.
+
+   Neither is done by editing script.js — that file is shared by nine pages. The
+   curtain is dismissed from outside by adding the same `done` class its own
+   dismiss() adds, which is idempotent. script.js's own 2000ms timer still fires
+   later and finds the work already done.
+
+   script.js is `defer`, so it has already attached its MutationObserver by
+   DOMContentLoaded. That observer is what releases `lit` and the hero with it,
+   so adding `done` here releases the page rather than just hiding a panel. */
+(function(){
+  var KEY = 'rd-preloader-seen', DAY = 86400000, seen = false;
+  try{
+    var last = +localStorage.getItem(KEY) || 0;
+    seen = (Date.now() - last) < DAY;
+    localStorage.setItem(KEY, Date.now());
+  }catch(e){ /* private mode: treat every visit as the first */ }
+
+  if(seen) document.documentElement.classList.add('preload-skip');
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var pre = document.getElementById('preloader');
+    if(!pre) return;
+    if(seen){
+      pre.classList.add('done');
+      /* Belt and braces. The observer should catch the line above, but `lit` is
+         what releases the hero, and a repeat visitor waiting 2.4s for the
+         fallback timer would defeat the point of skipping. */
+      document.documentElement.classList.add('lit');
+      return;
+    }
+    setTimeout(function(){ pre.classList.add('done'); }, 1200);
+  });
+})();
+</script>
+<style>
+/* Hidden outright on a repeat visit, so there is no panel to animate away. */
+.preload-skip .preloader{display:none !important}
+</style>
+
+<script>
+/* Decides pre-paint whether the stack is on. Every cascade rule hangs off
+   `.cascade-on`, so setting it here means the three-up grid never renders first
+   and then jumps to a stack. It is set from matchMedia alone, so the pinning
+   still works if GSAP fails to load — GSAP only adds the motion on top. */
+(function(){
+  try{
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* A pinned card taller than the screen is worse than no pinning at all, so a
+       very short window opts out through the same switch reduced motion uses. */
+    if(!reduce && window.innerHeight > 520)
+      document.documentElement.classList.add('cascade-on');
+  }catch(e){}
+})();
+</script>
+
 <style>
 /* ============================================================
-   THE CASCADE — under test, scoped to this page only
+   CASCADE PREVIEW — scoped to this page, nothing here is shipped
    ============================================================
-   Two things went wrong last time. The card was turned into a two-column grid,
-   which dealt a flex column's five children into cells and scattered it. And
-   the card was 600-700px tall, so on a phone it pinned but you were still
-   scrolling inside it and nothing appeared to happen.
+   Everything is gated on `.cascade-on`, set pre-paint by the script above.
+   Under reduced motion or on a short window the class is absent and the page
+   renders exactly as the live homepage does — the normal three-up grid. That is
+   why none of these rules need an "undo" block: they simply never apply.
 
-   So: no structural change at all this time. The card keeps its own layout.
-   The only thing that changes is the art, which drops from a 16:10 block to a
-   banner strip — that alone takes the card under a phone viewport, which is
-   what the effect needs to be visible. */
-.tst{max-width:var(--wrap);margin:0 auto;padding:120px 28px;font-family:var(--body);color:var(--ink-2)}
-.tst h1{font-family:var(--display);font-size:32px;color:var(--ink);margin:0 0 14px}
-.tst ul{line-height:1.8;padding-left:18px;max-width:60ch}
-.tst code{font-family:var(--mono);font-size:13px;background:var(--surface-2);padding:2px 6px;border-radius:4px}
-.spacer{height:70vh;display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+   CSS pins. GSAP animates. ScrollTrigger's own `pin: true` is NOT used — it
+   wraps and clones the element it pins, which fights position:sticky. */
 
-#cases .work-grid{grid-template-columns:1fr;gap:0}
-#cases .work-card{
+/* ---- 1. SIZE ------------------------------------------------------------
+   The card keeps everything it carries: art, tags, title, dek, the wry note and
+   the facts footer. Six blocks is a tall card, and height is the one thing this
+   effect cannot negotiate — a card taller than the screen pins and then you are
+   just scrolling inside it, which is what killed every earlier attempt.
+
+   A side-by-side layout was tried here — picture left, text right — because it
+   makes the card's height the TALLER of the two rather than the sum. It did make
+   the card about a third shorter. Ritika did not want it: the tall card with the
+   large picture is the one she is keeping. So the card stays a single column and
+   pays for it in height, which is a deliberate choice, not an oversight.
+
+   The phone block at the bottom pays for that height a different way, by cutting
+   the picture hard. Two dials if a card still overflows on a short laptop: the
+   picture cap just below, and the card padding. */
+.cascade-on .cascade .work-card{
+  width:min(620px, 100%);
+  margin-left:auto;
+  margin-right:auto;
+  padding:22px 24px;
+}
+
+/* The source images are all SQUARE — 1000x1000, every one of the six, Reddit
+   included. styles.css:808 frames them 16:10, which was wrong here twice over.
+
+   With `cover` the frame showed the top ~60% of the picture and threw the rest
+   away, so you could not tell what the screenshot was. Switching to `contain`
+   fixed the crop but caused the opposite problem: a square picture in a wide
+   frame is sized by the frame's HEIGHT, so it drew about 260px across inside a
+   512px card and floated in grey.
+
+   A square frame ends both. The picture matches it exactly — nothing cropped,
+   no grey mat. `align-self` stops the card's flex column from stretching the
+   frame to full width and flattening it back into a letterbox. */
+.cascade-on .cascade .work-card .card-art{
+  align-self:center;
+  aspect-ratio:1/1;
+  height:min(420px, 38svh);
+  width:auto;
+  max-width:100%;
+  margin:0 auto 12px;
+}
+.cascade-on .cascade .work-card .card-art img{
+  object-fit:cover;
+  object-position:center;
+}
+.cascade-on .cascade .work-card .card-foot{padding-top:12px}
+
+/* ---- 2. PIN -------------------------------------------------------------
+   .work-grid is auto-fit/minmax(300px,1fr), so it collapses to one column
+   first. Each card pins slightly lower than the one before it, and that
+   difference is what leaves a visible edge of every card underneath.
+
+   Two decisions here, both from watching it go wrong:
+
+   z-index 5 puts the cards BELOW .sec-head, which is 6 in styles.css. At 7 they
+   painted over the section heading and covered it. Under it, they stay below
+   the hairline, which is what the design wants.
+
+   The +64px offset then matters: .sec-head pins at top:var(--nav-h) and stands
+   about 56px tall once it has shrunk, so this leaves the pinned card sitting
+   just below the line rather than half-hidden behind it. */
+.cascade-on .cascade{display:block}
+.cascade-on .cascade .work-card{
   position:sticky;
-  top:14px;
-  background:var(--surface-2);
-  border-color:var(--hairline-strong);
+  top:calc(var(--nav-h, 73px) + 64px);
   margin-bottom:20px;
+  z-index:5;
+  /* The resting shadow is too faint to separate two cards lying on each other,
+     and in dark mode a black shadow on a near-black page does almost nothing.
+     Depth plus a stronger edge is what stops the stack reading as one slab.
+
+     NOT --shadow-lift, though. That token blurs over 66px, and a blur that wide
+     on six large cards that are all moving is a lot of pixels to repaint every
+     frame. This is the same depth read at less than half the blur radius. */
+  box-shadow:0 2px 6px rgba(0,0,0,.10), 0 14px 30px rgba(0,0,0,.16);
+  border-color:var(--hairline-strong);
+  /* Promotes each card to its own layer, so moving one repaints only that card
+     instead of the strip of page behind it. Six layers is a cheap trade. */
+  will-change:transform;
 }
-#cases .work-card:nth-of-type(2){top:26px}
-#cases .work-card:nth-of-type(3){top:38px}
-#cases .work-card:last-child{margin-bottom:0}
-/* The one change that makes the card short enough for the stack to read. */
-#cases .work-card .card-art{aspect-ratio:24/7}
+[data-theme="dark"] .cascade-on .cascade .work-card{
+  box-shadow:0 2px 8px rgba(0,0,0,.42), 0 14px 32px rgba(0,0,0,.55);
+}
+.cascade-on .cascade .work-card:nth-of-type(2){top:calc(var(--nav-h, 73px) + 76px)}
+.cascade-on .cascade .work-card:nth-of-type(3){top:calc(var(--nav-h, 73px) + 88px)}
+.cascade-on .cascade .work-card:last-child{margin-bottom:0}
+
+/* No resting angle in CSS. Every card passes through three states — arrive
+   tilted, straighten as it lands, lean the other way as the next card covers
+   it — and only the script knows which state a card is in. Two sources writing
+   rotation would fight. Without GSAP the cards stack square, a fair fallback. */
+
+/* ---- 3. A TONE PER LAYER -------------------------------------------------
+   Shades of the card's own colour, not a second hue.
+
+   These were mixed toward --accent, the brand indigo, which turned the buried
+   cards lavender. Ritika wants the original surface only. So each step now mixes
+   toward --ink instead — the same colour the text is already using, so it reads
+   as the same card under different light rather than as a different card.
+
+   LIGHT, DARK, LIGHT down the stack. Only touching pairs have to differ: you see
+   the edge of 1 behind 2, and of 2 behind 3, so 1 and 3 can share a tone without
+   the stack losing its steps.
+
+   Mixing toward --ink works in both themes without a second rule. In light mode
+   ink is near-black, so the step goes darker; in dark mode ink is near-white, so
+   the same rule lightens it. Either way the buried card separates.
+
+   The three-part selector also outranks `.card.written`, which sets its own
+   background on the case-study cards. */
+.cascade-on .cascade .work-card:nth-of-type(1),
+.cascade-on .cascade .work-card:nth-of-type(3){
+  background:var(--surface-2);
+}
+.cascade-on .cascade .work-card:nth-of-type(2){
+  background:color-mix(in srgb, var(--surface-2) 90%, var(--ink) 10%);
+}
+/* The middle card has moved away from the page colour, so its border has to move
+   with it or the edge disappears into the fill. */
+.cascade-on .cascade .work-card:nth-of-type(2){
+  border-color:color-mix(in srgb, var(--hairline-strong) 70%, var(--ink) 30%);
+}
+
+/* ---- 4. REVEAL, MADE FAIL-SAFE -------------------------------------------
+   styles.css:1099 sets `.reveal{opacity:0}` and an IntersectionObserver in
+   script.js:593 puts it back. Eighteen elements on this page carry that class,
+   including the whole "Three Ways In" section.
+
+   So anything that stops that observer running leaves most of the page BLANK.
+   The <noscript> block at index.html:48 hides the preloader but does nothing
+   about this.
+
+   The JavaScript-off case is handled by a <noscript><style> block instead — a
+   plain CSS selector cannot detect it. The script further down covers the worst
+   case, where JavaScript runs but throws. */
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1; translate:none; transition:none}
+}
+@media print{
+  .reveal{opacity:1 !important; translate:none !important}
+}
+
+/* Reading time. Same chip as the other tags, one step quieter, because it is a
+   cost to the reader rather than a claim about the work. */
+.tag-read{font-variant-numeric:tabular-nums; color:var(--faint); border-style:dashed}
+
+/* ---- 5. THE ARC LINE STRIKES ITSELF OUT -----------------------------------
+   Two jobs struck out, one left standing. The strikes now DRAW, left to right.
+   The motion is the meaning — you watch a career correct itself.
+
+   styles.css:1792 sets a real `text-decoration: line-through`, which cannot be
+   animated. So it is switched off and replaced with a pseudo element that scales
+   along its own X axis: transform only, no layout, no paint, runs once. */
+.hero-arc s{text-decoration:none; position:relative}
+.hero-arc s::after{
+  content:"";
+  position:absolute;
+  left:0; right:-.06em; top:.58em;
+  height:1.5px;
+  background:var(--faint-deco);
+  transform:scaleX(0);
+  transform-origin:left center;
+}
+/* `lit` is the site's own gate, added once the preloader is out of the way
+   (script.js:817), so the strikes cannot play behind the curtain. */
+html.lit .hero-arc s::after{animation:arc-strike .42s cubic-bezier(.4,.1,.3,1) forwards}
+html.lit .hero-arc s:nth-of-type(1)::after{animation-delay:.55s}
+html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
+@keyframes arc-strike{to{transform:scaleX(1)}}
+
+/* The opt-out lands on struck-through, not on blank. A line that never gets
+   struck says the wrong thing about her career. */
+@media (prefers-reduced-motion: reduce){
+  .hero-arc s::after{transform:scaleX(1); animation:none}
+}
+
+/* ---- 6. TEXT YOU CAN ACTUALLY SELECT --------------------------------------
+   Every card is a "whole card is the link" card: `.card-link::after` is an empty
+   layer with `position:absolute; inset:0; z-index:1` covering the entire card
+   (styles.css:733 and :819). It sits ABOVE the words, so dragging across the dek
+   drags across that layer and nothing is ever selected.
+
+   The fix puts the overlay UNDERNEATH the words. The text blocks get their own
+   positioned layer and the overlay drops to 0, where it still covers the
+   padding, the picture and the gaps.
+
+   THE TRADE: clicking directly ON a paragraph now selects text instead of
+   opening the card. The title, the picture and the rest of the card still open
+   it. You cannot have both on the same pixel, and the words are worth more.
+
+   Not scoped to `.cascade-on`: copying text is not a feature of the stack. */
+.work-card .card-link::after,
+.card.written .card-link::after{z-index:0}
+.work-card .card-tags,
+.work-card .card-dek,
+.work-card .card-note-wry,
+.work-card .card-foot,
+.work-card h3{position:relative; z-index:1}
+
+/* ---- 7. WORK EXPERIENCE IN PROSE ------------------------------------------
+   The bullets are gone, so the list styling goes with them. Sized to match the
+   bullets it replaced, so the paragraph does not read as a different component. */
+.expn-prose{
+  margin-top:11px;
+  font-size:15px;
+  line-height:1.62;
+  color:var(--ink-2);
+  max-width:612px;
+}
+/* Weight, not slant. Body copy is Inter 400 and index.html:40 loads only 400,
+   450, 500 and 600 — fixed instances, no variable axis. 520 would round to 500
+   anyway or be faked by smearing the 400, so 500 is set explicitly. The faint
+   colour went with the italic: a quiet colour fights an emphatic weight. */
+.expn-wry{font-weight:500}
+
+/* ---- 8. ABOUT AND WORK EXPERIENCE, UNBOXED --------------------------------
+   Both sections lose their drawn container.
+
+   That also settles the empty-space problem rather than fighting it. A measure
+   shorter than the column is only a defect when a border is drawn around it —
+   framed emptiness reads as a hole. With no border the same leftover reads as
+   page margin, which is what it always was.
+
+   The two blocks share a right edge: About starts at the column's left edge and
+   runs 640px; the experience prose is indented 28px by the timeline rail, so it
+   runs 612px and finishes level. */
+.expg{background:none; border:0; border-radius:0; padding:0}
+
+/* TWO COLUMNS, so the story fills the width instead of leaving half the section
+   empty. Capping it at 640px made the measure readable and the hole obvious.
+
+   A paragraph cannot be widened past about 70 characters without getting hard to
+   read, so the only honest way to use 1080px for prose is to set it twice. Each
+   column here lands near 480px, which is about 60 characters — a better measure
+   than the single column had.
+
+   `break-inside:avoid` keeps each paragraph whole. Without it the browser splits
+   one across the column gap, and the reader has to travel to the bottom of the
+   page and back up mid-sentence. */
+.about-story{
+  max-width:none;
+  columns:2;
+  column-gap:clamp(32px, 4vw, 64px);
+}
+.about-story p{
+  break-inside:avoid;
+  margin-top:0;
+  margin-bottom:16px;
+}
+/* Below this two columns would be too narrow to justify without gaps opening
+   up, and a column that needs scrolling down and back up is worse than a long
+   page. Back to one. */
+@media(max-width:860px){
+  .about-story{columns:1; max-width:640px}
+}
+.about-story p{
+  max-width:none;
+  /* Down from clamp(17px, 1.5vw, 19.5px), which was the largest body text on the
+     page and competed with the section headings. */
+  font-size:clamp(15.5px, 1.15vw, 17px);
+  line-height:1.65;
+  text-align:justify;
+  /* Justify without hyphenation is what makes justified web text look broken:
+     with nowhere to break a long word the browser stretches the spaces instead,
+     and rivers of white open down the paragraph. */
+  hyphens:auto;
+  -webkit-hyphens:auto;
+}
+
+/* ---- 9. YOUR CALL — OPTIONS BESIDE THE QUESTION ---------------------------
+   The fork card was a single column: source line, question, note, then the two
+   options across the floor. The question is capped at 25ch and the note at 58ch
+   (styles.css:1662, :1665), so on a full-width card the whole top half was empty
+   to the right of two short lines — and the card had to be 330px tall to hold a
+   stack that only needed half of it.
+
+   Now it is two columns. The question keeps the left, the options move into the
+   space beside it. Same elements, no markup change: #gm-play becomes a grid,
+   everything lands in column 1 by default, and the options are pulled into
+   column 2 spanning the rows the text occupies.
+
+   The options lose `margin-top:auto`, which existed to push them to the floor of
+   a tall card. There is no floor to push to any more, so they centre against the
+   question instead. */
+#gm-play{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,400px);
+  column-gap:clamp(24px, 4vw, 56px);
+  align-content:start;
+}
+/* Every one of these is scoped under #gm-play, and that is deliberate rather
+   than sloppy. The default rule below has to use the ID to reach the children,
+   which gives it a specificity of (1,0,0). A plain `.gm-opts{grid-column:2}`
+   scores (0,1,0) and LOSES to it — the options snapped back into column 1 while
+   keeping their row span, so they sat on top of the question. Matching the ID on
+   both sides is what makes the later rules win. */
+#gm-play > *{grid-column:1}
+#gm-play > .gm-opts{
+  grid-column:2;
+  grid-row:1 / span 3;
+  align-self:center;
+  grid-template-columns:1fr;   /* stacked, because the column is narrow now */
+  margin-top:0;
+  padding-top:0;
+}
+/* The answer and the next button belong to the whole card, not to one column. */
+#gm-play > .gm-reveal, #gm-play > #gm-next{grid-column:1 / -1}
+
+/* 330px was sized for the stacked layout. Beside each other, the two halves are
+   shorter than that, and the leftover reopened at the bottom instead. */
+.game-in{min-height:250px}
+
+/* Below this the two columns would leave the question four words wide, and the
+   options would be too narrow to read. Back to the original stack. */
+@media(max-width:860px){
+  #gm-play{display:flex; flex-direction:column}
+  #gm-play > .gm-opts{grid-template-columns:1fr 1fr; margin-top:auto; padding-top:26px}
+}
 @media(max-width:640px){
-  #cases .work-card .card-art{aspect-ratio:16/7}
-  #cases .work-card{top:10px;margin-bottom:14px}
-  #cases .work-card:nth-of-type(2){top:18px}
-  #cases .work-card:nth-of-type(3){top:26px}
+  #gm-play > .gm-opts{grid-template-columns:1fr}
 }
-/* A pinned card taller than the screen is worse than no pinning at all. */
-@media (prefers-reduced-motion:reduce),(max-height:520px){
-  #cases .work-card{position:static}
+
+/* PHONE. The stack stays, so the picture pays for it. */
+@media(max-width:640px){
+  .cascade-on .cascade .work-card .card-art{height:min(180px, 20svh);margin-bottom:10px}
+  .cascade-on .cascade .work-card{padding:16px 18px}
+  .cascade-on .cascade .work-card .card-foot{padding-top:8px}
+  .cascade-on .cascade .work-card .card-tags{margin-bottom:8px}
+  .cascade-on .cascade .work-card{top:calc(var(--nav-h, 73px) + 52px);margin-bottom:14px}
+  .cascade-on .cascade .work-card:nth-of-type(2){top:calc(var(--nav-h, 73px) + 62px)}
+  .cascade-on .cascade .work-card:nth-of-type(3){top:calc(var(--nav-h, 73px) + 72px)}
 }
 </style>
 </head>
 <body>
-<div class="tst">
-  <h1>Cascade test</h1>
-  <p>Not linked from anywhere and not indexed. Nothing here is on the live site.</p>
-  <ul>
-    <li>Scroll down slowly. Each case study should <strong>pin near the top</strong> and the next should rise over it, leaving a visible edge.</li>
-    <li><strong>Check on your phone first.</strong> Each card has to fit the screen, or it pins and you are still scrolling inside it &mdash; that is what failed last time.</li>
-    <li>Flip the theme. Check the covered cards still read as behind, not merged.</li>
-    <li>The only change to the card is <code>aspect-ratio</code> on the image. Its layout is untouched.</li>
-  </ul>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- PRELOADER (GPU ACCELERATED HIGH-CONTRAST REVEAL FOR BOTH THEMES) -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-panel left"></div>
+  <div class="preloader-panel right"></div>
+  <div class="preloader-content">
+    <div class="preloader-top">
+      <div class="preloader-brand">Ritika Das — Portfolio</div>
+      <div class="preloader-brand">Bengaluru, IN</div>
+    </div>
+    <div class="preloader-num-wrap">
+      <div class="preloader-num" id="preloader-count">0%</div>
+    </div>
+    <div class="preloader-bottom">
+      <div class="preloader-tag">Product Manager · Builder</div>
+      <div class="preloader-subtext">Loading portfolio & PM specs</div>
+    </div>
+  </div>
 </div>
 
-<div class="spacer">scroll &darr;</div>
+<!-- DESKTOP SIDE DOTS NAV -->
+<div class="side-nav">
+  <a href="#top" class="side-dot active" aria-label="Elevator Pitch"><span class="tooltip">Elevator Pitch</span></a>
+  <a href="#work" class="side-dot" aria-label="Shipped Products"><span class="tooltip">Shipped Products</span></a>
+  <a href="#cases" class="side-dot" aria-label="Case Studies"><span class="tooltip">Case Studies</span></a>
+  <a href="#about" class="side-dot" aria-label="About"><span class="tooltip">About</span></a>
+  <a href="#experience" class="side-dot" aria-label="Work Experience"><span class="tooltip">Experience</span></a>
+  <a href="#call" class="side-dot" aria-label="Argue With Me"><span class="tooltip">Argue With Me</span></a>
+  <a href="#contact" class="side-dot" aria-label="Contact"><span class="tooltip">Contact</span></a>
+</div>
 
+
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#top" class="brand" aria-label="Ritika Das Portfolio Home">
+      <span class="brand-mark" aria-hidden="true"></span>
+    </a>
+
+    <div class="nav-links">
+      <button type="button" class="theme-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
+        <span id="theme-icon">🌙</span> <span id="theme-text">Dark</span>
+      </button>
+      <a href="#work">Shipped Products</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#about">About</a>
+      <a href="#call">Argue With Me</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+      <button type="button" class="nav-toggle" id="nav-toggle"
+              aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Section list for small screens: below 700px every nav link was hidden and
+       the side dots vanish below 900px, leaving no way to jump between sections. -->
+  <div class="nav-menu" id="nav-menu">
+    <div class="nm-in">
+      <a href="#work">Shipped Products</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#about">About</a>
+      <a href="#call">Argue With Me</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<header id="top" class="elevator">
+  <div class="hero-body"><div class="wrap">
+    <div class="hero-eyebrow hero-enter">
+      <span class="eyebrow muted">Bengaluru, India</span>
+    </div>
+    <!-- The whole transition, in one line, told by the typography rather than by
+         a paragraph explaining it. Struck-through steps are real jobs, not a
+         joke at her own expense — each one is on the CV. What survives the
+         strikes is the positioning BUILD_SPEC settled on: a PM who builds. -->
+    <p class="hero-arc hero-enter"><s>Tech Consultant.</s> <s>Product Manager.</s> <b>Product Manager Who Builds.</b></p>
+    <h1 class="hero hero-enter">I decide what&rsquo;s worth building, then build it. Through research, experiments, design, plain judgment, and yes, AI.</h1>
+    <p class="hero-sub hero-enter">Three products I built alone. Three I took apart.</p>
+    <div class="hero-actions hero-enter">
+      <a href="#work" class="btn btn-primary">See the work <span class="arr">↗</span></a>
+      <a href="https://drive.google.com/file/d/1bKiZKj9pz8WEL2UV_duT23LAaNwhcxqS/view?usp=sharing" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Résumé <span class="arr">↗</span></a>
+    </div>
+  </div></div>
+  <!-- The capability marquee that closed this fold is gone. Its personal
+       lines — the biryani, the map, the World Cup — now live in About at a
+       size you can read, and what was left was a scrolling list of skills,
+       which is the most replaceable thing a portfolio can own. The fold ends
+       on the pitch and the first section shows above it instead. -->
+</header>
+
+<!-- WHO'S ASKING
+     The first thing after the pitch, and the site's only job here is to get a
+     visitor to the right page in one decision rather than three. It replaces
+     the audience switcher that used to sit in About: that asked a visitor to
+     re-read the same three facts in four different registers, which is more
+     work, not less. This answers the question they actually arrived holding
+     and then sends them somewhere. -->
+<section id="start" class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><h2 class="concept">Three Ways In</h2>
+      <div class="sub">Pick the one you actually came for. I&rsquo;d rather send you to the right page than make you hunt for it.</div></div>
+    </div>
+    <div class="routes reveal">
+
+      <div class="route">
+        <div class="route-k"><span>Watch me ship</span><b>6 min</b></div>
+        <h3>Want to see something I built?</h3>
+        <p>Three products, live, built alone. Start with FitCheck. It&rsquo;s the one where I had to decide what <em>not</em> to build seven separate times, and wrote down every one.</p>
+        <a href="../../work/fitcheck/" class="route-go">Open FitCheck <span class="arr">&#8599;</span></a>
+      </div>
+
+      <div class="route">
+        <div class="route-k"><span>Watch me think</span><b>9 min</b></div>
+        <h3>Want to see how I decide?</h3>
+        <p>Three case studies on products built by others. Reddit&rsquo;s logged-out audience grew 27% last quarter. It earns from the logged-in one. That gap is the whole problem.</p>
+        <a href="../../writing/reddit/" class="route-go">Read the Reddit study <span class="arr">&#8599;</span></a>
+      </div>
+
+      <div class="route">
+        <div class="route-k"><span>Watch me be wrong</span><b>90 sec</b></div>
+        <h3>Want to see me get it wrong?</h3>
+        <p>Six forks I actually hit while building. Pick a side and I&rsquo;ll tell you what I did, including the calls I later had to reverse.</p>
+        <a href="#call" class="route-go">Argue with me <span class="arr">&darr;</span></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><h2 class="concept with-marks">
+          Products I Built
+          <span class="concept-marks">
+            <img src="../../assets/fitcheck-icon.png" class="tile" alt="FitCheck" width="20" height="20" loading="lazy" decoding="async" />
+            <img src="../../assets/savio-icon.svg" alt="Savio" width="20" height="20" loading="lazy" decoding="async" />
+            <img src="../../assets/amazon-icon.svg?v=2" alt="Amazon Discovery Intelligence" width="20" height="20" loading="lazy" decoding="async" />
+          </span>
+        </h2><div class="sub">Built and shipped solo. Open one for the reasoning, the evidence, and a demo you can use. <span class="sub-wry">All three still work. I checked this morning.</span></div></div>
+    </div>
+    <div class="work-grid cascade">
+
+      <div class="card work-card" data-project="fitcheck">
+        <figure class="card-art">
+          <img src="../../assets/og/fitcheck-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags"><span class="tag-type">Product</span><span class="tag live">&#9679; In use</span><span class="tag">Chrome extension</span></div>
+        <h3><a class="card-link" href="../../work/fitcheck/">Turning the Size Chart Already on the Page into an <span class="nb">Answer <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">How I researched, designed and shipped FitCheck, a browser extension that compares the fit a garment was <b>designed for</b> with the fit you&rsquo;d actually get.</p>
+        <p class="card-note-wry">Built it because I ordered a 30 and needed a 28.</p>
+        <div class="card-foot">
+          <span class="card-facts">0-to-1 discovery &middot; Browser extension surfaces &middot; Competitor benchmarking</span>
+        </div>
+      </div>
+
+      <div class="card work-card" data-project="savio">
+        <figure class="card-art">
+          <img src="../../assets/og/savio-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags"><span class="tag-type">Product</span><span class="tag live">&#9679; Deployed</span><span class="tag">Consumer AI</span></div>
+        <h3><a class="card-link" href="../../work/savio/">Answering the Question Budget Apps Never Do: Can I Afford This, Right <span class="nb">Now <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">How I built Savio, an AI companion that reasons over your real income, commitments and goals, and checks every figure it writes against your own data first.</p>
+        <p class="card-note-wry">Built for people who are bad at budgeting and weirdly happy to tell an AI about it.</p>
+        <div class="card-foot">
+          <span class="card-facts">User interviews &middot; Deterministic AI &amp; grounding &middot; Trust gating</span>
+        </div>
+      </div>
+
+      <div class="card work-card" data-project="amazon">
+        <figure class="card-art">
+          <img src="../../assets/og/amazon-card.jpg?v=9" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
+        </figure>
+        <div class="card-tags"><span class="tag-type">Product</span><span class="tag live">&#9679; Deployed</span><span class="tag">Multi-agent pipeline</span></div>
+        <h3><a class="card-link" href="../../work/amazon/">Solo Building a Pipeline That Turns a Week of Amazon Reviews into One <span class="nb">Decision <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">How I built Amazon Discovery Intelligence, a pipeline that reads public reviews, counts what each problem cost people, and names the one worth starting.</p>
+        <p class="card-note-wry">For PMs with dark circles from a feedback queue they still had to skim.</p>
+        <div class="card-foot">
+          <span class="card-facts">LLM orchestration &middot; Multi-agent pipeline &middot; Success metrics</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- PRODUCT THINKING (WITH ORIGINAL BRAND COLOR SVG LOGOS IN HEADER & CARDS) -->
 <section id="cases" class="band">
   <div class="wrap">
     <div class="sec-head reveal">
       <div>
-        <h2 class="concept" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <h2 class="concept with-marks">
           Case Studies
-          <span style="display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--hairline-strong);padding:5px 12px;border-radius:20px;margin-left:4px">
-            <!-- CREW leads, matching the card order below. Its mark is a full-colour
-                 app tile rather than a flat glyph, so it carries the same corner radius
-                 it has on the card instead of sitting as a hard square. -->
-            <img src="../../assets/crew-icon.png" alt="CREW Logo" width="20" height="20" style="width:20px;height:20px;display:block;border-radius:5px" loading="lazy" decoding="async" />
-            <img src="../../assets/reddit.svg" alt="Reddit Logo" width="20" height="20" style="width:20px;height:20px;display:block" loading="lazy" decoding="async" />
-            <img src="../../assets/youtube.svg" alt="YouTube Logo" width="22" height="22" style="width:22px;height:22px;display:block" loading="lazy" decoding="async" />
+          <span class="concept-marks">
+            <img src="../../assets/crew-icon.png" class="tile" alt="CREW" width="20" height="20" loading="lazy" decoding="async" />
+            <img src="../../assets/reddit.svg" alt="Reddit" width="20" height="20" loading="lazy" decoding="async" />
+            <img src="../../assets/youtube.svg" class="wide" alt="YouTube" width="22" height="22" loading="lazy" decoding="async" />
           </span>
         </h2>
-        <div class="sub">Product decisions on products already built. Across social, luxury, and platforms. <a href="../../writing/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px;white-space:nowrap">All writing &rarr;</a></div>
+        <div class="sub">Product decisions on products already built, across social, luxury and platforms. <span class="sub-wry">Nobody asked me to write these.</span> <a href="../../writing/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px;white-space:nowrap">All writing &rarr;</a></div>
       </div>
     </div>
-    <div class="work-grid">
+    <div class="work-grid cascade">
 
       <!-- The three studies keep their approved dek and their own preview art. The
            card already linked straight to the piece; the only change is that it now
            sits beside its siblings in a grid instead of stacked below them. -->
-      <div class="card written work-card reveal" data-project="crew">
+      <div class="card written work-card" data-project="crew">
         <figure class="card-art">
           <img src="../../assets/og/crew-card.jpg?v=7" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="card-tags">
+          <span class="tag tag-read">10 min read</span>
           <span class="tag-type">Case study</span>
-          <span class="tag solid" style="color:var(--crew-brand);border-color:var(--crew-line);background:var(--crew-tint);font-weight:600">&#9679; CREW</span>
+          <span class="tag solid" style="color:var(--crew-brand);border-color:var(--crew-line);background:var(--crew-tint);font-weight:600">CREW</span>
         </div>
-        <h3><a class="card-link" href="../../writing/crew/">One trip at a <span class="nb">time <span class="arr">&#8599;</span></span></a></h3>
-        <p class="card-dek">CREW tells you which terminal your connecting flight leaves from, before you land. No competitor does that &mdash; and every message like it is made by hand.</p>
+        <h3><a class="card-link" href="../../writing/crew/">One Trip at a <span class="nb">Time <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">CREW tells you which terminal your connecting flight leaves from, before you land. No competitor does that. And every message like it is made by hand.</p>
         <div class="card-foot">
-          <span class="card-facts">Luxury travel &middot; Scale &amp; unit economics &middot; 7 min read</span>
+          <span class="card-facts">Luxury travel &middot; Scale &amp; unit economics &middot; Summary + deck</span>
         </div>
       </div>
 
-      <div class="card written work-card reveal" data-project="reddit">
+      <div class="card written work-card" data-project="reddit">
         <figure class="card-art">
           <img src="../../assets/og/reddit-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="card-tags">
+          <span class="tag tag-read">5 min read</span>
           <span class="tag-type">Case study</span>
-          <span class="tag solid" style="color:var(--study-reddit);border-color:color-mix(in srgb,var(--study-reddit) 38%,transparent);background:color-mix(in srgb,var(--study-reddit) 8%,transparent);font-weight:600">&#9679; Reddit</span>
+          <span class="tag solid" style="color:var(--study-reddit);border-color:color-mix(in srgb,var(--study-reddit) 38%,transparent);background:color-mix(in srgb,var(--study-reddit) 8%,transparent);font-weight:600">Reddit</span>
         </div>
-        <h3><a class="card-link" href="../../writing/reddit/">Reddit is a waypoint, not a <span class="nb">destination <span class="arr">&#8599;</span></span></a></h3>
-        <p class="card-dek">Around 62% of Reddit&rsquo;s visitors arrive from Google, land on one thread, get their answer and leave. Reddit spends its welcome effort on a homepage those visitors never see.</p>
+        <h3><a class="card-link" href="../../writing/reddit/">Reddit Is Read Without Being <span class="nb">Visited <span class="arr">&#8599;</span></span></a></h3>
+        <p class="card-dek">Reddit&rsquo;s logged-out audience grew 27% last quarter and its logged-in audience grew 7%. It earns from the second and is increasingly made of the first.</p>
         <div class="card-foot">
           <span class="card-facts">Consumer social &middot; Activation &middot; Summary + deck</span>
         </div>
       </div>
 
-      <div class="card written work-card reveal" data-project="youtube">
+      <div class="card written work-card" data-project="youtube">
         <figure class="card-art">
           <img src="../../assets/og/youtube-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="card-tags">
+          <span class="tag tag-read">8 min read</span>
           <span class="tag-type">Case study</span>
-          <span class="tag solid" style="color:var(--study-youtube);border-color:color-mix(in srgb,var(--study-youtube) 38%,transparent);background:color-mix(in srgb,var(--study-youtube) 8%,transparent);font-weight:600">&#9679; YouTube</span>
+          <span class="tag solid" style="color:var(--study-youtube);border-color:color-mix(in srgb,var(--study-youtube) 38%,transparent);background:color-mix(in srgb,var(--study-youtube) 8%,transparent);font-weight:600">YouTube</span>
         </div>
         <h3><a class="card-link" href="../../writing/youtube/">The Demand You Can&rsquo;t <span class="nb">See <span class="arr">&#8599;</span></span></a></h3>
         <p class="card-dek">A product can only measure what it lets you do. The wants it blocks leave no trace. So look at the trouble people go to on their own to get around it.</p>
@@ -141,8 +718,311 @@
     </div>
   </div>
 </section>
+<!-- ABOUT (WITH TARGET AUDIENCE SWITCHER) -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2 class="concept">About</h2>
+        <div class="sub">The short version. <span class="sub-wry">The long version is the rest of the page.</span></div>
+      </div>
+    </div>
 
-<div class="spacer">end of the stack</div>
-<script src="../../script.js?v=20260819f" defer></script>
+    <!-- Three cards became one paragraph. Two of them were repeating the page:
+         "three products, built and shipped solo" is the section directly above
+         this one, and "I know what to check, when to stop and what not to
+         build" is a claim that Argue With Me now demonstrates instead of
+         asserting. What was left is the only thing About can say that nothing
+         else on the page says — how someone in enterprise delivery ended up
+         shipping three products alone. -->
+    <div class="about-story reveal">
+      <p>I became a PM inside enterprise SaaS. Long cycles, big rooms, every client twenty years my senior.</p>
+      <p>It taught me to own the gap between what gets promised and what ships. But nobody in enterprise picks the software. Someone buys it and everyone else complies. Nothing I shipped was ever anyone&rsquo;s choice.</p>
+      <p>Consumer is the opposite, and it is the part I actually want. Millions of people who can leave. A test that answers you in a week instead of a quarter. Design and psychology doing the real work. Why someone abandons a form, why they trust one number and not another, why they&rsquo;d rather guess than ask.</p>
+      <p>So I started building it myself. Three products in, I&rsquo;m not going back.</p>
+    </div>
+
+    <!-- ALSO TRUE
+         These five lines already existed on this site — inside the marquee, at
+         12px, in capitals, moving past at speed. Which is where you put
+         something you are slightly embarrassed by. They are the most human
+         thing on the page and About is where they belong, so here they are at
+         a size somebody can actually read. -->
+    <div class="also reveal">
+      <div class="also-k">Also true</div>
+      <div class="also-row">
+        <span class="also-chip">Cooks a <b>very</b> good biryani.</span>
+        <span class="also-chip">Read English <b>Literature</b>. Now reads reviews the same way.</span>
+        <span class="also-chip"><b>Big</b> on history, hazy on the present.</span>
+        <span class="also-chip">Can&rsquo;t drive. Can&rsquo;t read a <b>map</b> either.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SHIPPED PRODUCTS
+     These three cards used to expand everything inline: four PROBLEM/DECISION rows,
+     a screenshot flipper, a live widget and a folded spec drawer, three times over.
+     That is a reader being handed the whole argument before they have decided which
+     project they care about. All of it moved, word for word, to /work/<slug>/ — what
+     stays here is a picture, a line and the number that makes the case. -->
+
+
+
+
+
+
+<!-- WORK EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><h2 class="concept">Work Experience</h2><div class="sub">Three years in enterprise delivery. <span class="sub-wry">The last one is the one that counts.</span></div></div>
+    </div>
+    <!-- A label rail and a body, not a stack. The card runs the full 1080px while its
+         text is capped at a reading measure, so ~380px of it was unreachable — worst
+         at the top right, where the date sat alone in the corner. The date, role and
+         org are the card's paperwork, so they go in the rail the way .art-meta and
+         .pdeo already do it, and the four bullets take the width they freed up. -->
+    <!-- One employer, one box. The two roles sit on a single branch the way
+         LinkedIn draws a promotion, and the six points sit underneath them at
+         the same left edge — not in a column that starts halfway across the
+         card. Each role carries its own points, the way LinkedIn nests them
+         under a title — four for the product year, two for the years before
+         it. -->
+    <div class="expg reveal">
+      <div class="expg-head">
+        <div class="expg-name">Enterprise SaaS</div>
+        <div class="expg-span">2022 &ndash; 2025 &middot; 3 yrs</div>
+      </div>
+
+      <div class="expg-track">
+        <div class="expn">
+          <div class="expn-line">
+            <span class="expn-when">2024 &ndash; 2025</span>
+            <span class="expn-role">Associate Product Manager</span>
+          </div>
+          <p class="expn-prose">I owned the gap between what clients wanted, what we could
+            build, and what we could ship on time. Lots of prioritization, a few painful
+            trade-offs, and one very firm go-live date.
+            <span class="expn-wry">Turns out, product management is mostly making those three
+            things agree.</span></p>
+        </div>
+
+        <div class="expn">
+          <div class="expn-line">
+            <span class="expn-when">2022 &ndash; 2024</span>
+            <span class="expn-role">Technical Consultant</span>
+          </div>
+          <p class="expn-prose"><span class="expn-wry">I built things in SAP, broke things in
+            SAP, and then figured out why they broke.</span> Mostly, I turned business
+            requirements into working data and analytics solutions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARGUE WITH ME
+     The one thing on this site a visitor does rather than reads. Every fork is
+     real, lifted from the trade-off sections of the three project pages. It
+     sits here, at the end, because someone who has just spent ninety seconds
+     inside the reasoning is the right person to be handed an email address. -->
+<section id="call">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div><h2 class="concept">Argue With Me</h2>
+      <div class="sub">Six forks I actually hit while building. Pick a side, I&rsquo;ll tell you what I did. Then you can tell me I was wrong. <span class="sub-wry">Every one of these split my own head for a while.</span></div></div>
+    </div>
+
+    <div class="game reveal">
+      <div class="game-bar">
+        <span id="gm-prog">Fork 1 of 6</span>
+        <span class="gm-pips" id="gm-pips"></span>
+        <span id="gm-tally">&mdash;</span>
+      </div>
+      <div class="game-in">
+        <div id="gm-play">
+          <div class="gm-src"><span id="gm-src"></span> <span class="gm-src-note">&middot; <span id="gm-srcnote"></span></span></div>
+          <h3 class="gm-q" id="gm-q">&nbsp;</h3>
+          <p class="gm-note" id="gm-qnote">&nbsp;</p>
+          <div class="gm-opts">
+            <button class="gm-opt" id="gm-a" type="button"><span class="gm-kk">Option A</span><span class="gm-txt"></span></button>
+            <button class="gm-opt" id="gm-b" type="button"><span class="gm-kk">Option B</span><span class="gm-txt"></span></button>
+          </div>
+          <div class="gm-reveal" id="gm-reveal">
+            <div class="gm-vd" id="gm-verdict"></div>
+            <p class="gm-why" id="gm-why"></p>
+            <button class="btn btn-primary" id="gm-next" type="button">Next <span class="arr">&rarr;</span></button>
+          </div>
+        </div>
+
+        <div class="gm-score" id="gm-score">
+          <div class="gm-score-n"><span id="gm-scoreN">0</span><small>/6</small></div>
+          <div class="gm-score-line" id="gm-scoreLine"></div>
+          <p class="gm-score-sub" id="gm-scoreSub"></p>
+          <div class="gm-score-row">
+            <a href="mailto:ritikadas98@gmail.com" class="btn btn-primary">Tell me where I got it wrong <span class="arr">&#8599;</span></a>
+            <button class="btn btn-ghost" id="gm-again" type="button">Play again</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION WITH EXACT USER VECTOR SIGNATURE PNG -->
+<section id="contact" class="band contact">
+  <div class="wrap">
+    <span class="eyebrow">Open to product roles</span>
+    <h2>Let's build something worth owning.</h2>
+    <p>Early-stage, India-based or remote. If you're hiring, I'd like to hear about it.</p>
+    <!-- Was the fourth line of the hero, where it was one thing too many. It is
+         a better joke here anyway: it lands on someone who has just decided to
+         write to her, not on someone still deciding whether to scroll. -->
+    <p class="contact-aside">Fair warning: I will ask you a lot of questions. That part is the job.</p>
+    <div class="contact-links">
+      <a href="mailto:ritikadas98@gmail.com" class="btn btn-primary">Email me <span class="arr">↗</span></a>
+      <!-- wa.me wants country code, no + and no spaces: 91 + 8839331633 -->
+      <a href="https://wa.me/918839331633" class="btn btn-ghost" target="_blank" rel="noopener noreferrer"><svg class="wa-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.96L2 22l4.25-1.68a9.9 9.9 0 0 0 5.79 1.85h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.85 9.85 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12 1.23 1.25-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.39c0-4.54 3.7-8.23 8.24-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.38.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>WhatsApp <span class="arr">↗</span></a>
+      <a href="https://www.linkedin.com/in/ritikadas98/" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">LinkedIn <span class="arr">↗</span></a>
+      <a href="https://github.com/ritikadas98" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub <span class="arr">↗</span></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Ritika Das — 2026</span>
+    <span>Built and maintained by Claude</span>
+  </div>
+</footer>
+
+<script src="../../script.js?v=20260901b" defer></script>
+
+<!-- GSAP 3.15.0, version-pinned. Core plus ScrollTrigger, about 117KB together.
+     Deferred, so both are parsed in this order before the module below runs. -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
+
+<script>
+/* Waits for DOMContentLoaded. `defer` does nothing on an inline script — it is
+   honoured only with a src — so without this the code would run before the two
+   GSAP files had been fetched and window.gsap would be undefined. */
+/* ── REVEAL FAIL-SAFE ───────────────────────────────────────────────────────
+   The CSS above covers JavaScript being OFF. This covers the worse case: it is
+   ON, but script.js threw before it reached the observer at line 593. The
+   <noscript> rule cannot help there, because scripting is enabled.
+
+   So after 2.5 seconds anything still hidden is simply shown. If the observer
+   is working it has long since done its job and this finds nothing. If it is
+   not, the page is readable instead of blank. */
+setTimeout(function(){
+  var hidden = document.querySelectorAll('.reveal:not(.in)');
+  for(var i = 0; i < hidden.length; i++) hidden[i].classList.add('in');
+}, 2500);
+
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.gsap || !window.ScrollTrigger) return;
+  if(!document.documentElement.classList.contains('cascade-on')) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* THE PHONE BUG. On a phone the browser's address bar slides away as you
+     scroll and slides back as you stop. Each slide changes the window height,
+     which fires `resize`, which used to call ScrollTrigger.refresh() below. A
+     refresh re-measures every trigger and re-seeks the timeline, so the tilt was
+     being reset several times a second — the cards pinned correctly and never
+     appeared to rotate. Desktop has no address bar, which is why it only showed
+     on the phone.
+
+     `ignoreMobileResize` tells ScrollTrigger to ignore a height-only change on a
+     touch device, which is exactly the address-bar case. The resize listener
+     further down now also checks the WIDTH itself before refreshing, so a real
+     rotation or window drag still works. */
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
+  /* Angles. These went 7/4 -> 9/6 to make the tilt visible on a phone, and at
+     that size the stack read as a scattered pile rather than as a deck. Back
+     down to 5/3: enough that you can see a card leaning behind the one on top,
+     not so much that the page looks knocked over. */
+  var ENTRY  = 5;   /* degrees a card arrives at */
+  var BURIED = 3;   /* degrees it leans once something covers it */
+
+  /* A card's pin point is its own CSS `top`, so read it rather than restating
+     the numbers here and letting the two drift apart. */
+  function pinTop(el){ return parseFloat(getComputedStyle(el).top) || 0; }
+
+  gsap.utils.toArray('.cascade').forEach(function(grid){
+    var cards = gsap.utils.toArray(grid.querySelectorAll('.work-card'));
+
+    cards.forEach(function(card, i){
+      var dir  = i % 2 === 0 ? 1 : -1;
+      var next = cards[i + 1];
+
+      /* ONE timeline per card, driven by ONE ScrollTrigger.
+
+         Two separate triggers is the obvious way to write this and it does not
+         work: the arrival range and the burial range overlap, both write
+         `transform`, and the card jitters between them. A single timeline plays
+         the phases in sequence, so only one is ever writing.
+
+         The range runs from this card touching the bottom of the screen to the
+         NEXT card reaching its own pin point — exactly the span over which this
+         card arrives, lands, and then gets covered. */
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: card,
+          start: 'top bottom',
+          endTrigger: next || card,
+          end: function(){ return 'top ' + pinTop(next || card) + 'px'; },
+          /* Tied to scroll position rather than to a clock, so scrolling back up
+             plays the whole thing backwards: the card un-leans, straightens,
+             then tilts back out the way it came in. */
+          scrub: 0.6,
+          /* Recompute the pixel numbers on every refresh rather than reusing the
+             ones measured at build time. --nav-h and card height move with the
+             window. */
+          invalidateOnRefresh: true
+        }
+      });
+
+      /* Phase 1 — arrive tilted, straighten as it lands. */
+      tl.fromTo(card,
+        { rotate: dir * ENTRY, yPercent: 7, scale: 0.96 },
+        { rotate: 0, yPercent: 0, scale: 1, ease: 'none', duration: 1 });
+
+      /* Phase 2 — the next card is coming, so lean the OTHER way and sink back
+         slightly. This is what makes a covered card read as a tilted edge behind
+         the one on top of it, which is the whole point of the stack. The last
+         card in a stack is never covered, so it has no phase 2. */
+      if(next){
+        tl.to(card,
+          { rotate: -dir * BURIED, scale: 0.955, ease: 'none', duration: 1 });
+      }
+    });
+  });
+
+  /* Every trigger point is a measured pixel offset, and three things move them
+     after the first measurement: fonts landing, images decoding, and a resize. */
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+  }
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+
+  /* Width only, and debounced. A height change on a phone is the address bar,
+     not a resize, and refreshing on it is what broke the tilt. A width change is
+     a real rotation or a dragged window, and does need a re-measure. */
+  var lastW = window.innerWidth, t;
+  window.addEventListener('resize', function(){
+    if(window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    clearTimeout(t);
+    t = setTimeout(function(){ ScrollTrigger.refresh(); }, 180);
+  }, {passive:true});
+});
+
+</script>
 </body>
 </html>

@@ -1861,3 +1861,350 @@ html.lit .hm-track{animation-play-state:running}
 @media(max-width:640px){.about-story p + p{margin-top:13px}}
 
 
+
+
+/* ============================================================================
+   THE CARD STACK, AND THE REPAIRS THAT CAME WITH IT
+   ============================================================================
+   Built and proven in preview/cascade/ before landing here. Sections 1-3 and 9
+   are the stack itself and only apply on the homepage, where `.cascade` is set.
+   Sections 4 and 6 are NOT homepage-only and are not decoration: they repair
+   defects that affect every page on the site.
+
+   CSS pins the cards. GSAP animates them. ScrollTrigger's own `pin: true` is
+   deliberately NOT used — it wraps and clones the element it pins, which fights
+   position:sticky. That is the mistake that broke every earlier attempt.
+   ============================================================================ */
+/* ---- 1. SIZE ------------------------------------------------------------
+   The card keeps everything it carries: art, tags, title, dek, the wry note and
+   the facts footer. Six blocks is a tall card, and height is the one thing this
+   effect cannot negotiate — a card taller than the screen pins and then you are
+   just scrolling inside it, which is what killed every earlier attempt.
+
+   A side-by-side layout was tried here — picture left, text right — because it
+   makes the card's height the TALLER of the two rather than the sum. It did make
+   the card about a third shorter. Ritika did not want it: the tall card with the
+   large picture is the one she is keeping. So the card stays a single column and
+   pays for it in height, which is a deliberate choice, not an oversight.
+
+   The phone block at the bottom pays for that height a different way, by cutting
+   the picture hard. Two dials if a card still overflows on a short laptop: the
+   picture cap just below, and the card padding. */
+.cascade-on .cascade .work-card{
+  width:min(620px, 100%);
+  margin-left:auto;
+  margin-right:auto;
+  padding:22px 24px;
+}
+
+/* The source images are all SQUARE — 1000x1000, every one of the six, Reddit
+   included. styles.css:808 frames them 16:10, which was wrong here twice over.
+
+   With `cover` the frame showed the top ~60% of the picture and threw the rest
+   away, so you could not tell what the screenshot was. Switching to `contain`
+   fixed the crop but caused the opposite problem: a square picture in a wide
+   frame is sized by the frame's HEIGHT, so it drew about 260px across inside a
+   512px card and floated in grey.
+
+   A square frame ends both. The picture matches it exactly — nothing cropped,
+   no grey mat. `align-self` stops the card's flex column from stretching the
+   frame to full width and flattening it back into a letterbox. */
+.cascade-on .cascade .work-card .card-art{
+  align-self:center;
+  aspect-ratio:1/1;
+  height:min(420px, 38svh);
+  width:auto;
+  max-width:100%;
+  margin:0 auto 12px;
+}
+.cascade-on .cascade .work-card .card-art img{
+  object-fit:cover;
+  object-position:center;
+}
+.cascade-on .cascade .work-card .card-foot{padding-top:12px}
+
+/* ---- 2. PIN -------------------------------------------------------------
+   .work-grid is auto-fit/minmax(300px,1fr), so it collapses to one column
+   first. Each card pins slightly lower than the one before it, and that
+   difference is what leaves a visible edge of every card underneath.
+
+   Two decisions here, both from watching it go wrong:
+
+   z-index 5 puts the cards BELOW .sec-head, which is 6 in styles.css. At 7 they
+   painted over the section heading and covered it. Under it, they stay below
+   the hairline, which is what the design wants.
+
+   The +64px offset then matters: .sec-head pins at top:var(--nav-h) and stands
+   about 56px tall once it has shrunk, so this leaves the pinned card sitting
+   just below the line rather than half-hidden behind it. */
+.cascade-on .cascade{display:block}
+.cascade-on .cascade .work-card{
+  position:sticky;
+  top:calc(var(--nav-h, 73px) + 64px);
+  margin-bottom:20px;
+  z-index:5;
+  /* The resting shadow is too faint to separate two cards lying on each other,
+     and in dark mode a black shadow on a near-black page does almost nothing.
+     Depth plus a stronger edge is what stops the stack reading as one slab.
+
+     NOT --shadow-lift, though. That token blurs over 66px, and a blur that wide
+     on six large cards that are all moving is a lot of pixels to repaint every
+     frame. This is the same depth read at less than half the blur radius. */
+  box-shadow:0 2px 6px rgba(0,0,0,.10), 0 14px 30px rgba(0,0,0,.16);
+  border-color:var(--hairline-strong);
+  /* Promotes each card to its own layer, so moving one repaints only that card
+     instead of the strip of page behind it. Six layers is a cheap trade. */
+  will-change:transform;
+}
+[data-theme="dark"] .cascade-on .cascade .work-card{
+  box-shadow:0 2px 8px rgba(0,0,0,.42), 0 14px 32px rgba(0,0,0,.55);
+}
+.cascade-on .cascade .work-card:nth-of-type(2){top:calc(var(--nav-h, 73px) + 76px)}
+.cascade-on .cascade .work-card:nth-of-type(3){top:calc(var(--nav-h, 73px) + 88px)}
+.cascade-on .cascade .work-card:last-child{margin-bottom:0}
+
+/* No resting angle in CSS. Every card passes through three states — arrive
+   tilted, straighten as it lands, lean the other way as the next card covers
+   it — and only the script knows which state a card is in. Two sources writing
+   rotation would fight. Without GSAP the cards stack square, a fair fallback. */
+
+/* ---- 3. A TONE PER LAYER -------------------------------------------------
+   Shades of the card's own colour, not a second hue.
+
+   These were mixed toward --accent, the brand indigo, which turned the buried
+   cards lavender. Ritika wants the original surface only. So each step now mixes
+   toward --ink instead — the same colour the text is already using, so it reads
+   as the same card under different light rather than as a different card.
+
+   LIGHT, DARK, LIGHT down the stack. Only touching pairs have to differ: you see
+   the edge of 1 behind 2, and of 2 behind 3, so 1 and 3 can share a tone without
+   the stack losing its steps.
+
+   Mixing toward --ink works in both themes without a second rule. In light mode
+   ink is near-black, so the step goes darker; in dark mode ink is near-white, so
+   the same rule lightens it. Either way the buried card separates.
+
+   The three-part selector also outranks `.card.written`, which sets its own
+   background on the case-study cards. */
+.cascade-on .cascade .work-card:nth-of-type(1),
+.cascade-on .cascade .work-card:nth-of-type(3){
+  background:var(--surface-2);
+}
+.cascade-on .cascade .work-card:nth-of-type(2){
+  background:color-mix(in srgb, var(--surface-2) 90%, var(--ink) 10%);
+}
+/* The middle card has moved away from the page colour, so its border has to move
+   with it or the edge disappears into the fill. */
+.cascade-on .cascade .work-card:nth-of-type(2){
+  border-color:color-mix(in srgb, var(--hairline-strong) 70%, var(--ink) 30%);
+}
+
+/* ---- 4. REVEAL, MADE FAIL-SAFE -------------------------------------------
+   styles.css:1099 sets `.reveal{opacity:0}` and an IntersectionObserver in
+   script.js:593 puts it back. Eighteen elements on this page carry that class,
+   including the whole "Three Ways In" section.
+
+   So anything that stops that observer running leaves most of the page BLANK.
+   The <noscript> block at index.html:48 hides the preloader but does nothing
+   about this.
+
+   The JavaScript-off case is handled by a <noscript><style> block instead — a
+   plain CSS selector cannot detect it. The script further down covers the worst
+   case, where JavaScript runs but throws. */
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1; translate:none; transition:none}
+}
+@media print{
+  .reveal{opacity:1 !important; translate:none !important}
+}
+
+/* Reading time. Same chip as the other tags, one step quieter, because it is a
+   cost to the reader rather than a claim about the work. */
+.tag-read{font-variant-numeric:tabular-nums; color:var(--faint); border-style:dashed}
+
+/* ---- 5. THE ARC LINE STRIKES ITSELF OUT -----------------------------------
+   Two jobs struck out, one left standing. The strikes now DRAW, left to right.
+   The motion is the meaning — you watch a career correct itself.
+
+   styles.css:1792 sets a real `text-decoration: line-through`, which cannot be
+   animated. So it is switched off and replaced with a pseudo element that scales
+   along its own X axis: transform only, no layout, no paint, runs once. */
+.hero-arc s{text-decoration:none; position:relative}
+.hero-arc s::after{
+  content:"";
+  position:absolute;
+  left:0; right:-.06em; top:.58em;
+  height:1.5px;
+  background:var(--faint-deco);
+  transform:scaleX(0);
+  transform-origin:left center;
+}
+/* `lit` is the site's own gate, added once the preloader is out of the way
+   (script.js:817), so the strikes cannot play behind the curtain. */
+html.lit .hero-arc s::after{animation:arc-strike .42s cubic-bezier(.4,.1,.3,1) forwards}
+html.lit .hero-arc s:nth-of-type(1)::after{animation-delay:.55s}
+html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
+@keyframes arc-strike{to{transform:scaleX(1)}}
+
+/* The opt-out lands on struck-through, not on blank. A line that never gets
+   struck says the wrong thing about her career. */
+@media (prefers-reduced-motion: reduce){
+  .hero-arc s::after{transform:scaleX(1); animation:none}
+}
+
+/* ---- 6. TEXT YOU CAN ACTUALLY SELECT --------------------------------------
+   Every card is a "whole card is the link" card: `.card-link::after` is an empty
+   layer with `position:absolute; inset:0; z-index:1` covering the entire card
+   (styles.css:733 and :819). It sits ABOVE the words, so dragging across the dek
+   drags across that layer and nothing is ever selected.
+
+   The fix puts the overlay UNDERNEATH the words. The text blocks get their own
+   positioned layer and the overlay drops to 0, where it still covers the
+   padding, the picture and the gaps.
+
+   THE TRADE: clicking directly ON a paragraph now selects text instead of
+   opening the card. The title, the picture and the rest of the card still open
+   it. You cannot have both on the same pixel, and the words are worth more.
+
+   Not scoped to `.cascade-on`: copying text is not a feature of the stack. */
+.work-card .card-link::after,
+.card.written .card-link::after{z-index:0}
+.work-card .card-tags,
+.work-card .card-dek,
+.work-card .card-note-wry,
+.work-card .card-foot,
+.work-card h3{position:relative; z-index:1}
+
+/* ---- 7. WORK EXPERIENCE IN PROSE ------------------------------------------
+   The bullets are gone, so the list styling goes with them. Sized to match the
+   bullets it replaced, so the paragraph does not read as a different component. */
+.expn-prose{
+  margin-top:11px;
+  font-size:15px;
+  line-height:1.62;
+  color:var(--ink-2);
+  max-width:612px;
+}
+/* Weight, not slant. Body copy is Inter 400 and index.html:40 loads only 400,
+   450, 500 and 600 — fixed instances, no variable axis. 520 would round to 500
+   anyway or be faked by smearing the 400, so 500 is set explicitly. The faint
+   colour went with the italic: a quiet colour fights an emphatic weight. */
+.expn-wry{font-weight:500}
+
+/* ---- 8. ABOUT AND WORK EXPERIENCE, UNBOXED --------------------------------
+   Both sections lose their drawn container.
+
+   That also settles the empty-space problem rather than fighting it. A measure
+   shorter than the column is only a defect when a border is drawn around it —
+   framed emptiness reads as a hole. With no border the same leftover reads as
+   page margin, which is what it always was.
+
+   The two blocks share a right edge: About starts at the column's left edge and
+   runs 640px; the experience prose is indented 28px by the timeline rail, so it
+   runs 612px and finishes level. */
+.expg{background:none; border:0; border-radius:0; padding:0}
+
+/* TWO COLUMNS, so the story fills the width instead of leaving half the section
+   empty. Capping it at 640px made the measure readable and the hole obvious.
+
+   A paragraph cannot be widened past about 70 characters without getting hard to
+   read, so the only honest way to use 1080px for prose is to set it twice. Each
+   column here lands near 480px, which is about 60 characters — a better measure
+   than the single column had.
+
+   `break-inside:avoid` keeps each paragraph whole. Without it the browser splits
+   one across the column gap, and the reader has to travel to the bottom of the
+   page and back up mid-sentence. */
+.about-story{
+  max-width:none;
+  columns:2;
+  column-gap:clamp(32px, 4vw, 64px);
+}
+.about-story p{
+  break-inside:avoid;
+  margin-top:0;
+  margin-bottom:16px;
+}
+/* Below this two columns would be too narrow to justify without gaps opening
+   up, and a column that needs scrolling down and back up is worse than a long
+   page. Back to one. */
+@media(max-width:860px){
+  .about-story{columns:1; max-width:640px}
+}
+.about-story p{
+  max-width:none;
+  /* Down from clamp(17px, 1.5vw, 19.5px), which was the largest body text on the
+     page and competed with the section headings. */
+  font-size:clamp(15.5px, 1.15vw, 17px);
+  line-height:1.65;
+  text-align:justify;
+  /* Justify without hyphenation is what makes justified web text look broken:
+     with nowhere to break a long word the browser stretches the spaces instead,
+     and rivers of white open down the paragraph. */
+  hyphens:auto;
+  -webkit-hyphens:auto;
+}
+
+/* ---- 9. YOUR CALL — OPTIONS BESIDE THE QUESTION ---------------------------
+   The fork card was a single column: source line, question, note, then the two
+   options across the floor. The question is capped at 25ch and the note at 58ch
+   (styles.css:1662, :1665), so on a full-width card the whole top half was empty
+   to the right of two short lines — and the card had to be 330px tall to hold a
+   stack that only needed half of it.
+
+   Now it is two columns. The question keeps the left, the options move into the
+   space beside it. Same elements, no markup change: #gm-play becomes a grid,
+   everything lands in column 1 by default, and the options are pulled into
+   column 2 spanning the rows the text occupies.
+
+   The options lose `margin-top:auto`, which existed to push them to the floor of
+   a tall card. There is no floor to push to any more, so they centre against the
+   question instead. */
+#gm-play{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,400px);
+  column-gap:clamp(24px, 4vw, 56px);
+  align-content:start;
+}
+/* Every one of these is scoped under #gm-play, and that is deliberate rather
+   than sloppy. The default rule below has to use the ID to reach the children,
+   which gives it a specificity of (1,0,0). A plain `.gm-opts{grid-column:2}`
+   scores (0,1,0) and LOSES to it — the options snapped back into column 1 while
+   keeping their row span, so they sat on top of the question. Matching the ID on
+   both sides is what makes the later rules win. */
+#gm-play > *{grid-column:1}
+#gm-play > .gm-opts{
+  grid-column:2;
+  grid-row:1 / span 3;
+  align-self:center;
+  grid-template-columns:1fr;   /* stacked, because the column is narrow now */
+  margin-top:0;
+  padding-top:0;
+}
+/* The answer and the next button belong to the whole card, not to one column. */
+#gm-play > .gm-reveal, #gm-play > #gm-next{grid-column:1 / -1}
+
+/* 330px was sized for the stacked layout. Beside each other, the two halves are
+   shorter than that, and the leftover reopened at the bottom instead. */
+.game-in{min-height:250px}
+
+/* Below this the two columns would leave the question four words wide, and the
+   options would be too narrow to read. Back to the original stack. */
+@media(max-width:860px){
+  #gm-play{display:flex; flex-direction:column}
+  #gm-play > .gm-opts{grid-template-columns:1fr 1fr; margin-top:auto; padding-top:26px}
+}
+@media(max-width:640px){
+  #gm-play > .gm-opts{grid-template-columns:1fr}
+}
+
+/* PHONE. The stack stays, so the picture pays for it. */
+@media(max-width:640px){
+  .cascade-on .cascade .work-card .card-art{height:min(180px, 20svh);margin-bottom:10px}
+  .cascade-on .cascade .work-card{padding:16px 18px}
+  .cascade-on .cascade .work-card .card-foot{padding-top:8px}
+  .cascade-on .cascade .work-card .card-tags{margin-bottom:8px}
+  .cascade-on .cascade .work-card{top:calc(var(--nav-h, 73px) + 52px);margin-bottom:14px}
+  .cascade-on .cascade .work-card:nth-of-type(2){top:calc(var(--nav-h, 73px) + 62px)}
+  .cascade-on .cascade .work-card:nth-of-type(3){top:calc(var(--nav-h, 73px) + 72px)}
+}

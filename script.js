@@ -868,3 +868,63 @@ document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
     }, { rootMargin: `-${navH + 1}px 0px 0px 0px`, threshold: 0 }).observe(sentinel);
   });
 })();
+
+
+/* ── REVEAL FAIL-SAFE ───────────────────────────────────────────────────────
+   The CSS above covers JavaScript being OFF. This covers the worse case: it is
+   ON, but script.js threw before it reached the observer at line 593. The
+   <noscript> rule cannot help there, because scripting is enabled.
+
+   So after 2.5 seconds anything still hidden is simply shown. If the observer
+   is working it has long since done its job and this finds nothing. If it is
+   not, the page is readable instead of blank. */
+setTimeout(function(){
+  var hidden = document.querySelectorAll('.reveal:not(.in)');
+  for(var i = 0; i < hidden.length; i++) hidden[i].classList.add('in');
+}, 2500);
+
+/* ── PRELOADER, TWO CHANGES ─────────────────────────────────────────────────
+   The curtain in script.js:231 is worth keeping: the display faces are large,
+   and without it the first paint is unstyled type that reflows when the fonts
+   land. Two things about it are not worth keeping.
+
+   1. REPEAT VISITS. A recruiter who comes back to re-read a study, or to show a
+      colleague, paid for the brand moment the first time. Paying again buys
+      nothing. Skipped for a day after the first visit.
+
+   2. THE CEILING. script.js sets MAX_WAIT to 2000ms. That is a stall guard, not
+      a target, and it applied to everyone. Brought down to 1200ms, which still
+      covers the font swap.
+
+   Neither is done by editing script.js — that file is shared by nine pages. The
+   curtain is dismissed from outside by adding the same `done` class its own
+   dismiss() adds, which is idempotent. script.js's own 2000ms timer still fires
+   later and finds the work already done.
+
+   script.js is `defer`, so it has already attached its MutationObserver by
+   DOMContentLoaded. That observer is what releases `lit` and the hero with it,
+   so adding `done` here releases the page rather than just hiding a panel. */
+(function(){
+  var KEY = 'rd-preloader-seen', DAY = 86400000, seen = false;
+  try{
+    var last = +localStorage.getItem(KEY) || 0;
+    seen = (Date.now() - last) < DAY;
+    localStorage.setItem(KEY, Date.now());
+  }catch(e){ /* private mode: treat every visit as the first */ }
+
+  if(seen) document.documentElement.classList.add('preload-skip');
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var pre = document.getElementById('preloader');
+    if(!pre) return;
+    if(seen){
+      pre.classList.add('done');
+      /* Belt and braces. The observer should catch the line above, but `lit` is
+         what releases the hero, and a repeat visitor waiting 2.4s for the
+         fallback timer would defeat the point of skipping. */
+      document.documentElement.classList.add('lit');
+      return;
+    }
+    setTimeout(function(){ pre.classList.add('done'); }, 1200);
+  });
+})();

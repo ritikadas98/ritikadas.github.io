@@ -43,9 +43,13 @@
    a flash of the other one. The full toggle logic still lives at the bottom. */
 (function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 </script>
-<link rel="stylesheet" href="styles.css?v=20260901b">
+<link rel="stylesheet" href="styles.css?v=20260902a">
 <!-- Without JS the curtain can never be lifted, so hide it outright. -->
 <noscript><style>.preloader{display:none!important}</style></noscript>
+<!-- Scripting off. The rule above hides the curtain; without this one the page
+     behind it would be blank, because .reveal starts at opacity 0 and the
+     observer that clears it never runs. -->
+<noscript><style>.reveal{opacity:1 !important; translate:none !important}</style></noscript>
 <!-- Tells a search engine this is a person and a portfolio rather than
      guessing from the markup. Nothing here is new information; it is the
      same facts the page already states, in a form a machine can read. -->
@@ -72,6 +76,21 @@
     "Generative AI"
   ]
 }
+</script>
+<script>
+/* Decides pre-paint whether the stack is on. Every cascade rule hangs off
+   `.cascade-on`, so setting it here means the three-up grid never renders first
+   and then jumps to a stack. It is set from matchMedia alone, so the pinning
+   still works if GSAP fails to load — GSAP only adds the motion on top. */
+(function(){
+  try{
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* A pinned card taller than the screen is worse than no pinning at all, so a
+       very short window opts out through the same switch reduced motion uses. */
+    if(!reduce && window.innerHeight > 520)
+      document.documentElement.classList.add('cascade-on');
+  }catch(e){}
+})();
 </script>
 </head>
 <body>
@@ -155,7 +174,7 @@
          a paragraph explaining it. Struck-through steps are real jobs, not a
          joke at her own expense — each one is on the CV. What survives the
          strikes is the positioning BUILD_SPEC settled on: a PM who builds. -->
-    <p class="hero-arc hero-enter"><s>Tech consultant.</s> <s>Product manager.</s> <b>Product manager who builds.</b></p>
+    <p class="hero-arc hero-enter"><s>Tech Consultant.</s> <s>Product Manager.</s> <b>Product Manager Who Builds.</b></p>
     <h1 class="hero hero-enter">I decide what&rsquo;s worth building, then build it. Through research, experiments, design, plain judgment, and yes, AI.</h1>
     <p class="hero-sub hero-enter">Three products I built alone. Three I took apart.</p>
     <div class="hero-actions hero-enter">
@@ -222,9 +241,9 @@
           </span>
         </h2><div class="sub">Built and shipped solo. Open one for the reasoning, the evidence, and a demo you can use. <span class="sub-wry">All three still work. I checked this morning.</span></div></div>
     </div>
-    <div class="work-grid">
+    <div class="work-grid cascade">
 
-      <div class="card work-card reveal" data-project="fitcheck">
+      <div class="card work-card" data-project="fitcheck">
         <figure class="card-art">
           <img src="assets/og/fitcheck-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
@@ -237,7 +256,7 @@
         </div>
       </div>
 
-      <div class="card work-card reveal" data-project="savio">
+      <div class="card work-card" data-project="savio">
         <figure class="card-art">
           <img src="assets/og/savio-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
@@ -250,7 +269,7 @@
         </div>
       </div>
 
-      <div class="card work-card reveal" data-project="amazon">
+      <div class="card work-card" data-project="amazon">
         <figure class="card-art">
           <img src="assets/og/amazon-card.jpg?v=9" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
@@ -282,16 +301,17 @@
         <div class="sub">Product decisions on products already built, across social, luxury and platforms. <span class="sub-wry">Nobody asked me to write these.</span> <a href="writing/" style="color:var(--accent);text-decoration:none;border-bottom:1px solid var(--pill-line);padding-bottom:1px;white-space:nowrap">All writing &rarr;</a></div>
       </div>
     </div>
-    <div class="work-grid">
+    <div class="work-grid cascade">
 
       <!-- The three studies keep their approved dek and their own preview art. The
            card already linked straight to the piece; the only change is that it now
            sits beside its siblings in a grid instead of stacked below them. -->
-      <div class="card written work-card reveal" data-project="crew">
+      <div class="card written work-card" data-project="crew">
         <figure class="card-art">
           <img src="assets/og/crew-card.jpg?v=7" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="card-tags">
+          <span class="tag tag-read">10 min read</span>
           <span class="tag-type">Case study</span>
           <span class="tag solid" style="color:var(--crew-brand);border-color:var(--crew-line);background:var(--crew-tint);font-weight:600">CREW</span>
         </div>
@@ -302,11 +322,12 @@
         </div>
       </div>
 
-      <div class="card written work-card reveal" data-project="reddit">
+      <div class="card written work-card" data-project="reddit">
         <figure class="card-art">
           <img src="assets/og/reddit-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="card-tags">
+          <span class="tag tag-read">5 min read</span>
           <span class="tag-type">Case study</span>
           <span class="tag solid" style="color:var(--study-reddit);border-color:color-mix(in srgb,var(--study-reddit) 38%,transparent);background:color-mix(in srgb,var(--study-reddit) 8%,transparent);font-weight:600">Reddit</span>
         </div>
@@ -317,11 +338,12 @@
         </div>
       </div>
 
-      <div class="card written work-card reveal" data-project="youtube">
+      <div class="card written work-card" data-project="youtube">
         <figure class="card-art">
           <img src="assets/og/youtube-card.jpg?v=6" alt="" width="1000" height="1000" loading="lazy" decoding="async" />
         </figure>
         <div class="card-tags">
+          <span class="tag tag-read">8 min read</span>
           <span class="tag-type">Case study</span>
           <span class="tag solid" style="color:var(--study-youtube);border-color:color-mix(in srgb,var(--study-youtube) 38%,transparent);background:color-mix(in srgb,var(--study-youtube) 8%,transparent);font-weight:600">YouTube</span>
         </div>
@@ -418,12 +440,11 @@
             <span class="expn-when">2024 &ndash; 2025</span>
             <span class="expn-role">Associate Product Manager</span>
           </div>
-          <ul class="exp-list expn-points">
-            <li>I decided what shipped and what waited.</li>
-            <li>The date was fixed. So we cut scope, not quality.</li>
-            <li>Stakeholders in three time zones. One call to agree, so nothing got reopened.</li>
-            <li>I owned the gap between what we promised and what we shipped.</li>
-          </ul>
+          <p class="expn-prose">I owned the gap between what clients wanted, what we could
+            build, and what we could ship on time. Lots of prioritization, a few painful
+            trade-offs, and one very firm go-live date.
+            <span class="expn-wry">Turns out, product management is mostly making those three
+            things agree.</span></p>
         </div>
 
         <div class="expn">
@@ -431,10 +452,9 @@
             <span class="expn-when">2022 &ndash; 2024</span>
             <span class="expn-role">Technical Consultant</span>
           </div>
-          <ul class="exp-list expn-points">
-            <li>I turned vague asks into work someone could actually build.</li>
-            <li>I worked across business and technical teams to get changes live.</li>
-          </ul>
+          <p class="expn-prose"><span class="expn-wry">I built things in SAP, broke things in
+            SAP, and then figured out why they broke.</span> Mostly, I turned business
+            requirements into working data and analytics solutions.</p>
         </div>
       </div>
     </div>
@@ -517,10 +537,133 @@
   </div>
 </footer>
 
-<script src="script.js?v=20260901b" defer></script>
+<script src="script.js?v=20260902a" defer></script>
 <!-- GoatCounter: privacy-first counts, no cookies, so no consent banner.
      ~3KB and async, to keep the page budget the site was tuned to. -->
 <script data-goatcounter="https://ritikadas.goatcounter.com/count"
         async src="https://gc.zgo.at/count.js"></script>
+<!-- GSAP 3.15.0, version-pinned. Core plus ScrollTrigger, about 117KB together.
+     Deferred, so both are parsed in this order before the module below runs. -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js" defer></script>
+
+<script>
+/* Waits for DOMContentLoaded. `defer` does nothing on an inline script — it is
+   honoured only with a src — so without this the code would run before the two
+   GSAP files had been fetched and window.gsap would be undefined. */
+/* ── REVEAL FAIL-SAFE ───────────────────────────────────────────────────────
+   The CSS above covers JavaScript being OFF. This covers the worse case: it is
+   ON, but script.js threw before it reached the observer at line 593. The
+   <noscript> rule cannot help there, because scripting is enabled.
+
+   So after 2.5 seconds anything still hidden is simply shown. If the observer
+   is working it has long since done its job and this finds nothing. If it is
+   not, the page is readable instead of blank. */
+setTimeout(function(){
+  var hidden = document.querySelectorAll('.reveal:not(.in)');
+  for(var i = 0; i < hidden.length; i++) hidden[i].classList.add('in');
+}, 2500);
+
+document.addEventListener('DOMContentLoaded', function(){
+  if(!window.gsap || !window.ScrollTrigger) return;
+  if(!document.documentElement.classList.contains('cascade-on')) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* THE PHONE BUG. On a phone the browser's address bar slides away as you
+     scroll and slides back as you stop. Each slide changes the window height,
+     which fires `resize`, which used to call ScrollTrigger.refresh() below. A
+     refresh re-measures every trigger and re-seeks the timeline, so the tilt was
+     being reset several times a second — the cards pinned correctly and never
+     appeared to rotate. Desktop has no address bar, which is why it only showed
+     on the phone.
+
+     `ignoreMobileResize` tells ScrollTrigger to ignore a height-only change on a
+     touch device, which is exactly the address-bar case. The resize listener
+     further down now also checks the WIDTH itself before refreshing, so a real
+     rotation or window drag still works. */
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
+  /* Angles. These went 7/4 -> 9/6 to make the tilt visible on a phone, and at
+     that size the stack read as a scattered pile rather than as a deck. Back
+     down to 5/3: enough that you can see a card leaning behind the one on top,
+     not so much that the page looks knocked over. */
+  var ENTRY  = 5;   /* degrees a card arrives at */
+  var BURIED = 3;   /* degrees it leans once something covers it */
+
+  /* A card's pin point is its own CSS `top`, so read it rather than restating
+     the numbers here and letting the two drift apart. */
+  function pinTop(el){ return parseFloat(getComputedStyle(el).top) || 0; }
+
+  gsap.utils.toArray('.cascade').forEach(function(grid){
+    var cards = gsap.utils.toArray(grid.querySelectorAll('.work-card'));
+
+    cards.forEach(function(card, i){
+      var dir  = i % 2 === 0 ? 1 : -1;
+      var next = cards[i + 1];
+
+      /* ONE timeline per card, driven by ONE ScrollTrigger.
+
+         Two separate triggers is the obvious way to write this and it does not
+         work: the arrival range and the burial range overlap, both write
+         `transform`, and the card jitters between them. A single timeline plays
+         the phases in sequence, so only one is ever writing.
+
+         The range runs from this card touching the bottom of the screen to the
+         NEXT card reaching its own pin point — exactly the span over which this
+         card arrives, lands, and then gets covered. */
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: card,
+          start: 'top bottom',
+          endTrigger: next || card,
+          end: function(){ return 'top ' + pinTop(next || card) + 'px'; },
+          /* Tied to scroll position rather than to a clock, so scrolling back up
+             plays the whole thing backwards: the card un-leans, straightens,
+             then tilts back out the way it came in. */
+          scrub: 0.6,
+          /* Recompute the pixel numbers on every refresh rather than reusing the
+             ones measured at build time. --nav-h and card height move with the
+             window. */
+          invalidateOnRefresh: true
+        }
+      });
+
+      /* Phase 1 — arrive tilted, straighten as it lands. */
+      tl.fromTo(card,
+        { rotate: dir * ENTRY, yPercent: 7, scale: 0.96 },
+        { rotate: 0, yPercent: 0, scale: 1, ease: 'none', duration: 1 });
+
+      /* Phase 2 — the next card is coming, so lean the OTHER way and sink back
+         slightly. This is what makes a covered card read as a tilted edge behind
+         the one on top of it, which is the whole point of the stack. The last
+         card in a stack is never covered, so it has no phase 2. */
+      if(next){
+        tl.to(card,
+          { rotate: -dir * BURIED, scale: 0.955, ease: 'none', duration: 1 });
+      }
+    });
+  });
+
+  /* Every trigger point is a measured pixel offset, and three things move them
+     after the first measurement: fonts landing, images decoding, and a resize. */
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
+  }
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+
+  /* Width only, and debounced. A height change on a phone is the address bar,
+     not a resize, and refreshing on it is what broke the tilt. A width change is
+     a real rotation or a dragged window, and does need a re-measure. */
+  var lastW = window.innerWidth, t;
+  window.addEventListener('resize', function(){
+    if(window.innerWidth === lastW) return;
+    lastW = window.innerWidth;
+    clearTimeout(t);
+    t = setTimeout(function(){ ScrollTrigger.refresh(); }, 180);
+  }, {passive:true});
+});
+
+</script>
 </body>
 </html>
