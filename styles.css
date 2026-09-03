@@ -1673,7 +1673,12 @@ html.lit .hm-track{animation-play-state:running}
 .gm-opt[disabled]{cursor:default}
 /* Two marks, never the same one: accent is what she did, ink is what you did.
    Land on the same card and it wears both, which is the moment worth having. */
-.gm-opt.hers{border-color:var(--accent);background:var(--accent-wash)}
+.gm-opt.hers{border-color:var(--accent);background:var(--accent-wash);box-shadow:inset 0 0 0 1px var(--accent)}
+/* Inset rings rather than a thicker border, so nothing shifts on the pick.
+   Accent and ink, never red and green: the reader is not being marked. */
+.gm-opt.yours{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.gm-opt.hers.yours{box-shadow:inset 0 0 0 1px var(--accent)}
+.gm-opt[disabled]:not(.hers):not(.yours){opacity:.45}
 .gm-opt.hers .gm-kk{color:var(--accent)}
 .gm-opt.hers::after{content:'What I did';position:absolute;right:12px;bottom:-9px;font-family:var(--mono);
   font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:#fff;
@@ -1686,17 +1691,28 @@ html.lit .hm-track{animation-play-state:running}
 @keyframes gm-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .gm-vd{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
 .gm-why{margin-top:11px;font-size:16.5px;line-height:1.55;color:var(--ink-2);max-width:64ch}
+/* Above the width where the card stacks, the reveal already spans both columns
+   and three short answers left the right half of it empty. The three are one
+   thought in three parts, so they run as three columns with the product line
+   across the top. Below that width they go back to a stack. */
+@media(min-width:861px){
+  .gm-why{max-width:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    column-gap:clamp(20px,3vw,40px);row-gap:15px}
+  .gm-mine{grid-column:1 / -1;max-width:64ch}
+  .gm-ln + .gm-ln{margin-top:0}
+  .gm-why .gm-ln:not(.gm-mine){border-top:1px solid var(--hairline);padding-top:13px;font-size:15.5px}
+  .gm-why .gm-ln:not(.gm-mine) b{display:block;margin-bottom:5px}
+}
+/* Three stacked lines: evidence, assumption, falsifier. */
+.gm-ln{display:block;max-width:64ch}
+.gm-mine{font-weight:600;color:var(--ink)}
+.gm-ln+.gm-ln{margin-top:9px}
 .gm-why b{color:var(--ink);font-weight:600}
 /* The trade-off in her own shorthand — "reach over depth" — as the last word
    on the fork. It is the phrase the project page files that decision under. */
-.gm-why i{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--accent);display:block;
-  margin-top:11px;letter-spacing:.05em}
 #gm-next{margin-top:20px}
 .gm-score{display:none;margin:auto 0;text-align:center;padding:18px 0}
 .gm-score.on{display:block;animation:gm-rise .4s cubic-bezier(.2,.7,.2,1)}
-.gm-score-n{font-family:var(--display);font-weight:600;letter-spacing:-.04em;line-height:.95;
-  font-size:clamp(54px,10vw,96px);color:var(--ink)}
-.gm-score-n small{font-size:.38em;color:var(--faint)}
 .gm-score-line{font-family:var(--display);font-weight:600;font-size:clamp(19px,2.6vw,26px);
   letter-spacing:-.02em;margin:12px auto 0;max-width:26ch;line-height:1.2}
 .gm-score-sub{margin:12px auto 0;color:var(--muted);max-width:48ch;font-size:15.5px}

@@ -43,7 +43,7 @@
    a flash of the other one. The full toggle logic still lives at the bottom. */
 (function(){try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
 </script>
-<link rel="stylesheet" href="styles.css?v=20260902a">
+<link rel="stylesheet" href="styles.css?v=20260903g">
 <!-- Without JS the curtain can never be lifted, so hide it outright. -->
 <noscript><style>.preloader{display:none!important}</style></noscript>
 <!-- Scripting off. The rule above hides the curtain; without this one the page
@@ -463,21 +463,25 @@
 
 <!-- ARGUE WITH ME
      The one thing on this site a visitor does rather than reads. Every fork is
-     real, lifted from the trade-off sections of the three project pages. It
+     a real product decision, lifted from the decision log in its own repo. It
      sits here, at the end, because someone who has just spent ninety seconds
-     inside the reasoning is the right person to be handed an email address. -->
+     inside the reasoning is the right person to be handed an email address.
+
+     There is no score. A tally was telling an experienced PM they had got it
+     wrong, and none of these calls can support that claim: each one was made on
+     partial data. The reveal now shows the evidence, the assumption on top of
+     it, and the result that would have killed the assumption. -->
 <section id="call">
   <div class="wrap">
     <div class="sec-head reveal">
       <div><h2 class="concept">Argue With Me</h2>
-      <div class="sub">Six forks I actually hit while building. Pick a side, I&rsquo;ll tell you what I did. Then you can tell me I was wrong. <span class="sub-wry">Every one of these split my own head for a while.</span></div></div>
+      <div class="sub">Pick a side, and I&rsquo;ll show you what I knew, what I assumed on top of it, and what would have proved me wrong. <span class="sub-wry">None of them had complete data. That is the job.</span></div></div>
     </div>
 
     <div class="game reveal">
       <div class="game-bar">
         <span id="gm-prog">Fork 1 of 6</span>
         <span class="gm-pips" id="gm-pips"></span>
-        <span id="gm-tally">&mdash;</span>
       </div>
       <div class="game-in">
         <div id="gm-play">
@@ -496,12 +500,11 @@
         </div>
 
         <div class="gm-score" id="gm-score">
-          <div class="gm-score-n"><span id="gm-scoreN">0</span><small>/6</small></div>
-          <div class="gm-score-line" id="gm-scoreLine"></div>
-          <p class="gm-score-sub" id="gm-scoreSub"></p>
+          <div class="gm-score-line">That is how I decide.</div>
+          <p class="gm-score-sub">Six calls, none of them made on complete data. Where you went the other way, I want the reasoning. That is the conversation I am after.</p>
           <div class="gm-score-row">
             <a href="mailto:ritikadas98@gmail.com" class="btn btn-primary">Tell me where I got it wrong <span class="arr">&#8599;</span></a>
-            <button class="btn btn-ghost" id="gm-again" type="button">Play again</button>
+            <button class="btn btn-ghost" id="gm-again" type="button">Read them again</button>
           </div>
         </div>
       </div>
@@ -537,7 +540,7 @@
   </div>
 </footer>
 
-<script src="script.js?v=20260902a" defer></script>
+<script src="script.js?v=20260903g" defer></script>
 <!-- GoatCounter: privacy-first counts, no cookies, so no consent banner.
      ~3KB and async, to keep the page budget the site was tuned to. -->
 <script data-goatcounter="https://ritikadas.goatcounter.com/count"

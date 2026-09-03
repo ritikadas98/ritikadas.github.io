@@ -302,90 +302,109 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 /* ---- YOUR CALL ----
-   Seven real forks, each one lifted from the trade-off section of the project
-   page it belongs to. The reasoning is the wording those pages already use, so
-   there is one source of truth for what she decided and why.
+   Six product decisions, each one lifted from the decision log in its own repo:
+   fitchecker/docs/PM_DECISIONS.md, Savio/PM_DECISIONS.md and
+   amazon-discovery-intel-repo/DECISIONS.md.
+
+   The question is put to the reader in general terms, because a visitor who has
+   not read the project page cannot answer a question about the project. The
+   product is named afterwards, in the reveal, along with what she had, what she
+   added on top of it, and the result that would have told her the second part
+   was wrong.
+
+   No score. A tally told an experienced PM they were wrong, which is a claim
+   none of these decisions can support: every one was made on partial data.
 
    Guarded on the deck element like every other block in this file: /writing/
-   shares this script and has no game on it. */
+   shares this script and has no deck on it. */
 (function(){
   const deckHost = document.getElementById('gm-q');
   if (!deckHost) return;
 
   const CARDS = [
-    /* Two forks per product, and the answer sides deliberately do not
-       alternate in a pattern — an earlier draft had the correct answer on the
-       right every single time, which anyone who noticed would read as rigged. */
+    /* `topic` and `note` head the card, and name the kind of decision rather
+       than the product, so the question can be answered cold. `mine` opens the
+       reveal and is where the product finally appears.
 
-    { src:'FitCheck', note:'Chrome extension',
-      q:'Ask for bust, waist and hip &mdash; or ask which shirt already fits?',
-      qnote:'One input is precise. The other is the one people actually finish.',
-      a:'A shirt you already own &mdash; vaguer, but nobody bails',
-      b:'Measurements &mdash; precise, and the honest way to do it',
+       Two forks per product. The sides run a,b,b,a,a,b so her answer does not
+       sit on one side in a pattern anyone could read as rigged. */
+
+    { topic:'Who you build for', note:'reach against depth',
+      q:'You can serve the biggest group of users, or the smaller group with the sharpest version of the problem. Which one does v1 go to?',
+      qnote:'The small group is a fraction of the market. The big one is most of it.',
+      a:'The smaller group, where the problem bites hardest',
+      b:'The bigger group, where the traffic already is',
       hers:'a',
-      why:'<b>The shirt.</b> Bust, waist and hip is the precise input, and the exact point where people abandon the form. Everyone knows which shirt fits them, so it asks that.<i>completion over precision</i>' },
+      mine:'FitCheck. I aimed the extension at people shopping on a laptop.',
+      knew:'Mobile is roughly 60% of fashion traffic in India, and a browser extension cannot reach any of it.',
+      assumed:'Fit doubt peaks on considered buys, and those get studied on a big screen with tabs open.',
+      wrong:'Desktop sessions turning out as quick and single-tab as mobile ones. Then the wedge holds nobody worth serving.' },
 
-    { src:'Savio', note:'Consumer AI',
-      q:'Let the AI do the maths, or make code do it?',
-      qnote:'It&rsquo;s a money app. The numbers have to be right every single time.',
-      a:'The model does both the maths and the writing',
-      b:'Code does every number, the model only writes the sentence',
+    { topic:'What you hand them', note:'accuracy against a read',
+      q:'The data your user needs is already on the screen, and they still get the decision wrong. Do you make the data better, or change the way it is read?',
+      qnote:'Better data is easy to measure. A better read is not.',
+      a:'Make the data better. Give them the exact numbers.',
+      b:'Change the read. Same data, shown so they can act on it.',
       hers:'b',
-      why:'<b>Code.</b> In testing the model called 8 of 9 purchases regrets when the real answer was 7 of 8. Rather than add a checker on top, I took the AI out of that job.' },
+      mine:'FitCheck. I show a tinted silhouette that reads snug, regular or loose.',
+      knew:'Every product page already carries a size chart. Accuracy was not the thing missing.',
+      assumed:'People cannot turn 36 inches into how a cut will sit on them. They want a read, not a sum.',
+      wrong:'Shoppers glancing at the silhouette and going back to the chart anyway. Then the gap was arithmetic after all.' },
 
-    { src:'Amazon Discovery', note:'Multi-agent pipeline',
-      q:'Postgres, or a Google Sheet?',
-      qnote:'Seven rows a week, and a room full of PMs who have to read them.',
-      a:'Postgres &mdash; real queries, real schema control',
-      b:'A Google Sheet',
+    { topic:'When you speak', note:'in the moment against after it',
+      q:'You can step in while someone is deciding, or wait until they can see the whole picture. When do you help?',
+      qnote:'One is the obvious moment. The other is the one they still open in month three.',
+      a:'While they are deciding, when it can still change the outcome',
+      b:'Afterwards, when the whole picture is in front of them',
       hers:'b',
-      why:'<b>The sheet.</b> I gave up queries and schema control, and got a store PMs already sort, filter, comment on and share. Postgres was about &#8377;1,100 a month to hold seven rows a week. Cloud Run does it for &#8377;40.<i>their tools over mine</i>' },
+      mine:'Savio. It speaks at the end of the month, not at the checkout.',
+      knew:'Apps that ping at the moment of purchase get muted. That is the churn story across the category.',
+      assumed:'By the time the app pings, the person has already decided. The nudge arrives after the commitment.',
+      wrong:'A month of reflection changing nothing in the month that follows. Then the timing was mine and not theirs.' },
 
-    { src:'FitCheck', note:'Chrome extension',
-      q:'The size chart is missing a measurement. Guess, or say nothing?',
-      qnote:'This happened six times in twenty-one attempts.',
-      a:'Refuse, and name the measurement that&rsquo;s missing',
-      b:'Give a best guess with a confidence note',
+    { topic:'When they fall short', note:'recovery against a clean slate',
+      q:'A user misses the target your product set with them. Do you offer a way to make it up, or clear the slate and start again?',
+      qnote:'Both are honest. Only one of them gets opened again.',
+      a:'Clear the slate, and say plainly what happened',
+      b:'Offer a plan to make up the shortfall',
       hers:'a',
-      why:'<b>Say nothing.</b> A confident answer with nothing behind it costs more trust than no answer. Promise a perfect fit and you get to be wrong exactly once.<i>silence over a confident answer</i>' },
+      mine:'Savio. A month that closes short is stated, and the next one starts clean.',
+      knew:'Short months are normal at &#8377;40K to &#8377;1.2L a month. That is the segment, not an edge case.',
+      assumed:'A payback screen reads as punishment, and people stop opening the app instead of paying it back.',
+      wrong:'Users finishing a payback plan and coming back the next month. Then shame was a working mechanic and I cut it for nothing.' },
 
-    { src:'Savio', note:'Consumer AI',
-      q:'&ldquo;You&rsquo;re near a Myntra. You&rsquo;ve regretted four of four purchases there.&rdquo;',
-      qnote:'Accurate. Technically easy. Ship it, or cut it?',
-      a:'Ship it &mdash; it&rsquo;s true, and it&rsquo;s exactly when they need it',
-      b:'Cut it',
-      hers:'b',
-      why:'<b>Cut.</b> Accurate, and it turns a companion into something that watches you.<i>voice over vigilance</i>' },
-
-    { src:'Amazon Discovery', note:'Multi-agent pipeline',
-      q:'The shared sheet has a misspelled column header. Fix it, or leave it?',
-      qnote:'Your code is clean. Their spelling is not.',
-      a:'Leave it, and change the code to match',
-      b:'Fix the typo &mdash; it&rsquo;s one character and it&rsquo;s wrong',
+    { topic:'What you ask for', note:'evidence against momentum',
+      q:'Your product finds a real problem but cannot size it. Do you tell the team what to fix, or what to go and measure?',
+      qnote:'One is the answer they wanted. The other is the one your evidence can carry.',
+      a:'What to measure. Name the number that would settle it.',
+      b:'What to fix. Name the change so they can start on Monday.',
       hers:'a',
-      why:'<b>Leave it.</b> The sheet was built before the code, and a PM may already be filtering and pivoting on that exact header. I changed the code rather than the sheet.<i>their schema over mine</i>' }
-  ];
+      mine:'Amazon Discovery. Each weekly digest ends with a number to go and get.',
+      knew:'Reviews can establish that something is wrong. They cannot establish how often it happens.',
+      assumed:'A PM will run a one-day query this week and defer a sprint. The smaller ask is the one that moves.',
+      wrong:'PMs skipping the query and acting only when told what to build. Then I handed them homework instead of a decision.' },
 
-  const LINES = [
-    { min:6, line:'Six out of six. Either you&rsquo;re a PM or you&rsquo;re me.',
-      sub:'That is the whole job &mdash; knowing what to give up. If you&rsquo;re hiring, this conversation is already going quite well.' },
-    { min:4, line:'We&rsquo;d get on.',
-      sub:'You went the other way once or twice, which is the interesting part. Those are the ones I&rsquo;d want to hear your reasoning on.' },
-    { min:2, line:'Half of these split a room, too.',
-      sub:'Every one was a real argument I had with myself. Where you disagreed, I would genuinely like to know why.' },
-    { min:0, line:'You&rsquo;d have built a different product.',
-      sub:'Which is a real answer, not a wrong one. Tell me which fork you&rsquo;d take again and I&rsquo;ll tell you what it would have cost me.' }
+    { topic:'What a report covers', note:'current against complete',
+      q:'Your weekly report can cover the week that just ended, or the week in progress. Which one do you send?',
+      qnote:'The finished week is already a few days old. The week in progress is not finished.',
+      a:'The week in progress, so the number is as current as it can be',
+      b:'The week that ended, so the number is whole',
+      hers:'b',
+      mine:'Amazon Discovery. The digest reports the last week that has finished.',
+      knew:'The pipeline runs at 09:00 on Monday. The newest week it could name is nine hours old and nearly empty.',
+      assumed:'A reader checks the week on the label against a calendar, and one label they can disprove costs trust in every number under it.',
+      wrong:'Readers wanting a running total more than a week they could verify. Then the older label was the wrong trade.' }
   ];
 
   const $ = id => document.getElementById(id);
-  let i = 0, agreed = 0, answered = false;
+  let i = 0, answered = false;
 
   $('gm-pips').innerHTML = CARDS.map(() => '<i></i>').join('');
 
   function render(){
     const c = CARDS[i];
     answered = false;
-    $('gm-src').innerHTML = c.src;
+    $('gm-src').innerHTML = c.topic;
     $('gm-srcnote').innerHTML = c.note;
     $('gm-q').innerHTML = c.q;
     $('gm-qnote').innerHTML = c.qnote;
@@ -395,36 +414,48 @@ window.addEventListener('DOMContentLoaded', () => {
     $('gm-reveal').className = 'gm-reveal';
     $('gm-prog').innerHTML = 'Fork ' + (i+1) + ' of ' + CARDS.length;
     $('gm-next').innerHTML = (i === CARDS.length - 1)
-      ? 'See the score <span class="arr">&rarr;</span>'
+      ? 'Last one <span class="arr">&rarr;</span>'
       : 'Next <span class="arr">&rarr;</span>';
   }
 
   function pick(choice){
     if (answered) return;
     answered = true;
-    const c = CARDS[i], right = (choice === c.hers);
-    if (right) agreed++;
+    const c = CARDS[i], same = (choice === c.hers);
     const mine = choice === 'a' ? $('gm-a') : $('gm-b');
     const hers = c.hers === 'a' ? $('gm-a') : $('gm-b');
     hers.classList.add('hers');
     mine.classList.add('yours');
     $('gm-a').disabled = true; $('gm-b').disabled = true;
-    $('gm-verdict').innerHTML = right ? 'Same call' : 'We differ here';
-    $('gm-why').innerHTML = c.why;
+    $('gm-verdict').innerHTML = same ? 'Same call' : 'We differ here';
+    /* The product is named first, because this is the reader's first sight of
+       it. Then the evidence, the guess laid on top of it, and the result that
+       would have killed the guess. */
+    $('gm-why').innerHTML =
+      '<span class="gm-ln gm-mine">' + c.mine + '</span>' +
+      '<span class="gm-ln"><b>What I knew.</b> ' + c.knew + '</span>' +
+      '<span class="gm-ln"><b>What I assumed.</b> ' + c.assumed + '</span>' +
+      '<span class="gm-ln"><b>What would have proved me wrong.</b> ' + c.wrong + '</span>';
     $('gm-reveal').className = 'gm-reveal on';
     $('gm-pips').children[i].className = 'on';
-    $('gm-tally').innerHTML = agreed + ' of ' + (i+1) + ' the same';
+    /* On a phone the card is taller than the screen, so the reveal opens below
+       the fold and the tap reads as nothing happening. Desktop already shows it,
+       hence the width test rather than an unconditional scroll. */
+    if (window.matchMedia('(max-width:860px)').matches) {
+      const calm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+      $('gm-reveal').scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'nearest' });
+    }
   }
 
   function finish(){
     $('gm-play').style.display = 'none';
     $('gm-score').className = 'gm-score on';
-    $('gm-scoreN').innerHTML = agreed;
-    const l = LINES.filter(x => agreed >= x.min)[0];
-    $('gm-scoreLine').innerHTML = l.line;
-    $('gm-scoreSub').innerHTML = l.sub;
     $('gm-prog').innerHTML = 'Done';
-    $('gm-tally').innerHTML = agreed + ' of ' + CARDS.length + ' the same';
+    /* Hiding the play state collapses the card from tall to short, which leaves
+       the reader scrolled past the closing card, on a phone especially. Centre
+       it again so the last thing they were reading is still on screen. */
+    const calm = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    deckHost.closest('.game').scrollIntoView({ behavior: calm ? 'auto' : 'smooth', block: 'center' });
   }
 
   $('gm-a').addEventListener('click', () => pick('a'));
@@ -435,16 +466,16 @@ window.addEventListener('DOMContentLoaded', () => {
     i++; render();
   });
   $('gm-again').addEventListener('click', () => {
-    i = 0; agreed = 0;
+    i = 0;
     $('gm-score').className = 'gm-score';
     $('gm-play').style.display = 'flex';
-    $('gm-tally').innerHTML = '&mdash;';
     Array.prototype.forEach.call($('gm-pips').children, p => p.className = '');
     render();
   });
 
   render();
 })();
+
 
 /* ---- WIDGET FLIP ----
    Always turns the same way. The panel that should be showing after the turn
