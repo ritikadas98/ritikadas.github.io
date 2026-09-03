@@ -2225,3 +2225,6 @@ html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
   }
   .cascade-on .cascade .work-card .tag-type{font-size:9px; letter-spacing:.08em; padding:4px 8px}
 }
+
+/* The whole card opens it (script.js), so it should say so. */
+.work-card{cursor:pointer}

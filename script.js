@@ -928,3 +928,19 @@ setTimeout(function(){
     setTimeout(function(){ pre.classList.add('done'); }, 1200);
   });
 })();
+
+/* ── WHOLE CARD CLICKABLE, TEXT STILL SELECTABLE ────────────────────────────
+   The overlay that used to make the whole card a link sat above the words, so
+   you could not select any text on a card. It now sits below them, and this
+   restores the click: anywhere on the card opens it, unless you were selecting
+   text or clicked a real link. */
+document.querySelectorAll('.work-card').forEach(function(card){
+  var link = card.querySelector('.card-link');
+  if (!link) return;
+  card.addEventListener('click', function(e){
+    if (e.target.closest('a, button')) return;          // a real link won already
+    if (window.getSelection().toString()) return;        // they were selecting
+    if (e.metaKey || e.ctrlKey) window.open(link.href, '_blank', 'noopener');
+    else link.click();
+  });
+});
