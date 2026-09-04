@@ -13,9 +13,9 @@ const SLIDES = [
 
 /* ---------------------------------------------------------------- cover -- */
 { kind: 'cover', art: 'firsts',
-  kicker: 'Product case study · August 2026',
+  kicker: 'Product case study · September 2026',
   title: 'One trip at a time.',
-  lead: 'CREW is Swiggy’s travel concierge, and it speaks before you ask. Any travel app can sell you the flight. Almost none will tell you about a terminal you have not reached yet. That message is the product. Every large platform could send it. Their economics stop them.',
+  lead: 'CREW is Swiggy’s travel concierge, and it speaks before you ask. Any travel app can sell you the flight. Almost none will tell you about a terminal you have not reached yet. That message is the product. Plenty of apps message about a flight. Almost nobody messages about the trip.',
   foot: 'Ritika Das · ritikadas.in · 2026' },
 
 /* -------------------------------------------------------------- product -- */
@@ -27,9 +27,9 @@ const SLIDES = [
   panels: [
     ['Every travel app can sell the flight', 'Inventory and price are the two things this category competes on. You can see both before you buy. Once you have bought, they need nobody to pay attention.'],
     ['Almost none will mention the terminal', 'It arrives *before* landing, unprompted, with the train and how long it runs. Nothing about it is a booking.'],
-    ['The absence is not an oversight', 'Every large platform holds both flight numbers and both terminals, for far more travellers. None of them has ever sent anyone a message about a gate.', true]
+    ['The absence is not an oversight', 'Plenty of apps send alerts. An airline will tell you *its own* gate moved. What none of them sends is the next sentence: your connection is on another carrier, from another terminal, and here is the train. They message about a flight. Nobody messages about the trip.', true]
   ],
-  cap: 'In most of the exchanges CREW publishes, CREW speaks before the customer does.' },
+  cap: 'One of the exchanges CREW publishes. CREW writes first, and nothing in it is a booking.' },
 
 /* --------------------------------------------------------------- method -- */
 { kind: 'rows', pill: 'Goal, scope and assumptions', numbered: true,
@@ -38,14 +38,14 @@ const SLIDES = [
   rows: [
     ['The goal', 'Raise contribution margin per trip *without thinning the service*. Contribution margin is a trip’s revenue minus the cost of serving it. The same people should cover more trips, and each traveller should keep the same attention.'],
     ['For whom', 'The member who buys attention, not inventory: a first long-haul, a holiday a year in the planning, a honeymoon. The frequent flyer is out of scope.'],
-    ['What comes in', 'The *₹999* the app asks for up front, and commission on what gets booked.'],
-    ['What I cannot price', 'Whether card interchange comes back to CREW, and the internal numbers: headcount, retention, minutes per trip.']
+    ['What comes in', 'The *₹999* the app asks for up front, which buys six months, and a share of the booking on top of it. The next slide sets out what is confirmed and what I am inferring.'],
+    ['What I cannot price', 'The size of that share, and the internal numbers: headcount, retention, minutes per trip.']
   ] },
 
 /* ------------------------------------------------------------- customer -- */
 { kind: 'personas', pill: 'The customer', wide: true,
   title: 'Who this is worth paying for, and who it is not',
-  lead: 'Every exchange CREW publishes is missing the same thing. Nobody asks the price. These are CREW’s own marketing cards, so the absence is a choice, and it says who the product is for.',
+  lead: 'CREW says who it is for: affluent urban consumers who have money but no time. The second half is the real definition, and it is not about wealth. In the exchanges CREW publishes, nobody asks the price.',
   people: [
     { win: true,
       role: 'Worth most to · the first long-haul',
@@ -87,39 +87,39 @@ const SLIDES = [
   cells: [
     { k: 'The people, without the data', names: ['A travel agent'] },
     { k: 'Both, and a reason to spend the hour', names: ['CREW'], win: true },
-    { k: 'Neither the trip nor a reason to speak first', names: ['A general-purpose assistant'] },
+    { k: 'The trip and the channel, nobody answerable', names: ['A general-purpose assistant'] },
     { k: 'The data, and no way to afford the people', names: ['Booking platforms', 'Airline apps'] }
   ],
   src: 'A third condition sits underneath both axes: a relationship that makes an hour on one traveller worth spending. A platform built on volume breaks when it adds a service team.' },
 
 /* ------------------------------------------------------------ economics -- */
 { kind: 'rows', pill: 'Unit economics', hot: 2,
-  title: 'Every standalone concierge died of the first two problems',
-  lead: 'A standalone concierge carries three costs at once. CREW inherited answers to two of them. Structure gave it those answers, not cleverness.',
+  title: 'Standalone concierges died of the first two problems',
+  lead: 'A standalone concierge carries three costs at once. CREW inherits an answer to two of them, and not because it is cleverer. Structure gave it that.',
   rows: [
     ['Winning the customer', 'Customer acquisition cost is what it takes to win one member. Here that means finding people who travel expensively and will hand a holiday over, one at a time. The purchase is rare, so payback runs long. *Swiggy paid for this years ago*, over food and groceries, and reads its own order history to see who spends.'],
     ['Keeping them', 'Somebody travels a few times a year. A relationship that goes quiet for five months has to be rebuilt. *It stays warm here.* Instamart and Dineout keep it warm between trips.'],
-    ['Serving them', 'Cost to serve is the human minutes one trip consumes. Sitting inside Swiggy does nothing to this one. It scales with trips, not with the size of the company. *This is the whole rest of the deck.*']
+    ['Serving them', 'Cost to serve is the human minutes one trip consumes. Sitting inside Swiggy does not change this one. It grows with the number of trips, not with the size of the company. *This is the whole rest of the deck.*']
   ],
   src: 'It ended the same way every time: Ten Lifestyle inside private banks, Velocity Black inside Capital One, and American Express never sold its concierge separately at all. None lasted as a subscription bought on its own.' },
 
 /* -------------------------------------------------------------- revenue -- */
 { kind: 'table', pill: 'What comes in',
-  title: 'Two lines in, and the one cost that decides it',
+  title: 'One line confirmed, one inferred, one cost that decides it',
   lead: 'Contribution margin is a trip’s revenue minus the cost of serving it. Acquisition and retention were paid elsewhere. That leaves the human minutes as nearly all of the cost, so the margin turns on one number.',
   head: ['Line', 'What it is', 'Status'],
   rows: [
-    ['Subscription', 'The *₹999* the app asks for up front.', 'Confirmed'],
-    ['Commission', 'A share of what gets booked. It scales with the trip, not with the member. A bigger trip pays more.', 'Confirmed'],
+    ['Subscription', 'The *₹999* the app asks for up front, which buys six months.', 'Confirmed'],
+    ['A share of the booking', 'Skift reports the subscription is not the only revenue, and CREW advertises no convenience fee on flights while passing hotel savings to members. So we can assume the earning happens upstream, taken from the supplier rather than the traveller.', 'Inferred'],
     ['Cost to serve', 'The human minutes one trip consumes. The one cost CREW still has to solve for itself, and the one every proposal below attacks.', 'The constraint', true]
   ] },
 
 /* --------------------------------------------------------- distribution -- */
 { kind: 'figure', pill: 'Distribution', wide: true,
   title: 'Where a CREW member comes from',
-  lead: 'CREW is not inside the Swiggy app. Instamart and Dineout are. That is unusual, because putting a new business in front of the food customers costs Swiggy nothing. So why is CREW outside? I think it is the people: a place inside that app would send CREW more trips than it can serve.',
+  lead: 'Order food on Swiggy and, while the timer runs, a card appears offering six months of CREW and ₹1,000 off a first hotel. Tap it and you leave for a different app, a different brand and a membership to activate. Swiggy will sell you CREW. CREW does not live there.',
   svg: 'distribution',
-  src: 'One BLCK is invite-only and carries a travel benefit. The co-branded HDFC card tops out in a BLCK variant, with a one lakh a month income floor and extra cashback on travel. Swiggy owns both halves: the card is the gate and the membership is the invitation. Band widths show containment, not size.' },
+  src: 'Instamart and Dineout became tiles inside the Swiggy app. CREW became a door out of it. A tile is a feature of something else; a separate app with its own brand and an activation code is a membership, and joining one is a decision you cannot ask somebody to make inside a food order. Band widths show containment, not size.' },
 
 /* ----------------------------------------------------------- constraint -- */
 { kind: 'statement', pill: 'The constraint',
@@ -136,22 +136,22 @@ const SLIDES = [
      'A one-star CREW review headed “No credibility, incomplete tasks”, listing a missed VIP service, seats not held together, and an order never actually placed.',
      '*One star.* Same service, same month.']
   ],
-  src: 'Anything this scarce has to be rationed, and it is. CREW stays off the Swiggy app grid, and the service comes with a booking big enough to pay for it. That leaves an awkward proof: you find out whether you can hand over a trip by handing one over.' },
+  src: 'And CREW is not being built for a few hundred members. Skift, which interviewed the chief executive of Swiggy’s food business, reports a target of fifteen to twenty million consumers. A service whose best work is one person’s attention, aimed at a number of people no amount of hiring reaches. That leaves an awkward proof: you find out whether you can hand over a trip by handing one over.' },
 
 /* --------------------------------------------------------------- levers -- */
 /* What CREW has already done about this constraint, taken at face value.
  * Both levers are real and both work. Neither one gets cheaper with scale,
  * which is what makes the third lever worth building. The price cut sits here
  * too, marked as what it is: not a lever on this constraint at all. */
-{ kind: 'rows', pill: 'What CREW has already tried',
+{ kind: 'rows', pill: 'What already holds this down',
   title: 'Two levers, both already pulled',
   lead: 'Both work. Neither of them gets cheaper as CREW grows.',
   rows: [
-    ['It narrowed', 'CREW tried tables, paperwork, gifts and trips, and kept whichever one people came back for. Travel won, and that is the relaunch. *There is nothing left to narrow.*'],
-    ['It added people of a different kind', 'Named local experts in the app: a guide in Hoi An who has been doing it for eighteen years, a Madrid native who guides in London. The right call, and not a workaround — no software knows what somebody who lives there knows. But it is the same shape as hiring. *Capacity arrives one person at a time.*'],
-    ['It also cut prices, which is not a lever on this', 'Rooms 10 to 15 per cent under other platforms, paid for by supply deals. Worth having. But every booking platform negotiates rates, and *a discount does not buy back a single concierge minute.*']
+    ['It narrowed', 'CREW used to book restaurant tables, renew Aadhaar cards, source gifts, arrange birthday parties, find locksmiths and send out the laundry. It does none of that now. Travel was *forty to fifty per cent* of everything people asked for, and travel is all CREW does today. *There is nothing left to narrow.*'],
+    ['It partnered', 'CREW now lets a member tap into local destination experts: a guide in Hoi An who has been doing it for eighteen years, a Madrid native who guides in London. These are local partners rather than staff, which is the cheaper way to do it, because nobody is paid between trips. The right call, and not a workaround — no software knows what somebody who lives there knows. But *capacity still arrives one person at a time.*'],
+    ['It also cut prices, which is not a lever on this', 'Rooms ten to fifteen per cent under other platforms, paid for by supply deals. Worth having. But every booking platform negotiates rates, and *a discount does not buy back a single concierge minute.*']
   ],
-  src: 'All three come from the relaunch announcements and the coverage of them. The first two are answers to the constraint on this slide. The third is an answer to a different question.' },
+  src: 'All three come from CREW’s own announcements and the coverage of them, including Skift and MediaNama. The first two are answers to the constraint before this slide. The third is an answer to a different question.' },
 
 /* -------------------------------------------------------------- options -- */
 { kind: 'table', pill: 'Options considered',
@@ -162,24 +162,24 @@ const SLIDES = [
     ['Hire more concierges', 'This buys capacity at the same rate it buys cost, and budget was never the constraint. The job needs visa rules and the harder half: staying calm, knowing when to stay quiet. The supply of such people runs out before the money does.', 'Breaks on supply'],
     ['Raise the booking gate', 'This protects the margin on every trip served, by serving fewer trips. It defends the number by shrinking the business. The minutes themselves stay exactly where they were.', 'Wrong direction'],
     ['Take the person out', 'Make everything self-serve and the minutes fall to almost zero. So does the product. CREW sells somebody being answerable, and an app cannot be answerable at six in the morning.', 'Kills the product'],
-    ['Automate the routine, keep people for judgement', 'Most messages are structured data, checked against a record the app already holds. Give those to the app. The same person then covers more trips, and every traveller keeps the same attention.', 'Chosen', true]
+    ['Automate the routine, keep people for judgement', 'Most messages relay a fact the airline has already published. Give those to the app. The same person then covers more trips, and every traveller keeps the same attention.', 'Chosen', true]
   ],
   src: 'One thing I would refuse to build: the phone call. A masseuse at a villa in Goa is not an API, and nobody has automated being the person who is answerable once something has gone wrong. The three tiers stop deliberately short of it.' },
 
 /* ------------------------------------------------------------- proposal -- */
 { kind: 'shot', pill: 'The recommendation · mine, not shipped',
   title: 'The app checks the plan, all day',
-  lead: 'It stands on trip planning, which already holds a trip as one record instead of a folder of bookings. Trip planning does what a traveller asks. This does the part nobody thought to ask for.',
+  lead: 'CREW already sends these messages. On-trip assist stays with a traveller for the whole trip, and somebody there saw the terminal change and wrote before landing. What it is not is systematic: the unprompted message arrives when a concierge is attending to that trip.',
   img: 'images/crew-10-weather.jpg',
   alt: 'A CREW product card. CREW writes first to say rain is forecast over the afternoon that was planned outdoors, and offers a rewritten plan for the day.',
   panels: [
     ['The plan is a record', 'Every leg and every day already has a time against it. A few of those parts move on their own: the gate, the departure, a connecting flight that is no longer long enough, rain over an outdoor afternoon.'],
-    ['The app watches them, unasked', 'All day, against the record. Nobody checks these today until it is too late to move anything.'],
-    ['It finds the fix and writes the message', 'Structured data checked against a record the app already holds. The tone is already written, in the cards CREW publishes.'],
+    ['The app watches them, unasked', 'All day, against the record, on every trip rather than the ones somebody is looking at.'],
+    ['It finds the fix and writes the message', 'The tone is already written, in the cards CREW publishes. MediaNama asks whether the software can fix an itinerary without a person; that is the gap this closes.'],
     ['A person signs it off, in seconds', 'The concierge moves from producing the work to approving it. The traveller hears it from CREW first.', true]
   ],
   cap: 'CREW shows this moment as something a concierge does *when asked*. This is the same moment without the asking, on every trip rather than the few where it came up.',
-  src: 'It asks for nothing CREW does not already have: the plan is a record inside trip planning, the gate and the delay are in the booking, and the forecast is free. Assembly, not invention.' },
+  src: 'The record plainly exists — you cannot tell somebody their terminal changed without holding their terminal. Whether anything reads it when nobody has asked is the part I cannot see. If something already does, the rest is assembly: the gate and the delay are in the booking, and the forecast is free.' },
 
 /* --------------------------------------------------------------- journey -- */
 { kind: 'figure', pill: 'The journey it changes', wide: true,
@@ -193,13 +193,13 @@ const SLIDES = [
   title: 'Three tiers, priced in minutes of a person',
   lead: 'The aim is to use those rare people only where judgement is needed. Every message sorts into one of three tiers, and each tier answers one of the three jobs on slide five.',
   rows: [
-    ['Send it', 'Answers *told what happens next*. Routine updates, with no judgement in them. These are the plan-watching messages: structured data, checked against a record the app holds. They go out untouched. Most messages are this.'],
-    ['Sign it off', 'Answers *heard it from you first*. Anything that changes a plan or spends money. The system finds the alternative and writes the message. A concierge reads it and approves. The person stops producing the work and starts signing it.'],
+    ['Send it', 'Answers *told what happens next*. Facts the source itself asserts: the airline says the gate has moved, the airline says the flight is late. Relaying those is not a decision. They go out untouched, and most messages are this.'],
+    ['Sign it off', 'Answers *heard it from you first*. The ones the app works out for itself: a connecting flight now too tight, an afternoon that needs rewriting. Those are inferences, and inference is where a system is wrong. The app drafts; a concierge approves.'],
     ['Give it to someone who decides', 'Answers *somebody answerable*. Everything else. A masseuse at a villa in Goa is not an API, and nobody has automated being the person who is answerable once something has gone wrong.']
   ],
-  src: 'Read as cost, the tiers are a ladder of minutes: nearly none, a few, and as many as it takes.' },
+  src: 'Read as cost, the tiers are a ladder of minutes: nearly none, a few, and as many as it takes. The line between the first two is the false-alarm guard — a wrong alert about a flight that was never at risk spends the trust the service runs on.' },
 
-{ kind: 'figure', pill: 'The second lever',
+{ kind: 'figure', pill: 'The compounding change',
   title: 'One message is not one job',
   lead: 'A request arrives as one sentence and gets worked as one job. A couple wants a day at a vineyard outside the city. Inside that sentence sit seven questions. Six already have answers. Today all seven wait for the same person.',
   svg: 'sevenq',
@@ -207,14 +207,14 @@ const SLIDES = [
 
 /* ---------------------------------------------------------- measurement -- */
 { kind: 'table', pill: 'Measurement',
-  title: 'Two numbers, and the test that would prove me wrong',
+  title: 'Four numbers, and the test that would prove me wrong',
   lead: 'Headcount alone can buy the first number, so it only means something with the second beside it.',
   head: ['Measure', 'What it is', 'Reads'],
   rows: [
     ['The let-go rate', 'The share of trips where the customer could let go: no confirmation checked, no reply chased, no query about a bill that was supposed to be settled.', 'North star', true],
     ['Cost to serve', 'The human minutes one trip consumes. Read the two together: minutes falling while the let-go rate climbs is a service running at software margins. Let-go rate up and minutes flat is quality CREW cannot afford to keep.', 'Guardrail'],
-    ['Reuse of the file', 'The share of requests answered from a fact already recorded, rather than worked out from scratch. This is the second lever, made countable. If the file is never reused, the seventh question was not worth writing down.', 'Second lever'],
-    ['Edit rate', 'Share of plan-watching messages sent without an edit. If concierges rewrite most of them, the app is not reading the plan properly and the tier is producing work rather than removing it.', 'First lever'],
+    ['Reuse of the file', 'The share of requests answered from a fact already recorded, rather than worked out from scratch. This is the compounding one, made countable. If the file is never reused, the seventh question was not worth writing down.', 'Compounding'],
+    ['Wrong-message rate', 'The share of auto-sent messages a traveller or a concierge later contradicts. This is the guardrail on the first tier. A service that cries wolf has spent the trust it was meant to protect.', 'Guardrail two'],
     ['What would prove me wrong', 'Compare members who lean on the service against those who only book and handle the rest themselves. If both come back at the same rate, the accompaniment was never the advantage, and the honest move is to unbundle it.', 'Falsifier']
   ] },
 
@@ -378,13 +378,13 @@ const FIGS = {
     const stages = [
       { n: ['Everyone who', 'orders dinner'],   h: 1.00, note: 'Swiggy’s food and grocery base' },
       { n: ['The ones it can', 'already see spend'], h: 0.60, note: 'Order history, basket size, Dineout' },
-      { n: ['One BLCK, and', 'the BLCK card'],  h: 0.30, note: 'Invite-only · ₹1 lakh a month floor' },
+      { n: ['The ones shown', 'the offer'],     h: 0.30, note: 'A card on the order screen' },
       { n: ['CREW'],                            h: 0.13, note: 'Not a tile in the Swiggy app' }
     ];
     /* What does the narrowing at each step. These are the gates, and all three
        are public: Swiggy's own order data, the card and the invitation, and the
        size of booking the service is sold with. */
-    const gates = ['what Swiggy already sees', 'the card and the invitation', 'a trip big enough to pay for it'];
+    const gates = ['what Swiggy already sees', 'who gets shown the offer', 'taking it up'];
     const inner = W - MARGIN * 2;
     const colW = 90, gapW = (inner - stages.length * colW) / (stages.length - 1);
     const X = i => MARGIN + i * (colW + gapW);
@@ -416,7 +416,7 @@ const FIGS = {
     out += `<text class="fspine" x="${W / 2}" y="${H - 16}">nobody was bought at any step</text>`;
 
     return `<svg viewBox="0 0 ${W} ${H}" role="img"
-      aria-label="A funnel showing where a CREW member comes from. Everyone who orders dinner narrows, by what Swiggy already sees, to the ones it can already see spend; then, by the card and the invitation, to holders of One BLCK and the BLCK card; then, by a trip big enough to pay for it, to CREW. Nobody was bought at any step.">${out}</svg>`;
+      aria-label="A funnel showing where a CREW member comes from. Everyone who orders dinner narrows, by what Swiggy already sees, to the ones it can already see spend; then, by whatever decides who is shown the offer, to the ones who see it; then, by taking it up, to CREW. Nobody was bought at any step.">${out}</svg>`;
   })(),
 
   /* One sentence, seven questions. Six are lookups the app can answer; the
