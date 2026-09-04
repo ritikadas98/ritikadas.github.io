@@ -3,11 +3,8 @@
  * The shell is shared: ../../_deck/deck.css and ../../_deck/engine.js. This file
  * is the content, the cover art and one diagram.
  *
- * This is a teardown, not a project I worked on. Everything here comes from
- * outside: CREW's public product pages and app listing, Swiggy's own public
- * statements, and public reporting on the concierge businesses that came before.
- * Where a figure is not visible from outside, the slide says so rather than
- * estimating it — the ₹999 is printed on the paywall, the interchange is not.
+ * An opinion piece about a product I do not work on. Where a number is not
+ * known, the slide says so rather than inventing one.
  *
  * *text* paints that phrase in the accent colour.
  */
@@ -21,17 +18,6 @@ const SLIDES = [
   lead: 'CREW is Swiggy’s travel concierge, and it speaks before you ask. Any travel app can sell you the flight. Almost none will tell you about a terminal you have not reached yet. That message is the product. Every large platform could send it. Their economics stop them.',
   foot: 'Ritika Das · ritikadas.in · 2026' },
 
-/* -------------------------------------------------------------- summary -- */
-{ kind: 'rows', pill: 'The recommendation, first', hot: 0,
-  title: 'Build the plan that watches itself, and ship it before anything else',
-  lead: 'One recommendation and the three things that make it the right one. Everything after this slide is the working.',
-  rows: [
-    ['What to build', 'A trip plan the app checks against reality all day: the gate, the departure, a connection gone too tight, rain over an outdoor afternoon. When one of them breaks, the app writes the message and hands it to a person to send.'],
-    ['Because the cost is the ceiling', 'Swiggy already paid for acquisition and keeps the relationship warm. *Cost to serve is the only cost CREW did not inherit an answer to*, and it scales with trips rather than with the company.'],
-    ['Because it needs nothing new', 'The plan is already a record inside trip planning. The gate and the delay are already in the booking. The forecast is free, and the tone is already written in the cards CREW publishes.'],
-    ['Because it is what CREW sells', 'The product is a message you did not ask for. This makes that message routine. It goes out on every trip, not only on the few where somebody thought to look.']
-  ] },
-
 /* -------------------------------------------------------------- product -- */
 { kind: 'shot', pill: 'The product',
   title: 'The message nobody asked for',
@@ -41,9 +27,9 @@ const SLIDES = [
   panels: [
     ['Every travel app can sell the flight', 'Inventory and price are the two things this category competes on. You can see both before you buy. Once you have bought, they need nobody to pay attention.'],
     ['Almost none will mention the terminal', 'It arrives *before* landing, unprompted, with the train and how long it runs. Nothing about it is a booking.'],
-    ['The absence is not an oversight', 'Every large platform holds the flight number, the connection and both terminals, for far more travellers. None of them has ever sent anyone a message about a gate.', true]
+    ['The absence is not an oversight', 'Every large platform holds both flight numbers and both terminals, for far more travellers. None of them has ever sent anyone a message about a gate.', true]
   ],
-  cap: 'CREW’s own product pages. In most of the exchanges shown there, CREW speaks before the customer does.' },
+  cap: 'In most of the exchanges CREW publishes, CREW speaks before the customer does.' },
 
 /* --------------------------------------------------------------- method -- */
 { kind: 'rows', pill: 'Goal, scope and assumptions', numbered: true,
@@ -52,11 +38,9 @@ const SLIDES = [
   rows: [
     ['The goal', 'Raise contribution margin per trip *without thinning the service*. Contribution margin is a trip’s revenue minus the cost of serving it. The same people should cover more trips, and each traveller should keep the same attention.'],
     ['For whom', 'The member who buys attention, not inventory: a first long-haul, a holiday a year in the planning, a honeymoon. The frequent flyer is out of scope.'],
-    ['What I read', 'CREW’s public product pages and app listing, Swiggy’s own public statements, and public reporting on the concierge businesses that came before it.'],
-    ['What is confirmed', 'The *₹999* the app asks for up front, which buys six months, and commission on what gets booked. Both are visible from outside.'],
-    ['What I could not see', 'Whether card interchange comes back to CREW, and every internal number: headcount, retention, minutes per trip. None of it is estimated anywhere in this deck.']
-  ],
-  src: 'No Swiggy or CREW data was used and none was available to me. Comparable-business outcomes come from public reporting on Ten Lifestyle, Velocity Black and American Express. My own judgement starts at the options slide and is labelled from there on.' },
+    ['What comes in', 'The *₹999* the app asks for up front, and commission on what gets booked.'],
+    ['What I cannot price', 'Whether card interchange comes back to CREW, and the internal numbers: headcount, retention, minutes per trip.']
+  ] },
 
 /* ------------------------------------------------------------- customer -- */
 { kind: 'personas', pill: 'The customer', wide: true,
@@ -77,7 +61,7 @@ const SLIDES = [
       blurb: 'Forty-one, Mumbai. The same airport again, and he knows where the lounge is. He has his own visa routine, his own hotel and his own seat. To him CREW is a nicer booking engine. *A nicer booking engine is the product whose price you check.*',
       bits: ['Flies monthly', 'Own routine, end to end', 'Will check the price'] }
   ],
-  src: 'Both of them fly. Only one is buying what CREW sells, and it is not the booking. Both personas are constructed from CREW’s published exchanges and from the absence in them. There were no interviews and I had no access to CREW’s customers. The portraits are illustrations, for the same reason.' },
+  src: 'Both of them fly. Only one is buying what CREW sells, and it is not the booking. Both are composites, and the portraits are illustrations.' },
 
 /* -------------------------------------------------------- persona, jtbd -- */
 { kind: 'personajobs', pill: 'Persona and jobs to be done',
@@ -92,7 +76,7 @@ const SLIDES = [
     'When something moves — a gate, a time, the weather over the afternoon I planned — <b>I want to hear it from you first</b>, not from the airport screen.',
     'When it is the one holiday I get this year, <b>I want somebody answerable</b>, so that being wrong is not my problem to solve at six in the morning.'
   ],
-  src: 'Written from CREW’s published exchanges and the absence in them, not from interviews. I had no access to CREW’s customers.' },
+  src: 'A composite, not a person I met.' },
 
 /* ----------------------------------------------------------------- moat -- */
 { kind: 'quad', pill: 'Competitive landscape',
@@ -121,22 +105,21 @@ const SLIDES = [
 
 /* -------------------------------------------------------------- revenue -- */
 { kind: 'table', pill: 'What comes in',
-  title: 'Two lines confirmed, one I cannot see',
+  title: 'Two lines in, and the one cost that decides it',
   lead: 'Contribution margin is a trip’s revenue minus the cost of serving it. Acquisition and retention were paid elsewhere. That leaves the human minutes as nearly all of the cost, so the margin turns on one number.',
   head: ['Line', 'What it is', 'Status'],
   rows: [
-    ['Subscription', 'The *₹999* the app asks for up front, which buys six months. Printed on the paywall, so it needs no estimating.', 'Confirmed'],
-    ['Commission', 'A share of what gets booked. It scales with the trip rather than with the member, which is why the entrance argues about rates it earns a margin on.', 'Confirmed'],
-    ['Card interchange', 'The co-branded card runs spend over Swiggy plastic. Whether interchange comes back to CREW is not visible from outside, so it is not in any number here.', 'Not visible'],
-    ['Cost to serve', 'The human minutes one trip consumes. The only cost CREW did not inherit an answer to, and the one every proposal below attacks.', 'The constraint', true]
+    ['Subscription', 'The *₹999* the app asks for up front.', 'Confirmed'],
+    ['Commission', 'A share of what gets booked. It scales with the trip, not with the member. A bigger trip pays more.', 'Confirmed'],
+    ['Cost to serve', 'The human minutes one trip consumes. The one cost CREW still has to solve for itself, and the one every proposal below attacks.', 'The constraint', true]
   ] },
 
 /* --------------------------------------------------------- distribution -- */
 { kind: 'figure', pill: 'Distribution', wide: true,
   title: 'Where a CREW member comes from',
-  lead: 'CREW is hard to find on purpose. Instamart and Dineout are tiles inside the Swiggy app. CREW is not one, because it was never built for everyone. Swiggy already owns both gates that pick the few who get it.',
+  lead: 'CREW is not inside the Swiggy app. Instamart and Dineout are. That is unusual, because putting a new business in front of the food customers costs Swiggy nothing. So why is CREW outside? I think it is the people: a place inside that app would send CREW more trips than it can serve.',
   svg: 'distribution',
-  src: 'One BLCK is invite-only and carries a travel benefit. The co-branded HDFC card tops out in a BLCK variant, with a one lakh a month income floor and extra cashback on travel. Swiggy owns both halves: the card is the gate and the membership is the invitation. Band widths show containment, not size. No stage figure is public and none is estimated here.' },
+  src: 'One BLCK is invite-only and carries a travel benefit. The co-branded HDFC card tops out in a BLCK variant, with a one lakh a month income floor and extra cashback on travel. Swiggy owns both halves: the card is the gate and the membership is the invitation. Band widths show containment, not size.' },
 
 /* ----------------------------------------------------------- constraint -- */
 { kind: 'statement', pill: 'The constraint',
@@ -155,8 +138,23 @@ const SLIDES = [
   ],
   src: 'Anything this scarce has to be rationed, and it is. CREW stays off the Swiggy app grid, and the service comes with a booking big enough to pay for it. That leaves an awkward proof: you find out whether you can hand over a trip by handing one over.' },
 
+/* --------------------------------------------------------------- levers -- */
+/* What CREW has already done about this constraint, taken at face value.
+ * Both levers are real and both work. Neither one gets cheaper with scale,
+ * which is what makes the third lever worth building. The price cut sits here
+ * too, marked as what it is: not a lever on this constraint at all. */
+{ kind: 'rows', pill: 'What CREW has already tried',
+  title: 'Two levers, both already pulled',
+  lead: 'Both work. Neither of them gets cheaper as CREW grows.',
+  rows: [
+    ['It narrowed', 'CREW tried tables, paperwork, gifts and trips, and kept whichever one people came back for. Travel won, and that is the relaunch. *There is nothing left to narrow.*'],
+    ['It added people of a different kind', 'Named local experts in the app: a guide in Hoi An who has been doing it for eighteen years, a Madrid native who guides in London. The right call, and not a workaround — no software knows what somebody who lives there knows. But it is the same shape as hiring. *Capacity arrives one person at a time.*'],
+    ['It also cut prices, which is not a lever on this', 'Rooms 10 to 15 per cent under other platforms, paid for by supply deals. Worth having. But every booking platform negotiates rates, and *a discount does not buy back a single concierge minute.*']
+  ],
+  src: 'All three come from the relaunch announcements and the coverage of them. The first two are answers to the constraint on this slide. The third is an answer to a different question.' },
+
 /* -------------------------------------------------------------- options -- */
-{ kind: 'table', pill: 'Options considered · my judgement starts here',
+{ kind: 'table', pill: 'Options considered',
   title: 'Four ways to move the same number',
   lead: 'Cost to serve is minutes of a scarce person. There are only four things you can do about that, and three of them cost more than they save.',
   head: ['Option', 'What it does to the minutes', 'Verdict'],
@@ -170,17 +168,17 @@ const SLIDES = [
 
 /* ------------------------------------------------------------- proposal -- */
 { kind: 'shot', pill: 'The recommendation · mine, not shipped',
-  title: 'A plan that watches itself',
+  title: 'The app checks the plan, all day',
   lead: 'It stands on trip planning, which already holds a trip as one record instead of a folder of bookings. Trip planning does what a traveller asks. This does the part nobody thought to ask for.',
   img: 'images/crew-10-weather.jpg',
   alt: 'A CREW product card. CREW writes first to say rain is forecast over the afternoon that was planned outdoors, and offers a rewritten plan for the day.',
   panels: [
-    ['The plan is a record', 'Every leg and every day already has a time against it. A few of those parts move on their own: the gate, the departure, a connection that is no longer long enough, rain over an outdoor afternoon.'],
+    ['The plan is a record', 'Every leg and every day already has a time against it. A few of those parts move on their own: the gate, the departure, a connecting flight that is no longer long enough, rain over an outdoor afternoon.'],
     ['The app watches them, unasked', 'All day, against the record. Nobody checks these today until it is too late to move anything.'],
     ['It finds the fix and writes the message', 'Structured data checked against a record the app already holds. The tone is already written, in the cards CREW publishes.'],
     ['A person signs it off, in seconds', 'The concierge moves from producing the work to approving it. The traveller hears it from CREW first.', true]
   ],
-  cap: 'CREW’s product pages show this moment as something a concierge does *when asked*. This is the same moment without the asking, on every trip rather than the few where it came up.',
+  cap: 'CREW shows this moment as something a concierge does *when asked*. This is the same moment without the asking, on every trip rather than the few where it came up.',
   src: 'It asks for nothing CREW does not already have: the plan is a record inside trip planning, the gate and the delay are in the booking, and the forecast is free. Assembly, not invention.' },
 
 /* --------------------------------------------------------------- journey -- */
@@ -188,16 +186,16 @@ const SLIDES = [
   title: 'One gate change, before and after',
   lead: 'The gate moves either way. The same people do the same work. What changes is the length of the window in which the traveller does not know, and who closes it — CREW, or a departures board.',
   svg: 'gatechange',
-  src: 'The axis is ordered, not to scale. CREW publishes no timings for any of this and none are estimated here. The claim is the order of events and the direction of the change, both of which follow from where the checking happens.' },
+  src: 'The axis is ordered, not to scale. The claim is the order of events and the direction of the change, both of which follow from where the checking happens.' },
 
 /* ---------------------------------------------------------------- build -- */
 { kind: 'rows', pill: 'How I would build it, in order', numbered: true, hot: 0,
   title: 'Three tiers, priced in minutes of a person',
-  lead: 'The aim is to spend the rare people only where a person is genuinely needed. Every message a member gets sorts into one of three tiers.',
+  lead: 'The aim is to use those rare people only where judgement is needed. Every message sorts into one of three tiers, and each tier answers one of the three jobs on slide five.',
   rows: [
-    ['Send it', 'Routine updates, with no judgement in them. These are the plan-watching messages: structured data, checked against a record the app holds. They go out untouched. Most messages are this.'],
-    ['Sign it off', 'Anything that changes a plan or spends money. The system finds the alternative and writes the message. A concierge reads it and approves. The person stops producing the work and starts signing it.'],
-    ['Give it to someone who decides', 'Everything else. A masseuse at a villa in Goa is not an API, and nobody has automated being the person who is answerable once something has gone wrong.']
+    ['Send it', 'Answers *told what happens next*. Routine updates, with no judgement in them. These are the plan-watching messages: structured data, checked against a record the app holds. They go out untouched. Most messages are this.'],
+    ['Sign it off', 'Answers *heard it from you first*. Anything that changes a plan or spends money. The system finds the alternative and writes the message. A concierge reads it and approves. The person stops producing the work and starts signing it.'],
+    ['Give it to someone who decides', 'Answers *somebody answerable*. Everything else. A masseuse at a villa in Goa is not an API, and nobody has automated being the person who is answerable once something has gone wrong.']
   ],
   src: 'Read as cost, the tiers are a ladder of minutes: nearly none, a few, and as many as it takes.' },
 
@@ -214,9 +212,9 @@ const SLIDES = [
   head: ['Measure', 'What it is', 'Reads'],
   rows: [
     ['The let-go rate', 'The share of trips where the customer could let go: no confirmation checked, no reply chased, no query about a bill that was supposed to be settled.', 'North star', true],
-    ['Cost to serve', 'The human minutes one trip consumes. Watch it beside the let-go rate. Minutes falling while the let-go rate climbs is the whole thesis.', 'Guardrail'],
-    ['Both together', 'Let-go rate up and minutes down is a service running at software margins. Let-go rate up and minutes flat is quality CREW cannot afford to keep.', 'The read'],
-    ['Adoption, and the one to watch', 'Share of plan-watching messages sent without an edit. If concierges rewrite most of them, the app is not reading the plan properly and the tier is producing work rather than removing it.', 'Adoption'],
+    ['Cost to serve', 'The human minutes one trip consumes. Read the two together: minutes falling while the let-go rate climbs is a service running at software margins. Let-go rate up and minutes flat is quality CREW cannot afford to keep.', 'Guardrail'],
+    ['Reuse of the file', 'The share of requests answered from a fact already recorded, rather than worked out from scratch. This is the second lever, made countable. If the file is never reused, the seventh question was not worth writing down.', 'Second lever'],
+    ['Edit rate', 'Share of plan-watching messages sent without an edit. If concierges rewrite most of them, the app is not reading the plan properly and the tier is producing work rather than removing it.', 'First lever'],
     ['What would prove me wrong', 'Compare members who lean on the service against those who only book and handle the rest themselves. If both come back at the same rate, the accompaniment was never the advantage, and the honest move is to unbundle it.', 'Falsifier']
   ] },
 
@@ -244,7 +242,7 @@ const ART = {
    *
    * So the count is gone. The bubbles are decoration, the line underneath makes
    * the only claim worth making, and it is a claim anyone can check by reading
-   * CREW's product pages. */
+   * CREW publishes. */
   firsts() {
     const crew = new Set([0, 1, 3, 4, 5, 7, 8, 10, 11]);
     const cells = Array.from({ length: 12 }, (_, i) =>
