@@ -2241,6 +2241,14 @@ html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
   }
   .cascade-on .cascade .work-card .tag-type{font-size:9px; letter-spacing:.08em; padding:4px 8px}
 }
+/* At 320px the same row still runs about ten pixels past the card, and a row that
+   cannot wrap takes the whole page sideways with it. Two more pixels of padding
+   from each chip covers it. The words still do not shorten. */
+@media(max-width:360px){
+  .cascade-on .cascade .work-card .card-tags{gap:5px}
+  .cascade-on .cascade .work-card .tag,
+  .cascade-on .cascade .work-card .tag-type{padding-left:6px; padding-right:6px}
+}
 
 /* The whole card opens it (script.js), so it should say so. */
 .work-card{cursor:pointer}
