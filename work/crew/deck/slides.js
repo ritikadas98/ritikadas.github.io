@@ -136,7 +136,7 @@ const SLIDES = [
      'A one-star CREW review headed “No credibility, incomplete tasks”, listing a missed VIP service, seats not held together, and an order never actually placed.',
      '*One star.* Same service, same month.']
   ],
-  src: 'And CREW is not being built for a few hundred members. Skift, which interviewed the chief executive of Swiggy’s food business, reports a target of fifteen to twenty million consumers. A service whose best work is one person’s attention, aimed at a number of people no amount of hiring reaches. That leaves an awkward proof: you find out whether you can hand over a trip by handing one over.' },
+  src: 'The head of CREW has asked the same question in public: “could we deliver the exact same experience, just as well, for the ten-thousandth person as we did for the tenth?” And CREW is not being built for a few hundred members. Skift, which interviewed the chief executive of Swiggy’s food business, reports a target of fifteen to twenty million consumers. A service whose best work is one person’s attention, aimed at a number of people no amount of hiring reaches. That leaves an awkward proof: you find out whether you can hand over a trip by handing one over.' },
 
 /* --------------------------------------------------------------- levers -- */
 /* What CREW has already done about this constraint, taken at face value.
