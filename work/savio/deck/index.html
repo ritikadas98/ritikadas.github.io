@@ -133,8 +133,22 @@
 <script src="slides.js?v=1"></script>
 <script src="../../_deck/engine.js?v=6"></script>
 <!-- GoatCounter: privacy-first counts, no cookies, so no consent banner.
-     Added so a deck sent to someone can be told apart from one nobody opened. -->
-<script data-goatcounter="https://ritikadas.goatcounter.com/count"
-        async src="https://gc.zgo.at/count.js"></script>
+     Added so a deck sent to someone can be told apart from one nobody opened.
+
+     Only counts when the deck is the page you are looking at. This deck is also
+     embedded in an iframe on its case study, and an iframe is a full page that
+     loads its own counter — so without this guard every scroll down the case
+     study recorded a deck view that nobody asked for, and the deck row stopped
+     meaning "someone opened the deck". window.top === window.self is true only
+     when nothing is framing us. -->
+<script>
+  if (window.top === window.self) {
+    var gc = document.createElement('script');
+    gc.async = true;
+    gc.src = 'https://gc.zgo.at/count.js';
+    gc.setAttribute('data-goatcounter', 'https://ritikadas.goatcounter.com/count');
+    document.head.appendChild(gc);
+  }
+</script>
 </body>
 </html>
