@@ -44,3 +44,8 @@ result.txt
 # loads and what ships inside crew.pdf / crew.pptx; these originals are ~1.9 MB
 # apiece and nothing references them. Kept on disk, out of the repo.
 work/crew/deck/images/*.png
+
+# Research scratch, not site content. The DashReels teardown holds an unpacked
+# third-party APK (~133 MB of .dex, resources.arsc and extracted strings) plus
+# screen captures and working notes. Kept on disk, out of the repo.
+teardown-dashreels/
