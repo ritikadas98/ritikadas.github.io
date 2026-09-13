@@ -49,3 +49,11 @@ work/crew/deck/images/*.png
 # third-party APK (~133 MB of .dex, resources.arsc and extracted strings) plus
 # screen captures and working notes. Kept on disk, out of the repo.
 teardown-dashreels/
+
+# Working drafts, not site content. The resumes carry a phone number, and the
+# deck screenshot script is a local tool. Kept on disk, out of the repo.
+resume.md
+resume.html
+resume-northladder.md
+resume-northladder.html
+tools/deck-export/shots.mjs
