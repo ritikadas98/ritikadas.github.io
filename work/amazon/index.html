@@ -130,25 +130,10 @@
                  alt="The chat view, scoped to all groups for week 34 on live data. It offers three questions to start with &mdash; the top complaints this week, which themes are worsening, and how ready this group is to act on &mdash; and states that answers cite specific signals by ID." />
             <div class="shot-bar">
               <span class="shot-cap">Ask the week a question. It answers only from the signals in scope, and cites them.</span>
-              <button type="button" class="flip-btn" onclick="flipWidget('amazon')" aria-label="Try the interactive ranking">Try it &#8635;</button>
+              <button type="button" class="flip-btn" onclick="flipWidget('amazon')" aria-label="Next screenshot">Next &#8635;</button>
             </div>
           </div>
 
-          <div class="mini-widget-box flip-panel" id="widget-amazon">
-            <div class="widget-head">
-              <span class="widget-title">This week&rsquo;s ranking</span>
-              <button type="button" class="flip-btn" onclick="flipWidget('amazon')"
-                      aria-label="Back to screenshots of the real product">Screenshots &#8635;</button>
-            </div>
-            <div class="widget-controls">
-              <div class="widget-btn-row fit-row">
-                <button class="widget-btn fit-btn active" onclick="setAmazonPipeline('top', this)"><span class="fb-r">Rank 1</span><span>Delivery</span></button>
-                <button class="widget-btn fit-btn" onclick="setAmazonPipeline('mid', this)"><span class="fb-r">Rank 4</span><span>Checkout</span></button>
-                <button class="widget-btn fit-btn" onclick="setAmazonPipeline('low', this)"><span class="fb-r">Rank 7</span><span>Detail pages</span></button>
-              </div>
-            </div>
-            <div class="widget-result" id="amazon-result-box" aria-live="polite"></div>
-          </div>
 
         </div>
       </div>
