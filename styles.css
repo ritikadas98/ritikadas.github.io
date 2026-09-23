@@ -2306,3 +2306,19 @@ html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
   .amz-art.lead-art{grid-template-columns:minmax(0,1fr)}
   .amz-shots{gap:14px}
 }
+
+/* ---- GOOGLE SLIDES EMBED ----
+   The decks live in Google Slides now, so the frame is theirs rather than one
+   of ours. Exactly 16:9 — checked by exporting a slide as PNG, which comes back
+   1280x720 for all five, rather than assuming the Slides default.
+
+   None of the .deck-app tuning applies here. That variant renders the frame at
+   114% and scales it down, because our own deck lays itself out for whatever box
+   it is given and needed to be handed a laptop-sized one. Google Slides renders
+   a fixed 1280x720 page and scales it to fit, so the same trick would only blur
+   it. And the portrait mobile box is wrong for the same reason: Slides cannot
+   reflow, so a tall box would letterbox rather than fill. It keeps 16:9 at every
+   width, and the link underneath opens it full screen where it is actually
+   readable on a phone. */
+.deck.deck-gs{aspect-ratio:16/9}
+@media(max-width:640px){ .deck.deck-gs{aspect-ratio:16/9} }
