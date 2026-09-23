@@ -2270,3 +2270,39 @@ html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
 @media(max-width:640px){
   .fig-row.two{grid-template-columns:1fr}
 }
+
+/* ---- SAVIO: A SHALLOWER SHOT WANTS A NARROWER COLUMN ----
+   Same lead-art grid as FitCheck, different arithmetic. FitCheck's screenshot
+   is 681x1622 (2.38 tall); Savio's is 760x1457 (1.92). A shallower image needs
+   LESS text beside it, not more, so the story stays full width below instead of
+   folding into the column, and the column is 320px: image 680px against roughly
+   633px of pitch and argument. */
+.savio-art.lead-art{grid-template-columns:minmax(0,1fr) 320px}
+.wk-story{padding-top:8px}
+.wk-story .pdeo.spec{max-width:820px}
+@media(max-width:880px){
+  .savio-art.lead-art{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ---- AMAZON: A LANDSCAPE SHOT, SO BOTH OF THEM ----
+   Same lead-art grid, third set of numbers. FitCheck and Savio are portrait
+   phone panels that stand taller than the copy; this shot is 1100x596, wider
+   than it is tall, so in a side column it comes to ~330px against ~780px of
+   text and leaves the column half empty.
+
+   Full width fixed the proportion and broke something worse: it pushed the
+   product below the fold, which is the one thing this whole pass exists to
+   avoid. So the shot stays on the right, and BOTH screenshots stack there
+   rather than sharing a flipper. Two at ~330px come to roughly the height of
+   the copy, the column fills, and the page shows more evidence, not less.
+
+   No flip button here: with both panels visible there is nothing to flip to. */
+.amz-art.lead-art{grid-template-columns:minmax(0,1fr) 520px}
+.amz-shots{display:flex;flex-direction:column;gap:18px}
+.amz-shots .mini-widget-box{min-height:0}
+.wk-lead-col .pdeo .row{grid-template-columns:104px minmax(0,1fr)}
+
+@media(max-width:880px){
+  .amz-art.lead-art{grid-template-columns:minmax(0,1fr)}
+  .amz-shots{gap:14px}
+}
