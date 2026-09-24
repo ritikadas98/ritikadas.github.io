@@ -154,8 +154,8 @@ ARTICLES = {
         # No quote: the field is the product plate — mark, device, name — not a
         # second place to restate the argument the hook already makes.
         "byline": "CREW · Swiggy’s travel concierge",
-        "brand": "#A62B22", "rgb": "166,43,34",
-        "field": ("#C4392C", "#A62B22", "#7A1E18", "#45120F"),
+        "brand": "#0E6E63", "rgb": "14,110,99",
+        "field": ("#1A8C7E", "#0E6E63", "#0A4B45", "#05282A"),
         "icon": "assets/crew-icon.png", "icon_radius": 12,
         "subject": {"kind": "phone", "src": "writing/crew/images/crew-hero.jpg"},
     },
@@ -185,7 +185,7 @@ ARTICLES = {
                 "miss what power users install a modded app to fix.",
         "byline": "YouTube · Platform economics",
         "brand": "#FF0000", "rgb": "255,0,0",
-        "field": ("#FF4A3D", "#E11B12", "#93110C", "#400604"),
+        "field": ("#C4211A", "#7A1310", "#2E1114", "#0C0A0D"),
         "icon": "assets/youtube.svg", "icon_radius": 0,
         "subject": {"kind": "phone", "src": "writing/youtube/images/youtube-hero.jpg"},
     },

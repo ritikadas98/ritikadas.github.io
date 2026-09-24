@@ -19,7 +19,7 @@
   --shadow-lift:0 3px 10px rgba(33,30,36,.09),0 28px 66px rgba(33,30,36,.17);
   --r-sm:9px; --r:14px; --r-lg:18px;
   --display:'Bricolage Grotesque',sans-serif; --body:'Inter',sans-serif; --mono:'IBM Plex Mono',monospace;
-  --wrap:1080px; --measure:58ch;
+  --wrap:1300px; --measure:58ch;
   --hand:'Caveat',cursive;
 }
 
@@ -169,9 +169,11 @@ nav.scrolled{border-bottom-color:var(--hairline);background:rgba(237,232,225,.96
    supplies the shape, so --brand still switches with the theme and the asset is
    cached once instead of re-downloaded inside every page. */
 :root{ --brand:#0809A4; --logo-h:48px; --nav-h:73px; --pdeo-label:#3A3D73; --pill-line:#9B9084; --hm-me:#A9AEE6;
-       --study-reddit:#CE3700; --study-youtube:#E00000; --crew-brand:#A62B22; --crew-line:rgba(166,43,34,.38); --crew-tint:rgba(166,43,34,.07); }
+       --study-reddit:#CE3700; --study-youtube:#E00000; --crew-brand:#0E6E63; --crew-line:rgba(14,110,99,.38); --crew-tint:rgba(14,110,99,.07); 
+       --c-fitcheck:#2F6099; --c-savio:#2F6A58; --c-amazon:#3B4E60; }
 [data-theme="dark"]{ --brand:#EDE8E1; --pdeo-label:#A3A7D8; --pill-line:#5F5570; --hm-me:#3A3D73;
-       --study-reddit:#FF7A47; --study-youtube:#FF6B6B; --crew-brand:#E8776A; --crew-line:rgba(232,119,106,.40); --crew-tint:rgba(232,119,106,.10); }
+       --study-reddit:#FF7A47; --study-youtube:#FF6B6B; --crew-brand:#5FC9BC; --crew-line:rgba(95,201,188,.40); --crew-tint:rgba(95,201,188,.10); 
+       --c-fitcheck:#7FAEDC; --c-savio:#6FC0A5; --c-amazon:#93A9BF; }
 /* aspect-ratio replaces width:auto — a masked <span> is an empty box and has no
    intrinsic size to derive a width from. 1610/507 is the source viewBox. */
 .brand-mark{
@@ -2322,3 +2324,150 @@ html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
    readable on a phone. */
 .deck.deck-gs{aspect-ratio:16/9}
 @media(max-width:640px){ .deck.deck-gs{aspect-ratio:16/9} }
+
+/* ═══ WORK RAIL ══════════════════════════════════════════════════════════════
+   Replaces the scroll-driven card stack. The stack pinned each card to the top
+   of the screen and played a tilt as you scrolled past, so a visitor had to
+   scroll through all three to reach the next section. This is one sideways
+   swipe instead.
+
+   The cards themselves are unchanged — same .work-card, same tags, headline,
+   wry line and facts row, so all of that styling and the whole-card click
+   handler still apply. Only the container changed. */
+.work-rail-wrap{margin-top:28px}
+.work-rail{
+  display:grid;
+  grid-auto-flow:column;
+  /* Sized to the content, not to a number I liked. A card holds a tag row, a
+     headline that runs to two lines, a wry line and a facts row, and the facts
+     row is the widest thing on it. Below about 340px the headline breaks to
+     four lines and the facts row to three, and the card stops being scannable.
+
+     (100% - 44px) / 3 is three cards plus the two gaps between them, so on a
+     desktop three fill the row exactly and nothing scrolls. 340px is the floor
+     where the text still works, and it scrolls from there down. 470px stops a
+     card becoming a poster on a very wide screen. */
+  grid-auto-columns:clamp(340px, (100% - 44px) / 3, 470px);
+  gap:22px;
+  overflow-x:auto;
+  overscroll-behavior-x:contain;
+  /* 2px so a hovered card's lift and a focus ring are not clipped. */
+  padding:2px 2px 16px;
+  /* The scrollbar is left visible, and slim. Hiding it looks tidier and then
+     nobody on a trackpad knows there are more cards to the right. */
+  scrollbar-width:thin;
+  scrollbar-color:var(--hairline-strong) transparent;
+}
+.work-rail::-webkit-scrollbar{height:6px}
+.work-rail::-webkit-scrollbar-track{background:transparent}
+.work-rail::-webkit-scrollbar-thumb{background:var(--hairline-strong);border-radius:20px}
+
+/* NO SNAP ON A TRACKPAD. Snapping is what made the scroll feel jerky: a
+   trackpad flick decelerates over about a second, and proximity snap keeps
+   grabbing the nearest card and dragging the whole rail back mid-glide. Touch
+   is the opposite case — a finger swipe wants to land on a card. */
+@media (pointer:fine){ .work-rail{scroll-snap-type:none} }
+
+/* NOT A SCROLL CONTAINER WHEN IT DOES NOT NEED TO BE. This is what was still
+   catching the wheel. `overflow-x:auto` with `overflow-y:visible` is not a legal
+   pair — the spec computes the visible axis to `auto` as well — so the rail was
+   a scroll box in BOTH directions. Scrolling the page with the pointer over the
+   cards handed each wheel event to the rail first, and the page moved in steps.
+
+   Above 1160px the wrap is wide enough that three cards always fit and there is
+   nothing to scroll sideways anyway, so the scroll box is simply not created.
+   1160 is the width where (100% - 44px) / 3 first clears the 340px floor. */
+@media(min-width:1160px){
+  .work-rail{overflow:visible;padding-bottom:2px}
+}
+
+/* Cards in a rail are all in one grid row, so they stretch to the tallest and
+   the facts row sits at the bottom of each. */
+.work-rail .work-card{height:100%}
+/* The facts row is still pushed to the bottom by margin-top:auto, so the cards
+   line up. This only closes the fixed padding above it — 18px on top of that
+   auto gap read as a break between two cards rather than one. */
+.work-rail .work-card .card-foot{padding-top:10px}
+
+/* The one colour on the page that is not the indigo, and it is not a new
+   colour — it is read off that card's own artwork, so the band of colour in
+   the picture and the status chip under it are the same thing. The three case
+   studies already carry theirs in their brand tag. */
+.work-rail .work-card .tag.live{
+  color:var(--card-accent,var(--accent));
+  border-color:color-mix(in srgb, var(--card-accent,var(--accent)) 40%, transparent);
+  background:color-mix(in srgb, var(--card-accent,var(--accent)) 9%, transparent);
+}
+
+@media(max-width:880px){
+  /* STACK, DO NOT SWIPE. A sideways rail inside a page that scrolls downwards
+     asks one thumb to do two things, and at 82% of a phone the tag row wrapped
+     to three lines in a column too narrow for the headline. Full width, one
+     under the other, ordinary page scroll.
+
+     Every rail property is undone rather than left to fight the new ones:
+     auto-flow back to rows, the scroll box back to visible, the negative
+     margins back to zero. */
+  .work-rail{
+    grid-auto-flow:row;
+    grid-template-columns:minmax(0,1fr);
+    grid-auto-columns:auto;
+    gap:16px;
+    overflow-x:visible;
+    scroll-snap-type:none;
+    margin-inline:0;
+    padding:0;
+  }
+  .work-rail .work-card{height:auto}
+  .work-rail-wrap{margin-top:22px}
+}
+
+
+/* ═══ ONE PAGE WIDTH ════════════════════════════════════════════════════════
+   The wrap went from 1080px to 1300px so the card rails use the screen without
+   running to the edge of it, and every section shares it. The left edge of the page is one straight line from
+   the hero to the footer.
+
+   NO PER-BLOCK CAPS. The first attempt gave six blocks six different maximum
+   widths — 1024, 1080, 74ch, 1100 — which replaced one misaligned edge with a
+   ragged right edge running the length of the page, and squeezed About's two
+   columns into the left half with the right half empty.
+
+   They were never needed. Every one of these blocks already fills whatever it
+   is given: .routes and .exp are grids, .game is a card, and
+   .about-story is columns:2 with max-width:none precisely so that it does. The
+   caps were fighting layouts that already had an answer. */
+
+/* The four chips stretch to fill the row rather than trailing off two-thirds of
+   the way across. flex-grow shares the leftover space between them, so each one
+   keeps its size relative to the others — the long chip stays the long one —
+   and the text is centred in the extra padding it gains.
+
+   Only above 1100px, which is the narrowest the four still fit on one line. Let
+   them grow while they can wrap and the last line stretches one chip across the
+   whole page, which is the usual way this trick goes wrong. */
+@media(min-width:1100px){
+  .also-chip{flex:1 1 auto;text-align:center}
+}
+
+/* ---- THE FORK CARD FILLS ITS COLUMN ---------------------------------------
+   Two measurements left over from when this card was a single stack, and both
+   now show as emptiness.
+
+   The question was capped at 25ch and the note at 58ch — roughly 400px and
+   435px — because at full card width they would have run right across the page.
+   They do not any more: since the options moved into their own 400px column,
+   the question has about 716px of its own, and it was wrapping to four lines
+   inside 400 of them with the rest blank. A display headline reads fine at that
+   width, so the caps go and both fill the column they were given.
+
+   The 330px floor on the card existed to hold a stack that ran top to bottom.
+   Beside each other, the tallest of the two columns is the pair of options at
+   roughly 190px, so the card needs about 264px — the rest was dead paper under
+   the note. It keeps a floor rather than none at all, so the card does not
+   change height as you move between the six forks. */
+@media(min-width:861px){
+  #gm-play > .gm-q{max-width:none}
+  #gm-play > .gm-note{max-width:none}
+  .game-in{min-height:264px}
+}
