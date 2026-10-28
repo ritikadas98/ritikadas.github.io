@@ -1075,7 +1075,7 @@ footer{border-top:1px solid var(--hairline);padding:26px 0}
   /* height:auto, not a fixed 100svh. On a phone the headline runs to five or
      six lines and the two buttons stack full-width, so the content can exceed
      the fold — with a fixed height it overflowed and the marquee landed on top
-     of the Resume button. Now the header grows instead; the marquee slipping
+     of the buttons. Now the header grows instead; the marquee slipping
      below the fold on a small phone is the right trade against overlap. */
   /* Top padding was 0, which put the eyebrow hard against the nav and made the
      whole fold read as cramped. The stack now opens up: air above the eyebrow,
