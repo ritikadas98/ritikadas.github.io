@@ -2091,6 +2091,9 @@ html.lit .hero-arc s:nth-of-type(2)::after{animation-delay:1.0s}
    runs 640px; the experience prose is indented 28px by the timeline rail, so it
    runs 612px and finishes level. */
 .expg{background:none; border:0; border-radius:0; padding:0}
+/* With no box, 26px between employers is barely more than the 22px between two
+   roles at one employer, so the second employer read as a third role. */
+.expg + .expg{margin-top:52px}
 
 /* TWO COLUMNS, so the story fills the width instead of leaving half the section
    empty. Capping it at 640px made the measure readable and the hole obvious.
